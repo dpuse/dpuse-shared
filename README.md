@@ -1,6 +1,8 @@
 # Data Positioning Shared Library
 
-<span><!-- OWASP_BADGES_START -->[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGES_END --></span>
+<span><!-- OWASP_BADGES_START -->
+[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://dpuse.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)
+<!-- OWASP_BADGES_END --></span>
 [![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared.svg)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
@@ -121,12 +123,8 @@ The following table lists top-level production and peer dependencies. All these 
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, BSD-2-Clause, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the published library are covered by these checks. We do not include unlicensed dependencies. Used to support development activity and not released as part of the production release. Check if you clone. We use the `npm` packages [license-report](https://www.npmjs.com/package/license-report), [license-report-check](https://www.npmjs.com/package/license-report-check) and [license-report-recursive](https://www.npmjs.com/package/license-report-recursive) to identify dependency licenses.
 
 <!-- DEPENDENCY_LICENSES_START -->
-
-| Name      | Type | Installed | Latest | Latest Released          | Deps | Document                                                                          |
-| :-------- | :--- | :-------: | :----: | :----------------------- | ---: | :-------------------------------------------------------------------------------- |
-| csv-parse | MIT  |   6.1.0   | 6.1.0  | 5 months ago: 2025-07-16 |    0 | ⚠️ No license file                                                                |
-| date-fns  | MIT  |   4.1.0   | 4.1.0  | 4 months ago: 2025-08-03 |    0 | [LICENSE.md](https://raw.githubusercontent.com/date-fns/date-fns/main/LICENSE.md) |
-| nanoid    | MIT  |   5.1.6   | 5.1.6  | 2 months ago: 2025-09-22 |    0 | [LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)               |
+|Name|Type|Installed|Latest|Latest Released|Deps|Document|
+|:-|:-|:-:|:-:|:-|-:|:-|
 
 <!-- DEPENDENCY_LICENSES_END -->
 
