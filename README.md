@@ -1,7 +1,7 @@
 # Data Positioning Shared Library
 
-<span><!-- OWASP_BADGES_START -->[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/datapos-shared/dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGES_END --></span>
-[![npm version](https://img.shields.io/npm/v/@datapos/datapos-shared.svg)](https://www.npmjs.com/package/@datapos/datapos-shared)
+<span><!-- OWASP_BADGES_START -->[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGES_END --></span>
+[![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared.svg)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 A library containing common constants, types and utilities used across all Data Positioning projects.
@@ -11,7 +11,7 @@ A library containing common constants, types and utilities used across all Data 
 Install as a production dependency:
 
 ```bash
-npm install @datapos/datapos-shared
+npm install @dpuse/dpuse-shared
 ```
 
 > See the Data Positioning security documentation for additional initialization requirements.
@@ -20,7 +20,7 @@ npm install @datapos/datapos-shared
 
 This package provides constants, errors, types/interfaces and utilities used by Data Positioning modules.
 
-[Documentation](https://data-positioning.github.io/datapos-shared/docs/typedoc/index.html)
+[Documentation](https://data-positioning.github.io/dpuse-shared/docs/typedoc/index.html)
 
 ### Modules
 
@@ -91,7 +91,7 @@ Each module implements a set of components. All module component types extend th
 Import the library in your TypeScript project:
 
 ```ts
-import { type ConnectorConfig, getComponentStatus } from '@datapos/datapos-shared';
+import { type ConnectorConfig, getComponentStatus } from '@dpuse/dpuse-shared';
 
 // Example type usage.
 let connectorConfig: ConnectorConfig;
@@ -100,19 +100,19 @@ let connectorConfig: ConnectorConfig;
 getComponentStatus('alpha');
 ```
 
-Implements the common Data Positioning repository management command set. For more information see [@datapos/datapos-development](https://github.com/data-positioning/datapos-development).
+Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/data-positioning/dpuse-development).
 
 ## Bundle Analysis Reports
 
 The Bundle Analysis Report provides a detailed breakdown of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. It is generated automatically on each release using the npm package `rollup-plugin-visualizer`.
 
-[View the Bundle Analysis Report](https://data-positioning.github.io/datapos-shared/stats.html)
+[View the Bundle Analysis Report](https://data-positioning.github.io/dpuse-shared/stats.html)
 
 ## Dependency Check Report
 
 The OWASP Dependency Check Report identifies known vulnerabilities in project dependencies. It is generated automatically on each release using the npm package [owasp-dependency-check](https://dependency-check.github.io/DependencyCheck/index.html). We also rely on GitHub Dependabot to continuously check for vulnerabilities across all dependencies.
 
-[View the OWASP Dependency Check Report](https://data-positioning.github.io/datapos-shared/dependency-check-report.html)
+[View the OWASP Dependency Check Report](https://data-positioning.github.io/dpuse-shared/dependency-check-report.html)
 
 ## Dependency Licenses
 

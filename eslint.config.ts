@@ -2,11 +2,11 @@
 import sonarjs from 'eslint-plugin-sonarjs';
 
 // DPU framework
-import datapos from '@datapos/eslint-config-datapos';
+import dpuse from '@dpuse/eslint-config-dpuse';
 
 // ESLint configuration
 export default [
-    ...datapos,
+    ...dpuse,
     {
         plugins: {
             sonarjs

@@ -21,7 +21,7 @@ export default defineConfig({
             formats: ['es'] // Only emit native ES modules.
         },
         rollupOptions: {
-            external: ['@datapos/datapos-shared', 'dotenv', 'nanoid', 'node:child_process', 'node:fs', 'node:path', 'node:readline', 'node:url', 'node:util'], // Keep runtime dependencies out of bundle.
+            external: ['@dpuse/dpuse-shared', 'dotenv', 'nanoid', 'node:child_process', 'node:fs', 'node:path', 'node:readline', 'node:url', 'node:util'], // Keep runtime dependencies out of bundle.
             plugins: [
                 Sonda({
                     filename: 'index', // Output file name.
