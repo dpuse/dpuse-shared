@@ -2,7 +2,9 @@
 
 <span><!-- OWASP_BADGES_START -->
 [![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://dpuse.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)
+
 <!-- OWASP_BADGES_END --></span>
+
 [![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared.svg)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
@@ -22,7 +24,7 @@ npm install @dpuse/dpuse-shared
 
 This package provides constants, errors, types/interfaces and utilities used by Data Positioning modules.
 
-[Documentation](https://data-positioning.github.io/dpuse-shared/docs/typedoc/index.html)
+[Documentation](https://dpuse.github.io/dpuse-shared/docs/typedoc/index.html)
 
 ### Modules
 
@@ -102,19 +104,19 @@ let connectorConfig: ConnectorConfig;
 getComponentStatus('alpha');
 ```
 
-Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/data-positioning/dpuse-development).
+Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development).
 
 ## Bundle Analysis Reports
 
 The Bundle Analysis Report provides a detailed breakdown of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. It is generated automatically on each release using the npm package `rollup-plugin-visualizer`.
 
-[View the Bundle Analysis Report](https://data-positioning.github.io/dpuse-shared/stats.html)
+[View the Bundle Analysis Report](https://dpuse.github.io/dpuse-shared/stats.html)
 
 ## Dependency Check Report
 
 The OWASP Dependency Check Report identifies known vulnerabilities in project dependencies. It is generated automatically on each release using the npm package [owasp-dependency-check](https://dependency-check.github.io/DependencyCheck/index.html). We also rely on GitHub Dependabot to continuously check for vulnerabilities across all dependencies.
 
-[View the OWASP Dependency Check Report](https://data-positioning.github.io/dpuse-shared/dependency-check-report.html)
+[View the OWASP Dependency Check Report](https://dpuse.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)
 
 ## Dependency Licenses
 
@@ -123,8 +125,9 @@ The following table lists top-level production and peer dependencies. All these 
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, BSD-2-Clause, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the published library are covered by these checks. We do not include unlicensed dependencies. Used to support development activity and not released as part of the production release. Check if you clone. We use the `npm` packages [license-report](https://www.npmjs.com/package/license-report), [license-report-check](https://www.npmjs.com/package/license-report-check) and [license-report-recursive](https://www.npmjs.com/package/license-report-recursive) to identify dependency licenses.
 
 <!-- DEPENDENCY_LICENSES_START -->
-|Name|Type|Installed|Latest|Latest Released|Deps|Document|
-|:-|:-|:-:|:-:|:-|-:|:-|
+
+| Name | Type | Installed | Latest | Latest Released | Deps | Document |
+| :--- | :--- | :-------: | :----: | :-------------- | ---: | :------- |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
