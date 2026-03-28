@@ -1,5 +1,5 @@
-import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, s as u, u as d } from "./componentConfig.schema-Csigo0y4.js";
-import { t as f } from "./moduleConfig.schema-WvtAJjAG.js";
+import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, s as u, u as d } from "./componentConfig.schema-B6kdXy8u.js";
+import { t as f } from "./moduleConfig.schema-DPEkEXqp.js";
 import { createLabelMap as p, resolveLabel as m } from "./dpuse-shared-locale.es.js";
 //#region src/component/connector/connectorConfig.schema.ts
 var h = r({
@@ -58,19 +58,19 @@ var h = r({
 }), x = [
 	{
 		id: "application",
-		label: { "en-gb": "Application" }
+		label: { en: "Application" }
 	},
 	{
 		id: "curatedDataset",
-		label: { "en-gb": "Curated Dataset" }
+		label: { en: "Curated Dataset" }
 	},
 	{
 		id: "database",
-		label: { "en-gb": "Database" }
+		label: { en: "Database" }
 	},
 	{
 		id: "fileStore",
-		label: { "en-gb": "File Store" }
+		label: { en: "File Store" }
 	}
 ], S = (e, t = "en") => {
 	let n = x.find((t) => t.id === e);

@@ -20,20 +20,16 @@ const literalUnion = <const T extends readonly string[]>(values: T): LiteralUnio
  *
  */
 const localisedStringSchema = object({
-    'en-au': string(),
-    'en-gb': string(),
-    'en-us': string(),
-    'es-es': string()
+    en: string(),
+    es: string()
 });
 
 /**
  *
  */
 const partialLocalisedStringSchema = object({
-    'en-au': optional(string()),
-    'en-gb': optional(string()),
-    'en-us': optional(string()),
-    'es-es': optional(string())
+    en: optional(string()),
+    es: optional(string())
 });
 
 /**

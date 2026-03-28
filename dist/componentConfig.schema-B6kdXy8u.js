@@ -371,15 +371,11 @@ function T(e, t) {
 //#endregion
 //#region src/component/componentConfig.schema.ts
 var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__PURE__ */ b({
-	"en-au": /* @__PURE__ */ C(),
-	"en-gb": /* @__PURE__ */ C(),
-	"en-us": /* @__PURE__ */ C(),
-	"es-es": /* @__PURE__ */ C()
+	en: /* @__PURE__ */ C(),
+	es: /* @__PURE__ */ C()
 }), O = /* @__PURE__ */ b({
-	"en-au": /* @__PURE__ */ x(/* @__PURE__ */ C()),
-	"en-gb": /* @__PURE__ */ x(/* @__PURE__ */ C()),
-	"en-us": /* @__PURE__ */ x(/* @__PURE__ */ C()),
-	"es-es": /* @__PURE__ */ x(/* @__PURE__ */ C())
+	en: /* @__PURE__ */ x(/* @__PURE__ */ C()),
+	es: /* @__PURE__ */ x(/* @__PURE__ */ C())
 }), k = E([
 	"amber",
 	"green",

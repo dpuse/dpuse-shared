@@ -267,10 +267,10 @@ type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> &
  * Connector categories configuration.
  */
 const CONNECTOR_CATEGORY_CONFIGS: ConnectorCategoryConfig[] = [
-    { id: 'application', label: { 'en-gb': 'Application' } },
-    { id: 'curatedDataset', label: { 'en-gb': 'Curated Dataset' } },
-    { id: 'database', label: { 'en-gb': 'Database' } },
-    { id: 'fileStore', label: { 'en-gb': 'File Store' } }
+    { id: 'application', label: { en: 'Application' } },
+    { id: 'curatedDataset', label: { en: 'Curated Dataset' } },
+    { id: 'database', label: { en: 'Database' } },
+    { id: 'fileStore', label: { en: 'File Store' } }
 ];
 
 /**

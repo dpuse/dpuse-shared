@@ -1,51 +1,51 @@
-import { n as e } from "./componentConfig.schema-Csigo0y4.js";
+import { n as e } from "./componentConfig.schema-B6kdXy8u.js";
 import "./dpuse-shared-locale.es.js";
 //#region src/component/index.ts
 var t = [
 	{
 		id: "alpha",
 		color: "red",
-		labels: { "en-gb": "alpha" }
+		labels: { en: "alpha" }
 	},
 	{
 		id: "beta",
 		color: "amber",
-		labels: { "en-gb": "beta" }
+		labels: { en: "beta" }
 	},
 	{
 		id: "generalAvailability",
 		color: "green",
-		labels: { "en-gb": "" }
+		labels: { en: "" }
 	},
 	{
 		id: "notApplicable",
 		color: "green",
-		labels: { "en-gb": "not-applicable" }
+		labels: { en: "not-applicable" }
 	},
 	{
 		id: "preAlpha",
 		color: "red",
-		labels: { "en-gb": "pre-alpha" }
+		labels: { en: "pre-alpha" }
 	},
 	{
 		id: "proposed",
 		color: "other",
-		labels: { "en-gb": "proposed" }
+		labels: { en: "proposed" }
 	},
 	{
 		id: "releaseCandidate",
 		color: "green",
-		labels: { "en-gb": "release-candidate" }
+		labels: { en: "release-candidate" }
 	},
 	{
 		id: "unavailable",
 		color: "other",
-		labels: { "en-gb": "unavailable" }
+		labels: { en: "unavailable" }
 	},
 	{
 		id: "underReview",
 		color: "other",
-		labels: { "en-gb": "under-review" }
+		labels: { en: "under-review" }
 	}
 ];
 function n(e, n = "en") {

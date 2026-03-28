@@ -128,12 +128,12 @@ interface ObjectDataFormat {
  * Data formats configuration.
  */
 const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
-    { id: 'dpe', labels: createLabelMap({ 'en-gb': 'Data Positioning Events' }) },
-    { id: 'dtv', labels: createLabelMap({ 'en-gb': 'Delimited Text' }) },
-    { id: 'json', labels: createLabelMap({ 'en-gb': 'JSON' }) },
-    { id: 'spss', labels: createLabelMap({ 'en-gb': 'SPSS' }) },
-    { id: 'xlsx', labels: createLabelMap({ 'en-gb': 'XLSX' }) },
-    { id: 'xml', labels: createLabelMap({ 'en-gb': 'XML' }) }
+    { id: 'dpe', labels: createLabelMap({ en: 'Data Positioning Events' }) },
+    { id: 'dtv', labels: createLabelMap({ en: 'Delimited Text' }) },
+    { id: 'json', labels: createLabelMap({ en: 'JSON' }) },
+    { id: 'spss', labels: createLabelMap({ en: 'SPSS' }) },
+    { id: 'xlsx', labels: createLabelMap({ en: 'XLSX' }) },
+    { id: 'xml', labels: createLabelMap({ en: 'XML' }) }
 ];
 
 /**
@@ -183,9 +183,9 @@ interface ObjectRecordDelimiter {
  * Record delimiters configuration.
  */
 const RECORD_DELIMITERS_CONFIG: { id: RecordDelimiterId; labels: LocaleLabelMap }[] = [
-    { id: '\n', labels: createLabelMap({ 'en-gb': 'Newline' }) },
-    { id: '\r', labels: createLabelMap({ 'en-gb': 'Carriage Return' }) },
-    { id: '\r\n', labels: createLabelMap({ 'en-gb': 'Carriage Return/Newline' }) }
+    { id: '\n', labels: createLabelMap({ en: 'Newline' }) },
+    { id: '\r', labels: createLabelMap({ en: 'Carriage Return' }) },
+    { id: '\r\n', labels: createLabelMap({ en: 'Carriage Return/Newline' }) }
 ];
 
 /**
@@ -235,17 +235,17 @@ interface ValueDelimiter {
  * Value delimiters configuration.
  */
 const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[] = [
-    { id: ':', labels: createLabelMap({ 'en-gb': 'Colon' }) },
-    { id: ',', labels: createLabelMap({ 'en-gb': 'Comma' }) },
-    { id: '!', labels: createLabelMap({ 'en-gb': 'Exclamation Mark' }) },
-    // { id: '', label: { 'en-gb': 'Other' } }, // TODO: Maybe set this to a 'not printing' or special ascii character when there is a user supplied delimited, rather than ''?
-    { id: '0x1E', labels: createLabelMap({ 'en-gb': 'Record Separator' }) },
-    { id: ';', labels: createLabelMap({ 'en-gb': 'Semicolon' }) },
-    { id: ' ', labels: createLabelMap({ 'en-gb': 'Space' }) },
-    { id: '\t', labels: createLabelMap({ 'en-gb': 'Tab' }) },
-    { id: '_', labels: createLabelMap({ 'en-gb': 'Underscore' }) },
-    { id: '0x1F', labels: createLabelMap({ 'en-gb': 'Unit Separator' }) },
-    { id: '|', labels: createLabelMap({ 'en-gb': 'Vertical Bar' }) }
+    { id: ':', labels: createLabelMap({ en: 'Colon' }) },
+    { id: ',', labels: createLabelMap({ en: 'Comma' }) },
+    { id: '!', labels: createLabelMap({ en: 'Exclamation Mark' }) },
+    // { id: '', label: { 'en': 'Other' } }, // TODO: Maybe set this to a 'not printing' or special ascii character when there is a user supplied delimited, rather than ''?
+    { id: '0x1E', labels: createLabelMap({ en: 'Record Separator' }) },
+    { id: ';', labels: createLabelMap({ en: 'Semicolon' }) },
+    { id: ' ', labels: createLabelMap({ en: 'Space' }) },
+    { id: '\t', labels: createLabelMap({ en: 'Tab' }) },
+    { id: '_', labels: createLabelMap({ en: 'Underscore' }) },
+    { id: '0x1F', labels: createLabelMap({ en: 'Unit Separator' }) },
+    { id: '|', labels: createLabelMap({ en: 'Vertical Bar' }) }
 ];
 
 /**

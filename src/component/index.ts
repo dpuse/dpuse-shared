@@ -24,15 +24,15 @@ type ComponentStatus = InferOutput<typeof componentStatusSchema>;
 type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
 
 const componentStatuses: { id: string; color: ComponentStatusColorId; labels: Partial<LocalisedString> }[] = [
-    { id: 'alpha', color: 'red', labels: { 'en-gb': 'alpha' } },
-    { id: 'beta', color: 'amber', labels: { 'en-gb': 'beta' } },
-    { id: 'generalAvailability', color: 'green', labels: { 'en-gb': '' } },
-    { id: 'notApplicable', color: 'green', labels: { 'en-gb': 'not-applicable' } },
-    { id: 'preAlpha', color: 'red', labels: { 'en-gb': 'pre-alpha' } },
-    { id: 'proposed', color: 'other', labels: { 'en-gb': 'proposed' } },
-    { id: 'releaseCandidate', color: 'green', labels: { 'en-gb': 'release-candidate' } },
-    { id: 'unavailable', color: 'other', labels: { 'en-gb': 'unavailable' } },
-    { id: 'underReview', color: 'other', labels: { 'en-gb': 'under-review' } }
+    { id: 'alpha', color: 'red', labels: { en: 'alpha' } },
+    { id: 'beta', color: 'amber', labels: { en: 'beta' } },
+    { id: 'generalAvailability', color: 'green', labels: { en: '' } },
+    { id: 'notApplicable', color: 'green', labels: { en: 'not-applicable' } },
+    { id: 'preAlpha', color: 'red', labels: { en: 'pre-alpha' } },
+    { id: 'proposed', color: 'other', labels: { en: 'proposed' } },
+    { id: 'releaseCandidate', color: 'green', labels: { en: 'release-candidate' } },
+    { id: 'unavailable', color: 'other', labels: { en: 'unavailable' } },
+    { id: 'underReview', color: 'other', labels: { en: 'under-review' } }
 ];
 
 function getComponentStatus(id: string, localeId: LocaleCode = DEFAULT_LOCALE_CODE): ComponentStatus {

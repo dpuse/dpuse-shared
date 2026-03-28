@@ -1,4 +1,4 @@
-import { f as e, h as t, i as n, t as r } from "./componentConfig.schema-Csigo0y4.js";
+import { f as e, h as t, i as n, t as r } from "./componentConfig.schema-B6kdXy8u.js";
 //#region src/component/moduleConfig.schema.ts
 var i = n([
 	"app",

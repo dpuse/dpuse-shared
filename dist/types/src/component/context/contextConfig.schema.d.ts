@@ -8,16 +8,12 @@ export declare const contextConfigSchema: import('valibot').ObjectSchema<{
         readonly modelRefs: import('valibot').ArraySchema<import('valibot').ObjectSchema<{
             readonly id: import('valibot').StringSchema<undefined>;
             readonly label: import('valibot').ObjectSchema<{
-                readonly 'en-au': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-                readonly 'en-gb': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-                readonly 'en-us': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-                readonly 'es-es': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+                readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+                readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
             }, undefined>;
             readonly description: import('valibot').ObjectSchema<{
-                readonly 'en-au': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-                readonly 'en-gb': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-                readonly 'en-us': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-                readonly 'es-es': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+                readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+                readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
             }, undefined>;
             readonly icon: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
             readonly iconDark: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
@@ -27,16 +23,12 @@ export declare const contextConfigSchema: import('valibot').ObjectSchema<{
         readonly order: import('valibot').NumberSchema<undefined>;
         readonly id: import('valibot').StringSchema<undefined>;
         readonly label: import('valibot').ObjectSchema<{
-            readonly 'en-au': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly 'en-gb': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly 'en-us': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly 'es-es': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+            readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+            readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
         }, undefined>;
         readonly description: import('valibot').ObjectSchema<{
-            readonly 'en-au': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly 'en-gb': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly 'en-us': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly 'es-es': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+            readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+            readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
         }, undefined>;
         readonly firstCreatedAt: import('valibot').OptionalSchema<import('valibot').NumberSchema<undefined>, undefined>;
         readonly icon: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
@@ -53,16 +45,12 @@ export declare const contextConfigSchema: import('valibot').ObjectSchema<{
     readonly version: import('valibot').StringSchema<undefined>;
     readonly id: import('valibot').StringSchema<undefined>;
     readonly label: import('valibot').ObjectSchema<{
-        readonly 'en-au': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly 'en-gb': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly 'en-us': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly 'es-es': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
     }, undefined>;
     readonly description: import('valibot').ObjectSchema<{
-        readonly 'en-au': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly 'en-gb': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly 'en-us': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly 'es-es': import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
     }, undefined>;
     readonly firstCreatedAt: import('valibot').OptionalSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly icon: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
