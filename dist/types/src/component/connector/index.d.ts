@@ -11,7 +11,7 @@ export interface ConnectorInterface extends Component {
     readonly toolConfigs: ToolConfig[];
     abortOperation?(): void;
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
-    authenticateConnection?(accountId: string, windowCenterX: number, windowCenterY: number): Window;
+    authenticateConnection?(accountId: string, windowCenterX: number, windowCenterY: number): Window | undefined;
     createObject?(options: CreateObjectOptions): Promise<void>;
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>;
     dropObject?(options: DropObjectOptions): Promise<void>;
