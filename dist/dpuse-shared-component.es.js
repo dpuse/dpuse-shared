@@ -1,7 +1,7 @@
 import { n as e } from "./componentConfig.schema-Csigo0y4.js";
-import { DEFAULT_LOCALE_CODE as t } from "./dpuse-shared-locale.es.js";
+import "./dpuse-shared-locale.es.js";
 //#region src/component/index.ts
-var n = [
+var t = [
 	{
 		id: "alpha",
 		color: "red",
@@ -48,13 +48,13 @@ var n = [
 		labels: { "en-gb": "under-review" }
 	}
 ];
-function r(e, r = t) {
-	let i = n.find((t) => t.id === e);
-	if (i) {
-		let e = i.labels[r] ?? i.labels["en-gb"] ?? i.id;
+function n(e, n = "en") {
+	let r = t.find((t) => t.id === e);
+	if (r) {
+		let e = r.labels[n] ?? r.labels.en ?? r.id;
 		return {
-			id: i.id,
-			color: i.color,
+			id: r.id,
+			color: r.color,
 			label: e
 		};
 	}
@@ -65,4 +65,4 @@ function r(e, r = t) {
 	};
 }
 //#endregion
-export { e as componentConfigSchema, r as getComponentStatus };
+export { e as componentConfigSchema, n as getComponentStatus };

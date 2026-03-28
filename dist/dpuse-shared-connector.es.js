@@ -1,8 +1,8 @@
 import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, s as u, u as d } from "./componentConfig.schema-Csigo0y4.js";
 import { t as f } from "./moduleConfig.schema-WvtAJjAG.js";
-import { DEFAULT_LOCALE_CODE as p, createLabelMap as m, resolveLabel as h } from "./dpuse-shared-locale.es.js";
+import { createLabelMap as p, resolveLabel as m } from "./dpuse-shared-locale.es.js";
 //#region src/component/connector/connectorConfig.schema.ts
-var g = r({
+var h = r({
 	authMethodId: a([
 		"apiKey",
 		"disabled",
@@ -15,12 +15,12 @@ var g = r({
 	label: l(e),
 	maxConnectionCount: d(n()),
 	params: l(u(s(i(), i())))
-}), _ = a([
+}), g = a([
 	"application",
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), v = a([
+]), _ = a([
 	"abortOperation",
 	"auditObjectContent",
 	"authenticateConnection",
@@ -36,26 +36,26 @@ var g = r({
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), y = a([
+]), v = a([
 	"bidirectional",
 	"destination",
 	"source",
 	"unknown"
-]), b = r({
+]), y = r({
 	id: i(),
 	label: c
-}), x = r({
+}), b = r({
 	...f,
 	typeId: o("connector"),
-	category: d(b),
-	categoryId: _,
-	implementations: s(i(), g),
-	operations: u(v),
-	usageId: y,
+	category: d(y),
+	categoryId: g,
+	implementations: s(i(), h),
+	operations: u(_),
+	usageId: v,
 	vendorAccountURL: d(i()),
 	vendorDocumentationURL: d(i()),
 	vendorHomeURL: d(i())
-}), S = [
+}), x = [
 	{
 		id: "application",
 		label: { "en-gb": "Application" }
@@ -72,10 +72,10 @@ var g = r({
 		id: "fileStore",
 		label: { "en-gb": "File Store" }
 	}
-], C = (e, t = p) => {
-	let n = S.find((t) => t.id === e);
+], S = (e, t = "en") => {
+	let n = x.find((t) => t.id === e);
 	if (n) {
-		let e = h(m(n.label), t);
+		let e = m(p(n.label), t);
 		return {
 			id: n.id,
 			label: e ?? n.id
@@ -87,4 +87,4 @@ var g = r({
 	};
 };
 //#endregion
-export { x as connectorConfigSchema, C as constructConnectorCategoryConfig };
+export { b as connectorConfigSchema, S as constructConnectorCategoryConfig };

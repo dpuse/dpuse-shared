@@ -3,12 +3,12 @@
  */
 
 // Constants.
-const DEFAULT_LOCALE_CODE: LocaleCode = 'en-gb';
+const DEFAULT_LOCALE_CODE: LocaleCode = 'en';
 
 /**
  * Locale codes.
  */
-type LocaleCode = 'en' | 'en-au' | 'en-gb' | 'en-us' | 'es-es';
+type LocaleCode = 'en' | 'es';
 
 /**
  * Localised string.

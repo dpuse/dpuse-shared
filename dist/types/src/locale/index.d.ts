@@ -5,7 +5,7 @@ declare const DEFAULT_LOCALE_CODE: LocaleCode;
 /**
  * Locale codes.
  */
-type LocaleCode = 'en' | 'en-au' | 'en-gb' | 'en-us' | 'es-es';
+type LocaleCode = 'en' | 'es';
 /**
  * Localised string.
  */
@@ -21,6 +21,6 @@ declare const createLabelMap: (labels: Record<string, string>) => LocaleLabelMap
 /**
  *
  */
-declare const resolveLabel: (labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: "en-gb") => string | undefined;
+declare const resolveLabel: (labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: "en") => string | undefined;
 export { createLabelMap, DEFAULT_LOCALE_CODE, resolveLabel };
 export type { LocaleCode, LocaleLabelMap, LocalisedString };
