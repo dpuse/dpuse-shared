@@ -1,10 +1,10 @@
 // DPUse Framework
 import type { ConnectionConfig } from '@/component/connector/connection';
+import type { ContextConfig } from '@/component/context';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { ModuleConfig } from '@/component/module';
 import type { ObjectColumnConfig } from '@/component/connector';
 import type { ToolConfig } from '@/component/tool';
-import type { ContextConfig, ContextOperationOptions } from '@/component/context';
 import type { InferenceRecord, InferenceSummary, ParsingRecord } from '@/component/dataView';
 
 // Engine Runtime ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -21,7 +21,7 @@ export interface EngineWorker {
     processRequest: (
         id: string,
         config: ConnectionConfig | ContextConfig,
-        options: EngineOperationOptions | ContextOperationOptions,
+        options: EngineConnectorActionOptions | EngineContextActionOptions,
         callback?: (callbackData: EngineCallbackData) => void
     ) => Promise<unknown>;
 }
@@ -37,7 +37,13 @@ export interface EngineInitialiseOptions {
     toolConfigs: ToolConfig[];
 }
 
-export interface EngineOperationOptions {
+export interface EngineConnectorActionOptions {
+    accountId?: string;
+    appCheckToken?: string;
+    sessionAccessToken?: string;
+}
+
+export interface EngineContextActionOptions {
     accountId?: string;
     appCheckToken?: string;
     sessionAccessToken?: string;

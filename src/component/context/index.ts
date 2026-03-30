@@ -16,7 +16,6 @@ export interface Context extends Component {
     readonly config: ContextConfig;
     list?(context: Context, options?: ContextListOptions): Promise<ContextListResult>;
 }
-export type ContextOperationOptions = object; // TODO.
 export type ContextListOptions = object; // TODO.
 export interface ContextListResult {
     models: ContextModelGroupConfig[];

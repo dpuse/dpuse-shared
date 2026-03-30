@@ -8,7 +8,7 @@ import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/compon
 import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from '@/component/connector/connectorConfig.schema';
 import type { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_CODE, resolveLabel } from '@/locale';
-import type { EngineOperationOptions, EngineUtilities } from '@/engine';
+import type { EngineConnectorActionOptions, EngineUtilities } from '@/engine';
 
 // Connector interface
 export interface ConnectorInterface extends Component {
@@ -74,7 +74,7 @@ type ConnectorLocalisedConfig = Omit<ConnectorConfig, 'label' | 'description'> &
 /**
  * Audit object content options and result.
  */
-interface AuditObjectContentOptions1 extends EngineOperationOptions {
+interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
     path: string;
@@ -91,7 +91,7 @@ interface AuditObjectContentResult1 {
 /**
  * Audit object content options.
  */
-interface AuditObjectContentOptions extends EngineOperationOptions {
+interface AuditObjectContentOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
     parsingToolName: string | undefined;
@@ -111,7 +111,7 @@ interface AuditObjectContentResult {
 /**
  * Create object options.
  */
-interface CreateObjectOptions extends EngineOperationOptions {
+interface CreateObjectOptions extends EngineConnectorActionOptions {
     path: string;
     structure: string;
 }
@@ -119,7 +119,7 @@ interface CreateObjectOptions extends EngineOperationOptions {
 /**
  * Describe connection options and result.
  */
-type DescribeConnectionOptions = EngineOperationOptions;
+type DescribeConnectionOptions = EngineConnectorActionOptions;
 interface DescribeConnectionResult {
     descriptionConfig: ConnectionDescriptionConfig;
 }
@@ -127,14 +127,14 @@ interface DescribeConnectionResult {
 /**
  * Drop object options.
  */
-interface DropObjectOptions extends EngineOperationOptions {
+interface DropObjectOptions extends EngineConnectorActionOptions {
     path: string;
 }
 
 /**
  * Find object options and result.
  */
-interface FindObjectOptions extends EngineOperationOptions {
+interface FindObjectOptions extends EngineConnectorActionOptions {
     storeId: string | undefined;
     nodeId: string;
 }
@@ -145,7 +145,7 @@ interface FindObjectResult {
 /**
  * Get readable stream options.
  */
-interface GetReadableStreamOptions extends EngineOperationOptions {
+interface GetReadableStreamOptions extends EngineConnectorActionOptions {
     id: string;
     path: string;
 }
@@ -153,7 +153,7 @@ interface GetReadableStreamOptions extends EngineOperationOptions {
 /**
  * Get record options and result.
  */
-interface GetRecordOptions extends EngineOperationOptions {
+interface GetRecordOptions extends EngineConnectorActionOptions {
     id: string;
     path: string;
 }
@@ -164,7 +164,7 @@ interface GetRecordResult {
 /**
  * List nodes options and result.
  */
-interface ListNodesOptions extends EngineOperationOptions {
+interface ListNodesOptions extends EngineConnectorActionOptions {
     folderPath: string;
     limit?: number;
     offset?: number;
@@ -180,7 +180,7 @@ interface ListNodesResult {
 /**
  * Preview object options.
  */
-interface PreviewObjectOptions extends EngineOperationOptions {
+interface PreviewObjectOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     extension: string | undefined;
     path: string;
@@ -189,7 +189,7 @@ interface PreviewObjectOptions extends EngineOperationOptions {
 /**
  * Remove records options.
  */
-interface RemoveRecordsOptions extends EngineOperationOptions {
+interface RemoveRecordsOptions extends EngineConnectorActionOptions {
     keys: string[];
     path: string;
 }
@@ -197,7 +197,7 @@ interface RemoveRecordsOptions extends EngineOperationOptions {
 /**
  * Retrieve chunks options.
  */
-interface RetrieveChunksOptions extends EngineOperationOptions {
+interface RetrieveChunksOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
     path: string;
@@ -207,7 +207,7 @@ interface RetrieveChunksOptions extends EngineOperationOptions {
 /**
  * Retrieve records options and summary.
  */
-interface RetrieveRecordsOptions extends EngineOperationOptions {
+interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
     path: string;
@@ -244,7 +244,7 @@ interface RetrieveRecordsSummary {
 /**
  * Upsert records options.
  */
-interface UpsertRecordsOptions extends EngineOperationOptions {
+interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     records: Record<string, unknown>[];
     path: string;
 }

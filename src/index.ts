@@ -41,13 +41,6 @@ export type {
     ContextModelSecondaryMeasureLocalisedConfig
 } from '@/component/context';
 
-/** Interfaces/Types - Context Operator Settings */
-export interface ContextOperationOptions {
-    accountId?: string;
-    appCheckToken?: string;
-    sessionAccessToken?: string;
-}
-
 /** Interfaces/Types - Dimension. */
 export type { DimensionConfig, DimensionLocalisedConfig } from '@/component/dimension';
 

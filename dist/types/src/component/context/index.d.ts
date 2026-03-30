@@ -7,7 +7,6 @@ export interface Context extends Component {
     readonly config: ContextConfig;
     list?(context: Context, options?: ContextListOptions): Promise<ContextListResult>;
 }
-export type ContextOperationOptions = object;
 export type ContextListOptions = object;
 export interface ContextListResult {
     models: ContextModelGroupConfig[];

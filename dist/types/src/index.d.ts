@@ -15,12 +15,6 @@ ContextModelEntityEventLocalisedConfig, ContextModelEntityPrimaryMeasureConfig, 
 ContextModelEntityPrimaryMeasureLocalisedConfig } from './component/context';
 /** Interfaces/Types - Context model secondary measure. */
 export type { ContextModelSecondaryMeasureGroupConfig, ContextModelSecondaryMeasureGroupLocalisedConfig, ContextModelSecondaryMeasureConfig, ContextModelSecondaryMeasureLocalisedConfig } from './component/context';
-/** Interfaces/Types - Context Operator Settings */
-export interface ContextOperationOptions {
-    accountId?: string;
-    appCheckToken?: string;
-    sessionAccessToken?: string;
-}
 /** Interfaces/Types - Dimension. */
 export type { DimensionConfig, DimensionLocalisedConfig } from './component/dimension';
 /** Interfaces/Types - Event query. */
