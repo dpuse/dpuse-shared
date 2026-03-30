@@ -37,6 +37,12 @@ export interface EngineInitialiseOptions {
     toolConfigs: ToolConfig[];
 }
 
+export interface EngineAuthActionOptions {
+    accountId?: string;
+    windowCenterX: number;
+    windowCenterY: number;
+}
+
 export interface EngineConnectorActionOptions {
     accountId?: string;
     appCheckToken?: string;
