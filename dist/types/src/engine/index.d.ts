@@ -11,7 +11,7 @@ export interface EngineRuntime {
 }
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
-    processRequest: (id: string, config: ConnectionConfig | ContextConfig, options: EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
+    processRequest: (id: string, config: ConnectionConfig | ContextConfig, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
 }
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';

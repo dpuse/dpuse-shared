@@ -21,7 +21,7 @@ export interface EngineWorker {
     processRequest: (
         id: string,
         config: ConnectionConfig | ContextConfig,
-        options: EngineConnectorActionOptions | EngineContextActionOptions,
+        options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions,
         callback?: (callbackData: EngineCallbackData) => void
     ) => Promise<unknown>;
 }
