@@ -1,8 +1,4 @@
-/**
- * Engine.
- */
-
-// Framework dependencies.
+// DPUse Framework
 import type { ConnectionConfig } from '@/component/connector/connection';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { ModuleConfig } from '@/component/module';
@@ -11,38 +7,17 @@ import type { ToolConfig } from '@/component/tool';
 import type { ContextConfig, ContextOperationOptions } from '@/component/context';
 import type { InferenceRecord, InferenceSummary, ParsingRecord } from '@/component/dataView';
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//#region Engine runtime.
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Engine Runtime ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- * Engine runtime interface.
- */
-interface EngineRuntimeInterface {
+export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: string) => EncodingTypeConfig[];
-    invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorkerInterface;
+    invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;
 }
 
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Engine Worker ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//#region Engine worker.
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-/**
- * Engine operation options.
- */
-interface EngineOperationOptions {
-    accountId?: string;
-    appCheckToken?: string;
-    sessionAccessToken?: string;
-}
-
-/**
- * Engine worker interface.
- */
-interface EngineWorkerInterface {
-    initialise: (options: EngineWorkerInitialiseOptions) => Promise<void>;
+export interface EngineWorker {
+    initialise: (options: EngineInitialiseOptions) => Promise<void>;
     processRequest: (
         id: string,
         config: ConnectionConfig | ContextConfig,
@@ -51,45 +26,30 @@ interface EngineWorkerInterface {
     ) => Promise<unknown>;
 }
 
-/**
- * Engine worker initialise options.
- */
-interface EngineWorkerInitialiseOptions {
+// Engine ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+export interface EngineConfig extends ModuleConfig {
+    typeId: 'engine';
+}
+
+export interface EngineInitialiseOptions {
     connectorStorageURLPrefix: string;
     toolConfigs: ToolConfig[];
 }
 
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//#region Engine.
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-/**
- * Engine configuration.
- */
-interface EngineConfig extends ModuleConfig {
-    typeId: 'engine';
+export interface EngineOperationOptions {
+    accountId?: string;
+    appCheckToken?: string;
+    sessionAccessToken?: string;
 }
 
-/**
- * Engine callback data.
- */
-interface EngineCallbackData {
+export interface EngineCallbackData {
     typeId: string;
     properties: Record<string, unknown>;
 }
 
-/**
- * Engine utilities.
- */
-interface EngineUtilities {
+export interface EngineUtilities {
     hasReadableStreamTransferSupport(): boolean;
     inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], leadingRecord: boolean) => InferenceRecord;
     inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
 }
-
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Exposures.
-export type { EngineCallbackData, EngineConfig, EngineOperationOptions, EngineRuntimeInterface, EngineUtilities, EngineWorkerInitialiseOptions, EngineWorkerInterface };

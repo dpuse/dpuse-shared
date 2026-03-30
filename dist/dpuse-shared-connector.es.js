@@ -23,7 +23,6 @@ var h = r({
 ]), _ = a([
 	"abortOperation",
 	"auditObjectContent",
-	"authenticateConnection",
 	"createObject",
 	"describeConnection",
 	"dropObject",

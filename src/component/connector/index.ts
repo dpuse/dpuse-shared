@@ -19,8 +19,6 @@ export interface ConnectorInterface extends Component {
     abortOperation?(): void;
     //
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
-    // Authenticate a specified connection
-    authenticateConnection?(accountId: string, windowCenterX: number, windowCenterY: number): Window | undefined;
     // Create an object for a specified connection
     createObject?(options: CreateObjectOptions): Promise<void>;
     // Describe a specified connection
