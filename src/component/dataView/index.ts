@@ -395,7 +395,7 @@ interface NumberInferenceResult {
 interface StringInferenceResult {
     dataTypeId: 'string';
     dataSubtypeId: StringSubtypeId;
-    format: string;
+    format: string | undefined;
     inputValue: string;
     inputValueWasQuoted: boolean;
     inferredValue: string;
