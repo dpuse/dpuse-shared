@@ -4,7 +4,7 @@
 
 /** Interfaces/Types - Context. */
 export { contextConfigSchema } from '@/component/context';
-export type { Context, ContextConfig, ContextLocalisedConfig, ContextListOptions, ContextListResult, ContextOperation } from '@/component/context';
+export type { Context, ContextConfig, ContextLocalisedConfig, ListContextOptions, ContextListResult, ContextOperation } from '@/component/context';
 
 /** Interfaces/Types - Context model. */
 export type { ContextModelGroupConfig, ContextModelGroupLocalisedConfig, ContextModelConfig, ContextModelLocalisedConfig } from '@/component/context';
