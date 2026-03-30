@@ -1,13 +1,16 @@
 import { InferOutput } from 'valibot';
 import { contextConfigSchema } from './contextConfig.schema';
+import { EngineContextActionOptions } from '../../engine';
 import { LocalisedString } from '../../locale';
 import { ModuleConfig } from '../module';
 import { Component, ComponentConfig, ComponentReference } from '..';
 export interface Context extends Component {
     readonly config: ContextConfig;
-    list?(context: Context, options?: ContextListOptions): Promise<ContextListResult>;
+    listContextFocuses?(context: Context, options?: ListContextOptions): Promise<ContextListResult>;
 }
-export type ContextListOptions = object;
+export interface ListContextOptions extends EngineContextActionOptions {
+    placeholder: unknown;
+}
 export interface ContextListResult {
     models: ContextModelGroupConfig[];
 }

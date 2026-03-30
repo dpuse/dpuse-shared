@@ -7,6 +7,7 @@ import type { InferOutput } from 'valibot';
 
 // Dependencies - Framework.
 import type { contextConfigSchema } from '@/component/context/contextConfig.schema';
+import type { EngineContextActionOptions } from '@/engine';
 import type { LocalisedString } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
@@ -14,9 +15,11 @@ import type { Component, ComponentConfig, ComponentReference } from '@/component
 // Types/Interfaces/Operations - Context.
 export interface Context extends Component {
     readonly config: ContextConfig;
-    list?(context: Context, options?: ContextListOptions): Promise<ContextListResult>;
+    listContextFocuses?(context: Context, options?: ListContextOptions): Promise<ContextListResult>;
 }
-export type ContextListOptions = object; // TODO.
+export interface ListContextOptions extends EngineContextActionOptions {
+    placeholder: unknown;
+} // TODO: Naming, structure...
 export interface ContextListResult {
     models: ContextModelGroupConfig[];
 }
