@@ -214,5 +214,5 @@ type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> &
 declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../locale').LocaleCode) => ConnectorCategoryLocalisedConfig;
 export { connectorConfigSchema } from './connectorConfig.schema';
 export { constructConnectorCategoryConfig };
-export type { ConnectionConfig, ConnectionNodeConfig, ObjectColumnConfig } from './connection';
+export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from './connection';
 export type { AuditObjectContentOptions1, AuditObjectContentResult1, AuditObjectContentOptions, AuditObjectContentResult, ConnectorConfig, ConnectorLocalisedConfig, ConnectorUsageId, CreateObjectOptions, DropObjectOptions, FindObjectOptions, FindObjectResult, GetReadableStreamOptions, GetRecordOptions, GetRecordResult, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RemoveRecordsOptions, RetrieveChunksOptions, RetrieveRecordsOptions, RetrieveRecordsSummary, UpsertRecordsOptions };

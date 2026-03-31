@@ -289,7 +289,7 @@ const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_
 // Exposures.
 export { connectorConfigSchema } from '@/component/connector/connectorConfig.schema';
 export { constructConnectorCategoryConfig };
-export type { ConnectionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connector/connection';
+export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connector/connection';
 export type {
     AuditObjectContentOptions1,
     AuditObjectContentResult1,
