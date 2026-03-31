@@ -17,6 +17,7 @@ interface ConnectionConfig extends ComponentConfig {
     lastVerifiedAt: number;
     notation: string | undefined;
 }
+export type ConnectionLocalisedConfig = Omit<ConnectionConfig, 'label' | 'description'> & { label: string; description: string };
 
 /**
  * Connection authorisation configuration.
