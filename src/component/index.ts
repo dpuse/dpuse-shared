@@ -1,23 +1,20 @@
-/**
- * Component.
- */
-
-/** Vendor dependencies. */
+// External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Framework dependencies.
+// DPUse Framework
 import { DEFAULT_LOCALE_CODE } from '@/locale';
 import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusSchema } from '@/component/componentConfig.schema';
 import type { LocaleCode, LocalisedString } from '@/locale';
 
-/** Component. */
-interface Component {
+// Component Interfaces/Types
+export interface Component {
     readonly config: ComponentConfig;
 }
 
-type ComponentConfig = InferOutput<typeof componentConfigSchema>;
+export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
+export type ComponentLocalisedConfig = Omit<ComponentConfig, 'label' | 'description'> & { label: string; description: string };
 
-type ComponentReference = InferOutput<typeof componentReferenceSchema>;
+export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
 
 type ComponentStatus = InferOutput<typeof componentStatusSchema>;
 
@@ -47,5 +44,4 @@ function getComponentStatus(id: string, localeId: LocaleCode = DEFAULT_LOCALE_CO
 // Exposures.
 export { getComponentStatus };
 export { componentConfigSchema } from '@/component/componentConfig.schema';
-export type { Component, ComponentConfig, ComponentReference };
 export type { ModuleConfig, ModuleTypeId } from '@/component/module';
