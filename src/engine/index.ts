@@ -1,6 +1,7 @@
 // DPUse Framework
-import type { ConnectionConfig } from '@/component/connector/connection';
-import type { ContextConfig } from '@/component/context';
+// import type { ConnectionConfig } from '@/component/connector/connection';
+// import type { ContextConfig } from '@/component/context';
+import type { ComponentLocalisedConfig } from '@/component';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { ModuleConfig } from '@/component/module';
 import type { ObjectColumnConfig } from '@/component/connector';
@@ -20,7 +21,7 @@ export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
     processRequest: (
         id: string,
-        config: ConnectionConfig | ContextConfig,
+        config: ComponentLocalisedConfig,
         options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions,
         callback?: (callbackData: EngineCallbackData) => void
     ) => Promise<unknown>;

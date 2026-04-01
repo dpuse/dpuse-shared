@@ -1,5 +1,4 @@
-import { ConnectionConfig } from '../component/connector/connection';
-import { ContextConfig } from '../component/context';
+import { ComponentLocalisedConfig } from '../component';
 import { EncodingTypeConfig } from '../encoding';
 import { ModuleConfig } from '../component/module';
 import { ObjectColumnConfig } from '../component/connector';
@@ -11,7 +10,7 @@ export interface EngineRuntime {
 }
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
-    processRequest: (id: string, config: ConnectionConfig | ContextConfig, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
+    processRequest: (id: string, config: ComponentLocalisedConfig, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
 }
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';
