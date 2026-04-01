@@ -1,8 +1,8 @@
-import { ComponentLocalisedConfig } from '../component';
 import { EncodingTypeConfig } from '../encoding';
 import { ModuleConfig } from '../component/module';
 import { ObjectColumnConfig } from '../component/connector';
 import { ToolConfig } from '../component/tool';
+import { ComponentConfig, ComponentLocalisedConfig } from '../component';
 import { InferenceRecord, InferenceSummary, ParsingRecord } from '../component/dataView';
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: string) => EncodingTypeConfig[];
@@ -10,7 +10,7 @@ export interface EngineRuntime {
 }
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
-    processRequest: (id: string, config: ComponentLocalisedConfig, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
+    processRequest: (id: string, config: ComponentConfig | ComponentLocalisedConfig, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
 }
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';

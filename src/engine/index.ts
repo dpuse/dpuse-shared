@@ -1,11 +1,11 @@
 // DPUse Framework
 // import type { ConnectionConfig } from '@/component/connector/connection';
 // import type { ContextConfig } from '@/component/context';
-import type { ComponentLocalisedConfig } from '@/component';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { ModuleConfig } from '@/component/module';
 import type { ObjectColumnConfig } from '@/component/connector';
 import type { ToolConfig } from '@/component/tool';
+import type { ComponentConfig, ComponentLocalisedConfig } from '@/component';
 import type { InferenceRecord, InferenceSummary, ParsingRecord } from '@/component/dataView';
 
 // Engine Runtime ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -21,7 +21,7 @@ export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
     processRequest: (
         id: string,
-        config: ComponentLocalisedConfig,
+        config: ComponentConfig | ComponentLocalisedConfig,
         options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions,
         callback?: (callbackData: EngineCallbackData) => void
     ) => Promise<unknown>;
