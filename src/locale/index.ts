@@ -1,4 +1,12 @@
-// Interfaces/Types ────────────────────────────────────────────────────────────────────────────────────────────────────
+// External Dependencies
+import { object, optional, string } from 'valibot';
+
+// Schemas ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export const localeLabelSchema = object({ en: string(), es: string() });
+export const partialLocalLabelSchema = object({ en: optional(string()), es: optional(string()) });
+
+// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type FlagId = 'es' | 'gb';
 export type LocaleId = 'en' | 'es';

@@ -1,4 +1,5 @@
-import { f as e, h as t, o as n, t as r } from "./componentConfig.schema-cyVi0ezr.js";
+import { f as e, h as t } from "./locale-CrC0-wPd.js";
+import { i as n, t as r } from "./componentConfig.schema-Dvc1hymu.js";
 //#region src/component/moduleConfig.schema.ts
 var i = n([
 	"app",

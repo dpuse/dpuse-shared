@@ -9,9 +9,9 @@
 import { array, boolean, literal, nullable, number, object, optional, record, string } from 'valibot';
 
 // Framework dependencies.
+import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/moduleConfig.schema';
-import { localisedStringSchema, partialLocalisedStringSchema } from '@/component/componentConfig.schema';
-import { literalUnion } from '~/src/schema';
+import { localeLabelSchema, partialLocalLabelSchema } from '@/locale';
 
 /** Authentication method identifiers supported by a connector implementation. */
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none'] as const);
@@ -24,7 +24,7 @@ const connectorImplementationSchema = object({
     activeConnectionCount: optional(number()),
     canDescribe: optional(boolean()),
     id: optional(string()),
-    label: optional(localisedStringSchema),
+    label: optional(localeLabelSchema),
     maxConnectionCount: nullable(number()),
     params: optional(array(record(string(), string())))
 });
@@ -58,7 +58,7 @@ const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'so
  */
 const connectorCategoryConfigSchema = object({
     id: string(),
-    label: partialLocalisedStringSchema
+    label: partialLocalLabelSchema
 });
 
 /** Top-level connector configuration object. */

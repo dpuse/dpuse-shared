@@ -369,77 +369,29 @@ function T(e, t) {
 	};
 }
 //#endregion
-//#region src/schema.ts
-var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__PURE__ */ b({
+//#region src/locale/index.ts
+var E = /* @__PURE__ */ b({
 	en: /* @__PURE__ */ C(),
 	es: /* @__PURE__ */ C()
-}), O = /* @__PURE__ */ b({
+}), D = /* @__PURE__ */ b({
 	en: /* @__PURE__ */ x(/* @__PURE__ */ C()),
 	es: /* @__PURE__ */ x(/* @__PURE__ */ C())
-}), k = E([
-	"amber",
-	"green",
-	"red",
-	"other"
-]), A = E([
-	"alpha",
-	"beta",
-	"generalAvailability",
-	"notApplicable",
-	"preAlpha",
-	"proposed",
-	"releaseCandidate",
-	"unavailable",
-	"underReview"
-]), j = E([
-	"app",
-	"connector",
-	"connectorConnection",
-	"context",
-	"contextModelGroup",
-	"contextModel",
-	"contextModelDimensionGroup",
-	"contextModelDimension",
-	"contextModelDimensionHierarchy",
-	"contextModelEntityGroup",
-	"contextModelEntity",
-	"contextModelEntityDataItem",
-	"contextModelEntityEvent",
-	"contextModelEntityPrimaryMeasure",
-	"contextModelSecondaryMeasureGroup",
-	"contextModelSecondaryMeasure",
-	"dataView",
-	"dimension",
-	"engine",
-	"eventQuery",
-	"presenter",
-	"presenterPresentation",
-	"tool"
-]), M = {
-	id: /* @__PURE__ */ C(),
-	label: O,
-	description: O,
-	firstCreatedAt: /* @__PURE__ */ x(/* @__PURE__ */ y()),
-	icon: /* @__PURE__ */ v(/* @__PURE__ */ C()),
-	iconDark: /* @__PURE__ */ v(/* @__PURE__ */ C()),
-	lastUpdatedAt: /* @__PURE__ */ v(/* @__PURE__ */ y()),
-	status: /* @__PURE__ */ v(/* @__PURE__ */ b({
-		id: /* @__PURE__ */ C(),
-		color: k,
-		label: /* @__PURE__ */ C()
-	})),
-	statusId: A
-}, N = /* @__PURE__ */ b({
-	...M,
-	typeId: j
-}), P = /* @__PURE__ */ b({
-	id: /* @__PURE__ */ C(),
-	label: O,
-	description: O,
-	icon: /* @__PURE__ */ v(/* @__PURE__ */ C()),
-	iconDark: /* @__PURE__ */ v(/* @__PURE__ */ C()),
-	order: /* @__PURE__ */ y(),
-	path: /* @__PURE__ */ C()
-});
+}), O = "en", k = [{
+	id: "en",
+	flag: "gb",
+	label: "English"
+}, {
+	id: "es",
+	flag: "es",
+	label: "Español"
+}];
+function A(e) {
+	return new Map(Object.entries(e));
+}
+function j(e, t, n = "en") {
+	let r = e.get(t);
+	if (r !== void 0) return r;
+	if (n !== t) return e.get(n);
+}
 //#endregion
-export { O as a, g as c, y as d, b as f, C as h, D as i, _ as l, S as m, N as n, E as o, x as p, P as r, h as s, M as t, v as u };
+export { D as a, g as c, y as d, b as f, T as g, C as h, E as i, _ as l, S as m, k as n, j as o, x as p, A as r, h as s, O as t, v as u };

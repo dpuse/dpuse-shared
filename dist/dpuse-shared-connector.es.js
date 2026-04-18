@@ -1,9 +1,9 @@
-import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, s as u, u as d } from "./componentConfig.schema-cyVi0ezr.js";
-import { t as f } from "./moduleConfig.schema-DsAmxx58.js";
-import { createLabelMap as p, resolveLabel as m } from "./dpuse-shared-locale.es.js";
+import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, r as u, s as d, u as f } from "./locale-CrC0-wPd.js";
+import { i as p } from "./componentConfig.schema-Dvc1hymu.js";
+import { t as m } from "./moduleConfig.schema-B_KmEec4.js";
 //#region src/component/connector/connectorConfig.schema.ts
 var h = r({
-	authMethodId: c([
+	authMethodId: p([
 		"apiKey",
 		"disabled",
 		"oAuth2",
@@ -13,14 +13,14 @@ var h = r({
 	canDescribe: l(t()),
 	id: l(i()),
 	label: l(a),
-	maxConnectionCount: d(n()),
-	params: l(u(s(i(), i())))
-}), g = c([
+	maxConnectionCount: f(n()),
+	params: l(d(s(i(), i())))
+}), g = p([
 	"application",
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), _ = c([
+]), _ = p([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -35,7 +35,7 @@ var h = r({
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), v = c([
+]), v = p([
 	"bidirectional",
 	"destination",
 	"source",
@@ -44,16 +44,16 @@ var h = r({
 	id: i(),
 	label: e
 }), b = r({
-	...f,
+	...m,
 	typeId: o("connector"),
-	category: d(y),
+	category: f(y),
 	categoryId: g,
 	implementations: s(i(), h),
-	operations: u(_),
+	operations: d(_),
 	usageId: v,
-	vendorAccountURL: d(i()),
-	vendorDocumentationURL: d(i()),
-	vendorHomeURL: d(i())
+	vendorAccountURL: f(i()),
+	vendorDocumentationURL: f(i()),
+	vendorHomeURL: f(i())
 }), x = [
 	{
 		id: "application",
@@ -74,7 +74,7 @@ var h = r({
 ], S = (e, t = "en") => {
 	let n = x.find((t) => t.id === e);
 	if (n) {
-		let e = m(p(n.label), t);
+		let e = c(u(n.label), t);
 		return {
 			id: n.id,
 			label: e ?? n.id

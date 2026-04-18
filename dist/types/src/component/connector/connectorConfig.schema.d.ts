@@ -56,7 +56,7 @@ declare const connectorConfigSchema: import('valibot').ObjectSchema<{
         readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
         readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
     }, undefined>;
-    readonly firstCreatedAt: import('valibot').OptionalSchema<import('valibot').NumberSchema<undefined>, undefined>;
+    readonly firstCreatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly icon: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     readonly iconDark: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     readonly lastUpdatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;

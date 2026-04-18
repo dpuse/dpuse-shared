@@ -1,4 +1,4 @@
-// DPUse Framework
+// Local Framework
 // import type { ConnectionConfig } from '@/component/connector/connection';
 // import type { ContextConfig } from '@/component/context';
 import type { EncodingTypeConfig } from '@/encoding';

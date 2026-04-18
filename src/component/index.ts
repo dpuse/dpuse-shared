@@ -1,11 +1,12 @@
 // External Dependencies
 import type { InferOutput } from 'valibot';
 
-// DPUse Framework
+// Local Framework
 import { DEFAULT_LOCALE_ID } from '@/locale';
 import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusSchema } from '@/component/componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale';
 
+// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 // Schema - Component Configuration
 
 export { componentConfigSchema } from '@/component/componentConfig.schema';
@@ -15,6 +16,8 @@ export type { ModuleConfig, ModuleTypeId } from '@/component/module';
 export interface Component {
     readonly config: ComponentConfig;
 }
+
+// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Interfaces/Types - Component Configuration
 export type ComponentConfig = InferOutput<typeof componentConfigSchema>;

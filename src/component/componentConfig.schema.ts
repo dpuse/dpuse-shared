@@ -1,18 +1,15 @@
 // External Dependencies
-import { nullable, number, object, optional, string } from 'valibot';
+import { nullable, number, object, string } from 'valibot';
 
-// Shared Framework
+// Local Framework
 import { literalUnion } from '@/schema';
+import { partialLocalLabelSchema } from '@/locale';
 
-const localisedStringSchema = object({ en: string(), es: string() });
+// Schema - Literal Unions ─────────────────────────────────────────────────────────────────────────────────────────────
 
-const partialLocalisedStringSchema = object({ en: optional(string()), es: optional(string()) });
+export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other']);
 
-// Unions
-
-const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other'] as const);
-
-const componentStatusIdSchema = literalUnion([
+export const componentStatusIdSchema = literalUnion([
     'alpha',
     'beta',
     'generalAvailability',
@@ -22,9 +19,9 @@ const componentStatusIdSchema = literalUnion([
     'releaseCandidate',
     'unavailable',
     'underReview'
-] as const);
+]);
 
-const componentTypeIdSchema = literalUnion([
+export const componentTypeIdSchema = literalUnion([
     'app',
     'connector',
     'connectorConnection',
@@ -48,9 +45,11 @@ const componentTypeIdSchema = literalUnion([
     'presenter',
     'presenterPresentation',
     'tool'
-] as const);
+]);
 
-const componentStatusSchema = object({
+// Schema - Objects ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export const componentStatusSchema = object({
     id: string(),
     color: componentStatusColorIdSchema,
     label: string()
@@ -58,15 +57,15 @@ const componentStatusSchema = object({
 
 export const componentConfigCoreFields = {
     id: string(),
-    label: partialLocalisedStringSchema,
-    description: partialLocalisedStringSchema,
-    firstCreatedAt: optional(number()),
+    label: partialLocalLabelSchema,
+    description: partialLocalLabelSchema,
+    firstCreatedAt: nullable(number()),
     icon: nullable(string()),
     iconDark: nullable(string()),
     lastUpdatedAt: nullable(number()),
     status: nullable(componentStatusSchema),
     statusId: componentStatusIdSchema
-} as const;
+};
 
 export const componentConfigSchema = object({
     ...componentConfigCoreFields,
@@ -75,13 +74,10 @@ export const componentConfigSchema = object({
 
 export const componentReferenceSchema = object({
     id: string(),
-    label: partialLocalisedStringSchema,
-    description: partialLocalisedStringSchema,
+    label: partialLocalLabelSchema,
+    description: partialLocalLabelSchema,
     icon: nullable(string()),
     iconDark: nullable(string()),
     order: number(),
     path: string()
 });
-
-// Exposures.
-export { componentStatusColorIdSchema, componentStatusIdSchema, componentStatusSchema, componentTypeIdSchema, localisedStringSchema, partialLocalisedStringSchema };

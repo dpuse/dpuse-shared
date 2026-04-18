@@ -1,7 +1,7 @@
 // External dependencies
 import sonarjs from 'eslint-plugin-sonarjs';
 
-// DPU framework
+// DPUse Framework
 import dpuse from '@dpuse/eslint-config-dpuse';
 
 // ESLint configuration
