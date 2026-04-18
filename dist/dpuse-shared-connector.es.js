@@ -1,9 +1,9 @@
-import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, s as u, u as d } from "./componentConfig.schema-B6kdXy8u.js";
-import { t as f } from "./moduleConfig.schema-DPEkEXqp.js";
+import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, s as u, u as d } from "./componentConfig.schema-cyVi0ezr.js";
+import { t as f } from "./moduleConfig.schema-DsAmxx58.js";
 import { createLabelMap as p, resolveLabel as m } from "./dpuse-shared-locale.es.js";
 //#region src/component/connector/connectorConfig.schema.ts
 var h = r({
-	authMethodId: a([
+	authMethodId: c([
 		"apiKey",
 		"disabled",
 		"oAuth2",
@@ -12,15 +12,15 @@ var h = r({
 	activeConnectionCount: l(n()),
 	canDescribe: l(t()),
 	id: l(i()),
-	label: l(e),
+	label: l(a),
 	maxConnectionCount: d(n()),
 	params: l(u(s(i(), i())))
-}), g = a([
+}), g = c([
 	"application",
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), _ = a([
+]), _ = c([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -35,14 +35,14 @@ var h = r({
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), v = a([
+]), v = c([
 	"bidirectional",
 	"destination",
 	"source",
 	"unknown"
 ]), y = r({
 	id: i(),
-	label: c
+	label: e
 }), b = r({
 	...f,
 	typeId: o("connector"),

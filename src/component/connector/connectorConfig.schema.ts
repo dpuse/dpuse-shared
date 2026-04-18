@@ -10,7 +10,8 @@ import { array, boolean, literal, nullable, number, object, optional, record, st
 
 // Framework dependencies.
 import { moduleConfigCoreFields } from '@/component/moduleConfig.schema';
-import { literalUnion, localisedStringSchema, partialLocalisedStringSchema } from '@/component/componentConfig.schema';
+import { localisedStringSchema, partialLocalisedStringSchema } from '@/component/componentConfig.schema';
+import { literalUnion } from '~/src/schema';
 
 /** Authentication method identifiers supported by a connector implementation. */
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none'] as const);

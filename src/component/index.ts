@@ -2,25 +2,31 @@
 import type { InferOutput } from 'valibot';
 
 // DPUse Framework
-import { DEFAULT_LOCALE_CODE } from '@/locale';
+import { DEFAULT_LOCALE_ID } from '@/locale';
 import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusSchema } from '@/component/componentConfig.schema';
-import type { LocaleCode, LocalisedString } from '@/locale';
+import type { LocaleId, LocaleLabel } from '@/locale';
+
+// Schema - Component Configuration
+
+export { componentConfigSchema } from '@/component/componentConfig.schema';
+export type { ModuleConfig, ModuleTypeId } from '@/component/module';
 
 // Component Interfaces/Types
 export interface Component {
     readonly config: ComponentConfig;
 }
 
+// Interfaces/Types - Component Configuration
 export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
 export type ComponentLocalisedConfig = Omit<ComponentConfig, 'label' | 'description'> & { label: string; description: string };
 
 export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
 
-type ComponentStatus = InferOutput<typeof componentStatusSchema>;
+// Component Status
 
+export type ComponentStatus = InferOutput<typeof componentStatusSchema>;
 type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
-
-const componentStatuses: { id: string; color: ComponentStatusColorId; labels: Partial<LocalisedString> }[] = [
+const componentStatuses: { id: string; color: ComponentStatusColorId; labels: LocaleLabel }[] = [
     { id: 'alpha', color: 'red', labels: { en: 'alpha' } },
     { id: 'beta', color: 'amber', labels: { en: 'beta' } },
     { id: 'generalAvailability', color: 'green', labels: { en: '' } },
@@ -31,17 +37,11 @@ const componentStatuses: { id: string; color: ComponentStatusColorId; labels: Pa
     { id: 'unavailable', color: 'other', labels: { en: 'unavailable' } },
     { id: 'underReview', color: 'other', labels: { en: 'under-review' } }
 ];
-
-function getComponentStatus(id: string, localeId: LocaleCode = DEFAULT_LOCALE_CODE): ComponentStatus {
+export function getComponentStatus(id: string, localeId: LocaleId = DEFAULT_LOCALE_ID): ComponentStatus {
     const componentStatus = componentStatuses.find((componentStatus) => componentStatus.id === id);
     if (componentStatus) {
-        const label = componentStatus.labels[localeId] ?? componentStatus.labels[DEFAULT_LOCALE_CODE] ?? componentStatus.id;
+        const label = componentStatus.labels[localeId] ?? componentStatus.labels[DEFAULT_LOCALE_ID] ?? componentStatus.id;
         return { id: componentStatus.id, color: componentStatus.color, label };
     }
     return { id, color: 'other', label: id };
 }
-
-// Exposures.
-export { getComponentStatus };
-export { componentConfigSchema } from '@/component/componentConfig.schema';
-export type { ModuleConfig, ModuleTypeId } from '@/component/module';

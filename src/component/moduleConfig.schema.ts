@@ -6,7 +6,8 @@
 import { object, string } from 'valibot';
 
 // Framework dependencies.
-import { componentConfigCoreFields, literalUnion } from './componentConfig.schema';
+import { componentConfigCoreFields } from './componentConfig.schema';
+import { literalUnion } from '../schema';
 
 /**
  *

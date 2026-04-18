@@ -7,7 +7,7 @@ import type { ToolConfig } from '@/component/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/component/connector/connection';
 import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from '@/component/connector/connectorConfig.schema';
 import type { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
-import { createLabelMap, DEFAULT_LOCALE_CODE, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, resolveLabel } from '@/locale';
 import type { EngineConnectorActionOptions, EngineUtilities } from '@/engine';
 
 // Connector interface
@@ -274,7 +274,7 @@ const CONNECTOR_CATEGORY_CONFIGS: ConnectorCategoryConfig[] = [
 /**
  * Construct connector category configuration.
  */
-const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_CODE): ConnectorCategoryLocalisedConfig => {
+const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): ConnectorCategoryLocalisedConfig => {
     const connectorCategory = CONNECTOR_CATEGORY_CONFIGS.find((connectorCategory) => connectorCategory.id === id);
     if (connectorCategory) {
         const labelMap = createLabelMap(connectorCategory.label as Record<string, string>);

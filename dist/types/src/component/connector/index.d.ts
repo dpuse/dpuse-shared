@@ -211,7 +211,7 @@ type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> &
 /**
  * Construct connector category configuration.
  */
-declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../locale').LocaleCode) => ConnectorCategoryLocalisedConfig;
+declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../locale').LocaleId) => ConnectorCategoryLocalisedConfig;
 export { connectorConfigSchema } from './connectorConfig.schema';
 export { constructConnectorCategoryConfig };
 export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from './connection';

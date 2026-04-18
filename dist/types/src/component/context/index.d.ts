@@ -1,7 +1,7 @@
 import { InferOutput } from 'valibot';
 import { contextConfigSchema } from './contextConfig.schema';
 import { EngineContextActionOptions } from '../../engine';
-import { LocalisedString } from '../../locale';
+import { LocaleLabel } from '../../locale';
 import { ModuleConfig } from '../module';
 import { Component, ComponentConfig, ComponentReference } from '..';
 export interface Context extends Component {
@@ -45,8 +45,8 @@ export type ContextModelLocalisedConfig = Omit<ContextModelConfig, 'label' | 'de
 };
 export interface ContextModelDimensionGroupConfig {
     id: string;
-    label: Partial<LocalisedString>;
-    description: Partial<LocalisedString>;
+    label: LocaleLabel;
+    description: LocaleLabel;
     dimensionRefs: ComponentReference[];
 }
 export type ContextModelDimensionGroupLocalisedConfig = Omit<ContextModelDimensionGroupConfig, 'label' | 'description'> & {
@@ -55,7 +55,7 @@ export type ContextModelDimensionGroupLocalisedConfig = Omit<ContextModelDimensi
 };
 export interface ContextModelDimensionConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
     hierarchies: ContextModelDimensionHierarchyConfig[];
 }
 export type ContextModelDimensionLocalisedConfig = Omit<ContextModelDimensionConfig, 'label' | 'description'> & {
@@ -64,7 +64,7 @@ export type ContextModelDimensionLocalisedConfig = Omit<ContextModelDimensionCon
 };
 export interface ContextModelDimensionHierarchyConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
 }
 export type ContextModelDimensionHierarchyLocalisedConfig = Omit<ContextModelDimensionHierarchyConfig, 'label' | 'description'> & {
     label: string;
@@ -72,7 +72,7 @@ export type ContextModelDimensionHierarchyLocalisedConfig = Omit<ContextModelDim
 };
 export interface ContextModelEntityGroupConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
     description?: Record<string, unknown>;
     entityRefs: ComponentReference[];
 }
@@ -82,8 +82,8 @@ export type ContextModelEntityGroupLocalisedConfig = Omit<ContextModelEntityGrou
 };
 export interface ContextModelEntityConfig {
     id: string;
-    label: Partial<LocalisedString>;
-    labelPlural: Partial<LocalisedString>;
+    label: LocaleLabel;
+    labelPlural: LocaleLabel;
     dataItems: ContextModelEntityDataItemConfig[];
     events: ContextModelEntityEventConfig[];
     primaryMeasures: ContextModelEntityPrimaryMeasureConfig[];
@@ -94,7 +94,7 @@ export type ContextModelEntityLocalisedConfig = Omit<ContextModelEntityConfig, '
 };
 export interface ContextModelEntityDataItemConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
 }
 export type ContextModelEntityDataItemLocalisedConfig = Omit<ContextModelEntityDataItemConfig, 'label' | 'description'> & {
     label: string;
@@ -111,7 +111,7 @@ export type ContextModelEntityEventLocalisedConfig = Omit<ContextModelEntityEven
 };
 export interface ContextModelEntityPrimaryMeasureConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
 }
 export type ContextModelEntityPrimaryMeasureLocalisedConfig = Omit<ContextModelEntityPrimaryMeasureConfig, 'label' | 'description'> & {
     label: string;
@@ -119,7 +119,7 @@ export type ContextModelEntityPrimaryMeasureLocalisedConfig = Omit<ContextModelE
 };
 export interface ContextModelSecondaryMeasureGroupConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
     description?: Record<string, unknown>;
     secondaryMeasureRefs: ComponentReference[];
 }
@@ -129,7 +129,7 @@ export type ContextModelSecondaryMeasureGroupLocalisedConfig = Omit<ContextModel
 };
 export interface ContextModelSecondaryMeasureConfig {
     id: string;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
 }
 export type ContextModelSecondaryMeasureLocalisedConfig = Omit<ContextModelSecondaryMeasureConfig, 'label' | 'description'> & {
     label: string;

@@ -1,45 +1,17 @@
-/**
- * Component schema.
- */
+// External Dependencies
+import { nullable, number, object, optional, string } from 'valibot';
 
-// Vendor dependencies.
-import { literal, nullable, number, object, optional, string, union } from 'valibot';
-import type { LiteralSchema, UnionSchema } from 'valibot';
+// Shared Framework
+import { literalUnion } from '@/schema';
 
-/**
- *
- */
-type LiteralUnionSchema<T extends readonly string[]> = UnionSchema<{ [K in keyof T]: LiteralSchema<T[K], undefined> }, undefined>;
+const localisedStringSchema = object({ en: string(), es: string() });
 
-/**
- *
- */
-const literalUnion = <const T extends readonly string[]>(values: T): LiteralUnionSchema<T> => union(values.map((value) => literal(value))) as LiteralUnionSchema<T>;
+const partialLocalisedStringSchema = object({ en: optional(string()), es: optional(string()) });
 
-/**
- *
- */
-const localisedStringSchema = object({
-    en: string(),
-    es: string()
-});
+// Unions
 
-/**
- *
- */
-const partialLocalisedStringSchema = object({
-    en: optional(string()),
-    es: optional(string())
-});
-
-/**
- *
- */
 const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other'] as const);
 
-/**
- *
- */
 const componentStatusIdSchema = literalUnion([
     'alpha',
     'beta',
@@ -52,9 +24,6 @@ const componentStatusIdSchema = literalUnion([
     'underReview'
 ] as const);
 
-/**
- *
- */
 const componentTypeIdSchema = literalUnion([
     'app',
     'connector',
@@ -81,19 +50,13 @@ const componentTypeIdSchema = literalUnion([
     'tool'
 ] as const);
 
-/**
- *
- */
 const componentStatusSchema = object({
     id: string(),
     color: componentStatusColorIdSchema,
     label: string()
 });
 
-/**
- *
- */
-const componentConfigCoreFields = {
+export const componentConfigCoreFields = {
     id: string(),
     label: partialLocalisedStringSchema,
     description: partialLocalisedStringSchema,
@@ -105,18 +68,12 @@ const componentConfigCoreFields = {
     statusId: componentStatusIdSchema
 } as const;
 
-/**
- *
- */
-const componentConfigSchema = object({
+export const componentConfigSchema = object({
     ...componentConfigCoreFields,
     typeId: componentTypeIdSchema
 });
 
-/**
- *
- */
-const componentReferenceSchema = object({
+export const componentReferenceSchema = object({
     id: string(),
     label: partialLocalisedStringSchema,
     description: partialLocalisedStringSchema,
@@ -127,15 +84,4 @@ const componentReferenceSchema = object({
 });
 
 // Exposures.
-export {
-    componentConfigCoreFields,
-    componentConfigSchema,
-    componentReferenceSchema,
-    componentStatusColorIdSchema,
-    componentStatusIdSchema,
-    componentStatusSchema,
-    componentTypeIdSchema,
-    literalUnion,
-    localisedStringSchema,
-    partialLocalisedStringSchema
-};
+export { componentStatusColorIdSchema, componentStatusIdSchema, componentStatusSchema, componentTypeIdSchema, localisedStringSchema, partialLocalisedStringSchema };

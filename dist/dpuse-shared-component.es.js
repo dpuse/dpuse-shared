@@ -1,4 +1,4 @@
-import { n as e } from "./componentConfig.schema-B6kdXy8u.js";
+import { n as e } from "./componentConfig.schema-cyVi0ezr.js";
 import "./dpuse-shared-locale.es.js";
 //#region src/component/index.ts
 var t = [

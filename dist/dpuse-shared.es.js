@@ -1,23 +1,23 @@
-import { d as e, f as t, i as n, l as r, r as i, s as a, t as o } from "./componentConfig.schema-B6kdXy8u.js";
-import { t as s } from "./moduleConfig.schema-DPEkEXqp.js";
+import { d as e, f as t, l as n, o as r, r as i, s as a, t as o } from "./componentConfig.schema-cyVi0ezr.js";
+import { t as s } from "./moduleConfig.schema-DsAmxx58.js";
 //#region src/component/context/contextConfig.schema.ts
-var c = n(["list"]), l = t({
+var c = r(["list"]), l = t({
 	...o,
-	typeId: r("contextModelGroup"),
+	typeId: n("contextModelGroup"),
 	modelRefs: a(i),
 	order: e()
 }), u = t({
 	...s,
-	typeId: r("context"),
+	typeId: n("context"),
 	models: a(l),
 	operations: a(c)
-}), d = n([
+}), d = r([
 	"list",
 	"render",
 	"setColorMode"
 ]), f = t({
 	...s,
-	typeId: r("presenter"),
+	typeId: n("presenter"),
 	presentations: a(i),
 	operations: a(d)
 });

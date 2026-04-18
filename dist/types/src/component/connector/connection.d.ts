@@ -1,6 +1,6 @@
 import { ComponentConfig } from '..';
 import { ConnectorConfig } from '.';
-import { LocalisedString } from '../../locale';
+import { LocaleLabel } from '../../locale';
 import { DataSubtypeId, DataTypeId } from '../dataView';
 /**
  * Connection configuration.
@@ -78,7 +78,7 @@ interface ObjectColumnConfig {
     isIgnored: boolean | undefined;
     isRequired: boolean | undefined;
     isUnique: boolean | undefined;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
     leadingInferenceCounts: Record<string, number>;
     maxDecimals: number | undefined;
     maxSize: number | undefined;

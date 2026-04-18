@@ -7,7 +7,7 @@ import type { FileTypeResult } from 'file-type';
 // Framework dependencies.
 import type { Component, ComponentConfig } from '@/component';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connector/connection';
-import { createLabelMap, DEFAULT_LOCALE_CODE, type LocaleLabelMap, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, LocaleLabelMap, resolveLabel } from '@/locale';
 
 /**
  * Data view interface.
@@ -139,7 +139,7 @@ const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
 /**
  *
  */
-function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_CODE): ObjectDataFormat {
+function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
     const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
     if (dataFormat) {
         const localizedLabel = resolveLabel(dataFormat.labels, localeId);
@@ -151,7 +151,7 @@ function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_CODE): Object
 /**
  *
  */
-function getDataFormats(localeId = DEFAULT_LOCALE_CODE): ObjectDataFormat[] {
+function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
     const items: ObjectDataFormat[] = [];
     for (const dataFormat of DATA_FORMATS_CONFIG) {
         const localizedLabel = resolveLabel(dataFormat.labels, localeId);
@@ -191,7 +191,7 @@ const RECORD_DELIMITERS_CONFIG: { id: RecordDelimiterId; labels: LocaleLabelMap 
 /**
  *
  */
-const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_CODE): ObjectRecordDelimiter => {
+const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter => {
     const recordDelimiter = RECORD_DELIMITERS_CONFIG.find((recordDelimiter) => recordDelimiter.id === id);
     if (recordDelimiter) {
         const localizedLabel = resolveLabel(recordDelimiter.labels, localeId);
@@ -203,7 +203,7 @@ const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_COD
 /**
  *
  */
-const getRecordDelimiters = (localeId = DEFAULT_LOCALE_CODE): ObjectRecordDelimiter[] => {
+const getRecordDelimiters = (localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter[] => {
     const items: ObjectRecordDelimiter[] = [];
     for (const recordDelimiter of RECORD_DELIMITERS_CONFIG) {
         const localizedLabel = resolveLabel(recordDelimiter.labels, localeId);
@@ -256,7 +256,7 @@ const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[] = [',', ';', '\t', '|', ' 
 /**
  *
  */
-const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_CODE): ValueDelimiter => {
+const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_ID): ValueDelimiter => {
     const valueDelimiter = VALUE_DELIMITERS_CONFIG.find((valueDelimiter) => valueDelimiter.id === id);
     if (valueDelimiter) {
         const localizedLabel = resolveLabel(valueDelimiter.labels, localeId);
@@ -268,7 +268,7 @@ const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_CODE)
 /**
  *
  */
-const getValueDelimiters = (localeId = DEFAULT_LOCALE_CODE): ValueDelimiter[] => {
+const getValueDelimiters = (localeId = DEFAULT_LOCALE_ID): ValueDelimiter[] => {
     const items: ValueDelimiter[] = [];
     for (const valueDelimiter of VALUE_DELIMITERS_CONFIG) {
         const localizedLabel = resolveLabel(valueDelimiter.labels, localeId);

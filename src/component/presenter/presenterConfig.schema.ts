@@ -7,7 +7,8 @@ import { array, literal, object } from 'valibot';
 
 /** Dependencies - Framework. */
 import { moduleConfigCoreFields } from '@/component/moduleConfig.schema';
-import { componentReferenceSchema, literalUnion } from '@/component/componentConfig.schema';
+import { componentReferenceSchema } from '@/component/componentConfig.schema';
+import { literalUnion } from '~/src/schema';
 
 const presenterOperationSchema = literalUnion(['list', 'render', 'setColorMode'] as const);
 

@@ -369,7 +369,7 @@ function T(e, t) {
 	};
 }
 //#endregion
-//#region src/component/componentConfig.schema.ts
+//#region src/schema.ts
 var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__PURE__ */ b({
 	en: /* @__PURE__ */ C(),
 	es: /* @__PURE__ */ C()
@@ -442,4 +442,4 @@ var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__
 	path: /* @__PURE__ */ C()
 });
 //#endregion
-export { D as a, g as c, y as d, b as f, C as h, E as i, _ as l, S as m, N as n, O as o, x as p, P as r, h as s, M as t, v as u };
+export { O as a, g as c, y as d, b as f, C as h, D as i, _ as l, S as m, N as n, E as o, x as p, P as r, h as s, M as t, v as u };

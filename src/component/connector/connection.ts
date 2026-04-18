@@ -5,7 +5,7 @@
 // Framework dependencies.
 import type { ComponentConfig } from '@/component';
 import type { ConnectorConfig } from '@/component/connector';
-import type { LocalisedString } from '@/locale';
+import type { LocaleLabel } from '@/locale';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
 /**
@@ -105,7 +105,7 @@ interface ObjectColumnConfig {
     isIgnored: boolean | undefined;
     isRequired: boolean | undefined;
     isUnique: boolean | undefined;
-    label: Partial<LocalisedString>;
+    label: LocaleLabel;
     leadingInferenceCounts: Record<string, number>;
     maxDecimals: number | undefined;
     maxSize: number | undefined;

@@ -1,40 +1,27 @@
-/**
- * Locale constants and type declarations.
- */
+// Interfaces/Types ────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Constants.
-const DEFAULT_LOCALE_CODE: LocaleCode = 'en';
+export type FlagId = 'es' | 'gb';
+export type LocaleId = 'en' | 'es';
+export type LocaleLabel = Partial<Record<LocaleId, string>>;
+export type LocaleLabelMap = ReadonlyMap<string, string>;
 
-/**
- * Locale codes.
- */
-type LocaleCode = 'en' | 'es';
+// Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/**
- * Localised string.
- */
-type LocalisedString = Record<LocaleCode, string>;
+export const DEFAULT_LOCALE_ID: LocaleId = 'en';
+export const SUPPORTED_LANGUAGES: { id: LocaleId; flag: FlagId; label: string }[] = [
+    { id: 'en', flag: 'gb', label: 'English' },
+    { id: 'es', flag: 'es', label: 'Español' }
+];
 
-/**
- *
- */
-type LocaleLabelMap = ReadonlyMap<string, string>;
+// Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/**
- *
- */
-const createLabelMap = (labels: Record<string, string>): LocaleLabelMap => new Map(Object.entries(labels));
+export function createLabelMap(labels: Record<string, string>): LocaleLabelMap {
+    return new Map(Object.entries(labels));
+}
 
-/**
- *
- */
-const resolveLabel = (labels: LocaleLabelMap, localeId: string, fallbackLocaleId = DEFAULT_LOCALE_CODE): string | undefined => {
+export function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId = DEFAULT_LOCALE_ID): string | undefined {
     const localizedLabel = labels.get(localeId);
     if (localizedLabel !== undefined) return localizedLabel;
     if (fallbackLocaleId === localeId) return undefined;
     return labels.get(fallbackLocaleId);
-};
-
-// Exposures.
-export { createLabelMap, DEFAULT_LOCALE_CODE, resolveLabel };
-export type { LocaleCode, LocaleLabelMap, LocalisedString };
+}
