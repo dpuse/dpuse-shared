@@ -1,7 +1,7 @@
-import { ComponentConfig } from '..';
+import { ComponentConfig } from '../..';
 import { ConnectorConfig } from '.';
-import { LocaleLabel } from '../../locale';
-import { DataSubtypeId, DataTypeId } from '../dataView';
+import { LocaleLabel } from '../../../locale';
+import { DataSubtypeId, DataTypeId } from '../../dataView';
 /**
  * Connection configuration.
  */

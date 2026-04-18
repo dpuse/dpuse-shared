@@ -1,5 +1,5 @@
 import "./locale-CrC0-wPd.js";
-import { n as e } from "./componentConfig.schema-CA68ucsw.js";
+import { n as e } from "./componentConfig.schema-Bvr66FJf.js";
 //#region src/component/index.ts
 var t = [
 	{
@@ -53,13 +53,11 @@ function n(e, n = "en") {
 	if (r) {
 		let e = r.labels[n] ?? r.labels.en ?? r.id;
 		return {
-			id: r.id,
 			color: r.color,
 			label: e
 		};
 	}
 	return {
-		id: e,
 		color: "other",
 		label: e
 	};

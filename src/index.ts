@@ -3,11 +3,11 @@
  */
 
 /** Interfaces/Types - Context. */
-export { contextConfigSchema } from '@/component/context';
-export type { Context, ContextConfig, ContextLocalisedConfig, ListContextOptions, ContextListResult, ContextOperation } from '@/component/context';
+export { contextConfigSchema } from '@/component/module/context';
+export type { Context, ContextConfig, ContextLocalisedConfig, ListContextOptions, ContextListResult, ContextOperation } from '@/component/module/context';
 
 /** Interfaces/Types - Context model. */
-export type { ContextModelGroupConfig, ContextModelGroupLocalisedConfig, ContextModelConfig, ContextModelLocalisedConfig } from '@/component/context';
+export type { ContextModelGroupConfig, ContextModelGroupLocalisedConfig, ContextModelConfig, ContextModelLocalisedConfig } from '@/component/module/context';
 
 /** Interfaces/Types - Context model dimension. */
 export type {
@@ -17,7 +17,7 @@ export type {
     ContextModelDimensionLocalisedConfig,
     ContextModelDimensionHierarchyConfig,
     ContextModelDimensionHierarchyLocalisedConfig
-} from '@/component/context';
+} from '@/component/module/context';
 
 /** Interfaces/Types - Context model entity. */
 export type {
@@ -31,7 +31,7 @@ export type {
     ContextModelEntityEventLocalisedConfig,
     ContextModelEntityPrimaryMeasureConfig, // Primary measures.
     ContextModelEntityPrimaryMeasureLocalisedConfig
-} from '@/component/context';
+} from '@/component/module/context';
 
 /** Interfaces/Types - Context model secondary measure. */
 export type {
@@ -39,7 +39,7 @@ export type {
     ContextModelSecondaryMeasureGroupLocalisedConfig,
     ContextModelSecondaryMeasureConfig,
     ContextModelSecondaryMeasureLocalisedConfig
-} from '@/component/context';
+} from '@/component/module/context';
 
 /** Interfaces/Types - Dimension. */
 export type { DimensionConfig, DimensionLocalisedConfig } from '@/component/dimension';
@@ -48,11 +48,11 @@ export type { DimensionConfig, DimensionLocalisedConfig } from '@/component/dime
 export type { EventQueryConfig, EventQueryLocalisedConfig } from '@/component/eventQuery';
 
 /** Interfaces/Types */
-export { presenterConfigSchema } from '@/component/presenter';
-export type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterOperation } from '@/component/presenter';
+export { presenterConfigSchema } from '@/component/module/presenter';
+export type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterOperation } from '@/component/module/presenter';
 
 /** Interfaces/Types - Presenter presentation. */
-export type { PresentationConfig, PresentationView } from '@/component/presenter/presentation';
+export type { PresentationConfig, PresentationView } from '@/component/module/presenter/presentation';
 export type {
     PresentationCategoryId,
     PresentationCartesianTypeId,
@@ -69,7 +69,7 @@ export type {
     PresentationVisualSankeyDiagramViewConfig,
     PresentationVisualStreamGraphViewConfig,
     PresentationVisualValueTableViewConfig
-} from '@/component/presenter/presentation';
+} from '@/component/module/presenter/presentation';
 
 // /** Composables */
 // export { type CytoscapeJSView, useCytoscapeJS } from '@/composables/useCytoscapeJS';

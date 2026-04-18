@@ -5,21 +5,7 @@ import { nullable, number, object, string } from 'valibot';
 import { literalUnion } from '@/schema';
 import { partialLocalLabelSchema } from '@/locale';
 
-// Schema - Literal Unions ─────────────────────────────────────────────────────────────────────────────────────────────
-
-export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other']);
-
-export const componentStatusIdSchema = literalUnion([
-    'alpha',
-    'beta',
-    'generalAvailability',
-    'notApplicable',
-    'preAlpha',
-    'proposed',
-    'releaseCandidate',
-    'unavailable',
-    'underReview'
-]);
+// Schema - Type ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentTypeIdSchema = literalUnion([
     'app',
@@ -47,30 +33,28 @@ export const componentTypeIdSchema = literalUnion([
     'tool'
 ]);
 
-// Schema - Objects ────────────────────────────────────────────────────────────────────────────────────────────────────
+// Schema - Status ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export const componentStatusSchema = object({
-    id: string(),
+export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other']);
+
+export const componentStatusIdSchema = literalUnion([
+    'alpha',
+    'beta',
+    'generalAvailability',
+    'notApplicable',
+    'preAlpha',
+    'proposed',
+    'releaseCandidate',
+    'unavailable',
+    'underReview'
+]);
+
+export const componentStatusConfigSchema = object({
     color: componentStatusColorIdSchema,
     label: string()
 });
 
-export const componentConfigCoreFields = {
-    id: string(),
-    label: partialLocalLabelSchema,
-    description: partialLocalLabelSchema,
-    firstCreatedAt: nullable(number()),
-    icon: nullable(string()),
-    iconDark: nullable(string()),
-    lastUpdatedAt: nullable(number()),
-    status: nullable(componentStatusSchema),
-    statusId: nullable(componentStatusIdSchema)
-};
-
-export const componentConfigSchema = object({
-    ...componentConfigCoreFields,
-    typeId: componentTypeIdSchema
-});
+// Schema - Reference ──────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentReferenceSchema = object({
     id: string(),
@@ -80,4 +64,23 @@ export const componentReferenceSchema = object({
     iconDark: nullable(string()),
     order: number(),
     path: string()
+});
+
+// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export const componentConfigCoreFields = {
+    id: string(),
+    label: partialLocalLabelSchema,
+    description: partialLocalLabelSchema,
+    firstCreatedAt: nullable(number()),
+    icon: nullable(string()),
+    iconDark: nullable(string()),
+    lastUpdatedAt: nullable(number()),
+    status: nullable(componentStatusConfigSchema),
+    statusId: nullable(componentStatusIdSchema)
+};
+
+export const componentConfigSchema = object({
+    ...componentConfigCoreFields,
+    typeId: componentTypeIdSchema
 });

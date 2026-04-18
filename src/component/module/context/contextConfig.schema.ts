@@ -7,7 +7,7 @@ import { array, literal, number, object } from 'valibot';
 
 // Framework dependencies.
 import { literalUnion } from '@/schema';
-import { moduleConfigCoreFields } from '@/component/moduleConfig.schema';
+import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 import { componentConfigCoreFields, componentReferenceSchema } from '@/component/componentConfig.schema';
 
 /**

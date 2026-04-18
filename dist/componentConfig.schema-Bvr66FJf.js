@@ -1,21 +1,6 @@
 import { a as e, d as t, f as n, g as r, h as i, l as a, u as o } from "./locale-CrC0-wPd.js";
 //#region src/schema.ts
 var s = (e) => r(e.map((e) => a(e))), c = s([
-	"amber",
-	"green",
-	"red",
-	"other"
-]), l = s([
-	"alpha",
-	"beta",
-	"generalAvailability",
-	"notApplicable",
-	"preAlpha",
-	"proposed",
-	"releaseCandidate",
-	"unavailable",
-	"underReview"
-]), u = s([
 	"app",
 	"connector",
 	"connectorConnection",
@@ -39,11 +24,33 @@ var s = (e) => r(e.map((e) => a(e))), c = s([
 	"presenter",
 	"presenterPresentation",
 	"tool"
+]), l = s([
+	"amber",
+	"green",
+	"red",
+	"other"
+]), u = s([
+	"alpha",
+	"beta",
+	"generalAvailability",
+	"notApplicable",
+	"preAlpha",
+	"proposed",
+	"releaseCandidate",
+	"unavailable",
+	"underReview"
 ]), d = n({
-	id: i(),
-	color: c,
+	color: l,
 	label: i()
-}), f = {
+}), f = n({
+	id: i(),
+	label: e,
+	description: e,
+	icon: o(i()),
+	iconDark: o(i()),
+	order: t(),
+	path: i()
+}), p = {
 	id: i(),
 	label: e,
 	description: e,
@@ -52,18 +59,10 @@ var s = (e) => r(e.map((e) => a(e))), c = s([
 	iconDark: o(i()),
 	lastUpdatedAt: o(t()),
 	status: o(d),
-	statusId: o(l)
-}, p = n({
-	...f,
-	typeId: u
-}), m = n({
-	id: i(),
-	label: e,
-	description: e,
-	icon: o(i()),
-	iconDark: o(i()),
-	order: t(),
-	path: i()
+	statusId: o(u)
+}, m = n({
+	...p,
+	typeId: c
 });
 //#endregion
-export { s as i, p as n, m as r, f as t };
+export { s as i, m as n, f as r, p as t };

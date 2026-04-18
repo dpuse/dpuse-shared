@@ -4,10 +4,15 @@ import type { InferOutput } from 'valibot';
 // Local Framework
 import type { Component } from '@/component';
 import type { ToolConfig } from '@/component/tool';
-import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/component/connector/connection';
-import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from '@/component/connector/connectorConfig.schema';
+import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/component/module/connector/connection';
+import type {
+    connectorCategoryConfigSchema,
+    connectorConfigSchema,
+    connectorOperationNameSchema,
+    connectorUsageIdSchema
+} from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
-import { createLabelMap, DEFAULT_LOCALE_ID, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale';
 import type { EngineConnectorActionOptions, EngineUtilities } from '@/engine';
 
 // Connector interface
@@ -264,7 +269,7 @@ type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> &
 /**
  * Connector categories configuration.
  */
-const CONNECTOR_CATEGORY_CONFIGS: ConnectorCategoryConfig[] = [
+const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
     { id: 'application', label: { en: 'Application' } },
     { id: 'curatedDataset', label: { en: 'Curated Dataset' } },
     { id: 'database', label: { en: 'Database' } },
@@ -279,17 +284,17 @@ const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_
     if (connectorCategory) {
         const labelMap = createLabelMap(connectorCategory.label as Record<string, string>);
         const localizedLabel = resolveLabel(labelMap, localeId);
-        return { id: connectorCategory.id, label: localizedLabel ?? connectorCategory.id };
+        return { label: localizedLabel ?? connectorCategory.id };
     }
-    return { id, label: id };
+    return { label: id };
 };
 
 //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // Exposures.
-export { connectorConfigSchema } from '@/component/connector/connectorConfig.schema';
+export { connectorConfigSchema } from '@/component/module/connector/connectorConfig.schema';
 export { constructConnectorCategoryConfig };
-export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connector/connection';
+export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/module/connector/connection';
 export type {
     AuditObjectContentOptions1,
     AuditObjectContentResult1,

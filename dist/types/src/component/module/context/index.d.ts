@@ -1,9 +1,9 @@
 import { InferOutput } from 'valibot';
 import { contextConfigSchema } from './contextConfig.schema';
-import { EngineContextActionOptions } from '../../engine';
-import { LocaleLabel } from '../../locale';
-import { ModuleConfig } from '../module';
-import { Component, ComponentConfig, ComponentReference } from '..';
+import { EngineContextActionOptions } from '../../../engine';
+import { LocaleLabel } from '../../../locale';
+import { ModuleConfig } from '..';
+import { Component, ComponentConfig, ComponentReference } from '../..';
 export interface Context extends Component {
     readonly config: ContextConfig;
     listContextFocuses?(context: Context, options?: ListContextOptions): Promise<ContextListResult>;

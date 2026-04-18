@@ -6,7 +6,7 @@
 import type { InferOutput } from 'valibot';
 
 // Dependencies - Framework.
-import type { contextConfigSchema } from '@/component/context/contextConfig.schema';
+import type { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 import type { EngineContextActionOptions } from '@/engine';
 import type { LocaleLabel } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
@@ -124,4 +124,4 @@ interface Event {
     typeId: string;
 }
 
-export { contextConfigSchema } from '@/component/context/contextConfig.schema';
+export { contextConfigSchema } from '@/component/module/context/contextConfig.schema';

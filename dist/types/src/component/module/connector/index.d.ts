@@ -1,10 +1,10 @@
 import { InferOutput } from 'valibot';
-import { Component } from '..';
-import { ToolConfig } from '../tool';
+import { Component } from '../..';
+import { ToolConfig } from '../../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig } from './connection';
 import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from './connectorConfig.schema';
-import { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../dataView';
-import { EngineConnectorActionOptions, EngineUtilities } from '../../engine';
+import { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
+import { EngineConnectorActionOptions, EngineUtilities } from '../../../engine';
 export interface ConnectorInterface extends Component {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -211,7 +211,7 @@ type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> &
 /**
  * Construct connector category configuration.
  */
-declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../locale').LocaleId) => ConnectorCategoryLocalisedConfig;
+declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => ConnectorCategoryLocalisedConfig;
 export { connectorConfigSchema } from './connectorConfig.schema';
 export { constructConnectorCategoryConfig };
 export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from './connection';

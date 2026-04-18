@@ -4,7 +4,7 @@
 
 // Framework dependencies.
 import type { ComponentConfig } from '@/component';
-import type { ConnectorConfig } from '@/component/connector';
+import type { ConnectorConfig } from '@/component/module/connector';
 import type { LocaleLabel } from '@/locale';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 

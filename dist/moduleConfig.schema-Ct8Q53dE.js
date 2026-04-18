@@ -1,6 +1,6 @@
 import { f as e, h as t } from "./locale-CrC0-wPd.js";
-import { i as n, t as r } from "./componentConfig.schema-CA68ucsw.js";
-//#region src/component/moduleConfig.schema.ts
+import { i as n, t as r } from "./componentConfig.schema-Bvr66FJf.js";
+//#region src/component/module/moduleConfig.schema.ts
 var i = n([
 	"app",
 	"engine",

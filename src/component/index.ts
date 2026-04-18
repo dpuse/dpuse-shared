@@ -3,31 +3,26 @@ import type { InferOutput } from 'valibot';
 
 // Local Framework
 import { DEFAULT_LOCALE_ID } from '@/locale';
-import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusSchema } from '@/component/componentConfig.schema';
+import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
-// Schema - Component Configuration
 
 export { componentConfigSchema } from '@/component/componentConfig.schema';
 export type { ModuleConfig, ModuleTypeId } from '@/component/module';
 
-// Component Interfaces/Types
+// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface Component {
     readonly config: ComponentConfig;
 }
 
-// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-// Interfaces/Types - Component Configuration
 export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
 export type ComponentLocalisedConfig = Omit<ComponentConfig, 'label' | 'description'> & { label: string; description: string };
 
 export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
 
-// Component Status
-
-export type ComponentStatus = InferOutput<typeof componentStatusSchema>;
+export type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
 type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
 const componentStatuses: { id: string; color: ComponentStatusColorId; labels: LocaleLabel }[] = [
     { id: 'alpha', color: 'red', labels: { en: 'alpha' } },
@@ -40,11 +35,14 @@ const componentStatuses: { id: string; color: ComponentStatusColorId; labels: Lo
     { id: 'unavailable', color: 'other', labels: { en: 'unavailable' } },
     { id: 'underReview', color: 'other', labels: { en: 'under-review' } }
 ];
+
+// Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export function getComponentStatus(id: string, localeId: LocaleId = DEFAULT_LOCALE_ID): ComponentStatus {
     const componentStatus = componentStatuses.find((componentStatus) => componentStatus.id === id);
     if (componentStatus) {
         const label = componentStatus.labels[localeId] ?? componentStatus.labels[DEFAULT_LOCALE_ID] ?? componentStatus.id;
-        return { id: componentStatus.id, color: componentStatus.color, label };
+        return { color: componentStatus.color, label };
     }
-    return { id, color: 'other', label: id };
+    return { color: 'other', label: id };
 }

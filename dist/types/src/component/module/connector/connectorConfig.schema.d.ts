@@ -1,31 +1,21 @@
 /**
- * Connector configuration schema.
- *
  * Defines the configuration metadata for a connector. Used for validation
  * of connector manifests and capability discovery at runtime.
  */
-/** Operation names a connector may support. */
-declare const connectorOperationNameSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"abortOperation", undefined>, import('valibot').LiteralSchema<"auditObjectContent", undefined>, import('valibot').LiteralSchema<"createObject", undefined>, import('valibot').LiteralSchema<"describeConnection", undefined>, import('valibot').LiteralSchema<"dropObject", undefined>, import('valibot').LiteralSchema<"findObject", undefined>, import('valibot').LiteralSchema<"getReadableStream", undefined>, import('valibot').LiteralSchema<"getRecord", undefined>, import('valibot').LiteralSchema<"listNodes", undefined>, import('valibot').LiteralSchema<"previewObject", undefined>, import('valibot').LiteralSchema<"removeRecords", undefined>, import('valibot').LiteralSchema<"retrieveChunks", undefined>, import('valibot').LiteralSchema<"retrieveRecords", undefined>, import('valibot').LiteralSchema<"upsertRecords", undefined>], undefined>;
-/** Connector data pipeline usage identifiers. */
-declare const connectorUsageIdSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"bidirectional", undefined>, import('valibot').LiteralSchema<"destination", undefined>, import('valibot').LiteralSchema<"source", undefined>, import('valibot').LiteralSchema<"unknown", undefined>], undefined>;
-/**
- *
- */
-declare const connectorCategoryConfigSchema: import('valibot').ObjectSchema<{
-    readonly id: import('valibot').StringSchema<undefined>;
+export declare const connectorCategoryConfigSchema: import('valibot').ObjectSchema<{
     readonly label: import('valibot').ObjectSchema<{
-        readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly en: import('valibot').StringSchema<undefined>;
+        readonly es: import('valibot').StringSchema<undefined>;
     }, undefined>;
 }, undefined>;
-/** Top-level connector configuration object. */
-declare const connectorConfigSchema: import('valibot').ObjectSchema<{
+export declare const connectorOperationNameSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"abortOperation", undefined>, import('valibot').LiteralSchema<"auditObjectContent", undefined>, import('valibot').LiteralSchema<"createObject", undefined>, import('valibot').LiteralSchema<"describeConnection", undefined>, import('valibot').LiteralSchema<"dropObject", undefined>, import('valibot').LiteralSchema<"findObject", undefined>, import('valibot').LiteralSchema<"getReadableStream", undefined>, import('valibot').LiteralSchema<"getRecord", undefined>, import('valibot').LiteralSchema<"listNodes", undefined>, import('valibot').LiteralSchema<"previewObject", undefined>, import('valibot').LiteralSchema<"removeRecords", undefined>, import('valibot').LiteralSchema<"retrieveChunks", undefined>, import('valibot').LiteralSchema<"retrieveRecords", undefined>, import('valibot').LiteralSchema<"upsertRecords", undefined>], undefined>;
+export declare const connectorUsageIdSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"bidirectional", undefined>, import('valibot').LiteralSchema<"destination", undefined>, import('valibot').LiteralSchema<"source", undefined>, import('valibot').LiteralSchema<"unknown", undefined>], undefined>;
+export declare const connectorConfigSchema: import('valibot').ObjectSchema<{
     readonly typeId: import('valibot').LiteralSchema<"connector", undefined>;
     readonly category: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
-        readonly id: import('valibot').StringSchema<undefined>;
         readonly label: import('valibot').ObjectSchema<{
-            readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-            readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+            readonly en: import('valibot').StringSchema<undefined>;
+            readonly es: import('valibot').StringSchema<undefined>;
         }, undefined>;
     }, undefined>, undefined>;
     readonly categoryId: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"application", undefined>, import('valibot').LiteralSchema<"curatedDataset", undefined>, import('valibot').LiteralSchema<"database", undefined>, import('valibot').LiteralSchema<"fileStore", undefined>], undefined>;
@@ -61,10 +51,8 @@ declare const connectorConfigSchema: import('valibot').ObjectSchema<{
     readonly iconDark: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     readonly lastUpdatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly status: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
-        readonly id: import('valibot').StringSchema<undefined>;
         readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"amber", undefined>, import('valibot').LiteralSchema<"green", undefined>, import('valibot').LiteralSchema<"red", undefined>, import('valibot').LiteralSchema<"other", undefined>], undefined>;
         readonly label: import('valibot').StringSchema<undefined>;
     }, undefined>, undefined>;
     readonly statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>, import('valibot').LiteralSchema<"notApplicable", undefined>, import('valibot').LiteralSchema<"preAlpha", undefined>, import('valibot').LiteralSchema<"proposed", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"unavailable", undefined>, import('valibot').LiteralSchema<"underReview", undefined>], undefined>, undefined>;
 }, undefined>;
-export { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema };

@@ -25,13 +25,14 @@ export default defineConfig({
             entry: {
                 index: fileURLToPath(new URL('src/index.ts', import.meta.url)), // Absolute entry path.
                 component: fileURLToPath(new URL('src/component/index.ts', import.meta.url)),
-                connector: fileURLToPath(new URL('src/component/connector/index.ts', import.meta.url)),
+                connector: fileURLToPath(new URL('src/component/module/connector/index.ts', import.meta.url)),
                 dataview: fileURLToPath(new URL('src/component/dataView/index.ts', import.meta.url)),
                 tools: fileURLToPath(new URL('src/component/tool/index.ts', import.meta.url)),
                 encoding: fileURLToPath(new URL('src/encoding/index.ts', import.meta.url)),
                 engine: fileURLToPath(new URL('src/engine/index.ts', import.meta.url)),
                 errors: fileURLToPath(new URL('src/errors/index.ts', import.meta.url)),
                 locale: fileURLToPath(new URL('src/locale/index.ts', import.meta.url)),
+                module: fileURLToPath(new URL('src/component/module/index.ts', import.meta.url)),
                 utilities: fileURLToPath(new URL('src/utilities/index.ts', import.meta.url))
             },
             fileName: (format, entryName) => {

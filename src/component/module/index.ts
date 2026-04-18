@@ -6,7 +6,7 @@
 import type { InferOutput } from 'valibot';
 
 // Framework dependencies.
-import type { moduleConfigSchema, moduleTypeIdSchema } from '@/component/moduleConfig.schema';
+import type { moduleConfigSchema, moduleTypeIdSchema } from '@/component/module/moduleConfig.schema';
 
 /** Module configuration. */
 type ModuleConfig = InferOutput<typeof moduleConfigSchema>;

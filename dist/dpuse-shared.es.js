@@ -1,7 +1,7 @@
 import { d as e, f as t, l as n, s as r } from "./locale-CrC0-wPd.js";
-import { i, r as a, t as o } from "./componentConfig.schema-CA68ucsw.js";
-import { t as s } from "./moduleConfig.schema-CbdmbddJ.js";
-//#region src/component/context/contextConfig.schema.ts
+import { i, r as a, t as o } from "./componentConfig.schema-Bvr66FJf.js";
+import { t as s } from "./moduleConfig.schema-Ct8Q53dE.js";
+//#region src/component/module/context/contextConfig.schema.ts
 var c = i(["list"]), l = t({
 	...o,
 	typeId: n("contextModelGroup"),

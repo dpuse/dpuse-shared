@@ -1,26 +1,26 @@
-import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, r as u, s as d, u as f } from "./locale-CrC0-wPd.js";
-import { i as p } from "./componentConfig.schema-CA68ucsw.js";
-import { t as m } from "./moduleConfig.schema-CbdmbddJ.js";
-//#region src/component/connector/connectorConfig.schema.ts
-var h = r({
-	authMethodId: p([
+import { c as e, d as t, f as n, h as r, i, l as a, m as o, o as s, p as c, r as l, s as u, u as d } from "./locale-CrC0-wPd.js";
+import { i as f } from "./componentConfig.schema-Bvr66FJf.js";
+import { t as p } from "./moduleConfig.schema-Ct8Q53dE.js";
+//#region src/component/module/connector/connectorConfig.schema.ts
+var m = f([
+	"application",
+	"curatedDataset",
+	"database",
+	"fileStore"
+]), h = n({ label: i }), g = n({
+	authMethodId: f([
 		"apiKey",
 		"disabled",
 		"oAuth2",
 		"none"
 	]),
-	activeConnectionCount: l(n()),
-	canDescribe: l(t()),
-	id: l(i()),
-	label: l(a),
-	maxConnectionCount: f(n()),
-	params: l(d(s(i(), i())))
-}), g = p([
-	"application",
-	"curatedDataset",
-	"database",
-	"fileStore"
-]), _ = p([
+	activeConnectionCount: c(t()),
+	canDescribe: c(e()),
+	id: c(r()),
+	label: c(i),
+	maxConnectionCount: d(t()),
+	params: c(u(o(r(), r())))
+}), _ = f([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -35,26 +35,23 @@ var h = r({
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), v = p([
+]), v = f([
 	"bidirectional",
 	"destination",
 	"source",
 	"unknown"
-]), y = r({
-	id: i(),
-	label: e
-}), b = r({
-	...m,
-	typeId: o("connector"),
-	category: f(y),
-	categoryId: g,
-	implementations: s(i(), h),
-	operations: d(_),
+]), y = n({
+	...p,
+	typeId: a("connector"),
+	category: d(h),
+	categoryId: m,
+	implementations: o(r(), g),
+	operations: u(_),
 	usageId: v,
-	vendorAccountURL: f(i()),
-	vendorDocumentationURL: f(i()),
-	vendorHomeURL: f(i())
-}), x = [
+	vendorAccountURL: d(r()),
+	vendorDocumentationURL: d(r()),
+	vendorHomeURL: d(r())
+}), b = [
 	{
 		id: "application",
 		label: { en: "Application" }
@@ -71,19 +68,9 @@ var h = r({
 		id: "fileStore",
 		label: { en: "File Store" }
 	}
-], S = (e, t = "en") => {
-	let n = x.find((t) => t.id === e);
-	if (n) {
-		let e = c(u(n.label), t);
-		return {
-			id: n.id,
-			label: e ?? n.id
-		};
-	}
-	return {
-		id: e,
-		label: e
-	};
+], x = (e, t = "en") => {
+	let n = b.find((t) => t.id === e);
+	return n ? { label: s(l(n.label), t) ?? n.id } : { label: e };
 };
 //#endregion
-export { b as connectorConfigSchema, S as constructConnectorCategoryConfig };
+export { y as connectorConfigSchema, x as constructConnectorCategoryConfig };
