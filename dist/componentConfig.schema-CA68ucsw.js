@@ -52,7 +52,7 @@ var s = (e) => r(e.map((e) => a(e))), c = s([
 	iconDark: o(i()),
 	lastUpdatedAt: o(t()),
 	status: o(d),
-	statusId: l
+	statusId: o(l)
 }, p = n({
 	...f,
 	typeId: u

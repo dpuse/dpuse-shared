@@ -1,5 +1,5 @@
 import "./locale-CrC0-wPd.js";
-import { n as e } from "./componentConfig.schema-Dvc1hymu.js";
+import { n as e } from "./componentConfig.schema-CA68ucsw.js";
 //#region src/component/index.ts
 var t = [
 	{

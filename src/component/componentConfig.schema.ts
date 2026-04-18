@@ -64,7 +64,7 @@ export const componentConfigCoreFields = {
     iconDark: nullable(string()),
     lastUpdatedAt: nullable(number()),
     status: nullable(componentStatusSchema),
-    statusId: componentStatusIdSchema
+    statusId: nullable(componentStatusIdSchema)
 };
 
 export const componentConfigSchema = object({

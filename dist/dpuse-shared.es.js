@@ -1,6 +1,6 @@
 import { d as e, f as t, l as n, s as r } from "./locale-CrC0-wPd.js";
-import { i, r as a, t as o } from "./componentConfig.schema-Dvc1hymu.js";
-import { t as s } from "./moduleConfig.schema-B_KmEec4.js";
+import { i, r as a, t as o } from "./componentConfig.schema-CA68ucsw.js";
+import { t as s } from "./moduleConfig.schema-CbdmbddJ.js";
 //#region src/component/context/contextConfig.schema.ts
 var c = i(["list"]), l = t({
 	...o,

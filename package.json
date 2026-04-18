@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.618",
+    "version": "0.3.619",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",

@@ -1,6 +1,6 @@
 import { a as e, c as t, d as n, f as r, h as i, i as a, l as o, m as s, o as c, p as l, r as u, s as d, u as f } from "./locale-CrC0-wPd.js";
-import { i as p } from "./componentConfig.schema-Dvc1hymu.js";
-import { t as m } from "./moduleConfig.schema-B_KmEec4.js";
+import { i as p } from "./componentConfig.schema-CA68ucsw.js";
+import { t as m } from "./moduleConfig.schema-CbdmbddJ.js";
 //#region src/component/connector/connectorConfig.schema.ts
 var h = r({
 	authMethodId: p([
