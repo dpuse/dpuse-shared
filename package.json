@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.615",
+    "version": "0.3.616",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -51,7 +51,7 @@
         },
         "./locale": {
             "import": "./dist/dpuse-shared-locale.es.js",
-            "types": "./dist/types/src/localt/index.d.ts"
+            "types": "./dist/types/src/locale/index.d.ts"
         },
         "./utilities": {
             "import": "./dist/dpuse-shared-utilities.es.js",
