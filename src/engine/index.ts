@@ -3,7 +3,7 @@
 // import type { ContextConfig } from '@/component/context';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { ModuleConfig } from '@/component/module';
-import type { ObjectColumnConfig } from '@/component/connector';
+import type { ObjectColumnConfig } from '@/component/module/connector';
 import type { ToolConfig } from '@/component/tool';
 import type { ComponentConfig, ComponentLocalisedConfig } from '@/component';
 import type { InferenceRecord, InferenceSummary, ParsingRecord } from '@/component/dataView';

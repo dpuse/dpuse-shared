@@ -6,8 +6,8 @@ import type { FileTypeResult } from 'file-type';
 
 // Framework dependencies.
 import type { Component, ComponentConfig } from '@/component';
-import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connector/connection';
-import { createLabelMap, DEFAULT_LOCALE_ID, LocaleLabelMap, resolveLabel } from '@/locale';
+import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
+import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale';
 
 /**
  * Data view interface.

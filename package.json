@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.620",
+    "version": "0.3.621",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -25,13 +25,21 @@
             "import": "./dist/dpuse-shared-component.es.js",
             "types": "./dist/types/src/component/index.d.ts"
         },
-        "./component/connector": {
-            "import": "./dist/dpuse-shared-connector.es.js",
-            "types": "./dist/types/src/component/connector/index.d.ts"
+        "./component/connection": {
+            "import": "./dist/dpuse-shared-connection.es.js",
+            "types": "./dist/types/src/component/connection/index.d.ts"
         },
         "./component/dataView": {
             "import": "./dist/dpuse-shared-dataview.es.js",
             "types": "./dist/types/src/component/dataView/index.d.ts"
+        },
+        "./component/module": {
+            "import": "./dist/dpuse-shared-module.es.js",
+            "types": "./dist/types/src/component/module/index.d.ts"
+        },
+        "./component/module/connector": {
+            "import": "./dist/dpuse-shared-connector.es.js",
+            "types": "./dist/types/src/component/module/connector/index.d.ts"
         },
         "./component/tool": {
             "import": "./dist/dpuse-shared-tools.es.js",
@@ -52,10 +60,6 @@
         "./locale": {
             "import": "./dist/dpuse-shared-locale.es.js",
             "types": "./dist/types/src/locale/index.d.ts"
-        },
-        "./module": {
-            "import": "./dist/dpuse-shared-module.es.js",
-            "types": "./dist/types/src/module/index.d.ts"
         },
         "./utilities": {
             "import": "./dist/dpuse-shared-utilities.es.js",

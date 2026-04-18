@@ -1,6 +1,6 @@
 import { FileTypeResult } from 'file-type';
 import { Component, ComponentConfig } from '..';
-import { ConnectionNodeConfig, ObjectColumnConfig } from '../connector/connection';
+import { ConnectionNodeConfig, ObjectColumnConfig } from '../connection';
 /**
  * Data view interface.
  */

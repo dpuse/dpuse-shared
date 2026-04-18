@@ -1,7 +1,7 @@
 import { InferOutput } from 'valibot';
 import { Component } from '../..';
 import { ToolConfig } from '../../tool';
-import { ConnectionDescriptionConfig, ConnectionNodeConfig } from './connection';
+import { ConnectionDescriptionConfig, ConnectionNodeConfig } from '../../connection';
 import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from './connectorConfig.schema';
 import { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
 import { EngineConnectorActionOptions, EngineUtilities } from '../../../engine';
@@ -214,5 +214,5 @@ type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> &
 declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => ConnectorCategoryLocalisedConfig;
 export { connectorConfigSchema } from './connectorConfig.schema';
 export { constructConnectorCategoryConfig };
-export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from './connection';
+export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
 export type { AuditObjectContentOptions1, AuditObjectContentResult1, AuditObjectContentOptions, AuditObjectContentResult, ConnectorConfig, ConnectorLocalisedConfig, ConnectorUsageId, CreateObjectOptions, DropObjectOptions, FindObjectOptions, FindObjectResult, GetReadableStreamOptions, GetRecordOptions, GetRecordResult, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RemoveRecordsOptions, RetrieveChunksOptions, RetrieveRecordsOptions, RetrieveRecordsSummary, UpsertRecordsOptions };

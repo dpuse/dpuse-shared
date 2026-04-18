@@ -4,7 +4,7 @@ import type { InferOutput } from 'valibot';
 // Local Framework
 import type { Component } from '@/component';
 import type { ToolConfig } from '@/component/tool';
-import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/component/module/connector/connection';
+import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '~/src/component/connection';
 import type {
     connectorCategoryConfigSchema,
     connectorConfigSchema,
@@ -294,7 +294,7 @@ const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_
 // Exposures.
 export { connectorConfigSchema } from '@/component/module/connector/connectorConfig.schema';
 export { constructConnectorCategoryConfig };
-export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/module/connector/connection';
+export type { ConnectionConfig, ConnectionLocalisedConfig, ConnectionNodeConfig, ObjectColumnConfig } from '~/src/component/connection';
 export type {
     AuditObjectContentOptions1,
     AuditObjectContentResult1,
