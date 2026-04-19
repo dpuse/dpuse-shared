@@ -1,51 +1,78 @@
-import "./locale-CrC0-wPd.js";
-import { n as e } from "./componentConfig.schema-Bvr66FJf.js";
+import "./locale-BjiFli1U.js";
+import { n as e } from "./componentConfig.schema-Cirbf_EB.js";
 //#region src/component/index.ts
 var t = [
 	{
 		id: "alpha",
 		color: "red",
-		labels: { en: "alpha" }
+		labels: {
+			en: "alpha",
+			es: "alfa"
+		}
 	},
 	{
 		id: "beta",
 		color: "amber",
-		labels: { en: "beta" }
+		labels: {
+			en: "beta",
+			es: "beta"
+		}
 	},
 	{
 		id: "generalAvailability",
 		color: "green",
-		labels: { en: "" }
+		labels: {
+			en: "",
+			es: ""
+		}
 	},
 	{
 		id: "notApplicable",
 		color: "green",
-		labels: { en: "not-applicable" }
+		labels: {
+			en: "not-applicable",
+			es: "no-aplicable"
+		}
 	},
 	{
 		id: "preAlpha",
 		color: "red",
-		labels: { en: "pre-alpha" }
+		labels: {
+			en: "pre-alpha",
+			es: "pre-alfa"
+		}
 	},
 	{
 		id: "proposed",
 		color: "other",
-		labels: { en: "proposed" }
+		labels: {
+			en: "proposed",
+			es: "propuesto"
+		}
 	},
 	{
 		id: "releaseCandidate",
 		color: "green",
-		labels: { en: "release-candidate" }
+		labels: {
+			en: "release-candidate",
+			es: "candidato-de-lanzamiento"
+		}
 	},
 	{
 		id: "unavailable",
 		color: "other",
-		labels: { en: "unavailable" }
+		labels: {
+			en: "unavailable",
+			es: "no-disponible"
+		}
 	},
 	{
 		id: "underReview",
 		color: "other",
-		labels: { en: "under-review" }
+		labels: {
+			en: "under-review",
+			es: "en-revisión"
+		}
 	}
 ];
 function n(e, n = "en") {

@@ -388,10 +388,17 @@ var E = /* @__PURE__ */ b({
 function A(e) {
 	return new Map(Object.entries(e));
 }
-function j(e, t, n = "en") {
+function j(e, t) {
+	return e.map((e) => ({
+		...e,
+		label: e.label[t] ?? e.id,
+		description: e.description[t] ?? e.id
+	}));
+}
+function M(e, t, n = "en") {
 	let r = e.get(t);
 	if (r !== void 0) return r;
 	if (n !== t) return e.get(n);
 }
 //#endregion
-export { D as a, g as c, y as d, b as f, T as g, C as h, E as i, _ as l, S as m, k as n, j as o, x as p, A as r, h as s, O as t, v as u };
+export { T as _, j as a, h as c, v as d, y as f, C as g, S as h, E as i, g as l, x as m, k as n, D as o, b as p, A as r, M as s, O as t, _ as u };

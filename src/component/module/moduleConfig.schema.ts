@@ -5,11 +5,11 @@ import { object, string } from 'valibot';
 import { componentConfigCoreFields } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 
-// Schema - Type ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// Type ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const moduleTypeIdSchema = literalUnion(['app', 'engine', 'connector', 'context', 'presenter', 'tool']);
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const moduleConfigCoreFields = {
     ...componentConfigCoreFields,

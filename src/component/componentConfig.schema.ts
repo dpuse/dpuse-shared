@@ -5,7 +5,7 @@ import { nullable, number, object, string } from 'valibot';
 import { literalUnion } from '@/schema';
 import { partialLocalLabelSchema } from '@/locale';
 
-// Schema - Type ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// Type ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentTypeIdSchema = literalUnion([
     'app',
@@ -33,7 +33,7 @@ export const componentTypeIdSchema = literalUnion([
     'tool'
 ]);
 
-// Schema - Status ─────────────────────────────────────────────────────────────────────────────────────────────────────
+// Status ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other']);
 
@@ -54,8 +54,9 @@ export const componentStatusConfigSchema = object({
     label: string()
 });
 
-// Schema - Reference ──────────────────────────────────────────────────────────────────────────────────────────────────
+// Reference ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// Common structure for referencing all components.
 export const componentReferenceSchema = object({
     id: string(),
     label: partialLocalLabelSchema,
@@ -66,8 +67,9 @@ export const componentReferenceSchema = object({
     path: string()
 });
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// Core fields present in all components.
 export const componentConfigCoreFields = {
     id: string(),
     label: partialLocalLabelSchema,

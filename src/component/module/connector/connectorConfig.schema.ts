@@ -11,17 +11,16 @@ import { literalUnion } from '@/schema';
 import { localeLabelSchema } from '@/locale';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// Schema - Category ───────────────────────────────────────────────────────────────────────────────────────────────────
+// Category ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Category identifiers used for grouping and filtering connectors.
 const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']);
 
-//
 export const connectorCategoryConfigSchema = object({
     label: localeLabelSchema
 });
 
-// Schema - Implementation ─────────────────────────────────────────────────────────────────────────────────────────────
+// Implementation ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Authentication method identifiers supported by a connector implementation.
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']);
@@ -37,7 +36,7 @@ const connectorImplementationSchema = object({
     params: optional(array(record(string(), string())))
 });
 
-// Schema - Operation Name ─────────────────────────────────────────────────────────────────────────────────────────────
+// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Operation names a connector may support.
 export const connectorOperationNameSchema = literalUnion([
@@ -57,12 +56,12 @@ export const connectorOperationNameSchema = literalUnion([
     'upsertRecords'
 ]);
 
-// Schema - Usage Identifier ───────────────────────────────────────────────────────────────────────────────────────────
+// Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Connector data pipeline usage identifiers.
 export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']);
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const connectorConfigSchema = object({
     ...moduleConfigCoreFields,

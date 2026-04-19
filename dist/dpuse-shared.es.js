@@ -1,26 +1,3 @@
-import { d as e, f as t, l as n, s as r } from "./locale-CrC0-wPd.js";
-import { i, r as a, t as o } from "./componentConfig.schema-Bvr66FJf.js";
-import { t as s } from "./moduleConfig.schema-Ct8Q53dE.js";
-//#region src/component/module/context/contextConfig.schema.ts
-var c = i(["list"]), l = t({
-	...o,
-	typeId: n("contextModelGroup"),
-	modelRefs: r(a),
-	order: e()
-}), u = t({
-	...s,
-	typeId: n("context"),
-	models: r(l),
-	operations: r(c)
-}), d = i([
-	"list",
-	"render",
-	"setColorMode"
-]), f = t({
-	...s,
-	typeId: n("presenter"),
-	presentations: r(a),
-	operations: r(d)
-});
-//#endregion
-export { u as contextConfigSchema, f as presenterConfigSchema };
+import { t as e } from "./context-BUNJif2t.js";
+import { t } from "./presenter-DezPXk-i.js";
+export { e as contextConfigSchema, t as presenterConfigSchema };

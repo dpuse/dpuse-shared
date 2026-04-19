@@ -1,7 +1,7 @@
 import { EncodingTypeConfig } from '../encoding';
 import { ModuleConfig } from '../component/module';
 import { ObjectColumnConfig } from '../component/module/connector';
-import { ToolConfig } from '../component/tool';
+import { ToolConfig } from '../component/module/tool';
 import { ComponentConfig, ComponentLocalisedConfig } from '../component';
 import { InferenceRecord, InferenceSummary, ParsingRecord } from '../component/dataView';
 export interface EngineRuntime {

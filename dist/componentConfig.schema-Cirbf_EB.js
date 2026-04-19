@@ -1,6 +1,6 @@
-import { a as e, d as t, f as n, g as r, h as i, l as a, u as o } from "./locale-CrC0-wPd.js";
+import { _ as e, d as t, f as n, g as r, o as i, p as a, u as o } from "./locale-BjiFli1U.js";
 //#region src/schema.ts
-var s = (e) => r(e.map((e) => a(e))), c = s([
+var s = (t) => e(t.map((e) => o(e))), c = s([
 	"app",
 	"connector",
 	"connectorConnection",
@@ -39,28 +39,28 @@ var s = (e) => r(e.map((e) => a(e))), c = s([
 	"releaseCandidate",
 	"unavailable",
 	"underReview"
-]), d = n({
+]), d = a({
 	color: l,
-	label: i()
-}), f = n({
-	id: i(),
-	label: e,
-	description: e,
-	icon: o(i()),
-	iconDark: o(i()),
-	order: t(),
-	path: i()
+	label: r()
+}), f = a({
+	id: r(),
+	label: i,
+	description: i,
+	icon: t(r()),
+	iconDark: t(r()),
+	order: n(),
+	path: r()
 }), p = {
-	id: i(),
-	label: e,
-	description: e,
-	firstCreatedAt: o(t()),
-	icon: o(i()),
-	iconDark: o(i()),
-	lastUpdatedAt: o(t()),
-	status: o(d),
-	statusId: o(u)
-}, m = n({
+	id: r(),
+	label: i,
+	description: i,
+	firstCreatedAt: t(n()),
+	icon: t(r()),
+	iconDark: t(r()),
+	lastUpdatedAt: t(n()),
+	status: t(d),
+	statusId: t(u)
+}, m = a({
 	...p,
 	typeId: c
 });

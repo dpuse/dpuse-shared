@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.622",
+    "version": "0.3.623",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -34,16 +34,24 @@
             "types": "./dist/types/src/component/dataView/index.d.ts"
         },
         "./component/module": {
-            "import": "./dist/dpuse-shared-module.es.js",
+            "import": "./dist/dpuse-shared-componentModule.es.js",
             "types": "./dist/types/src/component/module/index.d.ts"
         },
         "./component/module/connector": {
-            "import": "./dist/dpuse-shared-connector.es.js",
+            "import": "./dist/dpuse-shared-componentModuleConnector.es.js",
             "types": "./dist/types/src/component/module/connector/index.d.ts"
         },
-        "./component/tool": {
-            "import": "./dist/dpuse-shared-tools.es.js",
-            "types": "./dist/types/src/component/tool/index.d.ts"
+        "./component/module/context": {
+            "import": "./dist/dpuse-shared-componentModuleContext.es.js",
+            "types": "./dist/types/src/component/module/context/index.d.ts"
+        },
+        "./component/module/presenter": {
+            "import": "./dist/dpuse-shared-componentModulePresenter.es.js",
+            "types": "./dist/types/src/component/module/presenter/index.d.ts"
+        },
+        "./component/module/tool": {
+            "import": "./dist/dpuse-shared-componentModuleTool.es.js",
+            "types": "./dist/types/src/component/module/tool/index.d.ts"
         },
         "./encoding": {
             "import": "./dist/dpuse-shared-encoding.es.js",

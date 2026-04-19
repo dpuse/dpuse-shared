@@ -17,4 +17,9 @@ export declare const SUPPORTED_LANGUAGES: {
     label: string;
 }[];
 export declare function createLabelMap(labels: Record<string, string>): LocaleLabelMap;
+export declare function localiseConfigs<T>(configs: {
+    id: string;
+    label: LocaleLabel;
+    description: LocaleLabel;
+}[], localeId: LocaleId): T[];
 export declare function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: LocaleId): string | undefined;

@@ -1,8 +1,4 @@
-/**
- * Connector connection component.
- */
-
-// Framework dependencies.
+// External Dependencies
 import type { ComponentConfig } from '@/component';
 import type { ConnectorConfig } from '@/component/module/connector';
 import type { LocaleLabel } from '@/locale';
@@ -11,7 +7,7 @@ import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 /**
  * Connection configuration.
  */
-interface ConnectionConfig extends ComponentConfig {
+export interface ConnectionConfig extends ComponentConfig {
     authorisation: Record<string, ConnectionAuthorisationConfig>;
     connectorConfig: ConnectorConfig;
     lastVerifiedAt: number;
@@ -22,7 +18,7 @@ export type ConnectionLocalisedConfig = Omit<ConnectionConfig, 'label' | 'descri
 /**
  * Connection authorisation configuration.
  */
-interface ConnectionAuthorisationConfig {
+export interface ConnectionAuthorisationConfig {
     accessToken: string; // Dropbox.
     accountId: string; // Dropbox.
     expiresAt: number; // Dropbox.
@@ -142,4 +138,4 @@ type StorageTypeId =
 //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // Exposures.
-export type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig };
+export type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig };

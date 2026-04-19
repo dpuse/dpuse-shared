@@ -1,4 +1,4 @@
-//#region src/component/tool/index.ts
+//#region src/component/module/tool/index.ts
 async function e(e, t) {
 	let n = `dpuse-tool-${t}`, r = e.find((e) => e.id === n);
 	if (!r) throw Error(`Connector could not load unknown tool '${t}'.`);

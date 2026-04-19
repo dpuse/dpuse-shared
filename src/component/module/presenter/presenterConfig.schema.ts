@@ -1,20 +1,20 @@
-/**
- * Presenter schema (drafted by Copilot).
- */
-
-/** Dependencies - Vendor. */
+// External Dependencies
 import { array, literal, object } from 'valibot';
 
-/** Dependencies - Framework. */
+// Local Framework
 import { componentReferenceSchema } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-const presenterOperationSchema = literalUnion(['list', 'render', 'setColorMode'] as const);
+// Schema - Operations ─────────────────────────────────────────────────────────────────────────────────────────────────
+
+const presenterOperationNameSchema = literalUnion(['list', 'render', 'setColorMode']);
+
+// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const presenterConfigSchema = object({
     ...moduleConfigCoreFields,
     typeId: literal('presenter'),
     presentations: array(componentReferenceSchema),
-    operations: array(presenterOperationSchema)
+    operations: array(presenterOperationNameSchema)
 });

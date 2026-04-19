@@ -1,18 +1,13 @@
-/**
- * Module.
- */
-
-/** Vendor dependencies. */
+// External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Framework dependencies.
+// Local Framework
 import type { moduleConfigSchema, moduleTypeIdSchema } from '@/component/module/moduleConfig.schema';
 
-/** Module configuration. */
-type ModuleConfig = InferOutput<typeof moduleConfigSchema>;
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Module type identifier. */
-type ModuleTypeId = InferOutput<typeof moduleTypeIdSchema>;
+export type ModuleConfig = InferOutput<typeof moduleConfigSchema>;
 
-// Exposures.
-export type { ModuleConfig, ModuleTypeId };
+// Type ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type ModuleTypeId = InferOutput<typeof moduleTypeIdSchema>;

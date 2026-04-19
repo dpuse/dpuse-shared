@@ -21,11 +21,13 @@ export default defineConfig({
             entry: {
                 index: fileURLToPath(new URL('src/index.ts', import.meta.url)), // Absolute entry path.
                 component: fileURLToPath(new URL('src/component/index.ts', import.meta.url)),
-                module: fileURLToPath(new URL('src/component/module/index.ts', import.meta.url)),
-                connector: fileURLToPath(new URL('src/component/module/connector/index.ts', import.meta.url)),
-                connection: fileURLToPath(new URL('src/component/connection/index.ts', import.meta.url)),
-                dataview: fileURLToPath(new URL('src/component/dataView/index.ts', import.meta.url)),
-                tools: fileURLToPath(new URL('src/component/tool/index.ts', import.meta.url)),
+                componentConnection: fileURLToPath(new URL('src/component/connection/index.ts', import.meta.url)),
+                componentDataView: fileURLToPath(new URL('src/component/dataView/index.ts', import.meta.url)),
+                componentModule: fileURLToPath(new URL('src/component/module/index.ts', import.meta.url)),
+                componentModuleConnector: fileURLToPath(new URL('src/component/module/connector/index.ts', import.meta.url)),
+                componentModuleContext: fileURLToPath(new URL('src/component/module/context/index.ts', import.meta.url)),
+                componentModulePresenter: fileURLToPath(new URL('src/component/module/presenter/index.ts', import.meta.url)),
+                componentModuleTool: fileURLToPath(new URL('src/component/module/tool/index.ts', import.meta.url)),
                 encoding: fileURLToPath(new URL('src/encoding/index.ts', import.meta.url)),
                 engine: fileURLToPath(new URL('src/engine/index.ts', import.meta.url)),
                 errors: fileURLToPath(new URL('src/errors/index.ts', import.meta.url)),

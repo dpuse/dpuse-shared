@@ -2,7 +2,7 @@
 import { literal, union } from 'valibot';
 import type { LiteralSchema, UnionSchema } from 'valibot';
 
-// Schemas - Literal Union ─────────────────────────────────────────────────────────────────────────────────────────────
+// Schema - Literal Unions ─────────────────────────────────────────────────────────────────────────────────────────────
 
 type LiteralUnionSchema<T extends readonly string[]> = UnionSchema<{ [K in keyof T]: LiteralSchema<T[K], undefined> }, undefined>;
 

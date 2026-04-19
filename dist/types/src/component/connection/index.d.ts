@@ -5,7 +5,7 @@ import { DataSubtypeId, DataTypeId } from '../dataView';
 /**
  * Connection configuration.
  */
-interface ConnectionConfig extends ComponentConfig {
+export interface ConnectionConfig extends ComponentConfig {
     authorisation: Record<string, ConnectionAuthorisationConfig>;
     connectorConfig: ConnectorConfig;
     lastVerifiedAt: number;
@@ -18,7 +18,7 @@ export type ConnectionLocalisedConfig = Omit<ConnectionConfig, 'label' | 'descri
 /**
  * Connection authorisation configuration.
  */
-interface ConnectionAuthorisationConfig {
+export interface ConnectionAuthorisationConfig {
     accessToken: string;
     accountId: string;
     expiresAt: number;
@@ -93,4 +93,4 @@ interface ObjectColumnConfig {
     voidValueCount: number | undefined;
 }
 type StorageTypeId = 'binary' | 'boolean' | 'byte' | 'date' | 'dateTime' | 'dateTimeOffset' | 'decimal' | 'double' | 'int8' | 'int16' | 'int32' | 'int64' | 'object' | 'single' | 'string' | 'time' | 'unknown';
-export type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig };
+export type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig };
