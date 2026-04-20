@@ -16,7 +16,7 @@ export interface ContextConfig1 extends ModuleConfig {
     typeId: 'context';
 }
 export type ContextLocalisedConfig = Localised<ContextConfig>;
-export type ContextOperation = 'list';
+export type ContextOperation = 'listContextFocuses';
 export interface ContextModelGroupConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
