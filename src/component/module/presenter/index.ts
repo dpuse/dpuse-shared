@@ -1,6 +1,7 @@
 // External Dependencies
 import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentReference } from '@/component';
+import type { Localised } from '@/locale';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +24,7 @@ export interface PresenterConfig extends ModuleConfig {
     operations: PresenterOperation[];
     typeId: 'presenter';
 }
-export type PresenterLocalisedConfig = Omit<PresenterConfig, 'label' | 'description'> & { label: string; description: string };
+export type PresenterLocalisedConfig = Localised<PresenterConfig>;
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

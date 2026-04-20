@@ -1,5 +1,5 @@
 // Local Framework
-import type { LocaleLabel } from '@/locale';
+import type { LocaleLabel, Localised } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -8,7 +8,7 @@ export interface ContextModelDimensionConfig {
     label: LocaleLabel;
     hierarchies: ContextModelDimensionHierarchyConfig[];
 }
-export type ContextModelDimensionLocalisedConfig = Omit<ContextModelDimensionConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelDimensionLocalisedConfig = Localised<ContextModelDimensionConfig>;
 
 // Hierarchy Configuration ─────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -16,4 +16,4 @@ export interface ContextModelDimensionHierarchyConfig {
     id: string;
     label: LocaleLabel;
 }
-export type ContextModelDimensionHierarchyLocalisedConfig = Omit<ContextModelDimensionHierarchyConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelDimensionHierarchyLocalisedConfig = Localised<ContextModelDimensionHierarchyConfig>;

@@ -4,6 +4,7 @@ import type { InferOutput } from 'valibot';
 // Local Framework
 import type { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 import type { EngineContextActionOptions } from '@/engine';
+import type { Localised } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
 
@@ -26,7 +27,7 @@ export interface ContextConfig1 extends ModuleConfig {
     operations: ContextOperation[];
     typeId: 'context';
 }
-export type ContextLocalisedConfig = Omit<ContextConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextLocalisedConfig = Localised<ContextConfig>;
 export type ContextOperation = 'list';
 
 // Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -35,7 +36,7 @@ export interface ContextModelGroupConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
 }
-export type ContextModelGroupLocalisedConfig = Omit<ContextModelGroupConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelGroupLocalisedConfig = Localised<ContextModelGroupConfig>;
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 // Local Framework
-import type { LocaleLabel } from '@/locale';
 import type { ComponentConfig, ComponentReference } from '@/component';
+import type { LocaleLabel, Localised } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -10,9 +10,9 @@ export interface ContextModelConfig extends ComponentConfig {
     entities: ContextModelEntityGroupConfig[];
     secondaryMeasures: ContextModelSecondaryMeasureGroupConfig[];
 }
-export type ContextModelLocalisedConfig = Omit<ContextModelConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelLocalisedConfig = Localised<ContextModelConfig>;
 
-// Model Dimension Group Configuration ─────────────────────────────────────────────────────────────────────────────────
+// Dimension Group Configuration ───────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelDimensionGroupConfig {
     id: string;
@@ -20,9 +20,9 @@ export interface ContextModelDimensionGroupConfig {
     description: LocaleLabel;
     dimensionRefs: ComponentReference[];
 }
-export type ContextModelDimensionGroupLocalisedConfig = Omit<ContextModelDimensionGroupConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelDimensionGroupLocalisedConfig = Localised<ContextModelDimensionGroupConfig>;
 
-// Model Entity Group Configuration ────────────────────────────────────────────────────────────────────────────────────
+// Entity Group Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelEntityGroupConfig {
     id: string;
@@ -30,9 +30,9 @@ export interface ContextModelEntityGroupConfig {
     description?: Record<string, unknown>;
     entityRefs: ComponentReference[];
 }
-export type ContextModelEntityGroupLocalisedConfig = Omit<ContextModelEntityGroupConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelEntityGroupLocalisedConfig = Localised<ContextModelEntityGroupConfig>;
 
-// Model Secondary Measure Group Configuration ─────────────────────────────────────────────────────────────────────────
+// Secondary Measure Group Configuration ───────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelSecondaryMeasureGroupConfig {
     id: string;
@@ -40,4 +40,4 @@ export interface ContextModelSecondaryMeasureGroupConfig {
     description?: Record<string, unknown>;
     secondaryMeasureRefs: ComponentReference[];
 }
-export type ContextModelSecondaryMeasureGroupLocalisedConfig = Omit<ContextModelSecondaryMeasureGroupConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextModelSecondaryMeasureGroupLocalisedConfig = Localised<ContextModelSecondaryMeasureGroupConfig>;

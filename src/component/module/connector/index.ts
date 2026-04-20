@@ -12,7 +12,7 @@ import type {
     connectorUsageIdSchema
 } from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
-import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, type Localised, type LocaleLabel, resolveLabel } from '@/locale';
 import type { EngineConnectorActionOptions, EngineUtilities } from '@/engine';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -49,7 +49,7 @@ export type ConnectorConstructor = new (engineUtilities: EngineUtilities, toolCo
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
-export type ConnectorLocalisedConfig = Omit<ConnectorConfig, 'label' | 'description'> & { label: string; description: string };
+export type ConnectorLocalisedConfig = Localised<ConnectorConfig>;
 
 // Category ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 

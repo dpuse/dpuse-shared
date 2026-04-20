@@ -3,8 +3,8 @@ import type { LocaleLabel, Localised } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelSecondaryMeasureConfig {
+export interface ContextModelEntityPrimaryMeasureConfig {
     id: string;
     label: LocaleLabel;
 }
-export type ContextModelSecondaryMeasureLocalisedConfig = Localised<ContextModelSecondaryMeasureConfig>;
+export type ContextModelEntityPrimaryMeasureLocalisedConfig = Localised<ContextModelEntityPrimaryMeasureConfig>;
