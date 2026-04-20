@@ -16,7 +16,7 @@ export { contextConfigSchema } from '@/component/module/context/contextConfig.sc
 
 export interface ContextInterface extends Component {
     readonly config: ContextConfig;
-    listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ContextListResult>;
+    listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ListContextResult>;
 }
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────

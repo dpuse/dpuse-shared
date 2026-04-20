@@ -7,7 +7,7 @@ import { Component, ComponentConfig, ComponentReference } from '../..';
 export { contextConfigSchema } from './contextConfig.schema';
 export interface ContextInterface extends Component {
     readonly config: ContextConfig;
-    listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ContextListResult>;
+    listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ListContextResult>;
 }
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
 export interface ContextConfig1 extends ModuleConfig {
