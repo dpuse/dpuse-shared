@@ -4,9 +4,8 @@ import type { ConnectorConfig } from '@/component/module/connector';
 import type { LocaleLabel } from '@/locale';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
-/**
- * Connection configuration.
- */
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ConnectionConfig extends ComponentConfig {
     authorisation: Record<string, ConnectionAuthorisationConfig>;
     connectorConfig: ConnectorConfig;
@@ -15,9 +14,8 @@ export interface ConnectionConfig extends ComponentConfig {
 }
 export type ConnectionLocalisedConfig = Omit<ConnectionConfig, 'label' | 'description'> & { label: string; description: string };
 
-/**
- * Connection authorisation configuration.
- */
+// Authorisation ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ConnectionAuthorisationConfig {
     accessToken: string; // Dropbox.
     accountId: string; // Dropbox.
@@ -29,14 +27,9 @@ export interface ConnectionAuthorisationConfig {
     uid: string; // Dropbox.
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//#region Connection description...
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Description ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/**
- * Connection description configuration.
- */
-interface ConnectionDescriptionConfig {
+export interface ConnectionDescriptionConfig {
     objects: {
         id: string;
         label: Record<string, string>;
@@ -44,16 +37,9 @@ interface ConnectionDescriptionConfig {
     }[];
 }
 
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Node ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//#region Connection node configuration...
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-/**
- * Connection node configuration.
- */
-interface ConnectionNodeConfig {
+export interface ConnectionNodeConfig {
     childCount: number | undefined;
     childNodes: ConnectionNodeConfig[];
     // columnsConfigs?: ObjectColumnConfig[];
@@ -70,29 +56,16 @@ interface ConnectionNodeConfig {
     typeId: NodeTypeId;
 }
 
-/**
- *
- */
-interface DPAFileSystemFileHandle {
+export interface DPAFileSystemFileHandle {
     readonly kind: 'file';
     getFile(): Promise<File>;
 }
 
-/**
- * Connection node type identifier.
- */
-type NodeTypeId = 'folder' | 'object';
+export type NodeTypeId = 'folder' | 'object';
 
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Object Column ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//#region Object column configuration...
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-/**
- * Object column configuration.
- */
-interface ObjectColumnConfig {
+export interface ObjectColumnConfig {
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
     inferenceCounts: Record<string, number>;
@@ -116,7 +89,7 @@ interface ObjectColumnConfig {
     voidValueCount: number | undefined;
 }
 
-type StorageTypeId =
+export type StorageTypeId =
     | 'binary'
     | 'boolean'
     | 'byte'
@@ -134,8 +107,3 @@ type StorageTypeId =
     | 'string'
     | 'time'
     | 'unknown';
-
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-// Exposures.
-export type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig };

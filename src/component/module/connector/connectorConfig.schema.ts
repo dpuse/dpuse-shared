@@ -8,13 +8,12 @@ import { array, boolean, literal, nullable, number, object, optional, record, st
 
 // Local Framework
 import { literalUnion } from '@/schema';
-import { localeLabelSchema } from '@/locale';
+import { localeLabelSchema } from '@/locale/locale.schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
 // Category ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Category identifiers used for grouping and filtering connectors.
-const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']);
+const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']); // Category identifiers used for grouping and filtering connectors.
 
 export const connectorCategoryConfigSchema = object({
     label: localeLabelSchema
@@ -22,8 +21,7 @@ export const connectorCategoryConfigSchema = object({
 
 // Implementation ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Authentication method identifiers supported by a connector implementation.
-const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']);
+const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']); // Authentication method identifiers supported by a connector implementation.
 
 // A connector implementation variant. A single connector may expose multiple implementations differing by auth method, limits, or vendor-specific behavior.
 const connectorImplementationSchema = object({
@@ -38,7 +36,7 @@ const connectorImplementationSchema = object({
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Operation names a connector may support.
+// Names of the operations a connector may implement.
 export const connectorOperationNameSchema = literalUnion([
     'abortOperation',
     'auditObjectContent',
@@ -58,8 +56,7 @@ export const connectorOperationNameSchema = literalUnion([
 
 // Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Connector data pipeline usage identifiers.
-export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']);
+export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']); // Connector data pipeline usage identifiers.
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 

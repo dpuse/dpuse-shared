@@ -369,36 +369,76 @@ function T(e, t) {
 	};
 }
 //#endregion
-//#region src/locale/index.ts
-var E = /* @__PURE__ */ b({
+//#region src/schema.ts
+var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__PURE__ */ b({
 	en: /* @__PURE__ */ C(),
 	es: /* @__PURE__ */ C()
-}), D = /* @__PURE__ */ b({
+}), O = /* @__PURE__ */ b({
 	en: /* @__PURE__ */ x(/* @__PURE__ */ C()),
 	es: /* @__PURE__ */ x(/* @__PURE__ */ C())
-}), O = "en", k = [{
-	id: "en",
-	flag: "gb",
-	label: "English"
-}, {
-	id: "es",
-	flag: "es",
-	label: "Español"
-}];
-function A(e) {
-	return new Map(Object.entries(e));
-}
-function j(e, t) {
-	return e.map((e) => ({
-		...e,
-		label: e.label[t] ?? e.id,
-		description: e.description[t] ?? e.id
-	}));
-}
-function M(e, t, n = "en") {
-	let r = e.get(t);
-	if (r !== void 0) return r;
-	if (n !== t) return e.get(n);
-}
+}), k = E([
+	"app",
+	"connector",
+	"connectorConnection",
+	"context",
+	"contextModelGroup",
+	"contextModel",
+	"contextModelDimensionGroup",
+	"contextModelDimension",
+	"contextModelDimensionHierarchy",
+	"contextModelEntityGroup",
+	"contextModelEntity",
+	"contextModelEntityDataItem",
+	"contextModelEntityEvent",
+	"contextModelEntityPrimaryMeasure",
+	"contextModelSecondaryMeasureGroup",
+	"contextModelSecondaryMeasure",
+	"dataView",
+	"dimension",
+	"engine",
+	"eventQuery",
+	"presenter",
+	"presenterPresentation",
+	"tool"
+]), A = E([
+	"amber",
+	"green",
+	"red",
+	"other"
+]), j = E([
+	"alpha",
+	"beta",
+	"generalAvailability",
+	"notApplicable",
+	"preAlpha",
+	"proposed",
+	"releaseCandidate",
+	"unavailable",
+	"underReview"
+]), M = /* @__PURE__ */ b({
+	color: A,
+	label: /* @__PURE__ */ C()
+}), N = /* @__PURE__ */ b({
+	id: /* @__PURE__ */ C(),
+	label: O,
+	description: O,
+	icon: /* @__PURE__ */ v(/* @__PURE__ */ C()),
+	iconDark: /* @__PURE__ */ v(/* @__PURE__ */ C()),
+	order: /* @__PURE__ */ y(),
+	path: /* @__PURE__ */ C()
+}), P = {
+	id: /* @__PURE__ */ C(),
+	label: O,
+	description: O,
+	firstCreatedAt: /* @__PURE__ */ v(/* @__PURE__ */ y()),
+	icon: /* @__PURE__ */ v(/* @__PURE__ */ C()),
+	iconDark: /* @__PURE__ */ v(/* @__PURE__ */ C()),
+	lastUpdatedAt: /* @__PURE__ */ v(/* @__PURE__ */ y()),
+	status: /* @__PURE__ */ v(M),
+	statusId: /* @__PURE__ */ v(j)
+}, F = /* @__PURE__ */ b({
+	...P,
+	typeId: k
+});
 //#endregion
-export { T as _, j as a, h as c, v as d, y as f, C as g, S as h, E as i, g as l, x as m, k as n, D as o, b as p, A as r, M as s, O as t, _ as u };
+export { E as a, _ as c, b as d, x as f, D as i, v as l, C as m, F as n, h as o, S as p, N as r, g as s, P as t, y as u };

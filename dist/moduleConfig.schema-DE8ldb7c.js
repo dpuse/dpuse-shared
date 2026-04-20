@@ -1,7 +1,6 @@
-import { g as e, p as t } from "./locale-BjiFli1U.js";
-import { i as n, t as r } from "./componentConfig.schema-Cirbf_EB.js";
+import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-CpjcH9JV.js";
 //#region src/component/module/moduleConfig.schema.ts
-var i = n([
+var i = e([
 	"app",
 	"engine",
 	"connector",
@@ -10,7 +9,7 @@ var i = n([
 	"tool"
 ]), a = {
 	...r,
-	version: e()
+	version: n()
 };
 t({
 	...a,

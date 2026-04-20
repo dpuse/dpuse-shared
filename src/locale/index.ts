@@ -1,11 +1,3 @@
-// External Dependencies
-import { object, optional, string } from 'valibot';
-
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export const localeLabelSchema = object({ en: string(), es: string() });
-export const partialLocalLabelSchema = object({ en: optional(string()), es: optional(string()) });
-
 // Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type FlagId = 'es' | 'gb';

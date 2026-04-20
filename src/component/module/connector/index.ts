@@ -75,7 +75,7 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type ConnectorOperationName = InferOutput<typeof connectorOperationNameSchema>; // Names of the operation a connector may implement.
+export type ConnectorOperationName = InferOutput<typeof connectorOperationNameSchema>; // Names of the operations a connector may implement.
 
 export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;

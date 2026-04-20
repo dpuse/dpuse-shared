@@ -1,26 +1,26 @@
-import { c as e, d as t, f as n, g as r, h as i, i as a, l as o, m as s, p as c, r as l, s as u, u as d } from "./locale-BjiFli1U.js";
-import { i as f } from "./componentConfig.schema-Cirbf_EB.js";
-import { t as p } from "./moduleConfig.schema-DTqGQW05.js";
+import { a as e, c as t, d as n, f as r, i, l as a, m as o, o as s, p as c, s as l, u } from "./componentConfig.schema-CpjcH9JV.js";
+import { t as d } from "./moduleConfig.schema-DE8ldb7c.js";
+import { createLabelMap as f, resolveLabel as p } from "./dpuse-shared-locale.es.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
-var m = f([
+var m = e([
 	"application",
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), h = c({ label: a }), g = c({
-	authMethodId: f([
+]), h = n({ label: i }), g = n({
+	authMethodId: e([
 		"apiKey",
 		"disabled",
 		"oAuth2",
 		"none"
 	]),
-	activeConnectionCount: s(n()),
-	canDescribe: s(o()),
-	id: s(r()),
-	label: s(a),
-	maxConnectionCount: t(n()),
-	params: s(e(i(r(), r())))
-}), _ = f([
+	activeConnectionCount: r(u()),
+	canDescribe: r(l()),
+	id: r(o()),
+	label: r(i),
+	maxConnectionCount: a(u()),
+	params: r(s(c(o(), o())))
+}), _ = e([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -35,22 +35,22 @@ var m = f([
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), v = f([
+]), v = e([
 	"bidirectional",
 	"destination",
 	"source",
 	"unknown"
-]), y = c({
-	...p,
-	typeId: d("connector"),
-	category: t(h),
+]), y = n({
+	...d,
+	typeId: t("connector"),
+	category: a(h),
 	categoryId: m,
-	implementations: i(r(), g),
-	operations: e(_),
+	implementations: c(o(), g),
+	operations: s(_),
 	usageId: v,
-	vendorAccountURL: t(r()),
-	vendorDocumentationURL: t(r()),
-	vendorHomeURL: t(r())
+	vendorAccountURL: a(o()),
+	vendorDocumentationURL: a(o()),
+	vendorHomeURL: a(o())
 }), b = [
 	{
 		id: "application",
@@ -82,7 +82,7 @@ var m = f([
 	}
 ], x = (e, t = "en") => {
 	let n = b.find((t) => t.id === e);
-	return n ? { label: u(l(n.label), t) ?? n.id } : { label: e };
+	return n ? { label: p(f(n.label), t) ?? n.id } : { label: e };
 };
 //#endregion
 export { y as connectorConfigSchema, x as constructConnectorCategoryConfig };

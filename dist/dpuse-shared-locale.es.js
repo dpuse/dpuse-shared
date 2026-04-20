@@ -1,2 +1,27 @@
-import { a as e, i as t, n, o as r, r as i, s as a, t as o } from "./locale-BjiFli1U.js";
-export { o as DEFAULT_LOCALE_ID, n as SUPPORTED_LANGUAGES, i as createLabelMap, t as localeLabelSchema, e as localiseConfigs, r as partialLocalLabelSchema, a as resolveLabel };
+//#region src/locale/index.ts
+var e = "en", t = [{
+	id: "en",
+	flag: "gb",
+	label: "English"
+}, {
+	id: "es",
+	flag: "es",
+	label: "Español"
+}];
+function n(e) {
+	return new Map(Object.entries(e));
+}
+function r(e, t) {
+	return e.map((e) => ({
+		...e,
+		label: e.label[t] ?? e.id,
+		description: e.description[t] ?? e.id
+	}));
+}
+function i(e, t, n = "en") {
+	let r = e.get(t);
+	if (r !== void 0) return r;
+	if (n !== t) return e.get(n);
+}
+//#endregion
+export { e as DEFAULT_LOCALE_ID, t as SUPPORTED_LANGUAGES, n as createLabelMap, r as localiseConfigs, i as resolveLabel };

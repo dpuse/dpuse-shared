@@ -2,9 +2,6 @@ import { ComponentConfig } from '..';
 import { ConnectorConfig } from '../module/connector';
 import { LocaleLabel } from '../../locale';
 import { DataSubtypeId, DataTypeId } from '../dataView';
-/**
- * Connection configuration.
- */
 export interface ConnectionConfig extends ComponentConfig {
     authorisation: Record<string, ConnectionAuthorisationConfig>;
     connectorConfig: ConnectorConfig;
@@ -15,9 +12,6 @@ export type ConnectionLocalisedConfig = Omit<ConnectionConfig, 'label' | 'descri
     label: string;
     description: string;
 };
-/**
- * Connection authorisation configuration.
- */
 export interface ConnectionAuthorisationConfig {
     accessToken: string;
     accountId: string;
@@ -28,20 +22,14 @@ export interface ConnectionAuthorisationConfig {
     tokenType: string;
     uid: string;
 }
-/**
- * Connection description configuration.
- */
-interface ConnectionDescriptionConfig {
+export interface ConnectionDescriptionConfig {
     objects: {
         id: string;
         label: Record<string, string>;
         columns: ObjectColumnConfig[];
     }[];
 }
-/**
- * Connection node configuration.
- */
-interface ConnectionNodeConfig {
+export interface ConnectionNodeConfig {
     childCount: number | undefined;
     childNodes: ConnectionNodeConfig[];
     extension: string | undefined;
@@ -55,21 +43,12 @@ interface ConnectionNodeConfig {
     size: number | undefined;
     typeId: NodeTypeId;
 }
-/**
- *
- */
-interface DPAFileSystemFileHandle {
+export interface DPAFileSystemFileHandle {
     readonly kind: 'file';
     getFile(): Promise<File>;
 }
-/**
- * Connection node type identifier.
- */
-type NodeTypeId = 'folder' | 'object';
-/**
- * Object column configuration.
- */
-interface ObjectColumnConfig {
+export type NodeTypeId = 'folder' | 'object';
+export interface ObjectColumnConfig {
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
     inferenceCounts: Record<string, number>;
@@ -92,5 +71,4 @@ interface ObjectColumnConfig {
     validValues: Record<string, string>;
     voidValueCount: number | undefined;
 }
-type StorageTypeId = 'binary' | 'boolean' | 'byte' | 'date' | 'dateTime' | 'dateTimeOffset' | 'decimal' | 'double' | 'int8' | 'int16' | 'int32' | 'int64' | 'object' | 'single' | 'string' | 'time' | 'unknown';
-export type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig };
+export type StorageTypeId = 'binary' | 'boolean' | 'byte' | 'date' | 'dateTime' | 'dateTimeOffset' | 'decimal' | 'double' | 'int8' | 'int16' | 'int32' | 'int64' | 'object' | 'single' | 'string' | 'time' | 'unknown';

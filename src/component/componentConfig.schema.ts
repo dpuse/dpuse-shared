@@ -3,7 +3,7 @@ import { nullable, number, object, string } from 'valibot';
 
 // Local Framework
 import { literalUnion } from '@/schema';
-import { partialLocalLabelSchema } from '@/locale';
+import { partialLocaleLabelSchema } from '@/locale/locale.schema';
 
 // Type ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -59,8 +59,8 @@ export const componentStatusConfigSchema = object({
 // Common structure for referencing all components.
 export const componentReferenceSchema = object({
     id: string(),
-    label: partialLocalLabelSchema,
-    description: partialLocalLabelSchema,
+    label: partialLocaleLabelSchema,
+    description: partialLocaleLabelSchema,
     icon: nullable(string()),
     iconDark: nullable(string()),
     order: number(),
@@ -72,8 +72,8 @@ export const componentReferenceSchema = object({
 // Core fields present in all components.
 export const componentConfigCoreFields = {
     id: string(),
-    label: partialLocalLabelSchema,
-    description: partialLocalLabelSchema,
+    label: partialLocaleLabelSchema,
+    description: partialLocaleLabelSchema,
     firstCreatedAt: nullable(number()),
     icon: nullable(string()),
     iconDark: nullable(string()),
