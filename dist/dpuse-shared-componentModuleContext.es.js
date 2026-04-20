@@ -6,7 +6,7 @@ var c = n({
 	typeId: t("contextModelGroup"),
 	modelRefs: r(i),
 	order: o()
-}), l = e(["list"]), u = n({
+}), l = e(["listContextFocuses"]), u = n({
 	...s,
 	typeId: t("context"),
 	models: r(c),
