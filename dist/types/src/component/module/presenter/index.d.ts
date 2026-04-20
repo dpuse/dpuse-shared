@@ -1,6 +1,8 @@
-import { ModuleConfig } from '..';
-import { Component, ComponentReference } from '../..';
+import { InferOutput } from 'valibot';
 import { Localised } from '../../../locale';
+import { ModuleConfig } from '..';
+import { presenterOperationNameSchema } from './presenterConfig.schema';
+import { Component, ComponentReference } from '../..';
 export { presenterConfigSchema } from './presenterConfig.schema';
 export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
@@ -10,8 +12,8 @@ export interface PresenterInterface extends Component {
 }
 export interface PresenterConfig extends ModuleConfig {
     presentations: ComponentReference[];
-    operations: PresenterOperation[];
+    operations: PresenterOperationName[];
     typeId: 'presenter';
 }
 export type PresenterLocalisedConfig = Localised<PresenterConfig>;
-export type PresenterOperation = 'list' | 'render' | 'setColorMode';
+export type PresenterOperationName = InferOutput<typeof presenterOperationNameSchema>;

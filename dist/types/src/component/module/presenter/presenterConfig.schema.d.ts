@@ -1,3 +1,4 @@
+export declare const presenterOperationNameSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"list", undefined>, import('valibot').LiteralSchema<"render", undefined>, import('valibot').LiteralSchema<"setColorMode", undefined>], undefined>;
 export declare const presenterConfigSchema: import('valibot').ObjectSchema<{
     readonly typeId: import('valibot').LiteralSchema<"presenter", undefined>;
     readonly presentations: import('valibot').ArraySchema<import('valibot').ObjectSchema<{

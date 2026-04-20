@@ -1,3 +1,4 @@
+export declare const contextOperationNameSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"listContextFocuses", undefined>], undefined>;
 export declare const contextConfigSchema: import('valibot').ObjectSchema<{
     readonly typeId: import('valibot').LiteralSchema<"context", undefined>;
     readonly models: import('valibot').ArraySchema<import('valibot').ObjectSchema<{

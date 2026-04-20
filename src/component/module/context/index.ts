@@ -2,11 +2,10 @@
 import type { InferOutput } from 'valibot';
 
 // Local Framework
-import type { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 import type { EngineContextActionOptions } from '@/engine';
 import type { Localised } from '@/locale';
-// import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
+import type { contextConfigSchema, contextOperationNameSchema } from '@/component/module/context/contextConfig.schema';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -22,13 +21,11 @@ export interface ContextInterface extends Component {
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
-// export interface ContextConfig1 extends ModuleConfig {
-//     models: ContextModelGroupConfig[];
-//     operations: ContextOperation[];
-//     typeId: 'context';
-// }
 export type ContextLocalisedConfig = Localised<ContextConfig>;
-// export type ContextOperation = 'listContextFocuses';
+
+// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type ContextOperationName = InferOutput<typeof contextOperationNameSchema>;
 
 // Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 

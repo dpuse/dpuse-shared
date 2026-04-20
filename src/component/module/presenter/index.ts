@@ -1,7 +1,10 @@
 // External Dependencies
-import type { ModuleConfig } from '@/component/module';
-import type { Component, ComponentReference } from '@/component';
+import type { InferOutput } from 'valibot';
+
 import type { Localised } from '@/locale';
+import type { ModuleConfig } from '@/component/module';
+import type { presenterOperationNameSchema } from '@/component/module/presenter/presenterConfig.schema';
+import type { Component, ComponentReference } from '@/component';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -21,11 +24,11 @@ export interface PresenterInterface extends Component {
 
 export interface PresenterConfig extends ModuleConfig {
     presentations: ComponentReference[];
-    operations: PresenterOperation[];
+    operations: PresenterOperationName[];
     typeId: 'presenter';
 }
 export type PresenterLocalisedConfig = Localised<PresenterConfig>;
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type PresenterOperation = 'list' | 'render' | 'setColorMode';
+export type PresenterOperationName = InferOutput<typeof presenterOperationNameSchema>; // Names of the operations a connector may implement.

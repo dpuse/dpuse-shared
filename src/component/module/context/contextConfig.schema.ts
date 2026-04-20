@@ -17,7 +17,7 @@ const contextModelGroupConfigSchema = object({
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const contextOperationSchema = literalUnion(['listContextFocuses']);
+export const contextOperationNameSchema = literalUnion(['listContextFocuses']);
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -25,5 +25,5 @@ export const contextConfigSchema = object({
     ...moduleConfigCoreFields,
     typeId: literal('context'),
     models: array(contextModelGroupConfigSchema),
-    operations: array(contextOperationSchema)
+    operations: array(contextOperationNameSchema)
 });

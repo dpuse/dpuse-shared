@@ -8,7 +8,7 @@ import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const presenterOperationNameSchema = literalUnion(['list', 'render', 'setColorMode']);
+export const presenterOperationNameSchema = literalUnion(['list', 'render', 'setColorMode']);
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
