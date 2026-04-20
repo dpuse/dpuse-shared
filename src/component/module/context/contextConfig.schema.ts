@@ -1,12 +1,12 @@
-// Vendor dependencies.
+// External Dependencies
 import { array, literal, number, object } from 'valibot';
 
-// Framework dependencies.
+// Local Framework
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 import { componentConfigCoreFields, componentReferenceSchema } from '@/component/componentConfig.schema';
 
-const contextOperationSchema = literalUnion(['list'] as const);
+// Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const contextModelGroupConfigSchema = object({
     ...componentConfigCoreFields,
@@ -15,7 +15,12 @@ const contextModelGroupConfigSchema = object({
     order: number()
 });
 
-// Exposures.
+// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+const contextOperationSchema = literalUnion(['list'] as const);
+
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export const contextConfigSchema = object({
     ...moduleConfigCoreFields,
     typeId: literal('context'),

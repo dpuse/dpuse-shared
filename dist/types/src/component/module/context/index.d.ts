@@ -4,15 +4,10 @@ import { EngineContextActionOptions } from '../../../engine';
 import { LocaleLabel } from '../../../locale';
 import { ModuleConfig } from '..';
 import { Component, ComponentConfig, ComponentReference } from '../..';
-export interface Context extends Component {
+export { contextConfigSchema } from './contextConfig.schema';
+export interface ContextInterface extends Component {
     readonly config: ContextConfig;
-    listContextFocuses?(context: Context, options?: ListContextOptions): Promise<ContextListResult>;
-}
-export interface ListContextOptions extends EngineContextActionOptions {
-    placeholder: unknown;
-}
-export interface ContextListResult {
-    models: ContextModelGroupConfig[];
+    listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ContextListResult>;
 }
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
 export interface ContextConfig1 extends ModuleConfig {
@@ -20,11 +15,11 @@ export interface ContextConfig1 extends ModuleConfig {
     operations: ContextOperation[];
     typeId: 'context';
 }
-export type ContextOperation = 'list';
 export type ContextLocalisedConfig = Omit<ContextConfig, 'label' | 'description'> & {
     label: string;
     description: string;
 };
+export type ContextOperation = 'list';
 export interface ContextModelGroupConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
@@ -135,4 +130,9 @@ export type ContextModelSecondaryMeasureLocalisedConfig = Omit<ContextModelSecon
     label: string;
     description: string;
 };
-export { contextConfigSchema } from './contextConfig.schema';
+export interface ListContextOptions extends EngineContextActionOptions {
+    placeholder: unknown;
+}
+export interface ContextListResult {
+    models: ContextModelGroupConfig[];
+}

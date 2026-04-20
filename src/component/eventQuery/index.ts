@@ -1,7 +1,8 @@
-// Dependencies - Framework
+// External Dependencies
 import type { ComponentConfig } from '@/component';
 
-// Types/Interfaces - Event Query Configuration
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface EventQueryConfig extends ComponentConfig {
     placeholder?: string;
 }

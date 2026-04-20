@@ -1,41 +1,45 @@
-// Dependencies - Vendor.
+// External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Dependencies - Framework.
+// Local Framework
 import type { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 import type { EngineContextActionOptions } from '@/engine';
 import type { LocaleLabel } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
 
-// Types/Interfaces/Operations - Context.
-export interface Context extends Component {
+// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
+
+// Context Interface ───────────────────────────────────────────────────────────────────────────────────────────────────
+
+export interface ContextInterface extends Component {
     readonly config: ContextConfig;
-    listContextFocuses?(context: Context, options?: ListContextOptions): Promise<ContextListResult>;
-}
-export interface ListContextOptions extends EngineContextActionOptions {
-    placeholder: unknown;
-} // TODO: Naming, structure...
-export interface ContextListResult {
-    models: ContextModelGroupConfig[];
+    listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ContextListResult>;
 }
 
-// Types/Interfaces/Operations - Context configuration.
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
 export interface ContextConfig1 extends ModuleConfig {
     models: ContextModelGroupConfig[];
     operations: ContextOperation[];
     typeId: 'context';
 }
-export type ContextOperation = 'list';
 export type ContextLocalisedConfig = Omit<ContextConfig, 'label' | 'description'> & { label: string; description: string };
+export type ContextOperation = 'list';
 
-// Types/Interfaces/Operations - Context model configuration
+// Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelGroupConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
 }
 export type ContextModelGroupLocalisedConfig = Omit<ContextModelGroupConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelConfig extends ComponentConfig {
     diagramURL?: string;
     dimension: ContextModelDimensionGroupConfig[];
@@ -44,7 +48,8 @@ export interface ContextModelConfig extends ComponentConfig {
 }
 export type ContextModelLocalisedConfig = Omit<ContextModelConfig, 'label' | 'description'> & { label: string; description: string };
 
-// Types/Interfaces/Operations - Context model dimension configuration.
+// Model Dimension Group ───────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelDimensionGroupConfig {
     id: string;
     label: LocaleLabel;
@@ -52,19 +57,26 @@ export interface ContextModelDimensionGroupConfig {
     dimensionRefs: ComponentReference[];
 }
 export type ContextModelDimensionGroupLocalisedConfig = Omit<ContextModelDimensionGroupConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Dimension ─────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelDimensionConfig {
     id: string;
     label: LocaleLabel;
     hierarchies: ContextModelDimensionHierarchyConfig[];
 }
 export type ContextModelDimensionLocalisedConfig = Omit<ContextModelDimensionConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Dimension Hierarchy ───────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelDimensionHierarchyConfig {
     id: string;
     label: LocaleLabel;
 }
 export type ContextModelDimensionHierarchyLocalisedConfig = Omit<ContextModelDimensionHierarchyConfig, 'label' | 'description'> & { label: string; description: string };
 
-// Types/Interfaces/Operations - Context model entity configuration.
+// Model Entity Group ──────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelEntityGroupConfig {
     id: string;
     label: LocaleLabel;
@@ -72,6 +84,9 @@ export interface ContextModelEntityGroupConfig {
     entityRefs: ComponentReference[];
 }
 export type ContextModelEntityGroupLocalisedConfig = Omit<ContextModelEntityGroupConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Entity ────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelEntityConfig {
     id: string;
     label: LocaleLabel;
@@ -81,24 +96,34 @@ export interface ContextModelEntityConfig {
     primaryMeasures: ContextModelEntityPrimaryMeasureConfig[];
 }
 export type ContextModelEntityLocalisedConfig = Omit<ContextModelEntityConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Entity Data Item ──────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelEntityDataItemConfig {
     id: string;
     label: LocaleLabel;
 }
 export type ContextModelEntityDataItemLocalisedConfig = Omit<ContextModelEntityDataItemConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Entity Event ──────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelEntityEventConfig {
     id: string;
     labelAction: Record<string, string>;
     labelState: Record<string, string>;
 }
 export type ContextModelEntityEventLocalisedConfig = Omit<ContextModelEntityEventConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Entity Primary Measure ────────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelEntityPrimaryMeasureConfig {
     id: string;
     label: LocaleLabel;
 }
 export type ContextModelEntityPrimaryMeasureLocalisedConfig = Omit<ContextModelEntityPrimaryMeasureConfig, 'label' | 'description'> & { label: string; description: string };
 
-// Types/Interfaces/Operations - Context model secondary measure configuration.
+// Model Entity Secondary Measure Group ────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelSecondaryMeasureGroupConfig {
     id: string;
     label: LocaleLabel;
@@ -106,18 +131,29 @@ export interface ContextModelSecondaryMeasureGroupConfig {
     secondaryMeasureRefs: ComponentReference[];
 }
 export type ContextModelSecondaryMeasureGroupLocalisedConfig = Omit<ContextModelSecondaryMeasureGroupConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Model Entity Secondary Measure ──────────────────────────────────────────────────────────────────────────────────────
+
 export interface ContextModelSecondaryMeasureConfig {
     id: string;
     label: LocaleLabel;
 }
 export type ContextModelSecondaryMeasureLocalisedConfig = Omit<ContextModelSecondaryMeasureConfig, 'label' | 'description'> & { label: string; description: string };
 
-// Types/Interfaces/Operations - Event.
+// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export interface ListContextOptions extends EngineContextActionOptions {
+    placeholder: unknown;
+} // TODO: Naming, structure...
+export interface ContextListResult {
+    models: ContextModelGroupConfig[];
+}
+
+// ??? ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 interface Event {
     id?: number;
     entityId: string;
     effDate: number;
     typeId: string;
 }
-
-export { contextConfigSchema } from '@/component/module/context/contextConfig.schema';

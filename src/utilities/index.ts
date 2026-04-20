@@ -1,7 +1,7 @@
 // Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const numberFormatterDefaultLocale = 'en-US';
-const numberFormatterMap = new Map<string, Intl.NumberFormat>();
+const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en-US';
+const NUMBER_FORMATTER_MAP = new Map<string, Intl.NumberFormat>();
 
 // Helpers - Convert ───────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -64,10 +64,10 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
 
 // Helpers - Format ────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = numberFormatterDefaultLocale): string {
+export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null) return '';
     const formatterId = `${locale}decimal${decimalPlaces}.${minimumFractionDigits}`;
-    let numberFormatter = numberFormatterMap.get(formatterId);
+    let numberFormatter = NUMBER_FORMATTER_MAP.get(formatterId);
     if (!numberFormatter) {
         numberFormatter = new Intl.NumberFormat(locale, {
             localeMatcher: 'best fit',
@@ -77,7 +77,7 @@ export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, 
             style: 'decimal',
             useGrouping: true
         });
-        numberFormatterMap.set(formatterId, numberFormatter);
+        NUMBER_FORMATTER_MAP.set(formatterId, numberFormatter);
     }
     return numberFormatter.format(number);
 }
@@ -114,10 +114,10 @@ export function formatNumberAsDuration(number?: number): string {
     return `${formatNumberAsDecimalNumber(number / 86_400_000, 2, 0)} days`;
 }
 
-export function formatNumberAsWholeNumber(number?: number, locale = numberFormatterDefaultLocale): string {
+export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null) return '';
     const formatterId = `${locale}decimal0.0`;
-    let numberFormatter = numberFormatterMap.get(formatterId);
+    let numberFormatter = NUMBER_FORMATTER_MAP.get(formatterId);
     if (!numberFormatter) {
         numberFormatter = new Intl.NumberFormat(locale, {
             localeMatcher: 'best fit',
@@ -127,7 +127,7 @@ export function formatNumberAsWholeNumber(number?: number, locale = numberFormat
             style: 'decimal',
             useGrouping: true
         });
-        numberFormatterMap.set(formatterId, numberFormatter);
+        NUMBER_FORMATTER_MAP.set(formatterId, numberFormatter);
     }
     return numberFormatter.format(number);
 }

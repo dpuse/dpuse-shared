@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.626",
+    "version": "0.3.627",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -17,10 +17,6 @@
     "module": "./dist/dpuse-shared.es.js",
     "types": "./dist/types/src/index.d.ts",
     "exports": {
-        ".": {
-            "import": "./dist/dpuse-shared.es.js",
-            "types": "./dist/types/src/index.d.ts"
-        },
         "./component": {
             "import": "./dist/dpuse-shared-component.es.js",
             "types": "./dist/types/src/component/index.d.ts"
@@ -36,6 +32,10 @@
         "./component/dimension": {
             "import": "./dist/dpuse-shared-dimension.es.js",
             "types": "./dist/types/src/component/dimension/index.d.ts"
+        },
+        "./component/eventQuery": {
+            "import": "./dist/dpuse-shared-eventQuery.es.js",
+            "types": "./dist/types/src/component/eventQuery/index.d.ts"
         },
         "./component/module": {
             "import": "./dist/dpuse-shared-componentModule.es.js",

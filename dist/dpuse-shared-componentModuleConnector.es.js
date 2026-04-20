@@ -1,26 +1,26 @@
-import { a as e, c as t, d as n, f as r, i, l as a, m as o, o as s, p as c, s as l, u } from "./componentConfig.schema-CpjcH9JV.js";
-import { t as d } from "./moduleConfig.schema-DE8ldb7c.js";
-import { createLabelMap as f, resolveLabel as p } from "./dpuse-shared-locale.es.js";
+import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-CpjcH9JV.js";
+import { t as p } from "./moduleConfig.schema-DE8ldb7c.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
-var m = e([
+var m = n([
 	"application",
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), h = n({ label: i }), g = n({
-	authMethodId: e([
+]), h = i({ label: o }), g = i({
+	authMethodId: n([
 		"apiKey",
 		"disabled",
 		"oAuth2",
 		"none"
 	]),
-	activeConnectionCount: r(u()),
-	canDescribe: r(l()),
-	id: r(o()),
-	label: r(i),
-	maxConnectionCount: a(u()),
-	params: r(s(c(o(), o())))
-}), _ = e([
+	activeConnectionCount: a(f()),
+	canDescribe: a(d()),
+	id: a(c()),
+	label: a(o),
+	maxConnectionCount: s(f()),
+	params: a(l(u(c(), c())))
+}), _ = n([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -35,22 +35,22 @@ var m = e([
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), v = e([
+]), v = n([
 	"bidirectional",
 	"destination",
 	"source",
 	"unknown"
-]), y = n({
-	...d,
-	typeId: t("connector"),
-	category: a(h),
+]), y = i({
+	...p,
+	typeId: r("connector"),
+	category: s(h),
 	categoryId: m,
-	implementations: c(o(), g),
-	operations: s(_),
+	implementations: u(c(), g),
+	operations: l(_),
 	usageId: v,
-	vendorAccountURL: a(o()),
-	vendorDocumentationURL: a(o()),
-	vendorHomeURL: a(o())
+	vendorAccountURL: s(c()),
+	vendorDocumentationURL: s(c()),
+	vendorHomeURL: s(c())
 }), b = [
 	{
 		id: "application",
@@ -80,9 +80,9 @@ var m = e([
 			es: "Almacén de Archivos"
 		}
 	}
-], x = (e, t = "en") => {
-	let n = b.find((t) => t.id === e);
-	return n ? { label: p(f(n.label), t) ?? n.id } : { label: e };
+], x = (n, r = "en") => {
+	let i = b.find((e) => e.id === n);
+	return i ? { label: t(e(i.label), r) ?? i.id } : { label: n };
 };
 //#endregion
 export { y as connectorConfigSchema, x as constructConnectorCategoryConfig };
