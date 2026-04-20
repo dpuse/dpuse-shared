@@ -28,6 +28,7 @@ export default defineConfig({
                 componentModuleConnector: fileURLToPath(new URL('src/component/module/connector/index.ts', import.meta.url)),
                 componentModuleContext: fileURLToPath(new URL('src/component/module/context/index.ts', import.meta.url)),
                 componentModulePresenter: fileURLToPath(new URL('src/component/module/presenter/index.ts', import.meta.url)),
+                componentModulePresenterPresentation: fileURLToPath(new URL('src/component/module/presenter/presentation/index.ts', import.meta.url)),
                 componentModuleTool: fileURLToPath(new URL('src/component/module/tool/index.ts', import.meta.url)),
                 encoding: fileURLToPath(new URL('src/encoding/index.ts', import.meta.url)),
                 engine: fileURLToPath(new URL('src/engine/index.ts', import.meta.url)),

@@ -47,26 +47,6 @@ export type { DimensionConfig, DimensionLocalisedConfig } from '@/component/dime
 /** Interfaces/Types - Event query. */
 export type { EventQueryConfig, EventQueryLocalisedConfig } from '@/component/eventQuery';
 
-/** Interfaces/Types - Presenter presentation. */
-export type { PresentationConfig, PresentationView } from '@/component/module/presenter/presentation';
-export type {
-    PresentationCategoryId,
-    PresentationCartesianTypeId,
-    PresentationPolarTypeId,
-    PresentationRangeTypeId,
-    PresentationVisualConfig,
-    PresentationVisualContentConfig,
-    PresentationVisualViewConfig,
-    PresentationVisualCartesianChartViewConfig,
-    PresentationVisualChordDiagramViewConfig,
-    PresentationVisualPeriodFlowBoundariesChartViewConfig,
-    PresentationVisualPolarChartViewConfig,
-    PresentationVisualRangeChartViewConfig,
-    PresentationVisualSankeyDiagramViewConfig,
-    PresentationVisualStreamGraphViewConfig,
-    PresentationVisualValueTableViewConfig
-} from '@/component/module/presenter/presentation';
-
 // /** Composables */
 // export { type CytoscapeJSView, useCytoscapeJS } from '@/composables/useCytoscapeJS';
 // export { useDataTable } from '@/composables/useDataTable';

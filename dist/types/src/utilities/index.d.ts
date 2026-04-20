@@ -1,6 +1,3 @@
-/**
- * Utilities.
- */
 export declare function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string;
 export declare function extractNameFromPath(itemPath: string): string | undefined;
 export declare function extractExtensionFromPath(itemPath: string): string | undefined;

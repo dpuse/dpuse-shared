@@ -1,13 +1,7 @@
 import { FileTypeResult } from 'file-type';
 import { Component, ComponentConfig } from '..';
 import { ConnectionNodeConfig, ObjectColumnConfig } from '../connection';
-/**
- * Data view interface.
- */
 type DataViewInterface = Component;
-/**
- * Data view configuration.
- */
 interface DataViewConfig extends ComponentConfig {
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
@@ -15,16 +9,10 @@ interface DataViewConfig extends ComponentConfig {
     contentAuditConfig: ContentAuditConfig | undefined;
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
 }
-/**
- * Data view localised configuration.
- */
 type DataViewLocalisedConfig = Omit<DataViewConfig, 'label' | 'description'> & {
     label: string;
     description: string;
 };
-/**
- * Data view preview configuration.
- */
 interface PreviewConfig {
     asAt: number;
     commentMarkId?: string | undefined;
@@ -54,13 +42,7 @@ interface PreviewConfig {
     valueDelimiterOtherCharSeq?: string | undefined;
     valueTrimMethodId?: ValueTrimMethodId | undefined;
 }
-/**
- *
- */
 type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
-/**
- * Data view content audit configuration.
- */
 interface ContentAuditConfig {
     asAt: number;
     columns: ObjectColumnConfig[];
@@ -71,35 +53,14 @@ interface ContentAuditConfig {
     lineCount: number;
     recordCount: number;
 }
-/**
- * Data view relationships audit configuration.
- */
 interface RelationshipsAuditConfig {
     placeholder: string;
 }
-/**
- *
- */
 type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
-/**
- *
- */
 type RecordDelimiterId = '\n' | '\r' | '\r\n';
-/**
- *
- */
 type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|';
-/**
- *
- */
 declare const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[];
-/**
- *
- */
 type ParsingRecord = ParsingResult[];
-/**
- *
- */
 interface ParsingResult {
     value: string | null;
     valueWasQuoted: boolean;
@@ -119,17 +80,8 @@ interface InferenceSummary {
     hasHeaderRow: boolean;
     typedRecords: InferenceRecord[];
 }
-/**
- *
- */
 type InferenceRecord = InferenceResult[];
-/**
- *
- */
 type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
-/**
- * Boolean inference result.
- */
 interface BooleanInferenceResult {
     dataTypeId: 'boolean';
     dataSubtypeId: undefined;
@@ -137,13 +89,7 @@ interface BooleanInferenceResult {
     inputValueWasQuoted: boolean;
     inferredValue: boolean;
 }
-/**
- *
- */
 type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
-/**
- *
- */
 interface BigIntInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'bigint';
@@ -156,9 +102,6 @@ interface BigIntInferenceResult {
     signId: NumericSignId;
     unitsId: NumericUnitsId;
 }
-/**
- *
- */
 interface NumberInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'integer' | 'decimal';
@@ -171,9 +114,6 @@ interface NumberInferenceResult {
     signId: NumericSignId;
     unitsId: NumericUnitsId;
 }
-/**
- * String inference result.
- */
 interface StringInferenceResult {
     dataTypeId: 'string';
     dataSubtypeId: StringSubtypeId;
@@ -182,9 +122,6 @@ interface StringInferenceResult {
     inputValueWasQuoted: boolean;
     inferredValue: string;
 }
-/**
- *
- */
 interface TemporalInferenceResult {
     dataTypeId: 'temporal';
     dataSubtypeId: TemporalSubtypeId;
@@ -193,9 +130,6 @@ interface TemporalInferenceResult {
     inputValueWasQuoted: boolean;
     inferredValue: Date;
 }
-/**
- *
- */
 interface UnknownInferenceResult {
     dataTypeId: 'unknown';
     dataSubtypeId: undefined;

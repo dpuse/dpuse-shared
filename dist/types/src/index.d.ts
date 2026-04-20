@@ -19,9 +19,6 @@ export type { ContextModelSecondaryMeasureGroupConfig, ContextModelSecondaryMeas
 export type { DimensionConfig, DimensionLocalisedConfig } from './component/dimension';
 /** Interfaces/Types - Event query. */
 export type { EventQueryConfig, EventQueryLocalisedConfig } from './component/eventQuery';
-/** Interfaces/Types */
-export { presenterConfigSchema } from './component/module/presenter';
-export type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterOperation } from './component/module/presenter';
 /** Interfaces/Types - Presenter presentation. */
 export type { PresentationConfig, PresentationView } from './component/module/presenter/presentation';
 export type { PresentationCategoryId, PresentationCartesianTypeId, PresentationPolarTypeId, PresentationRangeTypeId, PresentationVisualConfig, PresentationVisualContentConfig, PresentationVisualViewConfig, PresentationVisualCartesianChartViewConfig, PresentationVisualChordDiagramViewConfig, PresentationVisualPeriodFlowBoundariesChartViewConfig, PresentationVisualPolarChartViewConfig, PresentationVisualRangeChartViewConfig, PresentationVisualSankeyDiagramViewConfig, PresentationVisualStreamGraphViewConfig, PresentationVisualValueTableViewConfig } from './component/module/presenter/presentation';
