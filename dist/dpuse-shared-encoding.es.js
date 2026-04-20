@@ -1,91 +1,20 @@
-//#region src/encoding/encodingConfigs.json
+//#endregion
+//#region src/encoding/index.ts
 var e = {
-	id: "ascii",
-	groupLabel: "",
-	label: "ascii",
-	isDetectable: !1,
-	isDecodable: !0
-}, t = {
-	id: "big5",
-	groupLabel: "Chinese Traditional",
-	label: "Chinese Traditional (big5)",
-	isDetectable: !0,
-	isDecodable: !0
-}, n = {
-	id: "gb18030",
-	groupLabel: "Chinese Simplified",
-	label: "Chinese Simplified (gb18030)",
-	isDetectable: !0,
-	isDecodable: !0
-}, r = {
-	id: "gbk",
-	groupLabel: "Chinese Simplified",
-	label: "Chinese Simplified (gbk)",
-	isDetectable: !1,
-	isDecodable: !0
-}, i = {
-	id: "ibm866",
-	groupLabel: "Cyrillic",
-	label: "Cyrillic (ibm866)",
-	isDetectable: !1,
-	isDecodable: !0
-}, a = {
-	id: "latin1",
-	groupLabel: "Western",
-	label: "Western (latin1)",
-	isDetectable: !1,
-	isDecodable: !0
-}, o = {
-	id: "macintosh",
-	groupLabel: "Western",
-	label: "Western (macintosh)",
-	isDetectable: !1,
-	isDecodable: !0
-}, s = {
-	id: "shift_jis",
-	groupLabel: "Japanese",
-	label: "Japanese (shift_jis)",
-	isDetectable: !0,
-	isDecodable: !0
-}, c = {
-	id: "utf16",
-	groupLabel: "Unicode 16",
-	label: "Unicode 16 (utf16)",
-	isDetectable: !1,
-	isDecodable: !0
-}, l = {
-	id: "utf16be",
-	groupLabel: "Unicode 16",
-	label: "Unicode 16 (utf16be)",
-	isDetectable: !0,
-	isDecodable: !0
-}, u = {
-	id: "utf16le",
-	groupLabel: "Unicode 16",
-	label: "Unicode 16 (utf16le)",
-	isDetectable: !0,
-	isDecodable: !0
-}, d = {
-	id: "utf32be",
-	groupLabel: "Unicode 32",
-	label: "Unicode 32 (utf32be)",
-	isDetectable: !0,
-	isDecodable: !1
-}, f = {
-	id: "utf32le",
-	groupLabel: "Unicode 32",
-	label: "Unicode 32 (utf32le)",
-	isDetectable: !0,
-	isDecodable: !1
-}, p = {
-	id: "utf8",
-	groupLabel: "",
-	label: "utf8",
-	isDetectable: !0,
-	isDecodable: !0
-}, m = {
-	ascii: e,
-	big5: t,
+	ascii: {
+		id: "ascii",
+		groupLabel: "",
+		label: "ascii",
+		isDetectable: !1,
+		isDecodable: !0
+	},
+	big5: {
+		id: "big5",
+		groupLabel: "Chinese Traditional",
+		label: "Chinese Traditional (big5)",
+		isDetectable: !0,
+		isDecodable: !0
+	},
 	"euc-jp": {
 		id: "euc-jp",
 		groupLabel: "Japanese",
@@ -100,9 +29,27 @@ var e = {
 		isDetectable: !0,
 		isDecodable: !0
 	},
-	gb18030: n,
-	gbk: r,
-	ibm866: i,
+	gb18030: {
+		id: "gb18030",
+		groupLabel: "Chinese Simplified",
+		label: "Chinese Simplified (gb18030)",
+		isDetectable: !0,
+		isDecodable: !0
+	},
+	gbk: {
+		id: "gbk",
+		groupLabel: "Chinese Simplified",
+		label: "Chinese Simplified (gbk)",
+		isDetectable: !1,
+		isDecodable: !0
+	},
+	ibm866: {
+		id: "ibm866",
+		groupLabel: "Cyrillic",
+		label: "Cyrillic (ibm866)",
+		isDetectable: !1,
+		isDecodable: !0
+	},
 	"iso-2022-cn": {
 		id: "iso-2022-cn",
 		groupLabel: "Japanese",
@@ -243,9 +190,27 @@ var e = {
 		isDetectable: !1,
 		isDecodable: !0
 	},
-	latin1: a,
-	macintosh: o,
-	shift_jis: s,
+	latin1: {
+		id: "latin1",
+		groupLabel: "Western",
+		label: "Western (latin1)",
+		isDetectable: !1,
+		isDecodable: !0
+	},
+	macintosh: {
+		id: "macintosh",
+		groupLabel: "Western",
+		label: "Western (macintosh)",
+		isDetectable: !1,
+		isDecodable: !0
+	},
+	shift_jis: {
+		id: "shift_jis",
+		groupLabel: "Japanese",
+		label: "Japanese (shift_jis)",
+		isDetectable: !0,
+		isDecodable: !0
+	},
 	"tis-620": {
 		id: "tis-620",
 		groupLabel: "Thai",
@@ -253,12 +218,48 @@ var e = {
 		isDetectable: !1,
 		isDecodable: !0
 	},
-	utf16: c,
-	utf16be: l,
-	utf16le: u,
-	utf32be: d,
-	utf32le: f,
-	utf8: p,
+	utf16: {
+		id: "utf16",
+		groupLabel: "Unicode 16",
+		label: "Unicode 16 (utf16)",
+		isDetectable: !1,
+		isDecodable: !0
+	},
+	utf16be: {
+		id: "utf16be",
+		groupLabel: "Unicode 16",
+		label: "Unicode 16 (utf16be)",
+		isDetectable: !0,
+		isDecodable: !0
+	},
+	utf16le: {
+		id: "utf16le",
+		groupLabel: "Unicode 16",
+		label: "Unicode 16 (utf16le)",
+		isDetectable: !0,
+		isDecodable: !0
+	},
+	utf32be: {
+		id: "utf32be",
+		groupLabel: "Unicode 32",
+		label: "Unicode 32 (utf32be)",
+		isDetectable: !0,
+		isDecodable: !1
+	},
+	utf32le: {
+		id: "utf32le",
+		groupLabel: "Unicode 32",
+		label: "Unicode 32 (utf32le)",
+		isDetectable: !0,
+		isDecodable: !1
+	},
+	utf8: {
+		id: "utf8",
+		groupLabel: "",
+		label: "utf8",
+		isDetectable: !0,
+		isDecodable: !0
+	},
 	"windows-1250": {
 		id: "windows-1250",
 		groupLabel: "Central European",
@@ -344,13 +345,13 @@ var e = {
 		isDecodable: !0
 	}
 };
-function h(e = "en") {
-	let t = [];
-	for (let [, e] of Object.entries(m)) t.push({
-		...e,
-		label: e.label || e.id
+function t(t = "en") {
+	let n = [];
+	for (let [, t] of Object.entries(e)) n.push({
+		...t,
+		label: t.label || t.id
 	});
-	return t.toSorted((e, t) => e.groupLabel.localeCompare(t.groupLabel) || e.label.localeCompare(t.label));
+	return n.toSorted((e, t) => e.groupLabel.localeCompare(t.groupLabel) || e.label.localeCompare(t.label));
 }
 //#endregion
-export { m as encodingConfigMap, h as getEncodingTypeConfigs };
+export { e as encodingConfigMap, t as getEncodingTypeConfigs };
