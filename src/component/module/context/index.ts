@@ -5,7 +5,7 @@ import type { InferOutput } from 'valibot';
 import type { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 import type { EngineContextActionOptions } from '@/engine';
 import type { Localised } from '@/locale';
-import type { ModuleConfig } from '@/component/module';
+// import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -22,13 +22,13 @@ export interface ContextInterface extends Component {
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
-export interface ContextConfig1 extends ModuleConfig {
-    models: ContextModelGroupConfig[];
-    operations: ContextOperation[];
-    typeId: 'context';
-}
+// export interface ContextConfig1 extends ModuleConfig {
+//     models: ContextModelGroupConfig[];
+//     operations: ContextOperation[];
+//     typeId: 'context';
+// }
 export type ContextLocalisedConfig = Localised<ContextConfig>;
-export type ContextOperation = 'listContextFocuses';
+// export type ContextOperation = 'listContextFocuses';
 
 // Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
 

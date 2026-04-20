@@ -17,7 +17,7 @@ const contextModelGroupConfigSchema = object({
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const contextOperationSchema = literalUnion(['listContextFocuses'] as const);
+const contextOperationSchema = literalUnion(['listContextFocuses']);
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
