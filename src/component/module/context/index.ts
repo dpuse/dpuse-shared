@@ -1,7 +1,3 @@
-/**
- * Context composables, constants, errors, types/interfaces and utilities.
- */
-
 // Dependencies - Vendor.
 import type { InferOutput } from 'valibot';
 

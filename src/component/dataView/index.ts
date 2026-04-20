@@ -1,6 +1,3 @@
-/**
- * Data view component.
- */
 // Vendor dependencies.
 import type { FileTypeResult } from 'file-type';
 
@@ -9,14 +6,8 @@ import type { Component, ComponentConfig } from '@/component';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale';
 
-/**
- * Data view interface.
- */
 type DataViewInterface = Component;
 
-/**
- * Data view configuration.
- */
 interface DataViewConfig extends ComponentConfig {
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
@@ -24,19 +15,12 @@ interface DataViewConfig extends ComponentConfig {
     contentAuditConfig: ContentAuditConfig | undefined;
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
 }
-
-/**
- * Data view localised configuration.
- */
 type DataViewLocalisedConfig = Omit<DataViewConfig, 'label' | 'description'> & { label: string; description: string };
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //#region Data view preview.
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- * Data view preview configuration.
- */
 interface PreviewConfig {
     asAt: number;
     commentMarkId?: string | undefined; // TODO: under review.
@@ -67,9 +51,6 @@ interface PreviewConfig {
     valueTrimMethodId?: ValueTrimMethodId | undefined; // TODO: under review.
 }
 
-/**
- *
- */
 type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 
 //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -78,9 +59,6 @@ type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 //#region Data view audit.
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- * Data view content audit configuration.
- */
 interface ContentAuditConfig {
     asAt: number;
     columns: ObjectColumnConfig[];
@@ -98,9 +76,6 @@ interface ContentAuditConfig {
 //#region Data view relationships.
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- * Data view relationships audit configuration.
- */
 interface RelationshipsAuditConfig {
     placeholder: string;
 }
@@ -111,22 +86,13 @@ interface RelationshipsAuditConfig {
 //#region Data format identifier.
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- *
- */
 type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
 
-/**
- *
- */
 interface ObjectDataFormat {
     id: DataFormatId;
     label: string;
 }
 
-/**
- * Data formats configuration.
- */
 const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
     { id: 'dpe', labels: createLabelMap({ en: 'Data Positioning Events' }) },
     { id: 'dtv', labels: createLabelMap({ en: 'Delimited Text' }) },
@@ -136,9 +102,6 @@ const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
     { id: 'xml', labels: createLabelMap({ en: 'XML' }) }
 ];
 
-/**
- *
- */
 function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
     const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
     if (dataFormat) {
@@ -148,9 +111,6 @@ function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDa
     return { id, label: id };
 }
 
-/**
- *
- */
 function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
     const items: ObjectDataFormat[] = [];
     for (const dataFormat of DATA_FORMATS_CONFIG) {
@@ -166,31 +126,19 @@ function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
 //#region Record delimiter identifier.
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- *
- */
 type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-/**
- *
- */
 interface ObjectRecordDelimiter {
     id: RecordDelimiterId;
     label: string;
 }
 
-/**
- * Record delimiters configuration.
- */
 const RECORD_DELIMITERS_CONFIG: { id: RecordDelimiterId; labels: LocaleLabelMap }[] = [
     { id: '\n', labels: createLabelMap({ en: 'Newline' }) },
     { id: '\r', labels: createLabelMap({ en: 'Carriage Return' }) },
     { id: '\r\n', labels: createLabelMap({ en: 'Carriage Return/Newline' }) }
 ];
 
-/**
- *
- */
 const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter => {
     const recordDelimiter = RECORD_DELIMITERS_CONFIG.find((recordDelimiter) => recordDelimiter.id === id);
     if (recordDelimiter) {
@@ -200,9 +148,6 @@ const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_ID)
     return { id, label: id };
 };
 
-/**
- *
- */
 const getRecordDelimiters = (localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter[] => {
     const items: ObjectRecordDelimiter[] = [];
     for (const recordDelimiter of RECORD_DELIMITERS_CONFIG) {
@@ -218,22 +163,13 @@ const getRecordDelimiters = (localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimite
 //#region Value delimiter identifier.
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- *
- */
 type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-/**
- *
- */
 interface ValueDelimiter {
     id: ValueDelimiterId;
     label: string;
 }
 
-/**
- * Value delimiters configuration.
- */
 const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[] = [
     { id: ':', labels: createLabelMap({ en: 'Colon' }) },
     { id: ',', labels: createLabelMap({ en: 'Comma' }) },
@@ -248,14 +184,8 @@ const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[
     { id: '|', labels: createLabelMap({ en: 'Vertical Bar' }) }
 ];
 
-/**
- *
- */
 const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[] = [',', ';', '\t', '|', ' ', ':', '_', '!', '0x1F', '0x1E']; // Ordered from estimated most common to least common.
 
-/**
- *
- */
 const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_ID): ValueDelimiter => {
     const valueDelimiter = VALUE_DELIMITERS_CONFIG.find((valueDelimiter) => valueDelimiter.id === id);
     if (valueDelimiter) {
@@ -265,9 +195,6 @@ const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_ID): 
     return { id, label: id };
 };
 
-/**
- *
- */
 const getValueDelimiters = (localeId = DEFAULT_LOCALE_ID): ValueDelimiter[] => {
     const items: ValueDelimiter[] = [];
     for (const valueDelimiter of VALUE_DELIMITERS_CONFIG) {
@@ -283,14 +210,8 @@ const getValueDelimiters = (localeId = DEFAULT_LOCALE_ID): ValueDelimiter[] => {
 //#region Parsing...
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-/**
- *
- */
 type ParsingRecord = ParsingResult[];
 
-/**
- *
- */
 interface ParsingResult {
     value: string | null;
     valueWasQuoted: boolean;
@@ -331,19 +252,10 @@ interface InferenceSummary {
     typedRecords: InferenceRecord[];
 }
 
-/**
- *
- */
 type InferenceRecord = InferenceResult[];
 
-/**
- *
- */
 type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
 
-/**
- * Boolean inference result.
- */
 interface BooleanInferenceResult {
     dataTypeId: 'boolean';
     dataSubtypeId: undefined;
@@ -352,14 +264,8 @@ interface BooleanInferenceResult {
     inferredValue: boolean;
 }
 
-/**
- *
- */
 type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
 
-/**
- *
- */
 interface BigIntInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'bigint';
@@ -373,9 +279,6 @@ interface BigIntInferenceResult {
     unitsId: NumericUnitsId;
 }
 
-/**
- *
- */
 interface NumberInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'integer' | 'decimal';
@@ -389,9 +292,6 @@ interface NumberInferenceResult {
     unitsId: NumericUnitsId;
 }
 
-/**
- * String inference result.
- */
 interface StringInferenceResult {
     dataTypeId: 'string';
     dataSubtypeId: StringSubtypeId;
@@ -401,9 +301,6 @@ interface StringInferenceResult {
     inferredValue: string;
 }
 
-/**
- *
- */
 interface TemporalInferenceResult {
     dataTypeId: 'temporal';
     dataSubtypeId: TemporalSubtypeId;
@@ -413,9 +310,6 @@ interface TemporalInferenceResult {
     inferredValue: Date;
 }
 
-/**
- *
- */
 interface UnknownInferenceResult {
     dataTypeId: 'unknown';
     dataSubtypeId: undefined;

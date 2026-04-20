@@ -1,12 +1,10 @@
-/**
- * Utilities.
- */
+// Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Constants
 const numberFormatterDefaultLocale = 'en-US';
 const numberFormatterMap = new Map<string, Intl.NumberFormat>();
 
-// Utilities - Convert - OData Type Identifier To Usage Type Identifier
+// Helpers - Convert ───────────────────────────────────────────────────────────────────────────────────────────────────
+
 // See: https://www.odata.org/documentation/odata-version-2-0/overview/.
 export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
     switch (oDataTypeId) {
@@ -45,7 +43,8 @@ export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
     }
 }
 
-// Utilities - Extract - Name From Path
+// Helpers - Extract ───────────────────────────────────────────────────────────────────────────────────────────────────
+
 export function extractNameFromPath(itemPath: string): string | undefined {
     if (itemPath) {
         const lastSeparatorIndex = itemPath.lastIndexOf('/');
@@ -55,7 +54,6 @@ export function extractNameFromPath(itemPath: string): string | undefined {
     return undefined;
 }
 
-// Utilities - Extract - Extension From Path
 export function extractExtensionFromPath(itemPath: string): string | undefined {
     if (itemPath) {
         const lastExtensionIndex = itemPath.lastIndexOf('.');
@@ -64,7 +62,8 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
     return undefined;
 }
 
-// Utilities - Format Number - As Decimal Number
+// Helpers - Format ────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = numberFormatterDefaultLocale): string {
     if (number == null) return '';
     const formatterId = `${locale}decimal${decimalPlaces}.${minimumFractionDigits}`;
@@ -83,7 +82,6 @@ export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, 
     return numberFormatter.format(number);
 }
 
-// Utilities - Format Number - As Size
 export function formatNumberAsSize(number?: number): string {
     if (number == null) return '';
     if (number < 1000) return formatNumberAsWholeNumber(number);
@@ -93,7 +91,6 @@ export function formatNumberAsSize(number?: number): string {
     return `${formatNumberAsDecimalNumber(number / 1_000_000_000_000, 2, 0)}T`;
 }
 
-// Utilities - Format Number - As Storage Size
 export function formatNumberAsStorageSize(number?: number): string {
     if (number == null) return '';
     if (number === 1) return '1 byte';
@@ -104,7 +101,6 @@ export function formatNumberAsStorageSize(number?: number): string {
     return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, 2, 0)} TB`;
 }
 
-// Utilities - Format Number - As Duration
 export function formatNumberAsDuration(number?: number): string {
     if (number == null) return '';
     if (number < 1000) return `${formatNumberAsWholeNumber(number)} ms`;
@@ -118,7 +114,6 @@ export function formatNumberAsDuration(number?: number): string {
     return `${formatNumberAsDecimalNumber(number / 86_400_000, 2, 0)} days`;
 }
 
-// Utilities - Format Number - As Whole Number
 export function formatNumberAsWholeNumber(number?: number, locale = numberFormatterDefaultLocale): string {
     if (number == null) return '';
     const formatterId = `${locale}decimal0.0`;
@@ -137,7 +132,8 @@ export function formatNumberAsWholeNumber(number?: number, locale = numberFormat
     return numberFormatter.format(number);
 }
 
-// Utilities - Lookup - Mime Type For Extension
+// Helpers - Lookup ────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export function lookupMimeTypeForExtension(extension?: string): string {
     switch (extension) {
         case 'csv':
@@ -154,8 +150,7 @@ export function lookupMimeTypeForExtension(extension?: string): string {
     }
 }
 
-// // Utilities - Establish Vendor Access Token
-// // // export const establishVendorAccessToken = async (item: Item, accountId: string, sessionAccessToken: string, vendorRefreshURI: string): Promise<string> => {
+// // export const establishVendorAccessToken = async (item: Item, accountId: string, sessionAccessToken: string, vendorRefreshURI: string): Promise<string> => {
 // export const establishVendorAccessToken = async (connectionConfig: ConnectionConfig, settings: ReadSettings, vendorRefreshURI: string): Promise<string> => {
 //     let accessToken;
 

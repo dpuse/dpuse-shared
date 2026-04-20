@@ -1,7 +1,3 @@
-/**
- * Context schema.
- */
-
 // Vendor dependencies.
 import { array, literal, number, object } from 'valibot';
 
@@ -10,14 +6,8 @@ import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 import { componentConfigCoreFields, componentReferenceSchema } from '@/component/componentConfig.schema';
 
-/**
- *
- */
 const contextOperationSchema = literalUnion(['list'] as const);
 
-/**
- *
- */
 const contextModelGroupConfigSchema = object({
     ...componentConfigCoreFields,
     typeId: literal('contextModelGroup'),

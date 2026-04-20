@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.624",
+    "version": "0.3.625",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -32,6 +32,10 @@
         "./component/dataView": {
             "import": "./dist/dpuse-shared-dataview.es.js",
             "types": "./dist/types/src/component/dataView/index.d.ts"
+        },
+        "./component/dimension": {
+            "import": "./dist/dpuse-shared-dimension.es.js",
+            "types": "./dist/types/src/component/dimension/index.d.ts"
         },
         "./component/module": {
             "import": "./dist/dpuse-shared-componentModule.es.js",

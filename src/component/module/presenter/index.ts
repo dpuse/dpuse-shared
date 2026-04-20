@@ -1,15 +1,14 @@
-/**
- * Presenter composables, constants, errors, types/interfaces and utilities.
- */
-
-export { presenterConfigSchema } from '@/component/module/presenter/presenterConfig.schema';
-
-// Dependencies - Framework.
+// External Dependencies
 import type { ModuleConfig } from '@/component/module';
 import type { Component, ComponentReference } from '@/component';
 
-// Types/Interfaces - Presenter.
-export interface Presenter extends Component {
+// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export { presenterConfigSchema } from '@/component/module/presenter/presenterConfig.schema';
+
+// Interface ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
 
     list(): ComponentReference[]; // TODO: Do we need this. Configuration contains list.
@@ -17,11 +16,15 @@ export interface Presenter extends Component {
     setColorMode(colorModeId: string): void;
 }
 
-// Types/Interfaces - Presenter configuration.
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export interface PresenterConfig extends ModuleConfig {
     presentations: ComponentReference[];
     operations: PresenterOperation[];
     typeId: 'presenter';
 }
-export type PresenterOperation = 'list' | 'render' | 'setColorMode';
 export type PresenterLocalisedConfig = Omit<PresenterConfig, 'label' | 'description'> & { label: string; description: string };
+
+// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type PresenterOperation = 'list' | 'render' | 'setColorMode';

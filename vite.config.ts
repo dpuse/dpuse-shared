@@ -23,6 +23,7 @@ export default defineConfig({
                 component: fileURLToPath(new URL('src/component/index.ts', import.meta.url)),
                 componentConnection: fileURLToPath(new URL('src/component/connection/index.ts', import.meta.url)),
                 componentDataView: fileURLToPath(new URL('src/component/dataView/index.ts', import.meta.url)),
+                componentDimension: fileURLToPath(new URL('src/component/dimension/index.ts', import.meta.url)),
                 componentModule: fileURLToPath(new URL('src/component/module/index.ts', import.meta.url)),
                 componentModuleConnector: fileURLToPath(new URL('src/component/module/connector/index.ts', import.meta.url)),
                 componentModuleContext: fileURLToPath(new URL('src/component/module/context/index.ts', import.meta.url)),

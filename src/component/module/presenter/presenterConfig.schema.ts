@@ -6,11 +6,11 @@ import { componentReferenceSchema } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// Schema - Operations ─────────────────────────────────────────────────────────────────────────────────────────────────
+// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const presenterOperationNameSchema = literalUnion(['list', 'render', 'setColorMode']);
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const presenterConfigSchema = object({
     ...moduleConfigCoreFields,
