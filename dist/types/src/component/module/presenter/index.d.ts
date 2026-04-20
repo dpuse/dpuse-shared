@@ -1,5 +1,6 @@
 import { ModuleConfig } from '..';
 import { Component, ComponentReference } from '../..';
+import { Localised } from '../../../locale';
 export { presenterConfigSchema } from './presenterConfig.schema';
 export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
@@ -12,8 +13,5 @@ export interface PresenterConfig extends ModuleConfig {
     operations: PresenterOperation[];
     typeId: 'presenter';
 }
-export type PresenterLocalisedConfig = Omit<PresenterConfig, 'label' | 'description'> & {
-    label: string;
-    description: string;
-};
+export type PresenterLocalisedConfig = Localised<PresenterConfig>;
 export type PresenterOperation = 'list' | 'render' | 'setColorMode';

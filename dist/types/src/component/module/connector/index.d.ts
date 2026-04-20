@@ -4,6 +4,7 @@ import { ToolConfig } from '../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig } from '../../connection';
 import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from './connectorConfig.schema';
 import { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
+import { Localised } from '../../../locale';
 import { EngineConnectorActionOptions, EngineUtilities } from '../../../engine';
 export { connectorConfigSchema } from './connectorConfig.schema';
 export interface ConnectorInterface extends Component {
@@ -27,10 +28,7 @@ export interface ConnectorInterface extends Component {
 }
 export type ConnectorConstructor = new (engineUtilities: EngineUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
-export type ConnectorLocalisedConfig = Omit<ConnectorConfig, 'label' | 'description'> & {
-    label: string;
-    description: string;
-};
+export type ConnectorLocalisedConfig = Localised<ConnectorConfig>;
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
 type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> & {
     label: string;

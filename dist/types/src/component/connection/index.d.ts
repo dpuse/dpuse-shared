@@ -1,6 +1,6 @@
 import { ComponentConfig } from '..';
 import { ConnectorConfig } from '../module/connector';
-import { LocaleLabel } from '../../locale';
+import { Localised, LocaleLabel } from '../../locale';
 import { DataSubtypeId, DataTypeId } from '../dataView';
 export interface ConnectionConfig extends ComponentConfig {
     authorisation: Record<string, ConnectionAuthorisationConfig>;
@@ -8,10 +8,7 @@ export interface ConnectionConfig extends ComponentConfig {
     lastVerifiedAt: number;
     notation: string | undefined;
 }
-export type ConnectionLocalisedConfig = Omit<ConnectionConfig, 'label' | 'description'> & {
-    label: string;
-    description: string;
-};
+export type ConnectionLocalisedConfig = Localised<ConnectionConfig>;
 export interface ConnectionAuthorisationConfig {
     accessToken: string;
     accountId: string;

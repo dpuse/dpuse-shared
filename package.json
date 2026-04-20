@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.629",
+    "version": "0.3.630",
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -52,6 +52,30 @@
         "./component/module/context/model": {
             "import": "./dist/dpuse-shared-componentModuleContextModel.es.js",
             "types": "./dist/types/src/component/module/context/model/index.d.ts"
+        },
+        "./component/module/context/model/dimension": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelDimension.es.js",
+            "types": "./dist/types/src/component/module/context/model/dimension/index.d.ts"
+        },
+        "./component/module/context/model/entity": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntity.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/index.d.ts"
+        },
+        "./component/module/context/model/entity/dataItem": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntityDataItem.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/dataItem/index.d.ts"
+        },
+        "./component/module/context/model/entity/event": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntityEvent.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/event/index.d.ts"
+        },
+        "./component/module/context/model/entity/primaryMeasure": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntityPrimaryMeasure.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/primaryMeasure/index.d.ts"
+        },
+        "./component/module/context/model/secondaryMeasure": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelSecondaryMeasure.es.js",
+            "types": "./dist/types/src/component/module/context/model/secondaryMeasure/index.d.ts"
         },
         "./component/module/presenter": {
             "import": "./dist/dpuse-shared-componentModulePresenter.es.js",

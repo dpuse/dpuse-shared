@@ -2,6 +2,10 @@ export type FlagId = 'es' | 'gb';
 export type LocaleId = 'en' | 'es';
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
 export type LocaleLabelMap = ReadonlyMap<string, string>;
+export type Localised<T> = Omit<T, 'label' | 'description'> & {
+    label: string;
+    description: string;
+};
 export declare const DEFAULT_LOCALE_ID: LocaleId;
 export declare const SUPPORTED_LANGUAGES: {
     id: LocaleId;

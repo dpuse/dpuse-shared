@@ -1,6 +1,7 @@
 import { FileTypeResult } from 'file-type';
 import { Component, ComponentConfig } from '..';
 import { ConnectionNodeConfig, ObjectColumnConfig } from '../connection';
+import { Localised } from '../../locale';
 type DataViewInterface = Component;
 interface DataViewConfig extends ComponentConfig {
     connectionId: string | undefined;
@@ -9,10 +10,7 @@ interface DataViewConfig extends ComponentConfig {
     contentAuditConfig: ContentAuditConfig | undefined;
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
 }
-type DataViewLocalisedConfig = Omit<DataViewConfig, 'label' | 'description'> & {
-    label: string;
-    description: string;
-};
+type DataViewLocalisedConfig = Localised<DataViewConfig>;
 interface PreviewConfig {
     asAt: number;
     commentMarkId?: string | undefined;
