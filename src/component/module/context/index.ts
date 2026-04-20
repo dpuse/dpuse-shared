@@ -43,7 +43,7 @@ export type ContextModelGroupLocalisedConfig = Localised<ContextModelGroupConfig
 export interface ListContextOptions extends EngineContextActionOptions {
     placeholder: unknown;
 } // TODO: Naming, structure...
-export interface ContextListResult {
+export interface ListContextResult {
     models: ContextModelGroupConfig[];
 }
 
