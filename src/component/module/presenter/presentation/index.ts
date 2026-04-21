@@ -17,7 +17,7 @@ export interface PresentationVisualConfig {
 }
 
 export interface PresentationVisualContentConfig {
-    title?: { text: string };
+    title: { text: string };
     data: {
         label?: { text: string };
         dimension: { label?: { text: string }; values: { label?: { text: string } }[] };

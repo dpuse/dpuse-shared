@@ -9,7 +9,7 @@ export interface PresentationVisualConfig {
     views: PresentationVisualViewConfig[];
 }
 export interface PresentationVisualContentConfig {
-    title?: {
+    title: {
         text: string;
     };
     data: {
