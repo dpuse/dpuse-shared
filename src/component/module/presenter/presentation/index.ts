@@ -11,6 +11,7 @@ export type PresentationConfig = InferOutput<typeof presenterConfigSchema>;
 export interface PresentationConfig1 extends ComponentConfig {
     content: string;
     order: number;
+    typeId: 'presenterPresentation';
 }
 
 // Visual Configuration ────────────────────────────────────────────────────────────────────────────────────────────────
