@@ -1,8 +1,5 @@
-import { InferOutput } from 'valibot';
 import { ComponentConfig } from '../../..';
-import { presenterConfigSchema } from '../presenterConfig.schema';
-export type PresentationConfig = InferOutput<typeof presenterConfigSchema>;
-export interface PresentationConfig1 extends ComponentConfig {
+export interface PresentationConfig extends ComponentConfig {
     content: string;
     order: number;
     typeId: 'presenterPresentation';

@@ -1,14 +1,9 @@
-// External Dependencies
-import type { InferOutput } from 'valibot';
-
 // Local Framework
 import type { ComponentConfig } from '@/component';
-import type { presenterConfigSchema } from '@/component/module/presenter/presenterConfig.schema';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type PresentationConfig = InferOutput<typeof presenterConfigSchema>;
-export interface PresentationConfig1 extends ComponentConfig {
+export interface PresentationConfig extends ComponentConfig {
     content: string;
     order: number;
     typeId: 'presenterPresentation';
