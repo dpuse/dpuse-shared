@@ -1,10 +1,15 @@
 // Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type FlagId = 'es' | 'gb';
+
 export type LocaleId = 'en' | 'es';
+
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
+
 export type LocaleLabelMap = ReadonlyMap<string, string>;
+
 export type LocalisedConfig<T> = Omit<T, 'label' | 'description'> & { label: string; description: string };
+
 interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
@@ -14,6 +19,7 @@ interface UnlocalisedConfig {
 // Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const DEFAULT_LOCALE_ID: LocaleId = 'en';
+
 export const SUPPORTED_LANGUAGES: { id: LocaleId; flag: FlagId; label: string }[] = [
     { id: 'en', flag: 'gb', label: 'English' },
     { id: 'es', flag: 'es', label: 'Español' }

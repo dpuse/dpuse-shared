@@ -22,14 +22,15 @@ function n(e) {
 }
 function r(e) {
 	if (e) {
-		let t = e.lastIndexOf("/"), n = e.lastIndexOf(".", t === -1 ? e.length : t);
-		return n === -1 ? e : e.slice(0, Math.max(0, n));
+		let t = e.lastIndexOf("/") + 1, n = e.lastIndexOf(".");
+		return n <= t || n === -1 ? e : e.slice(0, Math.max(0, n));
 	}
 }
 function i(e) {
 	if (e) {
-		let t = e.lastIndexOf(".");
-		if (t !== -1) return e.slice(Math.max(0, t + 1));
+		let t = e.lastIndexOf("/") + 1, n = e.lastIndexOf(".");
+		if (n <= t) return;
+		if (n !== -1) return e.slice(Math.max(0, n + 1));
 	}
 }
 function a(n, r = 2, i = r, a = e) {
@@ -51,7 +52,7 @@ function s(e) {
 	return e == null ? "" : e === 1 ? "1 byte" : e < 1024 ? `${l(e)} bytes` : e < 1048576 ? `${a(e / 1024, 2, 0)} KB` : e < 1073741824 ? `${a(e / 1048576, 2, 0)} MB` : e < 1099511627776 ? `${a(e / 1073741824, 2, 0)} GB` : `${a(e / 1099511627776, 2, 0)} TB`;
 }
 function c(e) {
-	return e == null ? "" : e < 1e3 ? `${l(e)} ms` : e === 1e3 ? `${l(e)} sec` : e < 6e4 ? `${a(e / 1e3, 2, 0)} secs` : e === 6e4 ? "1 min" : e < 36e5 ? `${a(e / 6e4, 2, 0)} mins` : e === 36e5 ? "1 hr" : e < 864e5 ? `${a(e / 36e5, 2, 0)} hrs` : e === 864e5 ? "1 day" : `${a(e / 864e5, 2, 0)} days`;
+	return e == null ? "" : e < 1e3 ? `${l(e)} ms` : e === 1e3 ? "1 sec" : e < 6e4 ? `${a(e / 1e3, 2, 0)} secs` : e === 6e4 ? "1 min" : e < 36e5 ? `${a(e / 6e4, 2, 0)} mins` : e === 36e5 ? "1 hr" : e < 864e5 ? `${a(e / 36e5, 2, 0)} hrs` : e === 864e5 ? "1 day" : `${a(e / 864e5, 2, 0)} days`;
 }
 function l(n, r = e) {
 	if (n == null) return "";

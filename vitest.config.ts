@@ -1,12 +1,8 @@
-/**
- * Vitest configuration.
- */
-
-// Dependencies - Vendor.
+// External Dependencies
 import { defineConfig } from 'vitest/config';
 import { resolve } from 'node:path';
 
-// Exposures - Configuration.
+// Configuration
 export default defineConfig({
     resolve: {
         alias: {

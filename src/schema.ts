@@ -1,8 +1,7 @@
 // External Dependencies
-import { literal, union } from 'valibot';
-import type { LiteralSchema, UnionSchema } from 'valibot';
+import { literal, type LiteralSchema, union, type UnionSchema } from 'valibot';
 
-// Literal Unions ──────────────────────────────────────────────────────────────────────────────────────────────────────
+// Literal Union ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type LiteralUnionSchema<T extends readonly string[]> = UnionSchema<{ [K in keyof T]: LiteralSchema<T[K], undefined> }, undefined>;
 

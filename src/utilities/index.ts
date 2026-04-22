@@ -45,18 +45,29 @@ export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
 
 // Actions - Extract ───────────────────────────────────────────────────────────────────────────────────────────────────
 
+// Extract the path without its final basename extension.
+// Dots in parent directories are ignored, and leading dots in the basename
+// are treated as part of dotfile names rather than as an extension separator.
 export function extractNameFromPath(itemPath: string): string | undefined {
     if (itemPath) {
         const lastSeparatorIndex = itemPath.lastIndexOf('/');
-        const lastExtensionIndex = itemPath.lastIndexOf('.', lastSeparatorIndex === -1 ? itemPath.length : lastSeparatorIndex);
+        const basenameStartIndex = lastSeparatorIndex + 1;
+        const lastExtensionIndex = itemPath.lastIndexOf('.');
+        if (lastExtensionIndex <= basenameStartIndex) return itemPath;
         return lastExtensionIndex === -1 ? itemPath : itemPath.slice(0, Math.max(0, lastExtensionIndex));
     }
     return undefined;
 }
 
+// Extract only the final basename extension.
+// Returns undefined when the basename has no extension, including dotfiles such
+// as .gitignore where the only dot is the leading character of the basename.
 export function extractExtensionFromPath(itemPath: string): string | undefined {
     if (itemPath) {
+        const lastSeparatorIndex = itemPath.lastIndexOf('/');
+        const basenameStartIndex = lastSeparatorIndex + 1;
         const lastExtensionIndex = itemPath.lastIndexOf('.');
+        if (lastExtensionIndex <= basenameStartIndex) return undefined;
         if (lastExtensionIndex !== -1) return itemPath.slice(Math.max(0, lastExtensionIndex + 1));
     }
     return undefined;
@@ -104,7 +115,7 @@ export function formatNumberAsStorageSize(number?: number): string {
 export function formatNumberAsDuration(number?: number): string {
     if (number == null) return '';
     if (number < 1000) return `${formatNumberAsWholeNumber(number)} ms`;
-    if (number === 1000) return `${formatNumberAsWholeNumber(number)} sec`;
+    if (number === 1000) return '1 sec';
     if (number < 60_000) return `${formatNumberAsDecimalNumber(number / 1000, 2, 0)} secs`;
     if (number === 60_000) return '1 min';
     if (number < 3_600_000) return `${formatNumberAsDecimalNumber(number / 60_000, 2, 0)} mins`;
