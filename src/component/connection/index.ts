@@ -1,7 +1,7 @@
 // External Dependencies
 import type { ComponentConfig } from '@/component';
 import type { ConnectorConfig } from '@/component/module/connector';
-import type { LocalisedConfig, LocaleLabel } from '@/locale';
+import type { LocaleLabel } from '@/locale';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -12,7 +12,6 @@ export interface ConnectionConfig extends ComponentConfig {
     lastVerifiedAt: number;
     notation: string | undefined;
 }
-export type ConnectionLocalisedConfig = LocalisedConfig<ConnectionConfig>;
 
 // Authorisation ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
