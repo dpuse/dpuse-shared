@@ -1,6 +1,6 @@
 import { ComponentConfig } from '..';
-import { Localised } from '../../locale';
+import { LocalisedConfig } from '../../locale';
 export interface EventQueryConfig extends ComponentConfig {
     placeholder?: string;
 }
-export type EventQueryLocalisedConfig = Localised<EventQueryConfig>;
+export type EventQueryLocalisedConfig = LocalisedConfig<EventQueryConfig>;

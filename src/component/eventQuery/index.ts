@@ -1,10 +1,10 @@
 // External Dependencies
 import type { ComponentConfig } from '@/component';
-import type { Localised } from '@/locale';
+import type { LocalisedConfig } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EventQueryConfig extends ComponentConfig {
     placeholder?: string;
 }
-export type EventQueryLocalisedConfig = Localised<EventQueryConfig>;
+export type EventQueryLocalisedConfig = LocalisedConfig<EventQueryConfig>;

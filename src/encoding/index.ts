@@ -24,7 +24,7 @@ export interface EncodingTypeConfig {
 
 export const encodingConfigMap = encodingConfigData as Record<string, EncodingTypeConfig>;
 
-// Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Actions ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function getEncodingTypeConfigs(localeId = 'en'): EncodingTypeConfig[] {
     const encodingConfigs: EncodingTypeConfig[] = [];

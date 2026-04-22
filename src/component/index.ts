@@ -4,7 +4,7 @@ import type { InferOutput } from 'valibot';
 // Local Framework
 import { DEFAULT_LOCALE_ID } from '@/locale';
 import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
-import type { LocaleId, LocaleLabel, Localised } from '@/locale';
+import type { LocaleId, LocaleLabel, LocalisedConfig } from '@/locale';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -19,7 +19,7 @@ export interface Component {
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
-export type ComponentLocalisedConfig = Localised<ComponentConfig>;
+export type ComponentLocalisedConfig = LocalisedConfig<ComponentConfig>;
 
 // Reference ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 

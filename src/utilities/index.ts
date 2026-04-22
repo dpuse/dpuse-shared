@@ -3,7 +3,7 @@
 const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en-US';
 const NUMBER_FORMATTER_MAP = new Map<string, Intl.NumberFormat>();
 
-// Helpers - Convert ───────────────────────────────────────────────────────────────────────────────────────────────────
+// Actions - Convert ───────────────────────────────────────────────────────────────────────────────────────────────────
 
 // See: https://www.odata.org/documentation/odata-version-2-0/overview/.
 export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
@@ -43,7 +43,7 @@ export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
     }
 }
 
-// Helpers - Extract ───────────────────────────────────────────────────────────────────────────────────────────────────
+// Actions - Extract ───────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function extractNameFromPath(itemPath: string): string | undefined {
     if (itemPath) {
@@ -62,7 +62,7 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
     return undefined;
 }
 
-// Helpers - Format ────────────────────────────────────────────────────────────────────────────────────────────────────
+// Actions - Format ────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null) return '';
@@ -132,7 +132,7 @@ export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMA
     return numberFormatter.format(number);
 }
 
-// Helpers - Lookup ────────────────────────────────────────────────────────────────────────────────────────────────────
+// Actions - Lookup ────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function lookupMimeTypeForExtension(extension?: string): string {
     switch (extension) {

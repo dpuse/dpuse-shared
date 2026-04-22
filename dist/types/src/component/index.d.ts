@@ -1,12 +1,12 @@
 import { InferOutput } from 'valibot';
 import { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from './componentConfig.schema';
-import { LocaleId, Localised } from '../locale';
+import { LocaleId, LocalisedConfig } from '../locale';
 export { componentConfigSchema } from './componentConfig.schema';
 export interface Component {
     readonly config: ComponentConfig;
 }
 export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
-export type ComponentLocalisedConfig = Localised<ComponentConfig>;
+export type ComponentLocalisedConfig = LocalisedConfig<ComponentConfig>;
 export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
 export type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
 export type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;

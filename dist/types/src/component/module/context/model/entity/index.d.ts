@@ -1,7 +1,7 @@
 import { ContextModelEntityDataItemConfig } from './dataItem';
 import { ContextModelEntityEventConfig } from './event';
 import { ContextModelEntityPrimaryMeasureConfig } from './primaryMeasure';
-import { LocaleLabel, Localised } from '../../../../../locale';
+import { LocaleLabel, LocalisedConfig } from '../../../../../locale';
 export interface ContextModelEntityConfig {
     id: string;
     label: LocaleLabel;
@@ -10,4 +10,4 @@ export interface ContextModelEntityConfig {
     events: ContextModelEntityEventConfig[];
     primaryMeasures: ContextModelEntityPrimaryMeasureConfig[];
 }
-export type ContextModelEntityLocalisedConfig = Localised<ContextModelEntityConfig>;
+export type ContextModelEntityLocalisedConfig = LocalisedConfig<ContextModelEntityConfig>;

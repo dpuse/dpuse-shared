@@ -1,5 +1,5 @@
 import { InferOutput } from 'valibot';
-import { Localised } from '../../../locale';
+import { LocalisedConfig } from '../../../locale';
 import { ModuleConfig } from '..';
 import { presenterOperationNameSchema } from './presenterConfig.schema';
 import { Component, ComponentReference } from '../..';
@@ -15,5 +15,5 @@ export interface PresenterConfig extends ModuleConfig {
     operations: PresenterOperationName[];
     typeId: 'presenter';
 }
-export type PresenterLocalisedConfig = Localised<PresenterConfig>;
+export type PresenterLocalisedConfig = LocalisedConfig<PresenterConfig>;
 export type PresenterOperationName = InferOutput<typeof presenterOperationNameSchema>;

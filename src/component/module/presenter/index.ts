@@ -1,7 +1,7 @@
 // External Dependencies
 import type { InferOutput } from 'valibot';
 
-import type { Localised } from '@/locale';
+import type { LocalisedConfig } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
 import type { presenterOperationNameSchema } from '@/component/module/presenter/presenterConfig.schema';
 import type { Component, ComponentReference } from '@/component';
@@ -27,7 +27,7 @@ export interface PresenterConfig extends ModuleConfig {
     operations: PresenterOperationName[];
     typeId: 'presenter';
 }
-export type PresenterLocalisedConfig = Localised<PresenterConfig>;
+export type PresenterLocalisedConfig = LocalisedConfig<PresenterConfig>;
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

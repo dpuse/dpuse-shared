@@ -1,6 +1,6 @@
 import { ComponentConfig } from '..';
-import { Localised } from '../../locale';
+import { LocalisedConfig } from '../../locale';
 export interface DimensionConfig extends ComponentConfig {
     placeholder?: string;
 }
-export type DimensionLocalisedConfig = Localised<DimensionConfig>;
+export type DimensionLocalisedConfig = LocalisedConfig<DimensionConfig>;

@@ -1,5 +1,5 @@
 // Local Framework
-import type { Localised } from '@/locale';
+import type { LocalisedConfig } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -8,4 +8,4 @@ export interface ContextModelEntityEventConfig {
     labelAction: Record<string, string>;
     labelState: Record<string, string>;
 }
-export type ContextModelEntityEventLocalisedConfig = Localised<ContextModelEntityEventConfig>;
+export type ContextModelEntityEventLocalisedConfig = LocalisedConfig<ContextModelEntityEventConfig>;

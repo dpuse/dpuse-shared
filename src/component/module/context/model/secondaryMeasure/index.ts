@@ -1,5 +1,5 @@
 // Local Framework
-import type { LocaleLabel, Localised } from '@/locale';
+import type { LocaleLabel, LocalisedConfig } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -7,4 +7,4 @@ export interface ContextModelSecondaryMeasureConfig {
     id: string;
     label: LocaleLabel;
 }
-export type ContextModelSecondaryMeasureLocalisedConfig = Localised<ContextModelSecondaryMeasureConfig>;
+export type ContextModelSecondaryMeasureLocalisedConfig = LocalisedConfig<ContextModelSecondaryMeasureConfig>;

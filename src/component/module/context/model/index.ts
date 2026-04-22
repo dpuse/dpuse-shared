@@ -1,6 +1,6 @@
 // Local Framework
 import type { ComponentConfig, ComponentReference } from '@/component';
-import type { LocaleLabel, Localised } from '@/locale';
+import type { LocaleLabel, LocalisedConfig } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -10,7 +10,7 @@ export interface ContextModelConfig extends ComponentConfig {
     entities: ContextModelEntityGroupConfig[];
     secondaryMeasures: ContextModelSecondaryMeasureGroupConfig[];
 }
-export type ContextModelLocalisedConfig = Localised<ContextModelConfig>;
+export type ContextModelLocalisedConfig = LocalisedConfig<ContextModelConfig>;
 
 // Dimension Group Configuration ───────────────────────────────────────────────────────────────────────────────────────
 
@@ -20,7 +20,7 @@ export interface ContextModelDimensionGroupConfig {
     description: LocaleLabel;
     dimensionRefs: ComponentReference[];
 }
-export type ContextModelDimensionGroupLocalisedConfig = Localised<ContextModelDimensionGroupConfig>;
+export type ContextModelDimensionGroupLocalisedConfig = LocalisedConfig<ContextModelDimensionGroupConfig>;
 
 // Entity Group Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
@@ -30,7 +30,7 @@ export interface ContextModelEntityGroupConfig {
     description?: Record<string, unknown>;
     entityRefs: ComponentReference[];
 }
-export type ContextModelEntityGroupLocalisedConfig = Localised<ContextModelEntityGroupConfig>;
+export type ContextModelEntityGroupLocalisedConfig = LocalisedConfig<ContextModelEntityGroupConfig>;
 
 // Secondary Measure Group Configuration ───────────────────────────────────────────────────────────────────────────────
 
@@ -40,4 +40,4 @@ export interface ContextModelSecondaryMeasureGroupConfig {
     description?: Record<string, unknown>;
     secondaryMeasureRefs: ComponentReference[];
 }
-export type ContextModelSecondaryMeasureGroupLocalisedConfig = Localised<ContextModelSecondaryMeasureGroupConfig>;
+export type ContextModelSecondaryMeasureGroupLocalisedConfig = LocalisedConfig<ContextModelSecondaryMeasureGroupConfig>;
