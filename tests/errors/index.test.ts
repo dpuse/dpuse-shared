@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-    AppError,
-    ConnectorError,
-    FetchError,
     APIError,
+    AppError,
     buildFetchError,
     concatenateSerialisedErrorMessages,
+    ConnectorError,
+    FetchError,
     ignoreErrors,
     normalizeToError,
     serialiseError,
@@ -34,7 +34,7 @@ describe('buildFetchError', () => {
             {
                 status: 500,
                 statusText: 'Internal Server Error',
-                text: async () => 'body content'
+                text: () => Promise.resolve('body content')
             },
             'Request failed.',
             'tests.fetch'
@@ -51,9 +51,7 @@ describe('buildFetchError', () => {
             {
                 status: 502,
                 statusText: 'Bad Gateway',
-                text: async () => {
-                    throw new Error('stream closed');
-                }
+                text: () => Promise.reject(new Error('stream closed'))
             },
             'Upstream failed.',
             'tests.fetch'
@@ -66,14 +64,17 @@ describe('buildFetchError', () => {
             {
                 status: 413,
                 statusText: 'Payload Too Large',
-                text: async () => longBody
+                text: () => Promise.resolve(longBody)
             },
             'Payload failed.',
             'tests.fetch'
         );
 
-        expect(truncated.data?.body).toHaveLength(2063);
-        expect(truncated.data?.body?.endsWith('... [truncated]')).toBe(true);
+        const body = truncated.data?.['body'];
+        if (typeof body !== 'string') throw new TypeError('Expected truncated body to be a string.');
+
+        expect(body).toHaveLength(2063);
+        expect(body.endsWith('... [truncated]')).toBe(true);
     });
 });
 
@@ -84,22 +85,25 @@ describe('serialiseError and unserialiseError', () => {
 
         const serialised = serialiseError(error);
 
-        expect(serialised).toEqual([
-            {
-                data: { appId: 'demo' },
-                locator: 'tests.app',
-                message: 'App failed.',
-                name: 'AppError',
-                stack: expect.any(String)
-            },
-            {
-                data: { connectorId: 'demo' },
-                locator: 'tests.connector',
-                message: 'Connector failed.',
-                name: 'ConnectorError',
-                stack: expect.any(String)
-            }
-        ]);
+        expect(serialised).toHaveLength(2);
+
+        const [outerError, innerError] = serialised;
+        if (!outerError || !innerError) throw new TypeError('Expected two serialised errors.');
+
+        expect(outerError).toMatchObject({
+            data: { appId: 'demo' },
+            locator: 'tests.app',
+            message: 'App failed.',
+            name: 'AppError'
+        });
+        expect(innerError).toMatchObject({
+            data: { connectorId: 'demo' },
+            locator: 'tests.connector',
+            message: 'Connector failed.',
+            name: 'ConnectorError'
+        });
+        expect(typeof outerError.stack).toBe('string');
+        expect(typeof innerError.stack).toBe('string');
 
         const rebuilt = unserialiseError(serialised);
 

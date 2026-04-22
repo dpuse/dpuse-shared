@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { DEFAULT_LOCALE_ID, createLabelMap, localiseConfig, localiseConfigs, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, localiseConfig, localiseConfigs, resolveLabel } from '@/locale';
 
 describe('createLabelMap', () => {
     it('builds a map from a plain record', () => {
@@ -71,6 +71,6 @@ describe('resolveLabel', () => {
         const labels = createLabelMap({ es: 'Español' });
 
         expect(resolveLabel(labels, 'fr')).toBeUndefined();
-        expect(resolveLabel(labels, 'fr', 'fr')).toBeUndefined();
+        expect(resolveLabel(labels, 'en', 'en')).toBeUndefined();
     });
 });

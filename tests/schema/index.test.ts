@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import { safeParse } from 'valibot';
+import { describe, expect, it } from 'vitest';
 
 import { componentTypeIdSchema } from '@/component/componentConfig.schema';
-import { localeLabelSchema, partialLocaleLabelSchema } from '@/locale/locale.schema';
 import { literalUnion } from '@/schema';
+import { localeLabelSchema, partialLocaleLabelSchema } from '@/locale/locale.schema';
 
 describe('literalUnion', () => {
     it('accepts configured literal values', () => {
