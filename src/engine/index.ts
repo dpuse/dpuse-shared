@@ -1,33 +1,32 @@
 // Local Framework
-// import type { ConnectionConfig } from '@/component/connector/connection';
-// import type { ContextConfig } from '@/component/context';
+import type { ComponentConfig } from '@/component';
 import type { EncodingTypeConfig } from '@/encoding';
+import type { LocalisedConfig } from '../locale';
 import type { ModuleConfig } from '@/component/module';
-import type { ObjectColumnConfig } from '@/component/module/connector';
+import type { ObjectColumnConfig } from '@/component/connection';
 import type { ToolConfig } from '@/component/module/tool';
-import type { ComponentConfig, ComponentLocalisedConfig } from '@/component';
 import type { InferenceRecord, InferenceSummary, ParsingRecord } from '@/component/dataView';
 
-// Engine Runtime ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Engine Runtime ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: string) => EncodingTypeConfig[];
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;
 }
 
-// Engine Worker ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Engine Worker ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
     processRequest: (
         id: string,
-        config: ComponentConfig | ComponentLocalisedConfig,
+        config: ComponentConfig | LocalisedConfig<ComponentConfig>,
         options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions,
         callback?: (callbackData: EngineCallbackData) => void
     ) => Promise<unknown>;
 }
 
-// Engine ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Engine ??? ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';

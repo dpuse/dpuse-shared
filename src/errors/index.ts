@@ -1,5 +1,8 @@
-// Constants
+// Constants  ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
 const RESPONSE_ERROR_BODY_LIMIT = 2048;
+
+// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Serializable representation of an error; used for transporting errors across api and worker boundaries
 export interface SerialisedError {
@@ -10,7 +13,7 @@ export interface SerialisedError {
     stack: string | undefined; // Stack trace if available
 }
 
-// Errors ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Errors ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Base class for all DPUse  errors; includes a locator for the error; never thrown directly
 export class DPUseError extends Error {
@@ -64,7 +67,7 @@ export class FetchError extends DPUseError {
     }
 }
 
-// Functions ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Actions ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds a fetch error from an HTTP response; includes a text copy of the response body
 export async function buildFetchError(response: { status: number; statusText: string; text: () => Promise<string> }, message: string, locator: string): Promise<FetchError> {
@@ -208,7 +211,7 @@ export function unserialiseError(serialisedErrors: SerialisedError[]): Error | u
     return rebuiltError;
 }
 
-// Helpers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds a fallback message for non-error throwables
 function buildFallbackMessage(cause: unknown): string {

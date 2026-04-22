@@ -82,7 +82,13 @@ var m = n([
 	}
 ], x = (n, r = "en") => {
 	let i = b.find((e) => e.id === n);
-	return i ? { label: t(e(i.label), r) ?? i.id } : { label: n };
+	return i ? {
+		label: t(e(i.label), r) ?? i.id,
+		description: ""
+	} : {
+		label: n,
+		description: ""
+	};
 };
 //#endregion
 export { y as connectorConfigSchema, x as constructConnectorCategoryConfig };

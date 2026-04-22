@@ -12,7 +12,7 @@ import type {
     connectorUsageIdSchema
 } from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
-import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
 import type { EngineConnectorActionOptions, EngineUtilities } from '@/engine';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -53,7 +53,6 @@ export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 // Category ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
-type ConnectorCategoryLocalisedConfig = Omit<ConnectorCategoryConfig, 'label'> & { label: string };
 
 const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
     { id: 'application', label: { en: 'Application', es: 'Aplicación' } },
@@ -62,14 +61,14 @@ const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
     { id: 'fileStore', label: { en: 'File Store', es: 'Almacén de Archivos' } }
 ];
 
-export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): ConnectorCategoryLocalisedConfig => {
+export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorCategoryConfig> => {
     const connectorCategory = CONNECTOR_CATEGORY_CONFIGS.find((connectorCategory) => connectorCategory.id === id);
     if (connectorCategory) {
-        const labelMap = createLabelMap(connectorCategory.label as Record<string, string>);
+        const labelMap = createLabelMap(connectorCategory.label);
         const localizedLabel = resolveLabel(labelMap, localeId);
-        return { label: localizedLabel ?? connectorCategory.id };
+        return { label: localizedLabel ?? connectorCategory.id, description: '' };
     }
-    return { label: id };
+    return { label: id, description: '' };
 };
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
