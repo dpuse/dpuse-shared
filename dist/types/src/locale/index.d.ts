@@ -6,7 +6,7 @@ export type Localised<T> = Omit<T, 'label' | 'description'> & {
     label: string;
     description: string;
 };
-interface UnlocalisedConfig {
+export interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
     description: LocaleLabel;
@@ -21,4 +21,3 @@ export declare function createLabelMap(labels: Record<string, string>): LocaleLa
 export declare function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): Localised<T>;
 export declare function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId): Localised<T>[];
 export declare function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: LocaleId): string | undefined;
-export {};

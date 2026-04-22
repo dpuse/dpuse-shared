@@ -5,7 +5,7 @@ export type LocaleId = 'en' | 'es';
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
 export type LocaleLabelMap = ReadonlyMap<string, string>;
 export type Localised<T> = Omit<T, 'label' | 'description'> & { label: string; description: string };
-interface UnlocalisedConfig {
+export interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
     description: LocaleLabel;
