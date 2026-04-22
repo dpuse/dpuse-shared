@@ -4,7 +4,7 @@ import type { FileTypeResult } from 'file-type';
 // Framework dependencies.
 import type { Component, ComponentConfig } from '@/component';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
-import { createLabelMap, DEFAULT_LOCALE_ID, type LocalisedConfig, type LocaleLabelMap, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale';
 
 type DataViewInterface = Component;
 
@@ -15,7 +15,6 @@ interface DataViewConfig extends ComponentConfig {
     contentAuditConfig: ContentAuditConfig | undefined;
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
 }
-type DataViewLocalisedConfig = LocalisedConfig<DataViewConfig>;
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //#region Data view preview.
@@ -326,7 +325,6 @@ export type {
     // Data view interface and configuration.
     DataViewInterface,
     DataViewConfig,
-    DataViewLocalisedConfig,
     PreviewConfig,
     ContentAuditConfig,
     RelationshipsAuditConfig,

@@ -3,7 +3,6 @@ import type { InferOutput } from 'valibot';
 
 // Local Framework
 import type { EngineContextActionOptions } from '@/engine';
-import type { LocalisedConfig } from '@/locale';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
 import type { contextConfigSchema, contextOperationNameSchema } from '@/component/module/context/contextConfig.schema';
 
@@ -21,7 +20,6 @@ export interface ContextInterface extends Component {
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
-export type ContextLocalisedConfig = LocalisedConfig<ContextConfig>;
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -33,7 +31,6 @@ export interface ContextModelGroupConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
 }
-export type ContextModelGroupLocalisedConfig = LocalisedConfig<ContextModelGroupConfig>;
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

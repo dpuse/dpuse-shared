@@ -2,11 +2,11 @@ export type FlagId = 'es' | 'gb';
 export type LocaleId = 'en' | 'es';
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
 export type LocaleLabelMap = ReadonlyMap<string, string>;
-export type Localised<T> = Omit<T, 'label' | 'description'> & {
+export type LocalisedConfig<T> = Omit<T, 'label' | 'description'> & {
     label: string;
     description: string;
 };
-export interface UnlocalisedConfig {
+interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
     description: LocaleLabel;
@@ -18,6 +18,7 @@ export declare const SUPPORTED_LANGUAGES: {
     label: string;
 }[];
 export declare function createLabelMap(labels: Record<string, string>): LocaleLabelMap;
-export declare function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): Localised<T>;
-export declare function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId): Localised<T>[];
+export declare function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): LocalisedConfig<T>;
+export declare function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId): LocalisedConfig<T>[];
 export declare function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: LocaleId): string | undefined;
+export {};

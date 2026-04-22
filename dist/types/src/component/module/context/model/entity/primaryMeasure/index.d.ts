@@ -1,6 +1,5 @@
-import { LocaleLabel, LocalisedConfig } from '../../../../../../locale';
+import { LocaleLabel } from '../../../../../../locale';
 export interface ContextModelEntityPrimaryMeasureConfig {
     id: string;
     label: LocaleLabel;
 }
-export type ContextModelEntityPrimaryMeasureLocalisedConfig = LocalisedConfig<ContextModelEntityPrimaryMeasureConfig>;

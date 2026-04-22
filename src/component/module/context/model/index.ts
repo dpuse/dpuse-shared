@@ -1,6 +1,6 @@
 // Local Framework
+import type { LocaleLabel } from '@/locale';
 import type { ComponentConfig, ComponentReference } from '@/component';
-import type { LocaleLabel, LocalisedConfig } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -10,7 +10,6 @@ export interface ContextModelConfig extends ComponentConfig {
     entities: ContextModelEntityGroupConfig[];
     secondaryMeasures: ContextModelSecondaryMeasureGroupConfig[];
 }
-export type ContextModelLocalisedConfig = LocalisedConfig<ContextModelConfig>;
 
 // Dimension Group Configuration ───────────────────────────────────────────────────────────────────────────────────────
 
@@ -20,7 +19,6 @@ export interface ContextModelDimensionGroupConfig {
     description: LocaleLabel;
     dimensionRefs: ComponentReference[];
 }
-export type ContextModelDimensionGroupLocalisedConfig = LocalisedConfig<ContextModelDimensionGroupConfig>;
 
 // Entity Group Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
@@ -30,7 +28,6 @@ export interface ContextModelEntityGroupConfig {
     description?: Record<string, unknown>;
     entityRefs: ComponentReference[];
 }
-export type ContextModelEntityGroupLocalisedConfig = LocalisedConfig<ContextModelEntityGroupConfig>;
 
 // Secondary Measure Group Configuration ───────────────────────────────────────────────────────────────────────────────
 
@@ -40,4 +37,3 @@ export interface ContextModelSecondaryMeasureGroupConfig {
     description?: Record<string, unknown>;
     secondaryMeasureRefs: ComponentReference[];
 }
-export type ContextModelSecondaryMeasureGroupLocalisedConfig = LocalisedConfig<ContextModelSecondaryMeasureGroupConfig>;
