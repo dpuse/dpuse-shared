@@ -1,4 +1,4 @@
-// Local Framework
+// DPUse (Local) Framework
 import type { ContextModelEntityDataItemConfig } from './dataItem';
 import type { ContextModelEntityEventConfig } from './event';
 import type { ContextModelEntityPrimaryMeasureConfig } from './primaryMeasure';

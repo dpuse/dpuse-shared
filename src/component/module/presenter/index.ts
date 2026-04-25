@@ -1,7 +1,7 @@
 // External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Local Framework
+// DPUse (Local) Framework
 import type { ModuleConfig } from '@/component/module';
 import type { presenterOperationNameSchema } from '@/component/module/presenter/presenterConfig.schema';
 import type { Component, ComponentReference } from '@/component';

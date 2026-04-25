@@ -1,4 +1,4 @@
-// Local Framework
+// DPUse (Local) Framework
 import type { LocaleLabel } from '@/locale';
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────

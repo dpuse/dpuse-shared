@@ -1,7 +1,7 @@
 // External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Local Framework
+// DPUse (Local) Framework
 import type { EngineContextActionOptions } from '@/engine';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
 import type { contextConfigSchema, contextOperationNameSchema } from '@/component/module/context/contextConfig.schema';

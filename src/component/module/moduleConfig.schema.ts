@@ -1,7 +1,7 @@
 // External Dependencies
 import { object, string } from 'valibot';
 
-// Local Framework
+// DPUse (Local) Framework
 import { componentConfigCoreFields } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 

@@ -1,7 +1,7 @@
 // External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Local Framework
+// DPUse (Local) Framework
 import { DEFAULT_LOCALE_ID } from '@/locale';
 import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale';

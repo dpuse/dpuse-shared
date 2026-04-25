@@ -1,7 +1,7 @@
 // External Dependencies
 import { nullable, number, object, string } from 'valibot';
 
-// Local Framework
+// DPUse (Local) Framework
 import { literalUnion } from '@/schema';
 import { partialLocaleLabelSchema } from '@/locale/locale.schema';
 

@@ -1,7 +1,7 @@
 // External Dependencies
 import type { InferOutput } from 'valibot';
 
-// Local Framework
+// DPUse (Local) Framework
 import type { Component } from '@/component';
 import type { ToolConfig } from '@/component/module/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/component/connection';
