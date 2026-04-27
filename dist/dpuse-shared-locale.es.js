@@ -15,14 +15,16 @@ function r(e, t) {
 	return {
 		...e,
 		label: e.label[t] ?? e.id,
-		description: e.description[t] ?? e.id
+		description: e.description[t] ?? e.id,
+		verb: e.verb?.[t] ?? void 0
 	};
 }
 function i(e, t) {
 	return e.map((e) => ({
 		...e,
 		label: e.label[t] ?? e.id,
-		description: e.description[t] ?? e.id
+		description: e.description[t] ?? e.id,
+		verb: e.verb?.[t] ?? void 0
 	}));
 }
 function a(e, t, n = "en") {
