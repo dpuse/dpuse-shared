@@ -5,13 +5,13 @@ export type LocaleLabelMap = ReadonlyMap<string, string>;
 export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & {
     label: string;
     description: string;
-    verb: string | undefined;
+    verb?: string | undefined;
 };
 interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
     description: LocaleLabel;
-    verb: LocaleLabel | undefined;
+    verb?: LocaleLabel | undefined;
 }
 export declare const DEFAULT_LOCALE_ID: LocaleId;
 export declare const SUPPORTED_LANGUAGES: {
