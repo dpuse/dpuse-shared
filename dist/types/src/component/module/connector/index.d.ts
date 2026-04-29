@@ -1,11 +1,11 @@
 import { InferOutput } from 'valibot';
 import { Component } from '../..';
+import { EngineConnectorActionOptions } from '../../../engine';
 import { ToolConfig } from '../tool';
-import { ConnectionDescriptionConfig, ConnectionNodeConfig } from '../../connection';
+import { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
 import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from './connectorConfig.schema';
-import { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
+import { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
 import { LocalisedConfig } from '../../../locale';
-import { EngineConnectorActionOptions, EngineUtilities } from '../../../engine';
 export { connectorConfigSchema } from './connectorConfig.schema';
 export interface ConnectorInterface extends Component {
     abortController: AbortController | undefined;
@@ -26,7 +26,7 @@ export interface ConnectorInterface extends Component {
     retrieveRecords?(options: RetrieveRecordsOptions, chunk: (typeId: RetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>;
 }
-export type ConnectorConstructor = new (engineUtilities: EngineUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
+export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
 export declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorCategoryConfig>;
@@ -128,3 +128,8 @@ export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
 }
 export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
 export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>;
+export interface ConnectorUtilities {
+    hasReadableStreamTransferSupport(): boolean;
+    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], leadingRecord: boolean) => InferenceRecord;
+    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+}

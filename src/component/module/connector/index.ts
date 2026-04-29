@@ -3,17 +3,17 @@ import type { InferOutput } from 'valibot';
 
 // DPUse (Local) Framework
 import type { Component } from '@/component';
+import type { EngineConnectorActionOptions } from '@/engine';
 import type { ToolConfig } from '@/component/module/tool';
-import type { ConnectionDescriptionConfig, ConnectionNodeConfig } from '@/component/connection';
+import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
     connectorCategoryConfigSchema,
     connectorConfigSchema,
     connectorOperationNameSchema,
     connectorUsageIdSchema
 } from '@/component/module/connector/connectorConfig.schema';
-import type { ContentAuditConfig, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
-import type { EngineConnectorActionOptions, EngineUtilities } from '@/engine';
 
 // Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -44,7 +44,7 @@ export interface ConnectorInterface extends Component {
     ): Promise<void>; // Retrieve all records from an object for a specified connection.
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>; // Upsert one or more records into an object for a specified connection.
 }
-export type ConnectorConstructor = new (engineUtilities: EngineUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
+export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -191,3 +191,11 @@ export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
 // Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>; // Connector data pipeline usage identifiers.
+
+// Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export interface ConnectorUtilities {
+    hasReadableStreamTransferSupport(): boolean;
+    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], leadingRecord: boolean) => InferenceRecord;
+    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+}
