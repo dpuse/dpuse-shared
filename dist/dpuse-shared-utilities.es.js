@@ -45,14 +45,14 @@ function a(n, r = 2, i = r, a = e) {
 		useGrouping: !0
 	}), t.set(o, s)), s.format(n);
 }
-function o(e) {
-	return e == null ? "" : e < 1e3 ? l(e) : e < 1e6 ? `${a(e / 1e3, 2, 0)}K` : e < 1e9 ? `${a(e / 1e6, 2, 0)}M` : e < 0xe8d4a51000 ? `${a(e / 1e9, 2, 0)}B` : `${a(e / 0xe8d4a51000, 2, 0)}T`;
+function o(e, t = 1) {
+	return e == null ? "" : e < 1e3 ? l(e) : e < 1e6 ? `${a(e / 1e3, t, 0)}K` : e < 1e9 ? `${a(e / 1e6, t, 0)}M` : e < 0xe8d4a51000 ? `${a(e / 1e9, t, 0)}B` : `${a(e / 0xe8d4a51000, t, 0)}T`;
 }
-function s(e) {
-	return e == null ? "" : e === 1 ? "1 byte" : e < 1024 ? `${l(e)} bytes` : e < 1048576 ? `${a(e / 1024, 2, 0)} KB` : e < 1073741824 ? `${a(e / 1048576, 2, 0)} MB` : e < 1099511627776 ? `${a(e / 1073741824, 2, 0)} GB` : `${a(e / 1099511627776, 2, 0)} TB`;
+function s(e, t = 1) {
+	return e == null ? "" : e === 1 ? "1 byte" : e < 1024 ? `${l(e)} bytes` : e < 1048576 ? `${a(e / 1024, t, 0)} KB` : e < 1073741824 ? `${a(e / 1048576, t, 0)} MB` : e < 1099511627776 ? `${a(e / 1073741824, t, 0)} GB` : `${a(e / 1099511627776, t, 0)} TB`;
 }
-function c(e) {
-	return e == null ? "" : e < 1e3 ? `${l(e)} ms` : e === 1e3 ? "1 sec" : e < 6e4 ? `${a(e / 1e3, 2, 0)} secs` : e === 6e4 ? "1 min" : e < 36e5 ? `${a(e / 6e4, 2, 0)} mins` : e === 36e5 ? "1 hr" : e < 864e5 ? `${a(e / 36e5, 2, 0)} hrs` : e === 864e5 ? "1 day" : `${a(e / 864e5, 2, 0)} days`;
+function c(e, t = 1) {
+	return e == null ? "" : e < 1e3 ? `${l(e)} ms` : e === 1e3 ? "1 sec" : e < 6e4 ? `${a(e / 1e3, t, 0)} secs` : e === 6e4 ? "1 min" : e < 36e5 ? `${a(e / 6e4, t, 0)} mins` : e === 36e5 ? "1 hr" : e < 864e5 ? `${a(e / 36e5, t, 0)} hrs` : e === 864e5 ? "1 day" : `${a(e / 864e5, t, 0)} days`;
 }
 function l(n, r = e) {
 	if (n == null) return "";

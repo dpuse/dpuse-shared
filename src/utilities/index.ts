@@ -93,36 +93,36 @@ export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, 
     return numberFormatter.format(number);
 }
 
-export function formatNumberAsSize(number?: number): string {
+export function formatNumberAsSize(number?: number, decimalPlaces = 1): string {
     if (number == null) return '';
     if (number < 1000) return formatNumberAsWholeNumber(number);
-    if (number < 1_000_000) return `${formatNumberAsDecimalNumber(number / 1000, 2, 0)}K`;
-    if (number < 1_000_000_000) return `${formatNumberAsDecimalNumber(number / 1_000_000, 2, 0)}M`;
-    if (number < 1_000_000_000_000) return `${formatNumberAsDecimalNumber(number / 1_000_000_000, 2, 0)}B`;
-    return `${formatNumberAsDecimalNumber(number / 1_000_000_000_000, 2, 0)}T`;
+    if (number < 1_000_000) return `${formatNumberAsDecimalNumber(number / 1000, decimalPlaces, 0)}K`;
+    if (number < 1_000_000_000) return `${formatNumberAsDecimalNumber(number / 1_000_000, decimalPlaces, 0)}M`;
+    if (number < 1_000_000_000_000) return `${formatNumberAsDecimalNumber(number / 1_000_000_000, decimalPlaces, 0)}B`;
+    return `${formatNumberAsDecimalNumber(number / 1_000_000_000_000, decimalPlaces, 0)}T`;
 }
 
-export function formatNumberAsStorageSize(number?: number): string {
+export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): string {
     if (number == null) return '';
     if (number === 1) return '1 byte';
     if (number < 1024) return `${formatNumberAsWholeNumber(number)} bytes`;
-    if (number < 1_048_576) return `${formatNumberAsDecimalNumber(number / 1024, 2, 0)} KB`;
-    if (number < 1_073_741_824) return `${formatNumberAsDecimalNumber(number / 1_048_576, 2, 0)} MB`;
-    if (number < 1_099_511_627_776) return `${formatNumberAsDecimalNumber(number / 1_073_741_824, 2, 0)} GB`;
-    return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, 2, 0)} TB`;
+    if (number < 1_048_576) return `${formatNumberAsDecimalNumber(number / 1024, decimalPlaces, 0)} KB`;
+    if (number < 1_073_741_824) return `${formatNumberAsDecimalNumber(number / 1_048_576, decimalPlaces, 0)} MB`;
+    if (number < 1_099_511_627_776) return `${formatNumberAsDecimalNumber(number / 1_073_741_824, decimalPlaces, 0)} GB`;
+    return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
 }
 
-export function formatNumberAsDuration(number?: number): string {
+export function formatNumberAsDuration(number?: number, decimalPlaces = 1): string {
     if (number == null) return '';
     if (number < 1000) return `${formatNumberAsWholeNumber(number)} ms`;
     if (number === 1000) return '1 sec';
-    if (number < 60_000) return `${formatNumberAsDecimalNumber(number / 1000, 2, 0)} secs`;
+    if (number < 60_000) return `${formatNumberAsDecimalNumber(number / 1000, decimalPlaces, 0)} secs`;
     if (number === 60_000) return '1 min';
-    if (number < 3_600_000) return `${formatNumberAsDecimalNumber(number / 60_000, 2, 0)} mins`;
+    if (number < 3_600_000) return `${formatNumberAsDecimalNumber(number / 60_000, decimalPlaces, 0)} mins`;
     if (number === 3_600_000) return '1 hr';
-    if (number < 86_400_000) return `${formatNumberAsDecimalNumber(number / 3_600_000, 2, 0)} hrs`;
+    if (number < 86_400_000) return `${formatNumberAsDecimalNumber(number / 3_600_000, decimalPlaces, 0)} hrs`;
     if (number === 86_400_000) return '1 day';
-    return `${formatNumberAsDecimalNumber(number / 86_400_000, 2, 0)} days`;
+    return `${formatNumberAsDecimalNumber(number / 86_400_000, decimalPlaces, 0)} days`;
 }
 
 export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
