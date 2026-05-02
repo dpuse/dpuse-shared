@@ -31,7 +31,7 @@ export interface ConnectionNodeConfig {
     extension: string | undefined;
     folderPath: string;
     handle: DPAFileSystemFileHandle | undefined;
-    icon?: unknown;
+    icon?: string | null;
     id: string;
     label: string;
     lastModifiedAt: number | undefined;
