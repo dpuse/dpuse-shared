@@ -112,17 +112,38 @@ export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): s
     return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
 }
 
-export function formatNumberAsDuration(number?: number, decimalPlaces = 1): string {
+export function formatNumberAsDuration(number?: number): string {
     if (number == null) return '';
     if (number < 1000) return `${formatNumberAsWholeNumber(number)} ms`;
-    if (number === 1000) return '1 sec';
-    if (number < 60_000) return `${formatNumberAsDecimalNumber(number / 1000, decimalPlaces, 0)} secs`;
-    if (number === 60_000) return '1 min';
-    if (number < 3_600_000) return `${formatNumberAsDecimalNumber(number / 60_000, decimalPlaces, 0)} mins`;
-    if (number === 3_600_000) return '1 hr';
-    if (number < 86_400_000) return `${formatNumberAsDecimalNumber(number / 3_600_000, decimalPlaces, 0)} hrs`;
-    if (number === 86_400_000) return '1 day';
-    return `${formatNumberAsDecimalNumber(number / 86_400_000, decimalPlaces, 0)} days`;
+    if (number < 60_000) {
+        const secs = Math.floor(number / 1000);
+        const ms = Math.floor(number % 1000);
+        const secsString = secs === 1 ? '1 sec' : `${formatNumberAsWholeNumber(secs)} secs`;
+        if (ms === 0) return secsString;
+        return `${secsString} ${formatNumberAsWholeNumber(ms)} ms`;
+    }
+    if (number < 3_600_000) {
+        const mins = Math.floor(number / 60_000);
+        const secs = Math.floor((number % 60_000) / 1000);
+        const minsString = mins === 1 ? '1 min' : `${formatNumberAsWholeNumber(mins)} mins`;
+        if (secs === 0) return minsString;
+        const secsString = secs === 1 ? '1 sec' : `${formatNumberAsWholeNumber(secs)} secs`;
+        return `${minsString} ${secsString}`;
+    }
+    if (number < 86_400_000) {
+        const hrs = Math.floor(number / 3_600_000);
+        const mins = Math.floor((number % 3_600_000) / 60_000);
+        const hrsString = hrs === 1 ? '1 hr' : `${formatNumberAsWholeNumber(hrs)} hrs`;
+        if (mins === 0) return hrsString;
+        const minsString = mins === 1 ? '1 min' : `${formatNumberAsWholeNumber(mins)} mins`;
+        return `${hrsString} ${minsString}`;
+    }
+    const days = Math.floor(number / 86_400_000);
+    const hrs = Math.floor((number % 86_400_000) / 3_600_000);
+    const daysString = days === 1 ? '1 day' : `${formatNumberAsWholeNumber(days)} days`;
+    if (hrs === 0) return daysString;
+    const hrsString = hrs === 1 ? '1 hr' : `${formatNumberAsWholeNumber(hrs)} hrs`;
+    return `${daysString} ${hrsString}`;
 }
 
 export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {

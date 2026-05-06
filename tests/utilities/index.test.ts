@@ -129,10 +129,13 @@ describe('formatNumberAsDuration', () => {
     it('formats durations across unit boundaries', () => {
         expect(formatNumberAsDuration(999)).toBe('999 ms');
         expect(formatNumberAsDuration(1000)).toBe('1 sec');
-        expect(formatNumberAsDuration(1500)).toBe('1.5 secs');
+        expect(formatNumberAsDuration(1500)).toBe('1 sec 500 ms');
         expect(formatNumberAsDuration(60_000)).toBe('1 min');
+        expect(formatNumberAsDuration(90_000)).toBe('1 min 30 secs');
         expect(formatNumberAsDuration(3_600_000)).toBe('1 hr');
+        expect(formatNumberAsDuration(5_400_000)).toBe('1 hr 30 mins');
         expect(formatNumberAsDuration(86_400_000)).toBe('1 day');
+        expect(formatNumberAsDuration(108_000_000)).toBe('1 day 6 hrs');
     });
 });
 
