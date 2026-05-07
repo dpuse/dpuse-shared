@@ -112,38 +112,35 @@ export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): s
     return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
 }
 
-export function formatNumberAsDuration(number?: number): string {
+export function formatNumberAsDuration(number?: number, maxLevels = Infinity): string {
     if (number == null) return '';
-    if (number < 1000) return `${formatNumberAsWholeNumber(number)} ms`;
-    if (number < 60_000) {
-        const secs = Math.floor(number / 1000);
-        const ms = Math.floor(number % 1000);
-        const secsString = secs === 1 ? '1 sec' : `${formatNumberAsWholeNumber(secs)} secs`;
-        if (ms === 0) return secsString;
-        return `${secsString} ${formatNumberAsWholeNumber(ms)} ms`;
+    const parts: string[] = [];
+
+    if (number >= 86_400_000) {
+        const days = Math.floor(number / 86_400_000);
+        parts.push(days === 1 ? '1 day' : `${formatNumberAsWholeNumber(days)} days`);
+        number %= 86_400_000;
     }
-    if (number < 3_600_000) {
-        const mins = Math.floor(number / 60_000);
-        const secs = Math.floor((number % 60_000) / 1000);
-        const minsString = mins === 1 ? '1 min' : `${formatNumberAsWholeNumber(mins)} mins`;
-        if (secs === 0) return minsString;
-        const secsString = secs === 1 ? '1 sec' : `${formatNumberAsWholeNumber(secs)} secs`;
-        return `${minsString} ${secsString}`;
-    }
-    if (number < 86_400_000) {
+    if (parts.length < maxLevels && number >= 3_600_000) {
         const hrs = Math.floor(number / 3_600_000);
-        const mins = Math.floor((number % 3_600_000) / 60_000);
-        const hrsString = hrs === 1 ? '1 hr' : `${formatNumberAsWholeNumber(hrs)} hrs`;
-        if (mins === 0) return hrsString;
-        const minsString = mins === 1 ? '1 min' : `${formatNumberAsWholeNumber(mins)} mins`;
-        return `${hrsString} ${minsString}`;
+        parts.push(hrs === 1 ? '1 hr' : `${formatNumberAsWholeNumber(hrs)} hrs`);
+        number %= 3_600_000;
     }
-    const days = Math.floor(number / 86_400_000);
-    const hrs = Math.floor((number % 86_400_000) / 3_600_000);
-    const daysString = days === 1 ? '1 day' : `${formatNumberAsWholeNumber(days)} days`;
-    if (hrs === 0) return daysString;
-    const hrsString = hrs === 1 ? '1 hr' : `${formatNumberAsWholeNumber(hrs)} hrs`;
-    return `${daysString} ${hrsString}`;
+    if (parts.length < maxLevels && number >= 60_000) {
+        const mins = Math.floor(number / 60_000);
+        parts.push(mins === 1 ? '1 min' : `${formatNumberAsWholeNumber(mins)} mins`);
+        number %= 60_000;
+    }
+    if (parts.length < maxLevels && number >= 1000) {
+        const secs = Math.floor(number / 1000);
+        parts.push(secs === 1 ? '1 sec' : `${formatNumberAsWholeNumber(secs)} secs`);
+        number %= 1000;
+    }
+    if (parts.length < maxLevels && (number > 0 || parts.length === 0)) {
+        parts.push(`${formatNumberAsWholeNumber(number)} ms`);
+    }
+
+    return parts.join(' ');
 }
 
 export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {

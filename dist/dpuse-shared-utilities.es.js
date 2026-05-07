@@ -51,23 +51,26 @@ function o(e, t = 1) {
 function s(e, t = 1) {
 	return e == null ? "" : e === 1 ? "1 byte" : e < 1024 ? `${l(e)} bytes` : e < 1048576 ? `${a(e / 1024, t, 0)} KB` : e < 1073741824 ? `${a(e / 1048576, t, 0)} MB` : e < 1099511627776 ? `${a(e / 1073741824, t, 0)} GB` : `${a(e / 1099511627776, t, 0)} TB`;
 }
-function c(e) {
+function c(e, t = Infinity) {
 	if (e == null) return "";
-	if (e < 1e3) return `${l(e)} ms`;
-	if (e < 6e4) {
-		let t = Math.floor(e / 1e3), n = Math.floor(e % 1e3), r = t === 1 ? "1 sec" : `${l(t)} secs`;
-		return n === 0 ? r : `${r} ${l(n)} ms`;
+	let n = [];
+	if (e >= 864e5) {
+		let t = Math.floor(e / 864e5);
+		n.push(t === 1 ? "1 day" : `${l(t)} days`), e %= 864e5;
 	}
-	if (e < 36e5) {
-		let t = Math.floor(e / 6e4), n = Math.floor(e % 6e4 / 1e3), r = t === 1 ? "1 min" : `${l(t)} mins`;
-		return n === 0 ? r : `${r} ${n === 1 ? "1 sec" : `${l(n)} secs`}`;
+	if (n.length < t && e >= 36e5) {
+		let t = Math.floor(e / 36e5);
+		n.push(t === 1 ? "1 hr" : `${l(t)} hrs`), e %= 36e5;
 	}
-	if (e < 864e5) {
-		let t = Math.floor(e / 36e5), n = Math.floor(e % 36e5 / 6e4), r = t === 1 ? "1 hr" : `${l(t)} hrs`;
-		return n === 0 ? r : `${r} ${n === 1 ? "1 min" : `${l(n)} mins`}`;
+	if (n.length < t && e >= 6e4) {
+		let t = Math.floor(e / 6e4);
+		n.push(t === 1 ? "1 min" : `${l(t)} mins`), e %= 6e4;
 	}
-	let t = Math.floor(e / 864e5), n = Math.floor(e % 864e5 / 36e5), r = t === 1 ? "1 day" : `${l(t)} days`;
-	return n === 0 ? r : `${r} ${n === 1 ? "1 hr" : `${l(n)} hrs`}`;
+	if (n.length < t && e >= 1e3) {
+		let t = Math.floor(e / 1e3);
+		n.push(t === 1 ? "1 sec" : `${l(t)} secs`), e %= 1e3;
+	}
+	return n.length < t && (e > 0 || n.length === 0) && n.push(`${l(e)} ms`), n.join(" ");
 }
 function l(n, r = e) {
 	if (n == null) return "";
