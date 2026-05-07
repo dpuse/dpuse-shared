@@ -112,34 +112,41 @@ export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): s
     return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
 }
 
-export function formatNumberAsDuration(number?: number, maxLevels = Infinity): string {
+export type DurationLevel = 'days' | 'hrs' | 'mins' | 'secs' | 'ms';
+
+type DurationLevelTuple = [DurationLevel, number, (n: number) => string];
+
+const DURATION_LEVELS: DurationLevelTuple[] = [
+    ['days', 86_400_000, (n: number): string => n === 1 ? '1 day'  : `${formatNumberAsWholeNumber(n)} days`],
+    ['hrs',  3_600_000,  (n: number): string => n === 1 ? '1 hr'   : `${formatNumberAsWholeNumber(n)} hrs`],
+    ['mins', 60_000,     (n: number): string => n === 1 ? '1 min'  : `${formatNumberAsWholeNumber(n)} mins`],
+    ['secs', 1000,       (n: number): string => n === 1 ? '1 sec'  : `${formatNumberAsWholeNumber(n)} secs`],
+    ['ms',   0,          (n: number): string => `${formatNumberAsWholeNumber(n)} ms`],
+];
+
+export function formatNumberAsDuration(number?: number, stopAt: DurationLevel = 'ms'): string {
     if (number == null) return '';
+
+    const stopIndex = DURATION_LEVELS.findIndex(([level]) => level === stopAt);
+    const stopThreshold = DURATION_LEVELS[stopIndex]?.[1] ?? 0;
+
+    if (number < stopThreshold) {
+        const found = DURATION_LEVELS.find(([, t]) => number >= t);
+        if (found == null) return `${formatNumberAsWholeNumber(number)} ms`;
+        const [, threshold, format] = found;
+        return format(threshold > 0 ? Math.floor(number / threshold) : number);
+    }
+
     const parts: string[] = [];
-
-    if (number >= 86_400_000) {
-        const days = Math.floor(number / 86_400_000);
-        parts.push(days === 1 ? '1 day' : `${formatNumberAsWholeNumber(days)} days`);
-        number %= 86_400_000;
+    let remaining = number;
+    for (const [, threshold, format] of DURATION_LEVELS.slice(0, stopIndex + 1)) {
+        if (threshold === 0) {
+            if (remaining > 0 || parts.length === 0) parts.push(format(remaining));
+        } else if (remaining >= threshold) {
+            parts.push(format(Math.floor(remaining / threshold)));
+            remaining %= threshold;
+        }
     }
-    if (parts.length < maxLevels && number >= 3_600_000) {
-        const hrs = Math.floor(number / 3_600_000);
-        parts.push(hrs === 1 ? '1 hr' : `${formatNumberAsWholeNumber(hrs)} hrs`);
-        number %= 3_600_000;
-    }
-    if (parts.length < maxLevels && number >= 60_000) {
-        const mins = Math.floor(number / 60_000);
-        parts.push(mins === 1 ? '1 min' : `${formatNumberAsWholeNumber(mins)} mins`);
-        number %= 60_000;
-    }
-    if (parts.length < maxLevels && number >= 1000) {
-        const secs = Math.floor(number / 1000);
-        parts.push(secs === 1 ? '1 sec' : `${formatNumberAsWholeNumber(secs)} secs`);
-        number %= 1000;
-    }
-    if (parts.length < maxLevels && (number > 0 || parts.length === 0)) {
-        parts.push(`${formatNumberAsWholeNumber(number)} ms`);
-    }
-
     return parts.join(' ');
 }
 

@@ -46,33 +46,52 @@ function a(n, r = 2, i = r, a = e) {
 	}), t.set(o, s)), s.format(n);
 }
 function o(e, t = 1) {
-	return e == null ? "" : e < 1e3 ? l(e) : e < 1e6 ? `${a(e / 1e3, t, 0)}K` : e < 1e9 ? `${a(e / 1e6, t, 0)}M` : e < 0xe8d4a51000 ? `${a(e / 1e9, t, 0)}B` : `${a(e / 0xe8d4a51000, t, 0)}T`;
+	return e == null ? "" : e < 1e3 ? u(e) : e < 1e6 ? `${a(e / 1e3, t, 0)}K` : e < 1e9 ? `${a(e / 1e6, t, 0)}M` : e < 0xe8d4a51000 ? `${a(e / 1e9, t, 0)}B` : `${a(e / 0xe8d4a51000, t, 0)}T`;
 }
 function s(e, t = 1) {
-	return e == null ? "" : e === 1 ? "1 byte" : e < 1024 ? `${l(e)} bytes` : e < 1048576 ? `${a(e / 1024, t, 0)} KB` : e < 1073741824 ? `${a(e / 1048576, t, 0)} MB` : e < 1099511627776 ? `${a(e / 1073741824, t, 0)} GB` : `${a(e / 1099511627776, t, 0)} TB`;
+	return e == null ? "" : e === 1 ? "1 byte" : e < 1024 ? `${u(e)} bytes` : e < 1048576 ? `${a(e / 1024, t, 0)} KB` : e < 1073741824 ? `${a(e / 1048576, t, 0)} MB` : e < 1099511627776 ? `${a(e / 1073741824, t, 0)} GB` : `${a(e / 1099511627776, t, 0)} TB`;
 }
-function c(e, t = Infinity) {
+var c = [
+	[
+		"days",
+		864e5,
+		(e) => e === 1 ? "1 day" : `${u(e)} days`
+	],
+	[
+		"hrs",
+		36e5,
+		(e) => e === 1 ? "1 hr" : `${u(e)} hrs`
+	],
+	[
+		"mins",
+		6e4,
+		(e) => e === 1 ? "1 min" : `${u(e)} mins`
+	],
+	[
+		"secs",
+		1e3,
+		(e) => e === 1 ? "1 sec" : `${u(e)} secs`
+	],
+	[
+		"ms",
+		0,
+		(e) => `${u(e)} ms`
+	]
+];
+function l(e, t = "ms") {
 	if (e == null) return "";
-	let n = [];
-	if (e >= 864e5) {
-		let t = Math.floor(e / 864e5);
-		n.push(t === 1 ? "1 day" : `${l(t)} days`), e %= 864e5;
+	let n = c.findIndex(([e]) => e === t);
+	if (e < (c[n]?.[1] ?? 0)) {
+		let t = c.find(([, t]) => e >= t);
+		if (t == null) return `${u(e)} ms`;
+		let [, n, r] = t;
+		return r(n > 0 ? Math.floor(e / n) : e);
 	}
-	if (n.length < t && e >= 36e5) {
-		let t = Math.floor(e / 36e5);
-		n.push(t === 1 ? "1 hr" : `${l(t)} hrs`), e %= 36e5;
-	}
-	if (n.length < t && e >= 6e4) {
-		let t = Math.floor(e / 6e4);
-		n.push(t === 1 ? "1 min" : `${l(t)} mins`), e %= 6e4;
-	}
-	if (n.length < t && e >= 1e3) {
-		let t = Math.floor(e / 1e3);
-		n.push(t === 1 ? "1 sec" : `${l(t)} secs`), e %= 1e3;
-	}
-	return n.length < t && (e > 0 || n.length === 0) && n.push(`${l(e)} ms`), n.join(" ");
+	let r = [], i = e;
+	for (let [, e, t] of c.slice(0, n + 1)) e === 0 ? (i > 0 || r.length === 0) && r.push(t(i)) : i >= e && (r.push(t(Math.floor(i / e))), i %= e);
+	return r.join(" ");
 }
-function l(n, r = e) {
+function u(n, r = e) {
 	if (n == null) return "";
 	let i = `${r}decimal0.0`, a = t.get(i);
 	return a || (a = new Intl.NumberFormat(r, {
@@ -84,7 +103,7 @@ function l(n, r = e) {
 		useGrouping: !0
 	}), t.set(i, a)), a.format(n);
 }
-function u(e) {
+function d(e) {
 	switch (e) {
 		case "csv": return "text/csv";
 		case "tab":
@@ -95,4 +114,4 @@ function u(e) {
 	}
 }
 //#endregion
-export { n as convertODataTypeIdToUsageTypeId, i as extractExtensionFromPath, r as extractNameFromPath, a as formatNumberAsDecimalNumber, c as formatNumberAsDuration, o as formatNumberAsSize, s as formatNumberAsStorageSize, l as formatNumberAsWholeNumber, u as lookupMimeTypeForExtension };
+export { n as convertODataTypeIdToUsageTypeId, i as extractExtensionFromPath, r as extractNameFromPath, a as formatNumberAsDecimalNumber, l as formatNumberAsDuration, o as formatNumberAsSize, s as formatNumberAsStorageSize, u as formatNumberAsWholeNumber, d as lookupMimeTypeForExtension };
