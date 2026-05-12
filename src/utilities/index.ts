@@ -117,11 +117,11 @@ export type DurationLevel = 'days' | 'hrs' | 'mins' | 'secs' | 'ms';
 type DurationLevelTuple = [DurationLevel, number, (n: number) => string];
 
 const DURATION_LEVELS: DurationLevelTuple[] = [
-    ['days', 86_400_000, (n: number): string => n === 1 ? '1 day'  : `${formatNumberAsWholeNumber(n)} days`],
-    ['hrs',  3_600_000,  (n: number): string => n === 1 ? '1 hr'   : `${formatNumberAsWholeNumber(n)} hrs`],
-    ['mins', 60_000,     (n: number): string => n === 1 ? '1 min'  : `${formatNumberAsWholeNumber(n)} mins`],
-    ['secs', 1000,       (n: number): string => n === 1 ? '1 sec'  : `${formatNumberAsWholeNumber(n)} secs`],
-    ['ms',   0,          (n: number): string => `${formatNumberAsWholeNumber(n)} ms`],
+    ['days', 86_400_000, (n: number): string => (n === 1 ? '1 day' : `${formatNumberAsWholeNumber(n)} days`)],
+    ['hrs', 3_600_000, (n: number): string => (n === 1 ? '1 hr' : `${formatNumberAsWholeNumber(n)} hrs`)],
+    ['mins', 60_000, (n: number): string => (n === 1 ? '1 min' : `${formatNumberAsWholeNumber(n)} mins`)],
+    ['secs', 1000, (n: number): string => (n === 1 ? '1 sec' : `${formatNumberAsWholeNumber(n)} secs`)],
+    ['ms', 0, (n: number): string => `${formatNumberAsWholeNumber(n)} ms`]
 ];
 
 export function formatNumberAsDuration(number?: number, stopAt: DurationLevel = 'ms'): string {

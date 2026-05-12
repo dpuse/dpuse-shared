@@ -424,6 +424,7 @@ var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__
 	description: O,
 	icon: /* @__PURE__ */ v(/* @__PURE__ */ C()),
 	iconDark: /* @__PURE__ */ v(/* @__PURE__ */ C()),
+	iconNeutral: /* @__PURE__ */ v(/* @__PURE__ */ C()),
 	order: /* @__PURE__ */ y(),
 	path: /* @__PURE__ */ C()
 }), P = {
@@ -433,6 +434,7 @@ var E = (e) => /* @__PURE__ */ T(e.map((e) => /* @__PURE__ */ _(e))), D = /* @__
 	firstCreatedAt: /* @__PURE__ */ v(/* @__PURE__ */ y()),
 	icon: /* @__PURE__ */ v(/* @__PURE__ */ C()),
 	iconDark: /* @__PURE__ */ v(/* @__PURE__ */ C()),
+	iconNeutral: /* @__PURE__ */ v(/* @__PURE__ */ C()),
 	lastUpdatedAt: /* @__PURE__ */ v(/* @__PURE__ */ y()),
 	status: /* @__PURE__ */ v(M),
 	statusId: /* @__PURE__ */ v(j)
