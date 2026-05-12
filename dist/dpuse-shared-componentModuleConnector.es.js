@@ -1,6 +1,6 @@
 import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
-import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-BIilERDi.js";
-import { t as p } from "./moduleConfig.schema-ChaMakUL.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-CkdR7msf.js";
+import { t as p } from "./moduleConfig.schema-CE_hg8Nj.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
 var m = n([
 	"application",
