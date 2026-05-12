@@ -57,7 +57,7 @@ export default defineConfig({
         },
         target: 'ESNext'
     },
-    plugins: [dts({ outDir: 'dist/types' })],
+    plugins: [dts({ outDirs: 'dist/types' })],
     resolve: {
         alias: {
             '~': fileURLToPath(new URL('./', import.meta.url)),
