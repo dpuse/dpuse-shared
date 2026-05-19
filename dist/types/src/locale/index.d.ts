@@ -21,6 +21,6 @@ export declare const SUPPORTED_LANGUAGES: {
 }[];
 export declare function createLabelMap(labels: Record<string, string>): LocaleLabelMap;
 export declare function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): LocalisedConfig<T>;
-export declare function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId): LocalisedConfig<T>[];
+export declare function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId, sortResult?: boolean): LocalisedConfig<T>[];
 export declare function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: LocaleId): string | undefined;
 export {};

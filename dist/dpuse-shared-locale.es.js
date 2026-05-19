@@ -19,13 +19,14 @@ function r(e, t) {
 		verb: e.verb?.[t] ?? void 0
 	};
 }
-function i(e, t) {
-	return console.log(111, e, t), e.map((e) => ({
+function i(e, t, n = !1) {
+	let r = e.map((e) => ({
 		...e,
 		label: e.label[t] ?? e.id,
 		description: e.description[t] ?? e.id,
 		verb: e.verb?.[t] ?? void 0
-	})).toSorted((e, t) => e.label.localeCompare(t.label) || e.id.localeCompare(t.id));
+	}));
+	return n ? r.toSorted((e, t) => e.label.localeCompare(t.label) || e.id.localeCompare(t.id)) : r;
 }
 function a(e, t, n = "en") {
 	let r = e.get(t);
