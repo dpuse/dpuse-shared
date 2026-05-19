@@ -2,7 +2,7 @@ import { FileTypeResult } from 'file-type';
 import { Component, ComponentConfig } from '..';
 import { ConnectionNodeConfig, ObjectColumnConfig } from '../connection';
 type DataViewInterface = Component;
-interface DataViewConfig extends ComponentConfig {
+export interface DataViewConfig extends ComponentConfig {
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     previewConfig: PreviewConfig | undefined;
@@ -134,7 +134,7 @@ interface UnknownInferenceResult {
     inferredValue: null;
 }
 export { ORDERED_VALUE_DELIMITER_IDS };
-export type { DataViewInterface, DataViewConfig, PreviewConfig, ContentAuditConfig, RelationshipsAuditConfig, DataFormatId, RecordDelimiterId, ValueDelimiterId, ParsingRecord, ParsingResult, DataTypeId, // Data type.
+export type { DataViewInterface, PreviewConfig, ContentAuditConfig, RelationshipsAuditConfig, DataFormatId, RecordDelimiterId, ValueDelimiterId, ParsingRecord, ParsingResult, DataTypeId, // Data type.
 DataSubtypeId, NumericSubtypeId, // Numeric subtype and characteristics.
 NumericSignId, NumericUnitsId, StringSubtypeId, // String subtype.
 TemporalSubtypeId, // Temporal subtype.

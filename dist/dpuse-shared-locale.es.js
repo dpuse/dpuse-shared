@@ -25,7 +25,7 @@ function i(e, t) {
 		label: e.label[t] ?? e.id,
 		description: e.description[t] ?? e.id,
 		verb: e.verb?.[t] ?? void 0
-	}));
+	})).toSorted((e, t) => e.label.localeCompare(t.label) || e.id.localeCompare(t.id));
 }
 function a(e, t, n = "en") {
 	let r = e.get(t);

@@ -8,7 +8,7 @@ import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } 
 
 type DataViewInterface = Component;
 
-interface DataViewConfig extends ComponentConfig {
+export interface DataViewConfig extends ComponentConfig {
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     previewConfig: PreviewConfig | undefined;
@@ -324,7 +324,6 @@ export { ORDERED_VALUE_DELIMITER_IDS };
 export type {
     // Data view interface and configuration.
     DataViewInterface,
-    DataViewConfig,
     PreviewConfig,
     ContentAuditConfig,
     RelationshipsAuditConfig,

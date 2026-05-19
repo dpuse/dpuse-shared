@@ -42,12 +42,14 @@ export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId:
 }
 
 export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId): LocalisedConfig<T>[] {
-    return configs.map((config) => ({
-        ...config,
-        label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? config.id,
-        verb: config.verb?.[localeId] ?? undefined
-    }));
+    return configs
+        .map((config) => ({
+            ...config,
+            label: config.label[localeId] ?? config.id,
+            description: config.description[localeId] ?? config.id,
+            verb: config.verb?.[localeId] ?? undefined
+        }))
+        .toSorted((a, b) => a.label.localeCompare(b.label) || a.id.localeCompare(b.id));
 }
 
 export function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId = DEFAULT_LOCALE_ID): string | undefined {
