@@ -42,6 +42,7 @@ export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId:
 }
 
 export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId): LocalisedConfig<T>[] {
+    console.log(111, configs, localeId);
     return configs
         .map((config) => ({
             ...config,

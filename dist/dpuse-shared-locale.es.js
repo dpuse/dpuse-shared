@@ -20,7 +20,7 @@ function r(e, t) {
 	};
 }
 function i(e, t) {
-	return e.map((e) => ({
+	return console.log(111, e, t), e.map((e) => ({
 		...e,
 		label: e.label[t] ?? e.id,
 		description: e.description[t] ?? e.id,
