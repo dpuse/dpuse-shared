@@ -1,16 +1,17 @@
 export type FlagId = 'es' | 'gb';
 export type LocaleId = 'en' | 'es';
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
+export type LocaleDescription = Partial<Record<LocaleId, string[]>>;
 export type LocaleLabelMap = ReadonlyMap<string, string>;
 export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & {
     label: string;
-    description: string;
+    description: string[];
     verb?: string | undefined;
 };
 interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
-    description: LocaleLabel;
+    description: LocaleDescription;
     verb?: LocaleLabel | undefined;
 }
 export declare const DEFAULT_LOCALE_ID: LocaleId;

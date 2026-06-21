@@ -1,4 +1,4 @@
-import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-CkdR7msf.js";
+import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-DTtYL9IP.js";
 //#region src/component/module/moduleConfig.schema.ts
 var i = e([
 	"app",

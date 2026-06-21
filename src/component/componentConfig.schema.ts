@@ -3,7 +3,7 @@ import { nullable, number, object, string } from 'valibot';
 
 // DPUse (Local) Framework
 import { literalUnion } from '@/schema';
-import { partialLocaleLabelSchema } from '@/locale/locale.schema';
+import { partialLocaleDescriptionSchema, partialLocaleLabelSchema } from '@/locale/locale.schema';
 
 // Type ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -60,7 +60,7 @@ export const componentStatusConfigSchema = object({
 export const componentReferenceSchema = object({
     id: string(),
     label: partialLocaleLabelSchema,
-    description: partialLocaleLabelSchema,
+    description: partialLocaleDescriptionSchema,
     icon: nullable(string()),
     iconDark: nullable(string()),
     iconNeutral: nullable(string()),
@@ -74,7 +74,7 @@ export const componentReferenceSchema = object({
 export const componentConfigCoreFields = {
     id: string(),
     label: partialLocaleLabelSchema,
-    description: partialLocaleLabelSchema,
+    description: partialLocaleDescriptionSchema,
     firstCreatedAt: nullable(number()),
     icon: nullable(string()),
     iconDark: nullable(string()),

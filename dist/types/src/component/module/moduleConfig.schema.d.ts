@@ -7,8 +7,8 @@ export declare const moduleConfigCoreFields: {
         readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
     }, undefined>;
     description: import('valibot').ObjectSchema<{
-        readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly en: import('valibot').OptionalSchema<import('valibot').ArraySchema<import('valibot').StringSchema<undefined>, undefined>, undefined>;
+        readonly es: import('valibot').OptionalSchema<import('valibot').ArraySchema<import('valibot').StringSchema<undefined>, undefined>, undefined>;
     }, undefined>;
     firstCreatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     icon: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
@@ -30,8 +30,8 @@ export declare const moduleConfigSchema: import('valibot').ObjectSchema<{
         readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
     }, undefined>;
     readonly description: import('valibot').ObjectSchema<{
-        readonly en: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
-        readonly es: import('valibot').OptionalSchema<import('valibot').StringSchema<undefined>, undefined>;
+        readonly en: import('valibot').OptionalSchema<import('valibot').ArraySchema<import('valibot').StringSchema<undefined>, undefined>, undefined>;
+        readonly es: import('valibot').OptionalSchema<import('valibot').ArraySchema<import('valibot').StringSchema<undefined>, undefined>, undefined>;
     }, undefined>;
     readonly firstCreatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly icon: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;

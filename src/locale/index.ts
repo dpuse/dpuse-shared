@@ -6,14 +6,16 @@ export type LocaleId = 'en' | 'es';
 
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
 
+export type LocaleDescription = Partial<Record<LocaleId, string[]>>;
+
 export type LocaleLabelMap = ReadonlyMap<string, string>;
 
-export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & { label: string; description: string; verb?: string | undefined };
+export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & { label: string; description: string[]; verb?: string | undefined };
 
 interface UnlocalisedConfig {
     id: string;
     label: LocaleLabel;
-    description: LocaleLabel;
+    description: LocaleDescription;
     verb?: LocaleLabel | undefined;
 }
 
@@ -36,7 +38,7 @@ export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId:
     return {
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? config.id,
+        description: config.description[localeId] ?? [],
         verb: config.verb?.[localeId] ?? undefined
     };
 }
@@ -45,7 +47,7 @@ export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], local
     const mapped = configs.map((config) => ({
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? config.id,
+        description: config.description[localeId] ?? [],
         verb: config.verb?.[localeId] ?? undefined
     }));
     return sortResult

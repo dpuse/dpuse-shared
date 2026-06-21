@@ -15,7 +15,7 @@ function r(e, t) {
 	return {
 		...e,
 		label: e.label[t] ?? e.id,
-		description: e.description[t] ?? e.id,
+		description: e.description[t] ?? [],
 		verb: e.verb?.[t] ?? void 0
 	};
 }
@@ -23,7 +23,7 @@ function i(e, t, n = !1) {
 	let r = e.map((e) => ({
 		...e,
 		label: e.label[t] ?? e.id,
-		description: e.description[t] ?? e.id,
+		description: e.description[t] ?? [],
 		verb: e.verb?.[t] ?? void 0
 	}));
 	return n ? r.toSorted((e, t) => e.label.localeCompare(t.label) || e.id.localeCompare(t.id)) : r;

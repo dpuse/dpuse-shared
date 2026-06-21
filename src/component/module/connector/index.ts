@@ -66,9 +66,9 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
     if (connectorCategory) {
         const labelMap = createLabelMap(connectorCategory.label);
         const localizedLabel = resolveLabel(labelMap, localeId);
-        return { label: localizedLabel ?? connectorCategory.id, description: '' };
+        return { label: localizedLabel ?? connectorCategory.id, description: [] };
     }
-    return { label: id, description: '' };
+    return { label: id, description: [] };
 };
 
 // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
