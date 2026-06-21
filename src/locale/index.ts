@@ -34,11 +34,17 @@ export function createLabelMap(labels: Record<string, string>): LocaleLabelMap {
     return new Map(Object.entries(labels));
 }
 
+function resolveDescription(raw: string[] | undefined): string[] {
+    if (Array.isArray(raw)) return raw;
+    // Handles legacy stored data where description was a plain string.
+    return raw != null ? [(raw as unknown) as string] : [];
+}
+
 export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): LocalisedConfig<T> {
     return {
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? [],
+        description: resolveDescription(config.description[localeId]),
         verb: config.verb?.[localeId] ?? undefined
     };
 }
@@ -47,7 +53,7 @@ export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], local
     const mapped = configs.map((config) => ({
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? [],
+        description: resolveDescription(config.description[localeId]),
         verb: config.verb?.[localeId] ?? undefined
     }));
     return sortResult

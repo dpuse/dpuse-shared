@@ -9,8 +9,7 @@ import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnCon
 import type {
     connectorCategoryConfigSchema,
     connectorConfigSchema,
-    connectorOperationNameSchema,
-    connectorUsageIdSchema
+    connectorOperationNameSchema
 } from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
@@ -188,11 +187,7 @@ export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
 
 export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
 
-// Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>; // Connector data pipeline usage identifiers.
-
-// Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// Utilities ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectorUtilities {
     hasReadableStreamTransferSupport(): boolean;

@@ -3,7 +3,7 @@ import { Component } from '../..';
 import { EngineConnectorActionOptions } from '../../../engine';
 import { ToolConfig } from '../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
-import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema, connectorUsageIdSchema } from './connectorConfig.schema';
+import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema } from './connectorConfig.schema';
 import { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
 import { LocalisedConfig } from '../../../locale';
 export { connectorConfigSchema } from './connectorConfig.schema';
@@ -127,7 +127,6 @@ export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     path: string;
 }
 export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
-export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>;
 export interface ConnectorUtilities {
     hasReadableStreamTransferSupport(): boolean;
     inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], leadingRecord: boolean) => InferenceRecord;

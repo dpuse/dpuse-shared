@@ -54,10 +54,6 @@ export const connectorOperationNameSchema = literalUnion([
     'upsertRecords'
 ]);
 
-// Usage ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']); // Connector data pipeline usage identifiers.
-
 // Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const connectorConfigSchema = object({
@@ -67,7 +63,6 @@ export const connectorConfigSchema = object({
     categoryId: connectorCategoryIdSchema,
     implementations: record(string(), connectorImplementationSchema),
     operations: array(connectorOperationNameSchema),
-    usageId: connectorUsageIdSchema,
     vendorAccountURL: nullable(string()),
     vendorDocumentationURL: nullable(string()),
     vendorHomeURL: nullable(string())
