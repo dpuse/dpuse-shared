@@ -31,6 +31,8 @@ export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
 export declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorCategoryConfig>;
 export type ConnectorOperationName = InferOutput<typeof connectorOperationNameSchema>;
+export declare const CONNECTOR_OPERATION_LABELS: Record<ConnectorOperationName, string>;
+export declare function generateConnectorOperationsTable(supported: ConnectorOperationName[]): string;
 export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;

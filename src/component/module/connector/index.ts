@@ -74,6 +74,33 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
 
 export type ConnectorOperationName = InferOutput<typeof connectorOperationNameSchema>; // Names of the operations a connector may implement.
 
+export const CONNECTOR_OPERATION_LABELS: Record<ConnectorOperationName, string> = {
+    abortOperation: 'Abort Operation',
+    auditObjectContent: 'Audit Object Content',
+    createObject: 'Create Object',
+    describeConnection: 'Describe Connection',
+    dropObject: 'Drop Object',
+    findObject: 'Find Object',
+    getReadableStream: 'Get Readable Stream',
+    getRecord: 'Get Record',
+    listNodes: 'List Nodes',
+    previewObject: 'Preview Object',
+    removeRecords: 'Remove Records',
+    retrieveChunks: 'Retrieve Chunks',
+    retrieveRecords: 'Retrieve Records',
+    upsertRecords: 'Upsert Records'
+};
+
+export function generateConnectorOperationsTable(supported: ConnectorOperationName[]): string {
+    const supportedSet = new Set(supported);
+    let md = '| Operation | Supported |\n';
+    md += '| --------- | --------- |\n';
+    for (const id of Object.keys(CONNECTOR_OPERATION_LABELS) as ConnectorOperationName[]) {
+        md += `| ${CONNECTOR_OPERATION_LABELS[id]} | ${supportedSet.has(id) ? '✓' : ''} |\n`;
+    }
+    return md;
+}
+
 export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;

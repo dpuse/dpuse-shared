@@ -83,6 +83,27 @@ var m = n([
 		label: n,
 		description: []
 	};
+}, x = {
+	abortOperation: "Abort Operation",
+	auditObjectContent: "Audit Object Content",
+	createObject: "Create Object",
+	describeConnection: "Describe Connection",
+	dropObject: "Drop Object",
+	findObject: "Find Object",
+	getReadableStream: "Get Readable Stream",
+	getRecord: "Get Record",
+	listNodes: "List Nodes",
+	previewObject: "Preview Object",
+	removeRecords: "Remove Records",
+	retrieveChunks: "Retrieve Chunks",
+	retrieveRecords: "Retrieve Records",
+	upsertRecords: "Upsert Records"
 };
+function S(e) {
+	let t = new Set(e), n = "| Operation | Supported |\n";
+	n += "| --------- | --------- |\n";
+	for (let e of Object.keys(x)) n += `| ${x[e]} | ${t.has(e) ? "✓" : ""} |\n`;
+	return n;
+}
 //#endregion
-export { v as connectorConfigSchema, b as constructConnectorCategoryConfig };
+export { x as CONNECTOR_OPERATION_LABELS, v as connectorConfigSchema, b as constructConnectorCategoryConfig, S as generateConnectorOperationsTable };
