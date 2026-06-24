@@ -3,14 +3,10 @@ import type { InferOutput } from 'valibot';
 
 // DPUse (Local) Framework
 import type { Component } from '@/component';
-import type { EngineConnectorActionOptions } from '@/engine';
+import type { EngineConnectorActionOptions } from '~/src/component/module/engine';
 import type { ToolConfig } from '@/component/module/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
-import type {
-    connectorCategoryConfigSchema,
-    connectorConfigSchema,
-    connectorOperationNameSchema
-} from '@/component/module/connector/connectorConfig.schema';
+import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema } from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
 

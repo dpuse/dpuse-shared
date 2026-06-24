@@ -1,7 +1,7 @@
 // DPUse (Local) Framework
 import type { ComponentConfig } from '@/component';
 import type { EncodingTypeConfig } from '@/encoding';
-import type { LocalisedConfig } from '../locale';
+import type { LocalisedConfig } from '../../../locale';
 import type { ModuleConfig } from '@/component/module';
 import type { ToolConfig } from '@/component/module/tool';
 

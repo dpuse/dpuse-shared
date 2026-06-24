@@ -18,11 +18,11 @@ The library is written in TypeScript and designed to be consumed exclusively by 
 
 The following are required to use this library:
 
-| Prerequisite | Version |
-| ------------ | :-----: |
-| [Node.js](https://nodejs.org/) | ≥ 22.0 |
-| [npm](https://www.npmjs.com/) | ≥ 11.0 |
-| [TypeScript](https://www.typescriptlang.org/) | ≥ 6.0 |
+| Prerequisite                                  | Version |
+| --------------------------------------------- | :-----: |
+| [Node.js](https://nodejs.org/)                | ≥ 22.0  |
+| [npm](https://www.npmjs.com/)                 | ≥ 11.0  |
+| [TypeScript](https://www.typescriptlang.org/) |  ≥ 6.0  |
 
 ## Installation
 
@@ -61,61 +61,44 @@ try {
 
 ## Architecture
 
-### Modules
+### Domain Model
 
-The Data Positioning solution consists of the following modules. All modules, except `App`, extend the base type `Module`.
+`Component` is the foundational base type for all DPUse domain objects. All component types extend `ComponentConfig` and are logically grouped in the following hierarchy. `Module` is a component type whose implementations are dynamically loaded by the host modules (App and API):
 
-| Type      | Dynamic | Notes                                                           |
-| --------- | :-----: | --------------------------------------------------------------- |
-| App       |         | Implements the data positioning web application.                |
-| Engine    |    ✔    | Implements the data positioning engine.                         |
-| Connector |    ✔    | Implements a connector which handles one or more connections.   |
-| Context   |    ✔    | Implements a context which defines one or more models.          |
-| Presenter |    ✔    | Implements a presenter which renders one or more presentations. |
-| Tool      |    ✔    | Implements...                                                   |
+```
+Component
+├── Module
+│   ├── Connector
+│   │   └── Connection
+│   ├── Context
+│   │   └── Model
+│   │       ├── Dimension
+│   │       │   └── DimensionHierarchy
+│   │       ├── Entity
+│   │       │   ├── DataItem
+│   │       │   ├── Event
+│   │       │   └── PrimaryMeasure
+│   │       └── SecondaryMeasure
+│   ├── Engine
+│   ├── Presenter
+│   │   └── Presentation
+│   ├── Recipe
+│   └── Tool
+├── DataView
+├── Dimension
+└── EventQuery
+```
 
-### Components
+### Cross-cutting Concerns
 
-Each module implements a set of components. All module component types extend the base component types.
+The following are shared across all modules and are not part of the domain model:
 
-| Types                           | Notes                                                        |
-| ------------------------------- | ------------------------------------------------------------ |
-| [Component](./src/component.ts) | The Component type serves as a base type for all components. |
-| ComponentReference              |                                                              |
-| ComponentStatus                 |                                                              |
-| ComponentStatusId               |                                                              |
-| ComponentTypeId                 |                                                              |
-| ComponentStatusColorId          |                                                              |
-
-#### Connector Module Components
-
-| Item                                    | Notes                                                             |
-| --------------------------------------- | ----------------------------------------------------------------- |
-| [Connector Types](./src/connector.ts)   | Connector types. The Connector type extends the Component type.   |
-| [Connection Types](./src/connection.ts) | Connection types. The Connection type extends the Component type. |
-
-#### Context Module Components
-
-| Item                                     | Notes                                                               |
-| ---------------------------------------- | ------------------------------------------------------------------- |
-| [Context Types](./src/context.ts)        | Context types. The Context type extends the Component type.         |
-| [Data View Types](./src/dataView.ts)     | DataView types. The DataView type extends the Component type.       |
-| [Dimension Types](./src/dimension.ts)    | Dimension types. The Dimension type extends the Component type.     |
-| [Engine Types](./src/dimension.ts)       | Engine types.                                                       |
-| [Event Query Types](./src/eventQuery.ts) | Event Query types. The Event Query type extends the Component type. |
-
-#### Engine Module Components
-
-| Item                               | Notes         |
-| ---------------------------------- | ------------- |
-| [Engine Types](./src/dimension.ts) | Engine types. |
-
-#### Presenter Module Components
-
-| Item                                        | Notes                                                                 |
-| ------------------------------------------- | --------------------------------------------------------------------- |
-| [Presenter Types](./src/presenter.ts)       | Presenter types. The Presenter type extends the Component type.       |
-| [Presentation Types](./src/presentation.ts) | Presentation types. The Presentation type extends the Component type. |
+| Concern   | Description                                                                                                                      |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Errors    | A typed error hierarchy with serialisation and deserialisation support for transporting errors across API and worker boundaries. |
+| Utilities | Common conversion, extraction, formatting and lookup functions.                                                                  |
+| Encoding  | Encoding configuration and format support.                                                                                       |
+| Locale    | Locale identifiers and label types used for internationalisation.                                                                |
 
 ## API Reference
 
@@ -144,10 +127,6 @@ The Bundle Analysis Report provides a detailed breakdown of the bundle's composi
 [View the Bundle Analysis Report](https://dpuse.github.io/dpuse-shared/stats.html)
 
 ### Dependency Check Report
-
-The OWASP Dependency Check Report identifies known vulnerabilities in project dependencies. It is generated automatically on each release using the npm package [owasp-dependency-check](https://dependency-check.github.io/DependencyCheck/index.html). We also rely on GitHub Dependabot to continuously check for vulnerabilities across all dependencies.
-
-[View the OWASP Dependency Check Report](https://dpuse.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)
 
 ### Dependency Licenses
 

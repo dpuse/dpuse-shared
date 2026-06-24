@@ -2,7 +2,7 @@
 import type { InferOutput } from 'valibot';
 
 // DPUse (Local) Framework
-import type { EngineContextActionOptions } from '@/engine';
+import type { EngineContextActionOptions } from '~/src/component/module/engine';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
 import type { contextConfigSchema, contextOperationNameSchema } from '@/component/module/context/contextConfig.schema';
 
