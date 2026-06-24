@@ -1,11 +1,7 @@
 # Data Positioning Shared Library
 
-<span><!-- OWASP_BADGES_START -->
-[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://dpuse.github.io/dpuse-shared/dependency-check-reports/dependency-check-report.html)
-<!-- OWASP_BADGES_END --></span>
-
-[![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared.svg)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared.svg)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
 
 A library containing common constants, types and utilities used across all Data Positioning projects.
 
@@ -124,10 +120,13 @@ The following table lists top-level production and peer dependencies. All these 
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, BSD-2-Clause, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the published library are covered by these checks. We do not include unlicensed dependencies. Used to support development activity and not released as part of the production release. Check if you clone. We use the `npm` packages [license-report](https://www.npmjs.com/package/license-report), [license-report-check](https://www.npmjs.com/package/license-report-check) and [license-report-recursive](https://www.npmjs.com/package/license-report-recursive) to identify dependency licenses.
 
 <!-- DEPENDENCY_LICENSES_START -->
-|Name|Type|Installed|Latest|Latest Released|Deps|Document|
-|:-|:-|:-:|:-:|:-|-:|:-|
+|Name|Version|License(s)|Document|
+|-|:-:|-|-|
 
 <!-- DEPENDENCY_LICENSES_END -->
+<!-- DEPENDENCY_TREE_START -->
+
+<!-- DEPENDENCY_TREE_END -->
 
 **Installed dependencies are kept up-to-date with latest releases.**
 

@@ -1,12 +1,10 @@
-//#region src/component/module/tool/index.ts
-var e = "https://engine-eu.dpuse.app/tools";
-async function t(t, n) {
-	let r = `dpuse-tool-${n}`, i = t.find((e) => e.id === r);
-	if (!i) throw Error(`Connector could not load unknown tool '${n}'.`);
+async function e(e, t) {
+	let n = `dpuse-tool-${t}`, r = e.find((e) => e.id === n);
+	if (!r) throw Error(`Connector could not load unknown tool '${t}'.`);
 	return new (await (import(
 		/* @vite-ignore */
-		`${e}/${n}_v${i.version}/${r}.es.js`
+		`https://engine-eu.dpuse.app/tools/${t}_v${r.version}/${n}.es.js`
 ))).Tool();
 }
 //#endregion
-export { t as loadTool };
+export { e as loadTool };
