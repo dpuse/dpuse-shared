@@ -1,9 +1,14 @@
-# Data Positioning Shared Library
+# DPUse Shared Library
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared.svg)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
+[![CodeQL](https://github.com/dpuse/dpuse-shared/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-shared/actions/workflows/codeql.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-shared&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared)
+[![CI](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml)
 
-A library containing common constants, types and utilities used across all Data Positioning projects.
+@dpuse/dpuse-shared is the foundational library for the [DPUse](https://www.dpuse.app/) ecosystem. It provides the common constants, types, errors, and utilities that are shared across all DPUse modules — including the App, API, Engine, Connectors, Contexts, Presenters and Recipes.
+
+The library is written in TypeScript and designed to be consumed exclusively by TypeScript projects. All configuration types are schema-validated using [Valibot](https://valibot.dev/), giving consumers both compile-time safety and runtime validation from a single source of truth.
 
 ## Installation
 
@@ -13,13 +18,27 @@ Install as a production dependency:
 npm install @dpuse/dpuse-shared
 ```
 
-> See the Data Positioning security documentation for additional initialization requirements.
+## Usage
+
+Import the library in your TypeScript project:
+
+```ts
+import { type ConnectorConfig, getComponentStatus } from '@dpuse/dpuse-shared';
+
+// Example type usage.
+let connectorConfig: ConnectorConfig;
+
+// Example function usage.
+getComponentStatus('alpha');
+```
+
+## Architecture
+
+## API Reference
 
 ## Declarations
 
 This package provides constants, errors, types/interfaces and utilities used by Data Positioning modules.
-
-[Documentation](https://dpuse.github.io/dpuse-shared/docs/typedoc/index.html)
 
 ### Modules
 
@@ -85,20 +104,6 @@ Each module implements a set of components. All module component types extend th
 
 ### Utilities
 
-## Usage
-
-Import the library in your TypeScript project:
-
-```ts
-import { type ConnectorConfig, getComponentStatus } from '@dpuse/dpuse-shared';
-
-// Example type usage.
-let connectorConfig: ConnectorConfig;
-
-// Example function usage.
-getComponentStatus('alpha');
-```
-
 Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development).
 
 ## Bundle Analysis Reports
@@ -120,8 +125,9 @@ The following table lists top-level production and peer dependencies. All these 
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, BSD-2-Clause, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the published library are covered by these checks. We do not include unlicensed dependencies. Used to support development activity and not released as part of the production release. Check if you clone. We use the `npm` packages [license-report](https://www.npmjs.com/package/license-report), [license-report-check](https://www.npmjs.com/package/license-report-check) and [license-report-recursive](https://www.npmjs.com/package/license-report-recursive) to identify dependency licenses.
 
 <!-- DEPENDENCY_LICENSES_START -->
-|Name|Version|License(s)|Document|
-|-|:-:|-|-|
+
+| Name | Version | License(s) | Document |
+| ---- | :-----: | ---------- | -------- |
 
 <!-- DEPENDENCY_LICENSES_END -->
 <!-- DEPENDENCY_TREE_START -->

@@ -77,7 +77,7 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
 
 export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null) return '';
-    const formatterId = `${locale}decimal${decimalPlaces}.${minimumFractionDigits}`;
+    const formatterId = `${locale}decimal${String(decimalPlaces)}.${String(minimumFractionDigits)}`;
     let numberFormatter = NUMBER_FORMATTER_MAP.get(formatterId);
     if (!numberFormatter) {
         numberFormatter = new Intl.NumberFormat(locale, {
@@ -189,7 +189,7 @@ export function lookupMimeTypeForExtension(extension?: string): string {
 // // export const establishVendorAccessToken = async (item: Item, accountId: string, sessionAccessToken: string, vendorRefreshURI: string): Promise<string> => {
 // export const establishVendorAccessToken = async (connectionConfig: ConnectionConfig, settings: ReadSettings, vendorRefreshURI: string): Promise<string> => {
 //     let accessToken;
-
+//
 //     // If the current dropbox access token expires within 5 minutes then refresh it and return the new one, otherwise return the current one.
 //     if (connectionConfig.authorisation[''].expires_at - Date.now() < 300000) {
 //         // TODO: Above is WRONG 'item.authorization!['']'. We need to know what authorisation.
@@ -214,6 +214,6 @@ export function lookupMimeTypeForExtension(extension?: string): string {
 //     } else {
 //         accessToken = connectionConfig.authorisation[''].access_token; // TODO: This is WRONG 'item.authorization!['']'. We need to know what authorisation.
 //     }
-
+//
 //     return accessToken;
 // };

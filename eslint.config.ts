@@ -1,4 +1,4 @@
-// ── External Dependencies
+// ── External Dependencies & Registrations
 import type { Linter } from 'eslint';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 import { flatConfigs as pluginImportFlatConfigs } from 'eslint-plugin-import-x';
@@ -59,6 +59,8 @@ export default defineConfig(
             '@typescript-eslint/no-unused-vars': 'warn',
 
             '@eslint-community/eslint-comments/require-description': 'warn',
+
+            'security/detect-object-injection': 'off',
 
             'sonarjs/no-commented-code': 'warn',
             'sonarjs/no-dead-store': 'warn',

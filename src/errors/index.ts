@@ -72,7 +72,7 @@ export class FetchError extends DPUseError {
 // Builds a fetch error from an HTTP response; includes a text copy of the response body
 export async function buildFetchError(response: { status: number; statusText: string; text: () => Promise<string> }, message: string, locator: string): Promise<FetchError> {
     const responseStatusStuff = ` - ${response.statusText}`;
-    const fetchMessage = `${message} Response status '${response.status}${response.statusText ? responseStatusStuff : ''}' received.`;
+    const fetchMessage = `${message} Response status '${String(response.status)}${response.statusText ? responseStatusStuff : ''}' received.`;
     let bodyText: string;
     try {
         bodyText = await response.text();
@@ -117,59 +117,30 @@ export function normalizeToError(value: unknown): Error {
 // errors are ordered from outermost to root cause;
 // cycles in the cause chain are safely ignored;
 // messages are normalized to end with punctuation
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export function serialiseError(error?: unknown): SerialisedError[] {
     const seenCauses = new Set();
     const serialisedErrors: SerialisedError[] = [];
     let cause: Error | null = normalizeToError(error);
     while (cause != null && !seenCauses.has(cause)) {
         seenCauses.add(cause);
-        let serialisedError: SerialisedError;
-        switch (cause.name) {
-            case 'APIError': {
-                const typedCause = cause as APIError;
-                serialisedError = { data: typedCause.data, locator: typedCause.locator, message: cause.message, name: 'APIError', stack: cause.stack };
-                cause = cause.cause == null ? null : normalizeToError(cause.cause);
-                break;
-            }
-            case 'AppError': {
-                const typedCause = cause as AppError;
-                serialisedError = { data: typedCause.data, locator: typedCause.locator, message: cause.message, name: 'AppError', stack: cause.stack };
-                cause = cause.cause == null ? null : normalizeToError(cause.cause);
-                break;
-            }
-            case 'ConnectorError': {
-                const typedCause = cause as ConnectorError;
-                serialisedError = { data: typedCause.data, locator: typedCause.locator, message: cause.message, name: 'ConnectorError', stack: cause.stack };
-                cause = cause.cause == null ? null : normalizeToError(cause.cause);
-                break;
-            }
-            case 'EngineError': {
-                const typedCause = cause as EngineError;
-                serialisedError = { data: typedCause.data, locator: typedCause.locator, message: cause.message, name: 'EngineError', stack: cause.stack };
-                cause = cause.cause == null ? null : normalizeToError(cause.cause);
-                break;
-            }
-            case 'FetchError': {
-                const typedCause = cause as FetchError;
-                serialisedError = { data: typedCause.data, locator: typedCause.locator, message: cause.message, name: 'FetchError', stack: cause.stack };
-                cause = cause.cause == null ? null : normalizeToError(cause.cause);
-                break;
-            }
-            default:
-                const { cause: _cause, ...customProperties } = Object.fromEntries(Object.entries(cause));
-                if (cause.name) {
-                    serialisedError = { data: customProperties, locator: '', message: cause.message, name: cause.name, stack: cause.stack };
-                    cause = cause.cause == null ? null : normalizeToError(cause.cause);
-                } else {
-                    serialisedError = { data: customProperties, locator: '', message: buildFallbackMessage(cause), name: 'Error', stack: undefined };
-                    cause = null;
-                }
-        }
+        const [serialisedError, nextCause] = serialiseSingleError(cause);
         if (!/(?:\.{3}|[.!?])$/.test(serialisedError.message)) serialisedError.message += '.';
         serialisedErrors.push(serialisedError);
+        cause = nextCause;
     }
     return serialisedErrors;
+}
+
+function serialiseSingleError(cause: Error): [SerialisedError, Error | null] {
+    const nextCause = cause.cause == null ? null : normalizeToError(cause.cause);
+    if (cause instanceof DPUseError) {
+        return [{ data: cause.data, locator: cause.locator, message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
+    }
+    const customProperties = Object.fromEntries(Object.entries(cause).filter(([k]) => k !== 'cause'));
+    if (cause.name) {
+        return [{ data: customProperties, locator: '', message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
+    }
+    return [{ data: customProperties, locator: '', message: buildFallbackMessage(cause), name: 'Error', stack: undefined }, null];
 }
 
 // Unserialises an array of serialised error objects back into an error with a cause chain;
