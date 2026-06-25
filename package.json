@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.682",
+    "version": "0.3.683",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -9,11 +9,11 @@
     "sideEffects": false,
     "homepage": "https://www.dpuse.app",
     "bugs": {
-        "url": "https://github.com/data-positioning/dpuse-shared/issues"
+        "url": "https://github.com/dpuse/dpuse-shared/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/data-positioning/dpuse-shared.git"
+        "url": "git+https://github.com/dpuse/dpuse-shared.git"
     },
     "module": "./dist/dpuse-shared.es.js",
     "types": "./dist/types/src/index.d.ts",
