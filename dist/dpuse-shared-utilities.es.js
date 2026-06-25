@@ -35,7 +35,7 @@ function i(e) {
 }
 function a(n, r = 2, i = r, a = e) {
 	if (n == null) return "";
-	let o = `${a}decimal${r}.${i}`, s = t.get(o);
+	let o = `${a}decimal${String(r)}.${String(i)}`, s = t.get(o);
 	return s || (s = new Intl.NumberFormat(a, {
 		localeMatcher: "best fit",
 		maximumFractionDigits: r,

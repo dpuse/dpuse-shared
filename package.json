@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.680",
+    "version": "0.3.681",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -78,6 +78,10 @@
             "import": "./dist/dpuse-shared-componentModuleContextModelSecondaryMeasure.es.js",
             "types": "./dist/types/src/component/module/context/model/secondaryMeasure/index.d.ts"
         },
+        "./component/module/engine": {
+            "import": "./dist/dpuse-shared-componentModuleEngine.es.js",
+            "types": "./dist/types/src/component/module/engine/index.d.ts"
+        },
         "./component/module/presenter": {
             "import": "./dist/dpuse-shared-componentModulePresenter.es.js",
             "types": "./dist/types/src/component/module/presenter/index.d.ts"
@@ -93,10 +97,6 @@
         "./encoding": {
             "import": "./dist/dpuse-shared-encoding.es.js",
             "types": "./dist/types/src/encoding/index.d.ts"
-        },
-        "./engine": {
-            "import": "./dist/dpuse-shared-engine.es.js",
-            "types": "./dist/types/src/engine/index.d.ts"
         },
         "./errors": {
             "import": "./dist/dpuse-shared-errors.es.js",

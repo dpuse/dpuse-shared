@@ -1,8 +1,8 @@
-import { ComponentConfig } from '../component';
-import { EncodingTypeConfig } from '../encoding';
-import { LocalisedConfig } from '../locale';
-import { ModuleConfig } from '../component/module';
-import { ToolConfig } from '../component/module/tool';
+import { ComponentConfig } from '../..';
+import { EncodingTypeConfig } from '../../../encoding';
+import { LocalisedConfig } from '../../../locale';
+import { ModuleConfig } from '..';
+import { ToolConfig } from '../tool';
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: string) => EncodingTypeConfig[];
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;

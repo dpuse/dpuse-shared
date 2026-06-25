@@ -34,11 +34,11 @@ export default defineConfig({
                 componentModuleContextModelEntityEvent: fileURLToPath(new URL('src/component/module/context/model/entity/event/index.ts', import.meta.url)),
                 componentModuleContextModelEntityPrimaryMeasure: fileURLToPath(new URL('src/component/module/context/model/entity/primaryMeasure/index.ts', import.meta.url)),
                 componentModuleContextModelSecondaryMeasure: fileURLToPath(new URL('src/component/module/context/model/secondaryMeasure/index.ts', import.meta.url)),
+                componentModuleEngine: fileURLToPath(new URL('src/component/module/engine/index.ts', import.meta.url)),
                 componentModulePresenter: fileURLToPath(new URL('src/component/module/presenter/index.ts', import.meta.url)),
                 componentModulePresenterPresentation: fileURLToPath(new URL('src/component/module/presenter/presentation/index.ts', import.meta.url)),
                 componentModuleTool: fileURLToPath(new URL('src/component/module/tool/index.ts', import.meta.url)),
                 encoding: fileURLToPath(new URL('src/encoding/index.ts', import.meta.url)),
-                engine: fileURLToPath(new URL('src/engine/index.ts', import.meta.url)),
                 errors: fileURLToPath(new URL('src/errors/index.ts', import.meta.url)),
                 locale: fileURLToPath(new URL('src/locale/index.ts', import.meta.url)),
                 utilities: fileURLToPath(new URL('src/utilities/index.ts', import.meta.url))

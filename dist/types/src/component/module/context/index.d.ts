@@ -1,5 +1,5 @@
 import { InferOutput } from 'valibot';
-import { EngineContextActionOptions } from '../../../engine';
+import { EngineContextActionOptions } from '../engine';
 import { Component, ComponentConfig, ComponentReference } from '../..';
 import { contextConfigSchema, contextOperationNameSchema } from './contextConfig.schema';
 export { contextConfigSchema } from './contextConfig.schema';

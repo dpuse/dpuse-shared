@@ -1,6 +1,6 @@
 import { InferOutput } from 'valibot';
 import { Component } from '../..';
-import { EngineConnectorActionOptions } from '../../../engine';
+import { EngineConnectorActionOptions } from '../engine';
 import { ToolConfig } from '../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
 import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema } from './connectorConfig.schema';
