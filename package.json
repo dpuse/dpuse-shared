@@ -1,50 +1,165 @@
 {
-    "name": "@datapos/datapos-shared",
-    "license": "MIT",
+    "name": "@dpuse/dpuse-shared",
+    "version": "0.3.690",
     "private": false,
-    "version": "0.3.48",
+    "description": "Common constants, types and utilities used across all DPUse projects.",
+    "license": "MIT",
+    "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "type": "module",
+    "sideEffects": false,
+    "homepage": "https://www.dpuse.app",
+    "bugs": {
+        "url": "https://github.com/dpuse/dpuse-shared/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dpuse/dpuse-shared.git"
+    },
+    "module": "./dist/dpuse-shared.es.js",
+    "types": "./dist/types/src/index.d.ts",
+    "exports": {
+        "./component": {
+            "import": "./dist/dpuse-shared-component.es.js",
+            "types": "./dist/types/src/component/index.d.ts"
+        },
+        "./component/connection": {
+            "import": "./dist/dpuse-shared-componentConnection.es.js",
+            "types": "./dist/types/src/component/connection/index.d.ts"
+        },
+        "./component/dataView": {
+            "import": "./dist/dpuse-shared-componentDataView.es.js",
+            "types": "./dist/types/src/component/dataView/index.d.ts"
+        },
+        "./component/dimension": {
+            "import": "./dist/dpuse-shared-componentDimension.es.js",
+            "types": "./dist/types/src/component/dimension/index.d.ts"
+        },
+        "./component/eventQuery": {
+            "import": "./dist/dpuse-shared-componentEventQuery.es.js",
+            "types": "./dist/types/src/component/eventQuery/index.d.ts"
+        },
+        "./component/module": {
+            "import": "./dist/dpuse-shared-componentModule.es.js",
+            "types": "./dist/types/src/component/module/index.d.ts"
+        },
+        "./component/module/connector": {
+            "import": "./dist/dpuse-shared-componentModuleConnector.es.js",
+            "types": "./dist/types/src/component/module/connector/index.d.ts"
+        },
+        "./component/module/context": {
+            "import": "./dist/dpuse-shared-componentModuleContext.es.js",
+            "types": "./dist/types/src/component/module/context/index.d.ts"
+        },
+        "./component/module/context/model": {
+            "import": "./dist/dpuse-shared-componentModuleContextModel.es.js",
+            "types": "./dist/types/src/component/module/context/model/index.d.ts"
+        },
+        "./component/module/context/model/dimension": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelDimension.es.js",
+            "types": "./dist/types/src/component/module/context/model/dimension/index.d.ts"
+        },
+        "./component/module/context/model/entity": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntity.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/index.d.ts"
+        },
+        "./component/module/context/model/entity/dataItem": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntityDataItem.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/dataItem/index.d.ts"
+        },
+        "./component/module/context/model/entity/event": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntityEvent.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/event/index.d.ts"
+        },
+        "./component/module/context/model/entity/primaryMeasure": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelEntityPrimaryMeasure.es.js",
+            "types": "./dist/types/src/component/module/context/model/entity/primaryMeasure/index.d.ts"
+        },
+        "./component/module/context/model/secondaryMeasure": {
+            "import": "./dist/dpuse-shared-componentModuleContextModelSecondaryMeasure.es.js",
+            "types": "./dist/types/src/component/module/context/model/secondaryMeasure/index.d.ts"
+        },
+        "./component/module/engine": {
+            "import": "./dist/dpuse-shared-componentModuleEngine.es.js",
+            "types": "./dist/types/src/component/module/engine/index.d.ts"
+        },
+        "./component/module/presenter": {
+            "import": "./dist/dpuse-shared-componentModulePresenter.es.js",
+            "types": "./dist/types/src/component/module/presenter/index.d.ts"
+        },
+        "./component/module/presenter/presentation": {
+            "import": "./dist/dpuse-shared-componentModulePresenterPresentation.es.js",
+            "types": "./dist/types/src/component/module/presenter/presentation/index.d.ts"
+        },
+        "./component/module/tool": {
+            "import": "./dist/dpuse-shared-componentModuleTool.es.js",
+            "types": "./dist/types/src/component/module/tool/index.d.ts"
+        },
+        "./encoding": {
+            "import": "./dist/dpuse-shared-encoding.es.js",
+            "types": "./dist/types/src/encoding/index.d.ts"
+        },
+        "./errors": {
+            "import": "./dist/dpuse-shared-errors.es.js",
+            "types": "./dist/types/src/errors/index.d.ts"
+        },
+        "./locale": {
+            "import": "./dist/dpuse-shared-locale.es.js",
+            "types": "./dist/types/src/locale/index.d.ts"
+        },
+        "./utilities": {
+            "import": "./dist/dpuse-shared-utilities.es.js",
+            "types": "./dist/types/src/utilities/index.d.ts"
+        }
+    },
     "files": [
         "dist"
     ],
-    "module": "./dist/datapos-shared.es.js",
-    "exports": {
-        ".": {
-            "import": "./dist/datapos-shared.es.js",
-            "types": "./dist/types/src/index.d.ts"
-        }
+    "engines": {
+        "node": ">=22.0.0",
+        "npm": ">=11.0.0"
     },
-    "types": "./dist/types/src/index.d.ts",
-    "devDependencies": {
-        "@datapos/datapos-development": "^0.3.18",
-        "@types/node": "^24.5.2",
-        "@typescript-eslint/eslint-plugin": "^8.44.0",
-        "@typescript-eslint/parser": "^8.44.0",
-        "csv-parse": "^6.1.0",
-        "eslint": "^9.36.0",
-        "eslint-plugin-import": "^2.32.0",
-        "jiti": "^2.5.1",
-        "license-report": "^6.8.0",
-        "license-report-check": "^0.1.2",
-        "npm-check-updates": "^18.3.0",
-        "prettier": "^3.6.2",
-        "typescript": "^5.9.2",
-        "vite": "^7.1.6",
-        "vite-plugin-dts": "^4.5.4"
+    "prettier": "@dpuse/dpuse-development/prettierrc",
+    "allowScripts": {
+        "fsevents@2.3.3": true,
+        "unrs-resolver@1.11.1": true
     },
     "scripts": {
-        "audit": "npm audit",
-        "build": "vite build",
-        "bumpVersion": "node -e \"require('@datapos/datapos-development').bumpVersion()\"",
-        "check": "npm outdated; npm-check-updates -i",
-        "document": "license-report --only=prod,peer > LICENSES.json && license-report-check --source ./LICENSES.json --allowed 'MIT' --allowed 'n/a' --allowed 'Apache-2.0' --output=table",
-        "format": "prettier --write *.ts",
-        "lint": "eslint",
-        "publishToNPM": "npm publish --access public",
-        "release": "npm run syncWithGitHub && npm run build && npm run publishToNPM",
-        "syncWithGitHub": "npm run bumpVersion && node -e \"require('@datapos/datapos-development').syncWithGitHub()\"",
-        "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
-        "updateDependencies": "npm run updateOperations",
-        "updateOperations": "npm install -D @datapos/datapos-development@latest"
+        "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
+        "build": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
+        "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkConfigFiles())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
+        "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies(['MIT']))\"",
+        "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
+        "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
+        "release": "npm run sync && gh release create \"v$(npm pkg get version | tr -d '\"')\" --generate-notes --latest",
+        "sync": "node -e \"import('@dpuse/dpuse-development').then(m => m.syncProjectWithGitHub())\"",
+        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
+    },
+    "devDependencies": {
+        "@dpuse/dpuse-development": "^0.3.549",
+        "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
+        "@types/eslint-plugin-security": "^3.0.1",
+        "@types/node": "^26.0.0",
+        "eslint": "^10.5.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-import-resolver-typescript": "^4.4.5",
+        "eslint-plugin-import-x": "^4.17.0",
+        "eslint-plugin-regexp": "^3.1.0",
+        "eslint-plugin-security": "^4.0.1",
+        "eslint-plugin-sonarjs": "^4.1.0",
+        "eslint-plugin-unicorn": "^68.0.0",
+        "file-type": "^22.0.1",
+        "jiti": "^2.7.0",
+        "license-checker-rseidelsohn": "^5.0.1",
+        "npm-check-updates": "^22.2.7",
+        "prettier": "^3.8.4",
+        "rollup-plugin-visualizer": "^7.0.1",
+        "sonda": "^0.13.1",
+        "type-fest": "^5.7.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.62.0",
+        "valibot": "^1.4.1",
+        "vite": "^8.1.0",
+        "vite-plugin-dts": "^5.0.3",
+        "vitest": "^4.1.9"
     }
 }
