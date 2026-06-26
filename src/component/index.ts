@@ -1,33 +1,35 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
 
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import { DEFAULT_LOCALE_ID } from '@/locale';
 import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale';
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export { componentConfigSchema } from '@/component/componentConfig.schema';
 
-// Component ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface Component {
     readonly config: ComponentConfig;
 }
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
 
-// Reference ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Reference ────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
 
-// Status ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Status ───────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
 export type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
+
+// ── Constants - Status ───────────────────────────────────────────────────────────────────────────────────────────────
 
 const COMPONENT_STATUS_CONFIGS: { id: string; color: ComponentStatusColorId; labels: LocaleLabel }[] = [
     { id: 'alpha', color: 'red', labels: { en: 'alpha', es: 'alfa' } },
@@ -40,6 +42,8 @@ const COMPONENT_STATUS_CONFIGS: { id: string; color: ComponentStatusColorId; lab
     { id: 'unavailable', color: 'other', labels: { en: 'unavailable', es: 'no-disponible' } },
     { id: 'underReview', color: 'other', labels: { en: 'under-review', es: 'en-revisión' } }
 ];
+
+// ── Actions - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function getComponentStatus(id: string, localeId: LocaleId = DEFAULT_LOCALE_ID): ComponentStatus {
     const componentStatus = COMPONENT_STATUS_CONFIGS.find((componentStatus) => componentStatus.id === id);

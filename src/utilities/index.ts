@@ -16,7 +16,7 @@ const DURATION_LEVELS: DurationLevelTuple[] = [
 const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en-GB';
 const NUMBER_FORMATTER_MAP = new Map<string, Intl.NumberFormat>();
 
-// ── Actions - Convert ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - Data Type Conversion ───────────────────────────────────────────────────────────────────────────────────
 
 // See: https://www.odata.org/documentation/odata-version-2-0/overview/.
 export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
@@ -56,7 +56,7 @@ export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
     }
 }
 
-// ── Actions - Extract ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - File Path Segment Extraction ───────────────────────────────────────────────────────────────────────────
 
 // Extract the path without its final basename extension.
 // Dots in parent directories are ignored, and leading dots in the basename
@@ -86,7 +86,7 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
     return undefined;
 }
 
-// ── Actions - Format ─────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - String Formatting ──────────────────────────────────────────────────────────────────────────────────────
 
 export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null) return '';

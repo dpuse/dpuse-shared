@@ -1,11 +1,11 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import { nullable, number, object, string } from 'valibot';
 
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import { literalUnion } from '@/schema';
 import { partialLocaleDescriptionSchema, partialLocaleLabelSchema } from '@/locale/locale.schema';
 
-// Type ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentTypeIdSchema = literalUnion([
     'app',
@@ -33,7 +33,7 @@ export const componentTypeIdSchema = literalUnion([
     'tool'
 ]);
 
-// Status ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other']);
 
@@ -54,7 +54,7 @@ export const componentStatusConfigSchema = object({
     label: string()
 });
 
-// Reference ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
 
 // Common structure for referencing all components.
 export const componentReferenceSchema = object({
@@ -68,7 +68,7 @@ export const componentReferenceSchema = object({
     path: string()
 });
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 // Core fields present in all components.
 export const componentConfigCoreFields = {

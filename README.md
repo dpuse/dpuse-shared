@@ -97,12 +97,12 @@ Component
 
 The following are shared across all modules and are not part of the domain model:
 
-| Concern   | Description                                                                                                                      |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Encoding  | Encoding configuration and format support.                                                                                       |
-| Errors    | A typed error hierarchy with serialisation and deserialisation support for transporting errors across API and worker boundaries. |
-| Locale    | Locale identifiers and label types used for internationalisation.                                                                |
-| Utilities | Common conversion, extraction, formatting and lookup functions.                                                                  |
+| Concern   | Description                                                                                                                                                                                                                                                                                                                                            |
+| --------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Encoding  | Character encoding types with detection and decodability flags, a static catalogue of all supported encodings loaded from JSON, and an action to retrieve them in sorted order.                                                                                                                                                                        |
+| Errors    | A typed error hierarchy (`DPUseError`, `AppError`, `APIError`, `EngineError`, `ConnectorError`, `FetchError`) with serialisation and deserialisation for transporting errors across API and worker boundaries, plus utilities for normalising unknown throwables, constructing errors from HTTP responses, and suppressing best-effort cleanup errors. |
+| Locale    | Locale and flag identifiers, localised label, description and verb types, Valibot schemas for locale fields, supported language constants, and actions for resolving and applying locale-specific values to configuration objects.                                                                                                                     |
+| Utilities | OData-to-internal type conversion, file path name and extension extraction, number formatting as decimal, whole number, compact size, storage size and duration, and MIME type lookup by file extension.                                                                                                                                               |
 
 ## API Reference
 
