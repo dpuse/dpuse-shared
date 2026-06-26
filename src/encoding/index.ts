@@ -1,7 +1,7 @@
-// Data dependencies.
+// ── Data
 import encodingConfigData from './encodingConfigs.json';
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // TODO: Naming...
 export interface EncodingConfig {
@@ -9,7 +9,7 @@ export interface EncodingConfig {
     confidenceLevel: number | undefined;
 }
 
-// Type Configuration ──────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Type Configuration ───────────────────────────────────────────────────────────────────────────────────────────────
 
 // TODO: Naming...
 export interface EncodingTypeConfig {
@@ -20,16 +20,16 @@ export interface EncodingTypeConfig {
     isDecodable: boolean;
 }
 
-// Initialisation ──────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Initialisation ───────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const encodingConfigMap = encodingConfigData as Record<string, EncodingTypeConfig>;
 
-// Actions ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function getEncodingTypeConfigs(localeId = 'en'): EncodingTypeConfig[] {
-    const encodingConfigs: EncodingTypeConfig[] = [];
-    for (const [, encodingConfig] of Object.entries(encodingConfigMap)) {
-        encodingConfigs.push({ ...encodingConfig, label: encodingConfig.label || encodingConfig.id });
-    }
+    const encodingConfigs: EncodingTypeConfig[] = Array.from(Object.values(encodingConfigMap), (encodingConfig) => ({
+        ...encodingConfig,
+        label: encodingConfig.label || encodingConfig.id
+    }));
     return encodingConfigs.toSorted((left, right) => left.groupLabel.localeCompare(right.groupLabel) || left.label.localeCompare(right.label));
 }

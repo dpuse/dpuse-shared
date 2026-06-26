@@ -1,4 +1,4 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import { defineConfig } from 'vite'; // Core Vite API.
 import dts from 'vite-plugin-dts'; // Emit .d.ts files alongside the bundle.
 import type { PackageJson } from 'type-fest';
@@ -6,15 +6,15 @@ import Sonda from 'sonda/vite'; // Visualize bundle results with Sonda plugin.
 import { visualizer } from 'rollup-plugin-visualizer'; // Generate bundle size report.
 import { fileURLToPath, URL } from 'node:url'; // ESM-safe path helpers.
 
-// Local Data
+// ── Data
 import config from './config.json' with { type: 'json' }; // Provide configuration identifier for naming.
 import package_ from './package.json' with { type: 'json' }; // Provide package for peer dependency detection.
 
-// Initialisation
+// ── Vite Configuration ───────────────────────────────────────────────────────────────────────────────────────────────
+
 const { peerDependencies } = package_ as PackageJson;
 const external = peerDependencies ? Object.keys(peerDependencies) : []; // Keep peer dependencies out of the bundle.
 
-// Configuration
 export default defineConfig({
     build: {
         lib: {

@@ -1,8 +1,4 @@
-// Constants  ──────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-const RESPONSE_ERROR_BODY_LIMIT = 2048;
-
-// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Serializable representation of an error; used for transporting errors across api and worker boundaries
 export interface SerialisedError {
@@ -13,7 +9,11 @@ export interface SerialisedError {
     stack: string | undefined; // Stack trace if available
 }
 
-// Errors ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Constants  ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
+const RESPONSE_ERROR_BODY_LIMIT = 2048;
+
+// ── Errors ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Base class for all DPUse  errors; includes a locator for the error; never thrown directly
 export class DPUseError extends Error {
@@ -67,7 +67,7 @@ export class FetchError extends DPUseError {
     }
 }
 
-// Actions ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds a fetch error from an HTTP response; includes a text copy of the response body
 export async function buildFetchError(response: { status: number; statusText: string; text: () => Promise<string> }, message: string, locator: string): Promise<FetchError> {
@@ -131,18 +131,6 @@ export function serialiseError(error?: unknown): SerialisedError[] {
     return serialisedErrors;
 }
 
-function serialiseSingleError(cause: Error): [SerialisedError, Error | null] {
-    const nextCause = cause.cause == null ? null : normalizeToError(cause.cause);
-    if (cause instanceof DPUseError) {
-        return [{ data: cause.data, locator: cause.locator, message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
-    }
-    const customProperties = Object.fromEntries(Object.entries(cause).filter(([k]) => k !== 'cause'));
-    if (cause.name) {
-        return [{ data: customProperties, locator: '', message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
-    }
-    return [{ data: customProperties, locator: '', message: buildFallbackMessage(cause), name: 'Error', stack: undefined }, null];
-}
-
 // Unserialises an array of serialised error objects back into an error with a cause chain;
 // reconstructs the appropriate error class based on serialized properties;
 // chains errors from outermost to root cause using the `cause` option;
@@ -151,38 +139,16 @@ export function unserialiseError(serialisedErrors: SerialisedError[]): Error | u
     if (serialisedErrors.length === 0) return undefined;
 
     // Build the error chain from root cause (end) to outermost (start)
-    let rebuiltError: Error | undefined = undefined;
+    let rebuiltError: Error | undefined;
     for (const serialised of serialisedErrors.toReversed()) {
-        let error: Error;
-        // Reconstruct the appropriate error class based on available properties
-        switch (serialised.name) {
-            case 'APIError':
-                error = new APIError(serialised.message, serialised.locator, serialised.data, { cause: rebuiltError });
-                break;
-            case 'AppError':
-                error = new AppError(serialised.message, serialised.locator, serialised.data, { cause: rebuiltError });
-                break;
-            case 'ConnectorError':
-                error = new ConnectorError(serialised.message, serialised.locator, serialised.data, { cause: rebuiltError });
-                break;
-            case 'EngineError':
-                error = new EngineError(serialised.message, serialised.locator, serialised.data, { cause: rebuiltError });
-                break;
-            case 'FetchError':
-                error = new FetchError(serialised.message, serialised.locator, serialised.data, { cause: rebuiltError });
-                break;
-            default:
-                error = new Error(serialised.message, { cause: rebuiltError });
-                error.name = serialised.name;
-                break;
-        }
+        const error = reconstructError(serialised, rebuiltError);
         if (serialised.stack !== undefined) error.stack = serialised.stack; // Restore stack trace if available
         rebuiltError = error;
     }
     return rebuiltError;
 }
 
-// Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds a fallback message for non-error throwables
 function buildFallbackMessage(cause: unknown): string {
@@ -198,8 +164,41 @@ function buildFallbackMessage(cause: unknown): string {
     return fallbackMessage;
 }
 
+function reconstructError(serialised: SerialisedError, cause: Error | undefined): Error {
+    switch (serialised.name) {
+        case 'APIError':
+            return new APIError(serialised.message, serialised.locator, serialised.data, { cause });
+        case 'AppError':
+            return new AppError(serialised.message, serialised.locator, serialised.data, { cause });
+        case 'ConnectorError':
+            return new ConnectorError(serialised.message, serialised.locator, serialised.data, { cause });
+        case 'EngineError':
+            return new EngineError(serialised.message, serialised.locator, serialised.data, { cause });
+        case 'FetchError':
+            return new FetchError(serialised.message, serialised.locator, serialised.data, { cause });
+        default: {
+            const name = serialised.name;
+            return new (class extends Error {
+                override name = name;
+            })(serialised.message, { cause });
+        }
+    }
+}
+
 // Sanitizes a response body; limits body size to avoid excessive payloads when logging
 function sanitizeResponseErrorBody(body?: string): string | undefined {
     if (body == null || body === '') return undefined;
     return body.length > RESPONSE_ERROR_BODY_LIMIT ? `${body.slice(0, RESPONSE_ERROR_BODY_LIMIT)}... [truncated]` : body;
+}
+
+function serialiseSingleError(cause: Error): [SerialisedError, Error | null] {
+    const nextCause = cause.cause == null ? null : normalizeToError(cause.cause);
+    if (cause instanceof DPUseError) {
+        return [{ data: cause.data, locator: cause.locator, message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
+    }
+    const customProperties = Object.fromEntries(Object.entries(cause).filter(([k]) => k !== 'cause'));
+    if (cause.name) {
+        return [{ data: customProperties, locator: '', message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
+    }
+    return [{ data: customProperties, locator: '', message: buildFallbackMessage(cause), name: 'Error', stack: undefined }, null];
 }

@@ -67,6 +67,8 @@ export default defineConfig(
             'sonarjs/no-unused-vars': 'warn',
             'sonarjs/todo-tag': 'warn',
 
+            'unicorn/filename-case': ['error', { cases: { camelCase: true, pascalCase: true }, ignore: [/\.schema\.ts$/] }],
+            'unicorn/max-nested-calls': ['error', { max: 5 }], // Increased level from default of 3 to 4 for Valibot schema definitions.
             'unicorn/no-null': 'off',
             'unicorn/switch-case-braces': ['warn', 'avoid']
         }

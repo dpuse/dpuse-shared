@@ -59,6 +59,8 @@ try {
 }
 ```
 
+Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development).
+
 ## Architecture
 
 ### Domain Model
@@ -97,24 +99,14 @@ The following are shared across all modules and are not part of the domain model
 
 | Concern   | Description                                                                                                                      |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Errors    | A typed error hierarchy with serialisation and deserialisation support for transporting errors across API and worker boundaries. |
-| Utilities | Common conversion, extraction, formatting and lookup functions.                                                                  |
 | Encoding  | Encoding configuration and format support.                                                                                       |
+| Errors    | A typed error hierarchy with serialisation and deserialisation support for transporting errors across API and worker boundaries. |
 | Locale    | Locale identifiers and label types used for internationalisation.                                                                |
+| Utilities | Common conversion, extraction, formatting and lookup functions.                                                                  |
 
 ## API Reference
 
 This package provides constants, errors, types/interfaces and utilities used by Data Positioning modules.
-
-### Composables
-
-### Constants
-
-### Errors
-
-### Utilities
-
-Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development).
 
 ## Dependency Licenses
 

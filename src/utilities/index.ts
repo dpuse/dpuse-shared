@@ -1,9 +1,22 @@
-// Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en-US';
+type DurationLevel = 'days' | 'hrs' | 'mins' | 'secs' | 'ms';
+type DurationLevelTuple = [DurationLevel, number, (n: number) => string];
+
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+const DURATION_LEVELS: DurationLevelTuple[] = [
+    ['days', 86_400_000, (n: number): string => (n === 1 ? '1 day' : `${formatNumberAsWholeNumber(n)} days`)],
+    ['hrs', 3_600_000, (n: number): string => (n === 1 ? '1 hr' : `${formatNumberAsWholeNumber(n)} hrs`)],
+    ['mins', 60_000, (n: number): string => (n === 1 ? '1 min' : `${formatNumberAsWholeNumber(n)} mins`)],
+    ['secs', 1000, (n: number): string => (n === 1 ? '1 sec' : `${formatNumberAsWholeNumber(n)} secs`)],
+    ['ms', 0, (n: number): string => `${formatNumberAsWholeNumber(n)} ms`]
+];
+
+const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en-GB';
 const NUMBER_FORMATTER_MAP = new Map<string, Intl.NumberFormat>();
 
-// Actions - Convert ───────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - Convert ────────────────────────────────────────────────────────────────────────────────────────────────
 
 // See: https://www.odata.org/documentation/odata-version-2-0/overview/.
 export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
@@ -43,7 +56,7 @@ export function convertODataTypeIdToUsageTypeId(oDataTypeId: string): string {
     }
 }
 
-// Actions - Extract ───────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - Extract ────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Extract the path without its final basename extension.
 // Dots in parent directories are ignored, and leading dots in the basename
@@ -73,7 +86,7 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
     return undefined;
 }
 
-// Actions - Format ────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - Format ─────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function formatNumberAsDecimalNumber(number?: number, decimalPlaces = 2, minimumFractionDigits = decimalPlaces, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null) return '';
@@ -112,18 +125,6 @@ export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): s
     return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
 }
 
-export type DurationLevel = 'days' | 'hrs' | 'mins' | 'secs' | 'ms';
-
-type DurationLevelTuple = [DurationLevel, number, (n: number) => string];
-
-const DURATION_LEVELS: DurationLevelTuple[] = [
-    ['days', 86_400_000, (n: number): string => (n === 1 ? '1 day' : `${formatNumberAsWholeNumber(n)} days`)],
-    ['hrs', 3_600_000, (n: number): string => (n === 1 ? '1 hr' : `${formatNumberAsWholeNumber(n)} hrs`)],
-    ['mins', 60_000, (n: number): string => (n === 1 ? '1 min' : `${formatNumberAsWholeNumber(n)} mins`)],
-    ['secs', 1000, (n: number): string => (n === 1 ? '1 sec' : `${formatNumberAsWholeNumber(n)} secs`)],
-    ['ms', 0, (n: number): string => `${formatNumberAsWholeNumber(n)} ms`]
-];
-
 export function formatNumberAsDuration(number?: number, stopAt: DurationLevel = 'ms'): string {
     if (number == null) return '';
 
@@ -139,7 +140,8 @@ export function formatNumberAsDuration(number?: number, stopAt: DurationLevel = 
 
     const parts: string[] = [];
     let remaining = number;
-    for (const [, threshold, format] of DURATION_LEVELS.slice(0, stopIndex + 1)) {
+    const durationLevels = DURATION_LEVELS.slice(0, stopIndex + 1);
+    for (const [, threshold, format] of durationLevels) {
         if (threshold === 0) {
             if (remaining > 0 || parts.length === 0) parts.push(format(remaining));
         } else if (remaining >= threshold) {
@@ -168,7 +170,7 @@ export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMA
     return numberFormatter.format(number);
 }
 
-// Actions - Lookup ────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions - Lookup ─────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function lookupMimeTypeForExtension(extension?: string): string {
     switch (extension) {
@@ -186,6 +188,7 @@ export function lookupMimeTypeForExtension(extension?: string): string {
     }
 }
 
+// TODO: Do we need this?
 // // export const establishVendorAccessToken = async (item: Item, accountId: string, sessionAccessToken: string, vendorRefreshURI: string): Promise<string> => {
 // export const establishVendorAccessToken = async (connectionConfig: ConnectionConfig, settings: ReadSettings, vendorRefreshURI: string): Promise<string> => {
 //     let accessToken;

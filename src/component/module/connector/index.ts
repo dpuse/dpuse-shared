@@ -214,6 +214,6 @@ export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
 
 export interface ConnectorUtilities {
     hasReadableStreamTransferSupport(): boolean;
-    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], leadingRecord: boolean) => InferenceRecord;
+    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
     inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
 }

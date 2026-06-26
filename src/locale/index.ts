@@ -1,4 +1,4 @@
-// Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type FlagId = 'es' | 'gb';
 
@@ -19,7 +19,7 @@ interface UnlocalisedConfig {
     verb?: LocaleLabel | undefined;
 }
 
-// Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const DEFAULT_LOCALE_ID: LocaleId = 'en';
 
@@ -28,37 +28,29 @@ export const SUPPORTED_LANGUAGES: { id: LocaleId; flag: FlagId; label: string }[
     { id: 'es', flag: 'es', label: 'Español' }
 ];
 
-// Actions ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function createLabelMap(labels: Record<string, string>): LocaleLabelMap {
     return new Map(Object.entries(labels));
-}
-
-function resolveDescription(raw: string[] | undefined): string[] {
-    if (Array.isArray(raw)) return raw;
-    // Handles legacy stored data where description was a plain string.
-    return raw != null ? [(raw as unknown) as string] : [];
 }
 
 export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): LocalisedConfig<T> {
     return {
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: resolveDescription(config.description[localeId]),
+        description: config.description[localeId],
         verb: config.verb?.[localeId] ?? undefined
     };
 }
 
-export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId, sortResult = false): LocalisedConfig<T>[] {
+export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], localeId: LocaleId, isResultSorted = false): LocalisedConfig<T>[] {
     const mapped = configs.map((config) => ({
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: resolveDescription(config.description[localeId]),
+        description: config.description[localeId],
         verb: config.verb?.[localeId] ?? undefined
     }));
-    return sortResult
-        ? mapped.toSorted((a, b) => a.label.localeCompare(b.label) || a.id.localeCompare(b.id))
-        : mapped;
+    return isResultSorted ? mapped.toSorted((a, b) => a.label.localeCompare(b.label) || a.id.localeCompare(b.id)) : mapped;
 }
 
 export function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId = DEFAULT_LOCALE_ID): string | undefined {
