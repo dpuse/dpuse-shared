@@ -1,18 +1,18 @@
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import type { ComponentConfig } from '@/component';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { LocalisedConfig } from '../../../locale';
 import type { ModuleConfig } from '@/component/module';
 import type { ToolConfig } from '@/component/module/tool';
 
-// Runtime ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Runtime ──────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: string) => EncodingTypeConfig[];
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;
 }
 
-// Worker ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types -  Worker ──────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
@@ -52,7 +52,7 @@ export interface EngineCallbackData {
     properties: Record<string, unknown>;
 }
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types -  Configuration ───────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';

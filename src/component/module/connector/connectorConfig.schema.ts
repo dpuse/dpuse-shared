@@ -11,7 +11,27 @@ import { literalUnion } from '@/schema';
 import { localeLabelSchema } from '@/locale/locale.schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// ── Schemas - Category ───────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Action Name ────────────────────────────────────────────────────────────────────────────────────────────
+
+// Names of the operations a connector may implement.
+export const connectorActionNameSchema = literalUnion([
+    'abortOperation',
+    'auditObjectContent',
+    'createObject',
+    'describeConnection',
+    'dropObject',
+    'findObject',
+    'getReadableStream',
+    'getRecord',
+    'listNodes',
+    'previewObject',
+    'removeRecords',
+    'retrieveChunks',
+    'retrieveRecords',
+    'upsertRecords'
+]);
+
+// ── Schemas - Category Configuration ─────────────────────────────────────────────────────────────────────────────────
 
 const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']); // Category identifiers used for grouping and filtering connectors.
 
@@ -33,26 +53,6 @@ const connectorImplementationSchema = object({
     maxConnectionCount: nullable(number()),
     params: optional(array(record(string(), string())))
 });
-
-// ── Schemas - Operation Name ─────────────────────────────────────────────────────────────────────────────────────────
-
-// Names of the operations a connector may implement.
-export const connectorActionNameSchema = literalUnion([
-    'abortOperation',
-    'auditObjectContent',
-    'createObject',
-    'describeConnection',
-    'dropObject',
-    'findObject',
-    'getReadableStream',
-    'getRecord',
-    'listNodes',
-    'previewObject',
-    'removeRecords',
-    'retrieveChunks',
-    'retrieveRecords',
-    'upsertRecords'
-]);
 
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 

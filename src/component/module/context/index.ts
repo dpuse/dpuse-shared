@@ -1,42 +1,43 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
 
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import type { EngineContextActionOptions } from '@/component/module/engine';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
-import type { contextConfigSchema, contextOperationNameSchema } from '@/component/module/context/contextConfig.schema';
+import type { contextActionNameSchema, contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schema ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
 
-// Context Interface ───────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Context Interface ────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextInterface extends Component {
     readonly config: ContextConfig;
     listContextFocuses?(context: ContextInterface, options?: ListContextOptions): Promise<ListContextResult>;
 }
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
 
-// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Action Name ──────────────────────────────────────────────────────────────────────────────────────────────
 
-export type ContextOperationName = InferOutput<typeof contextOperationNameSchema>;
+export type ContextActionName = InferOutput<typeof contextActionNameSchema>;
 
-// Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Model Group Configuration ────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelGroupConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
 }
 
-// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Action - List Context ──────────────────────────────────────────────────────────────────────────────────────
 
 export interface ListContextOptions extends EngineContextActionOptions {
     placeholder: unknown;
 } // TODO: Naming, structure...
+
 export interface ListContextResult {
     models: ContextModelGroupConfig[];
 }

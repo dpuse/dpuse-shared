@@ -1,29 +1,29 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import { array, literal, number, object } from 'valibot';
 
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 import { componentConfigCoreFields, componentReferenceSchema } from '@/component/componentConfig.schema';
 
-// Model Group ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Model Group Configuration ──────────────────────────────────────────────────────────────────────────────
 
 const contextModelGroupConfigSchema = object({
-    ...componentConfigCoreFields,
     typeId: literal('contextModelGroup'),
+    ...componentConfigCoreFields,
     modelRefs: array(componentReferenceSchema),
     order: number()
 });
 
-// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Action Name ────────────────────────────────────────────────────────────────────────────────────────────
 
-export const contextOperationNameSchema = literalUnion(['listContextFocuses']);
+export const contextActionNameSchema = literalUnion(['listContextFocuses']); // Names of the actions a context may implement.
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const contextConfigSchema = object({
-    ...moduleConfigCoreFields,
     typeId: literal('context'),
-    models: array(contextModelGroupConfigSchema),
-    operations: array(contextOperationNameSchema)
+    ...moduleConfigCoreFields,
+    actionNames: array(contextActionNameSchema),
+    models: array(contextModelGroupConfigSchema)
 });

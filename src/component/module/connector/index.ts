@@ -6,7 +6,7 @@ import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { ToolConfig } from '@/component/module/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
-import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorActionNameSchema } from '@/component/module/connector/connectorConfig.schema';
+import type { connectorActionNameSchema, connectorCategoryConfigSchema, connectorConfigSchema } from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
 
