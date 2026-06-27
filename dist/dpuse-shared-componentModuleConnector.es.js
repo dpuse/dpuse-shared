@@ -1,6 +1,6 @@
 import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
-import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-C75xefrQ.js";
-import { t as p } from "./moduleConfig.schema-DGEZc-oy.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-B7kVKqVP.js";
+import { t as p } from "./moduleConfig.schema-Cvc9QRvr.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
 var m = n([
 	"application",
@@ -36,12 +36,12 @@ var m = n([
 	"retrieveRecords",
 	"upsertRecords"
 ]), v = i({
-	...p,
 	typeId: r("connector"),
+	...p,
+	actionNames: l(_),
 	category: s(h),
 	categoryId: m,
 	implementations: u(c(), g),
-	operations: l(_),
 	vendorAccountURL: s(c()),
 	vendorDocumentationURL: s(c()),
 	vendorHomeURL: s(c())
@@ -74,16 +74,7 @@ var m = n([
 			es: "Almacén de Archivos"
 		}
 	}
-], b = (n, r = "en") => {
-	let i = y.find((e) => e.id === n);
-	return i ? {
-		label: t(e(i.label), r) ?? i.id,
-		description: []
-	} : {
-		label: n,
-		description: []
-	};
-}, x = {
+], b = {
 	abortOperation: "Abort Operation",
 	auditObjectContent: "Audit Object Content",
 	createObject: "Create Object",
@@ -98,12 +89,21 @@ var m = n([
 	retrieveChunks: "Retrieve Chunks",
 	retrieveRecords: "Retrieve Records",
 	upsertRecords: "Upsert Records"
+}, x = (n, r = "en") => {
+	let i = y.find((e) => e.id === n);
+	return i ? {
+		label: t(e(i.label), r) ?? i.id,
+		description: []
+	} : {
+		label: n,
+		description: []
+	};
 };
 function S(e) {
-	let t = new Set(e), n = "| Operation | Supported |\n";
-	n += "| --------- | --------- |\n";
-	for (let e of Object.keys(x)) n += `| ${x[e]} | ${t.has(e) ? "✓" : ""} |\n`;
+	let t = new Set(e), n = "| Name | Supported |\n";
+	n += "| ---- | :-------: |\n";
+	for (let e of Object.keys(b)) n += `| ${b[e]} | ${t.has(e) ? "✓" : ""} |\n`;
 	return n;
 }
 //#endregion
-export { x as CONNECTOR_OPERATION_LABELS, v as connectorConfigSchema, b as constructConnectorCategoryConfig, S as generateConnectorOperationsTable };
+export { b as CONNECTOR_ACTION_NAME_MAP, v as connectorConfigSchema, x as constructConnectorCategoryConfig, S as getConnectorActionsTable };

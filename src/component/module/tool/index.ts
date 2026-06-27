@@ -1,17 +1,17 @@
-// External Dependencies
+// ── DPUse (Local) Framework
 import type { ModuleConfig } from '@/component/module';
 
-// Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
-
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ToolConfig extends ModuleConfig {
     typeId: 'tool';
 }
 
-// Actions ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
+
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Promise<T> {
     const toolName = `dpuse-tool-${toolId}`;

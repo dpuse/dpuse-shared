@@ -1,5 +1,5 @@
 import "./dpuse-shared-locale.es.js";
-import { n as e } from "./componentConfig.schema-C75xefrQ.js";
+import { n as e } from "./componentConfig.schema-B7kVKqVP.js";
 //#region src/component/index.ts
 var t = [
 	{

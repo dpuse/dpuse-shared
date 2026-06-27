@@ -1,0 +1,2 @@
+const PLACEHOLDER = '';
+export { PLACEHOLDER };

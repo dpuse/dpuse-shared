@@ -382,11 +382,11 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	en: /* @__PURE__ */ T(),
 	es: /* @__PURE__ */ T()
 }), A = /* @__PURE__ */ S({
-	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
-	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
-}), j = /* @__PURE__ */ S({
 	en: /* @__PURE__ */ C(/* @__PURE__ */ _(/* @__PURE__ */ T())),
 	es: /* @__PURE__ */ C(/* @__PURE__ */ _(/* @__PURE__ */ T()))
+}), j = /* @__PURE__ */ S({
+	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
+	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
 }), M = O([
 	"app",
 	"connector",
@@ -431,8 +431,8 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	label: /* @__PURE__ */ T()
 }), I = /* @__PURE__ */ S({
 	id: /* @__PURE__ */ T(),
-	label: A,
-	description: j,
+	label: j,
+	description: A,
 	icon: /* @__PURE__ */ b(/* @__PURE__ */ T()),
 	iconDark: /* @__PURE__ */ b(/* @__PURE__ */ T()),
 	iconNeutral: /* @__PURE__ */ b(/* @__PURE__ */ T()),
@@ -440,8 +440,8 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	path: /* @__PURE__ */ T()
 }), L = {
 	id: /* @__PURE__ */ T(),
-	label: A,
-	description: j,
+	label: j,
+	description: A,
 	firstCreatedAt: /* @__PURE__ */ b(/* @__PURE__ */ x()),
 	icon: /* @__PURE__ */ b(/* @__PURE__ */ T()),
 	iconDark: /* @__PURE__ */ b(/* @__PURE__ */ T()),

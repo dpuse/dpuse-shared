@@ -1,7 +1,6 @@
 import { InferOutput } from 'valibot';
-import { ModuleConfig } from '..';
-import { presenterOperationNameSchema } from './presenterConfig.schema';
 import { Component, ComponentReference } from '../..';
+import { presenterActionNameSchema, presenterConfigSchema } from './presenterConfig.schema';
 export { presenterConfigSchema } from './presenterConfig.schema';
 export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
@@ -9,9 +8,5 @@ export interface PresenterInterface extends Component {
     render(presentationPath: string, renderTo: HTMLElement, data?: unknown): Promise<void>;
     setColorMode(colorModeId: string): void;
 }
-export interface PresenterConfig extends ModuleConfig {
-    presentations: ComponentReference[];
-    operations: PresenterOperationName[];
-    typeId: 'presenter';
-}
-export type PresenterOperationName = InferOutput<typeof presenterOperationNameSchema>;
+export type PresenterActionName = InferOutput<typeof presenterActionNameSchema>;
+export type PresenterConfig = InferOutput<typeof presenterConfigSchema>;

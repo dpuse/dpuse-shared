@@ -3,7 +3,7 @@
  * of connector manifests and capability discovery at runtime.
  */
 
-// External Dependencies
+// ── External Dependencies & Registrations
 import { array, boolean, literal, nullable, number, object, optional, record, string } from 'valibot';
 
 // DPUse (Local) Framework
@@ -11,7 +11,7 @@ import { literalUnion } from '@/schema';
 import { localeLabelSchema } from '@/locale/locale.schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// Category ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Category ───────────────────────────────────────────────────────────────────────────────────────────────
 
 const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']); // Category identifiers used for grouping and filtering connectors.
 
@@ -19,7 +19,7 @@ export const connectorCategoryConfigSchema = object({
     label: localeLabelSchema
 });
 
-// Implementation ──────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Implementation ─────────────────────────────────────────────────────────────────────────────────────────
 
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']); // Authentication method identifiers supported by a connector implementation.
 
@@ -34,10 +34,10 @@ const connectorImplementationSchema = object({
     params: optional(array(record(string(), string())))
 });
 
-// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Operation Name ─────────────────────────────────────────────────────────────────────────────────────────
 
 // Names of the operations a connector may implement.
-export const connectorOperationNameSchema = literalUnion([
+export const connectorActionNameSchema = literalUnion([
     'abortOperation',
     'auditObjectContent',
     'createObject',
@@ -54,15 +54,15 @@ export const connectorOperationNameSchema = literalUnion([
     'upsertRecords'
 ]);
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const connectorConfigSchema = object({
-    ...moduleConfigCoreFields,
     typeId: literal('connector'),
+    ...moduleConfigCoreFields,
+    actionNames: array(connectorActionNameSchema),
     category: nullable(connectorCategoryConfigSchema),
     categoryId: connectorCategoryIdSchema,
     implementations: record(string(), connectorImplementationSchema),
-    operations: array(connectorOperationNameSchema),
     vendorAccountURL: nullable(string()),
     vendorDocumentationURL: nullable(string()),
     vendorHomeURL: nullable(string())

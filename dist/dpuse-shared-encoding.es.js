@@ -346,12 +346,10 @@ var e = {
 	}
 };
 function t(t = "en") {
-	let n = [];
-	for (let [, t] of Object.entries(e)) n.push({
-		...t,
-		label: t.label || t.id
-	});
-	return n.toSorted((e, t) => e.groupLabel.localeCompare(t.groupLabel) || e.label.localeCompare(t.label));
+	return Array.from(Object.values(e), (e) => ({
+		...e,
+		label: e.label || e.id
+	})).toSorted((e, t) => e.groupLabel.localeCompare(t.groupLabel) || e.label.localeCompare(t.label));
 }
 //#endregion
 export { e as encodingConfigMap, t as getEncodingTypeConfigs };

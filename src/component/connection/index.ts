@@ -1,10 +1,10 @@
-// External Dependencies
+// ── DPUse (Local) Framework
 import type { ComponentConfig } from '@/component';
 import type { ConnectorConfig } from '@/component/module/connector';
 import type { LocaleLabel } from '@/locale';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectionConfig extends ComponentConfig {
     authorisation: Record<string, ConnectionAuthorisationConfig>;
@@ -13,7 +13,7 @@ export interface ConnectionConfig extends ComponentConfig {
     notation: string | undefined;
 }
 
-// Authorisation ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration - Authorisation ────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectionAuthorisationConfig {
     accessToken: string; // Dropbox.
@@ -26,7 +26,7 @@ export interface ConnectionAuthorisationConfig {
     uid: string; // Dropbox.
 }
 
-// Description ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration - Description ──────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectionDescriptionConfig {
     objects: {
@@ -36,7 +36,7 @@ export interface ConnectionDescriptionConfig {
     }[];
 }
 
-// Node ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration - Node ─────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectionNodeConfig {
     childCount: number | undefined;
@@ -63,7 +63,7 @@ export interface DPAFileSystemFileHandle {
 
 export type NodeTypeId = 'folder' | 'object';
 
-// Object Column ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
 
 export interface ObjectColumnConfig {
     dataTypeId: DataTypeId;

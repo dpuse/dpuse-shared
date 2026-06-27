@@ -59,12 +59,48 @@ function d(e) {
 	let t = /* @__PURE__ */ new Set(), n = [], r = u(e);
 	for (; r != null && !t.has(r);) {
 		t.add(r);
-		let [e, i] = f(r);
+		let [e, i] = g(r);
 		/(?:\.{3}|[.!?])$/.test(e.message) || (e.message += "."), n.push(e), r = i;
 	}
 	return n;
 }
 function f(e) {
+	if (e.length === 0) return;
+	let t;
+	for (let n of e.toReversed()) {
+		let e = m(n, t);
+		n.stack !== void 0 && (e.stack = n.stack), t = e;
+	}
+	return t;
+}
+function p(e) {
+	let t;
+	try {
+		t = JSON.stringify(e);
+	} catch {
+		t = typeof e == "symbol" ? e.description ?? "Unknown error" : typeof e == "bigint" ? e.toString() : "Unknown error";
+	}
+	return t === "" && (t = "Unknown error"), t;
+}
+function m(e, t) {
+	switch (e.name) {
+		case "APIError": return new r(e.message, e.locator, e.data, { cause: t });
+		case "AppError": return new n(e.message, e.locator, e.data, { cause: t });
+		case "ConnectorError": return new a(e.message, e.locator, e.data, { cause: t });
+		case "EngineError": return new i(e.message, e.locator, e.data, { cause: t });
+		case "FetchError": return new o(e.message, e.locator, e.data, { cause: t });
+		default: {
+			let n = e.name;
+			return new class extends Error {
+				name = n;
+			}(e.message, { cause: t });
+		}
+	}
+}
+function h(t) {
+	if (!(t == null || t === "")) return t.length > e ? `${t.slice(0, e)}... [truncated]` : t;
+}
+function g(e) {
 	let n = e.cause == null ? null : u(e.cause);
 	if (e instanceof t) return [{
 		data: e.data,
@@ -83,51 +119,10 @@ function f(e) {
 	}, n] : [{
 		data: r,
 		locator: "",
-		message: m(e),
+		message: p(e),
 		name: "Error",
 		stack: void 0
 	}, null];
 }
-function p(e) {
-	if (e.length === 0) return;
-	let t;
-	for (let s of e.toReversed()) {
-		let e;
-		switch (s.name) {
-			case "APIError":
-				e = new r(s.message, s.locator, s.data, { cause: t });
-				break;
-			case "AppError":
-				e = new n(s.message, s.locator, s.data, { cause: t });
-				break;
-			case "ConnectorError":
-				e = new a(s.message, s.locator, s.data, { cause: t });
-				break;
-			case "EngineError":
-				e = new i(s.message, s.locator, s.data, { cause: t });
-				break;
-			case "FetchError":
-				e = new o(s.message, s.locator, s.data, { cause: t });
-				break;
-			default:
-				e = Error(s.message, { cause: t }), e.name = s.name;
-				break;
-		}
-		s.stack !== void 0 && (e.stack = s.stack), t = e;
-	}
-	return t;
-}
-function m(e) {
-	let t;
-	try {
-		t = JSON.stringify(e);
-	} catch {
-		t = typeof e == "symbol" ? e.description ?? "Unknown error" : typeof e == "bigint" ? e.toString() : "Unknown error";
-	}
-	return t === "" && (t = "Unknown error"), t;
-}
-function h(t) {
-	if (!(t == null || t === "")) return t.length > e ? `${t.slice(0, e)}... [truncated]` : t;
-}
 //#endregion
-export { r as APIError, n as AppError, a as ConnectorError, t as DPUseError, i as EngineError, o as FetchError, s as buildFetchError, c as concatenateSerialisedErrorMessages, l as ignoreErrors, u as normalizeToError, d as serialiseError, p as unserialiseError };
+export { r as APIError, n as AppError, a as ConnectorError, t as DPUseError, i as EngineError, o as FetchError, s as buildFetchError, c as concatenateSerialisedErrorMessages, l as ignoreErrors, u as normalizeToError, d as serialiseError, f as unserialiseError };

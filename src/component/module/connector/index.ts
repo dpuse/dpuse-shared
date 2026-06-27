@@ -1,26 +1,26 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
 
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import type { Component } from '@/component';
-import type { EngineConnectorActionOptions } from '~/src/component/module/engine';
+import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { ToolConfig } from '@/component/module/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
-import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema } from '@/component/module/connector/connectorConfig.schema';
+import type { connectorCategoryConfigSchema, connectorConfigSchema, connectorActionNameSchema } from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
 
-// Schema ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export { connectorConfigSchema } from '@/component/module/connector/connectorConfig.schema';
 
-// Interface ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectorInterface extends Component {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly toolConfigs: ToolConfig[];
-    abortOperation?(): void; // Abort the active long running operation.
+    abortOperation?(): void; // Abort the active long running action.
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
@@ -34,68 +34,29 @@ export interface ConnectorInterface extends Component {
     retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>; // Retrieve all chunks from an object for a specified connection.
     retrieveRecords?(
         options: RetrieveRecordsOptions,
-        chunk: (typeId: RetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void,
+        chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void>; // Retrieve all records from an object for a specified connection.
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>; // Upsert one or more records into an object for a specified connection.
 }
+
+export type ConnectorActionName = InferOutput<typeof connectorActionNameSchema>; // Names of the actions a connector may implement.
+
 export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+export interface ConnectorUtilities {
+    hasReadableStreamTransferSupport(): boolean;
+    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
+    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+}
+
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 
-// Category ────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
 
-const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
-    { id: 'application', label: { en: 'Application', es: 'Aplicación' } },
-    { id: 'curatedDataset', label: { en: 'Curated Dataset', es: 'Conjunto de Datos Curado' } },
-    { id: 'database', label: { en: 'Database', es: 'Base de Datos' } },
-    { id: 'fileStore', label: { en: 'File Store', es: 'Almacén de Archivos' } }
-];
-
-export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorCategoryConfig> => {
-    const connectorCategory = CONNECTOR_CATEGORY_CONFIGS.find((connectorCategory) => connectorCategory.id === id);
-    if (connectorCategory) {
-        const labelMap = createLabelMap(connectorCategory.label);
-        const localizedLabel = resolveLabel(labelMap, localeId);
-        return { label: localizedLabel ?? connectorCategory.id, description: [] };
-    }
-    return { label: id, description: [] };
-};
-
-// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export type ConnectorOperationName = InferOutput<typeof connectorOperationNameSchema>; // Names of the operations a connector may implement.
-
-export const CONNECTOR_OPERATION_LABELS: Record<ConnectorOperationName, string> = {
-    abortOperation: 'Abort Operation',
-    auditObjectContent: 'Audit Object Content',
-    createObject: 'Create Object',
-    describeConnection: 'Describe Connection',
-    dropObject: 'Drop Object',
-    findObject: 'Find Object',
-    getReadableStream: 'Get Readable Stream',
-    getRecord: 'Get Record',
-    listNodes: 'List Nodes',
-    previewObject: 'Preview Object',
-    removeRecords: 'Remove Records',
-    retrieveChunks: 'Retrieve Chunks',
-    retrieveRecords: 'Retrieve Records',
-    upsertRecords: 'Upsert Records'
-};
-
-export function generateConnectorOperationsTable(supported: ConnectorOperationName[]): string {
-    const supportedSet = new Set(supported);
-    let md = '| Operation | Supported |\n';
-    md += '| --------- | --------- |\n';
-    for (const id of Object.keys(CONNECTOR_OPERATION_LABELS) as ConnectorOperationName[]) {
-        md += `| ${CONNECTOR_OPERATION_LABELS[id]} | ${supportedSet.has(id) ? '✓' : ''} |\n`;
-    }
-    return md;
-}
+// ── Types - Action - Audit Object Content ────────────────────────────────────────────────────────────────────────────
 
 export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
@@ -120,19 +81,28 @@ export interface AuditObjectContentResult {
     durationMs: number;
 }
 
+// ── Types - Action - Create Object ───────────────────────────────────────────────────────────────────────────────────
+
 export interface CreateObjectOptions extends EngineConnectorActionOptions {
     path: string;
     structure: string;
 }
 
+// ── Types - Action - Describe Connection ─────────────────────────────────────────────────────────────────────────────
+
 export type DescribeConnectionOptions = EngineConnectorActionOptions;
+
 interface DescribeConnectionResult {
     descriptionConfig: ConnectionDescriptionConfig;
 }
 
+// ── Types - Action - Drop Object ─────────────────────────────────────────────────────────────────────────────────────
+
 export interface DropObjectOptions extends EngineConnectorActionOptions {
     path: string;
 }
+
+// ── Types - Action - Find Object ─────────────────────────────────────────────────────────────────────────────────────
 
 export interface FindObjectOptions extends EngineConnectorActionOptions {
     storeId: string | undefined;
@@ -142,10 +112,14 @@ export interface FindObjectResult {
     path: string | undefined;
 }
 
+// ── Types - Action - Get Readable Stream ─────────────────────────────────────────────────────────────────────────────
+
 export interface GetReadableStreamOptions extends EngineConnectorActionOptions {
     id: string;
     path: string;
 }
+
+// ── Types - Action - Get Record ──────────────────────────────────────────────────────────────────────────────────────
 
 export interface GetRecordOptions extends EngineConnectorActionOptions {
     id: string;
@@ -154,6 +128,8 @@ export interface GetRecordOptions extends EngineConnectorActionOptions {
 export interface GetRecordResult {
     record?: string[] | Record<string, unknown>;
 }
+
+// ── Types - Action - List Nodes ──────────────────────────────────────────────────────────────────────────────────────
 
 export interface ListNodesOptions extends EngineConnectorActionOptions {
     folderPath: string;
@@ -168,16 +144,22 @@ export interface ListNodesResult {
     totalCount: number;
 }
 
+// ── Types - Action - Preview Object ──────────────────────────────────────────────────────────────────────────────────
+
 export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     extension: string | undefined;
     path: string;
 }
 
+// ── Types - Action - Remove Records ──────────────────────────────────────────────────────────────────────────────────
+
 export interface RemoveRecordsOptions extends EngineConnectorActionOptions {
     keys: string[];
     path: string;
 }
+
+// ── Types - Action - Retrieve Chunks ─────────────────────────────────────────────────────────────────────────────────
 
 export interface RetrieveChunksOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
@@ -185,6 +167,8 @@ export interface RetrieveChunksOptions extends EngineConnectorActionOptions {
     path: string;
     valueDelimiterId: ValueDelimiterId;
 }
+
+// ── Types - Action - Retrieve Records ────────────────────────────────────────────────────────────────────────────────
 
 export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
@@ -201,19 +185,59 @@ export interface RetrieveRecordsSummary {
     recordCount: number; // Count the number of processed records.
 }
 
+export type RecordRetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
+
+// ── Types - Action - Upsert Records ──────────────────────────────────────────────────────────────────────────────────
+
 export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     records: Record<string, unknown>[];
     path: string;
 }
 
-// Retrieval Type ──────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
+const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
+    { id: 'application', label: { en: 'Application', es: 'Aplicación' } },
+    { id: 'curatedDataset', label: { en: 'Curated Dataset', es: 'Conjunto de Datos Curado' } },
+    { id: 'database', label: { en: 'Database', es: 'Base de Datos' } },
+    { id: 'fileStore', label: { en: 'File Store', es: 'Almacén de Archivos' } }
+];
 
-// Utilities ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+export const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
+    abortOperation: 'Abort Operation',
+    auditObjectContent: 'Audit Object Content',
+    createObject: 'Create Object',
+    describeConnection: 'Describe Connection',
+    dropObject: 'Drop Object',
+    findObject: 'Find Object',
+    getReadableStream: 'Get Readable Stream',
+    getRecord: 'Get Record',
+    listNodes: 'List Nodes',
+    previewObject: 'Preview Object',
+    removeRecords: 'Remove Records',
+    retrieveChunks: 'Retrieve Chunks',
+    retrieveRecords: 'Retrieve Records',
+    upsertRecords: 'Upsert Records'
+};
 
-export interface ConnectorUtilities {
-    hasReadableStreamTransferSupport(): boolean;
-    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
-    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorCategoryConfig> => {
+    const connectorCategory = CONNECTOR_CATEGORY_CONFIGS.find((connectorCategory) => connectorCategory.id === id);
+    if (connectorCategory) {
+        const labelMap = createLabelMap(connectorCategory.label);
+        const localizedLabel = resolveLabel(labelMap, localeId);
+        return { label: localizedLabel ?? connectorCategory.id, description: [] };
+    }
+    return { label: id, description: [] };
+};
+
+export function getConnectorActionsTable(supported: ConnectorActionName[]): string {
+    const supportedSet = new Set(supported);
+    let md = '| Name | Supported |\n';
+    md += '| ---- | :-------: |\n';
+    for (const id of Object.keys(CONNECTOR_ACTION_NAME_MAP) as ConnectorActionName[]) {
+        md += `| ${CONNECTOR_ACTION_NAME_MAP[id]} | ${supportedSet.has(id) ? '✓' : ''} |\n`;
+    }
+    return md;
 }

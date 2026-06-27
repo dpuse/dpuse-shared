@@ -3,7 +3,7 @@ import { Component } from '../..';
 import { EngineConnectorActionOptions } from '../engine';
 import { ToolConfig } from '../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
-import { connectorCategoryConfigSchema, connectorConfigSchema, connectorOperationNameSchema } from './connectorConfig.schema';
+import { connectorCategoryConfigSchema, connectorConfigSchema, connectorActionNameSchema } from './connectorConfig.schema';
 import { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
 import { LocalisedConfig } from '../../../locale';
 export { connectorConfigSchema } from './connectorConfig.schema';
@@ -23,16 +23,18 @@ export interface ConnectorInterface extends Component {
     previewObject?(options: PreviewObjectOptions): Promise<PreviewConfig>;
     removeRecords?(options: RemoveRecordsOptions): Promise<void>;
     retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>;
-    retrieveRecords?(options: RetrieveRecordsOptions, chunk: (typeId: RetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
+    retrieveRecords?(options: RetrieveRecordsOptions, chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>;
 }
+export type ConnectorActionName = InferOutput<typeof connectorActionNameSchema>;
 export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
+export interface ConnectorUtilities {
+    hasReadableStreamTransferSupport(): boolean;
+    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
+    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+}
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
-export declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorCategoryConfig>;
-export type ConnectorOperationName = InferOutput<typeof connectorOperationNameSchema>;
-export declare const CONNECTOR_OPERATION_LABELS: Record<ConnectorOperationName, string>;
-export declare function generateConnectorOperationsTable(supported: ConnectorOperationName[]): string;
 export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
@@ -124,13 +126,11 @@ export interface RetrieveRecordsSummary {
     nonUniformRecordCount: number;
     recordCount: number;
 }
+export type RecordRetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
 export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     records: Record<string, unknown>[];
     path: string;
 }
-export type RetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
-export interface ConnectorUtilities {
-    hasReadableStreamTransferSupport(): boolean;
-    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], leadingRecord: boolean) => InferenceRecord;
-    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
-}
+export declare const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string>;
+export declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorCategoryConfig>;
+export declare function getConnectorActionsTable(supported: ConnectorActionName[]): string;

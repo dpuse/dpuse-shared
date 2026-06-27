@@ -1,20 +1,20 @@
-// External Dependencies
+// ── External Dependencies & Registrations
 import { array, literal, object } from 'valibot';
 
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import { componentReferenceSchema } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Interface ──────────────────────────────────────────────────────────────────────────────────────────────
 
-export const presenterOperationNameSchema = literalUnion(['list', 'render', 'setColorMode']);
+export const presenterActionNameSchema = literalUnion(['list', 'render', 'setColorMode']);
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const presenterConfigSchema = object({
-    ...moduleConfigCoreFields,
     typeId: literal('presenter'),
-    presentations: array(componentReferenceSchema),
-    operations: array(presenterOperationNameSchema)
+    ...moduleConfigCoreFields,
+    actionNames: array(presenterActionNameSchema),
+    presentations: array(componentReferenceSchema)
 });
