@@ -35,8 +35,8 @@ export interface ContextModelGroupConfig extends ComponentConfig {
 // ── Types - Action - List Context ──────────────────────────────────────────────────────────────────────────────────────
 
 export interface ListContextOptions extends EngineContextActionOptions {
-    placeholder: unknown;
-} // TODO: Naming, structure...
+    placeholder: unknown; // TODO: Naming, structure...
+}
 
 export interface ListContextResult {
     models: ContextModelGroupConfig[];

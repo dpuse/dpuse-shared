@@ -1,8 +1,7 @@
-export declare const contextOperationNameSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"listContextFocuses", undefined>], undefined>;
+export declare const contextActionNameSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"listContextFocuses", undefined>], undefined>;
 export declare const contextConfigSchema: import('valibot').ObjectSchema<{
-    readonly typeId: import('valibot').LiteralSchema<"context", undefined>;
+    readonly actionNames: import('valibot').ArraySchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"listContextFocuses", undefined>], undefined>, undefined>;
     readonly models: import('valibot').ArraySchema<import('valibot').ObjectSchema<{
-        readonly typeId: import('valibot').LiteralSchema<"contextModelGroup", undefined>;
         readonly modelRefs: import('valibot').ArraySchema<import('valibot').ObjectSchema<{
             readonly id: import('valibot').StringSchema<undefined>;
             readonly label: import('valibot').ObjectSchema<{
@@ -39,8 +38,8 @@ export declare const contextConfigSchema: import('valibot').ObjectSchema<{
             readonly label: import('valibot').StringSchema<undefined>;
         }, undefined>, undefined>;
         readonly statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>, import('valibot').LiteralSchema<"notApplicable", undefined>, import('valibot').LiteralSchema<"preAlpha", undefined>, import('valibot').LiteralSchema<"proposed", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"unavailable", undefined>, import('valibot').LiteralSchema<"underReview", undefined>], undefined>, undefined>;
+        readonly typeId: import('valibot').LiteralSchema<"contextModelGroup", undefined>;
     }, undefined>, undefined>;
-    readonly operations: import('valibot').ArraySchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"listContextFocuses", undefined>], undefined>, undefined>;
     readonly version: import('valibot').StringSchema<undefined>;
     readonly id: import('valibot').StringSchema<undefined>;
     readonly label: import('valibot').ObjectSchema<{
@@ -61,4 +60,5 @@ export declare const contextConfigSchema: import('valibot').ObjectSchema<{
         readonly label: import('valibot').StringSchema<undefined>;
     }, undefined>, undefined>;
     readonly statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>, import('valibot').LiteralSchema<"notApplicable", undefined>, import('valibot').LiteralSchema<"preAlpha", undefined>, import('valibot').LiteralSchema<"proposed", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"unavailable", undefined>, import('valibot').LiteralSchema<"underReview", undefined>], undefined>, undefined>;
+    readonly typeId: import('valibot').LiteralSchema<"context", undefined>;
 }, undefined>;

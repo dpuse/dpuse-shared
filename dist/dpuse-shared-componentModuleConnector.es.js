@@ -3,24 +3,6 @@ import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u,
 import { t as p } from "./moduleConfig.schema-Cvc9QRvr.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
 var m = n([
-	"application",
-	"curatedDataset",
-	"database",
-	"fileStore"
-]), h = i({ label: o }), g = i({
-	authMethodId: n([
-		"apiKey",
-		"disabled",
-		"oAuth2",
-		"none"
-	]),
-	activeConnectionCount: a(f()),
-	canDescribe: a(d()),
-	id: a(c()),
-	label: a(o),
-	maxConnectionCount: s(f()),
-	params: a(l(u(c(), c())))
-}), _ = n([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -35,13 +17,31 @@ var m = n([
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), v = i({
+]), h = n([
+	"application",
+	"curatedDataset",
+	"database",
+	"fileStore"
+]), g = i({ label: o }), _ = i({
+	authMethodId: n([
+		"apiKey",
+		"disabled",
+		"oAuth2",
+		"none"
+	]),
+	activeConnectionCount: a(f()),
+	canDescribe: a(d()),
+	id: a(c()),
+	label: a(o),
+	maxConnectionCount: s(f()),
+	params: a(l(u(c(), c())))
+}), v = i({
 	typeId: r("connector"),
 	...p,
-	actionNames: l(_),
-	category: s(h),
-	categoryId: m,
-	implementations: u(c(), g),
+	actionNames: l(m),
+	category: s(g),
+	categoryId: h,
+	implementations: u(c(), _),
 	vendorAccountURL: s(c()),
 	vendorDocumentationURL: s(c()),
 	vendorHomeURL: s(c())

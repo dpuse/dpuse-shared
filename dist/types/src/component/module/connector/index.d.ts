@@ -3,7 +3,7 @@ import { Component } from '../..';
 import { EngineConnectorActionOptions } from '../engine';
 import { ToolConfig } from '../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
-import { connectorCategoryConfigSchema, connectorConfigSchema, connectorActionNameSchema } from './connectorConfig.schema';
+import { connectorActionNameSchema, connectorCategoryConfigSchema, connectorConfigSchema } from './connectorConfig.schema';
 import { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
 import { LocalisedConfig } from '../../../locale';
 export { connectorConfigSchema } from './connectorConfig.schema';

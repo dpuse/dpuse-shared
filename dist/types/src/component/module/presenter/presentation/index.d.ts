@@ -1,8 +1,8 @@
 import { ComponentConfig } from '../../..';
 export interface PresentationConfig extends ComponentConfig {
+    typeId: 'presenterPresentation';
     content: string;
     order: number;
-    typeId: 'presenterPresentation';
 }
 export interface PresentationVisualConfig {
     content: PresentationVisualContentConfig;
