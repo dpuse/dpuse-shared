@@ -1,15 +1,15 @@
 import { FileTypeResult } from 'file-type';
-import { Component, ComponentConfig } from '..';
+import { ComponentConfig } from '..';
 import { ConnectionNodeConfig, ObjectColumnConfig } from '../connection';
-type DataViewInterface = Component;
 export interface DataViewConfig extends ComponentConfig {
+    typeId: 'dataView';
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     previewConfig: PreviewConfig | undefined;
     contentAuditConfig: ContentAuditConfig | undefined;
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
 }
-interface PreviewConfig {
+export interface PreviewConfig {
     asAt: number;
     commentMarkId?: string | undefined;
     commentMarkOtherCharSeq?: string | undefined;
@@ -38,8 +38,16 @@ interface PreviewConfig {
     valueDelimiterOtherCharSeq?: string | undefined;
     valueTrimMethodId?: ValueTrimMethodId | undefined;
 }
-type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
-interface ContentAuditConfig {
+export type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
+export type ParsingRecord = ParsingResult[];
+export interface ParsingResult {
+    value: string | null;
+    valueWasQuoted: boolean;
+}
+export type RecordDelimiterId = '\n' | '\r' | '\r\n';
+export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|';
+export type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
+export interface ContentAuditConfig {
     asAt: number;
     columns: ObjectColumnConfig[];
     commentLineCount: number;
@@ -49,44 +57,30 @@ interface ContentAuditConfig {
     lineCount: number;
     recordCount: number;
 }
-interface RelationshipsAuditConfig {
+export interface RelationshipsAuditConfig {
     placeholder: string;
 }
-type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
-type RecordDelimiterId = '\n' | '\r' | '\r\n';
-type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|';
-declare const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[];
-type ParsingRecord = ParsingResult[];
-interface ParsingResult {
-    value: string | null;
-    valueWasQuoted: boolean;
-}
-type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
-type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtypeId;
-type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
-type NumericSignId = 'negative' | 'zero' | 'positive';
-type NumericUnitsId = 'currency' | 'percentage' | 'plain';
-type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
-type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
-/**
- *
- */
-interface InferenceSummary {
+export type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
+export type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtypeId;
+export type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
+export type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
+export type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
+export interface InferenceSummary {
     columnConfigs: ObjectColumnConfig[];
     hasHeaderRow: boolean;
     typedRecords: InferenceRecord[];
 }
-type InferenceRecord = InferenceResult[];
-type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
-interface BooleanInferenceResult {
+export type InferenceRecord = InferenceResult[];
+export type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
+export interface BooleanInferenceResult {
     dataTypeId: 'boolean';
     dataSubtypeId: undefined;
     inputValue: string;
     inputValueWasQuoted: boolean;
     inferredValue: boolean;
 }
-type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
-interface BigIntInferenceResult {
+export type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
+export interface BigIntInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'bigint';
     format: string;
@@ -98,7 +92,7 @@ interface BigIntInferenceResult {
     signId: NumericSignId;
     unitsId: NumericUnitsId;
 }
-interface NumberInferenceResult {
+export interface NumberInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'integer' | 'decimal';
     format: string;
@@ -110,7 +104,9 @@ interface NumberInferenceResult {
     signId: NumericSignId;
     unitsId: NumericUnitsId;
 }
-interface StringInferenceResult {
+export type NumericSignId = 'negative' | 'zero' | 'positive';
+export type NumericUnitsId = 'currency' | 'percentage' | 'plain';
+export interface StringInferenceResult {
     dataTypeId: 'string';
     dataSubtypeId: StringSubtypeId;
     format: string | undefined;
@@ -118,7 +114,7 @@ interface StringInferenceResult {
     inputValueWasQuoted: boolean;
     inferredValue: string;
 }
-interface TemporalInferenceResult {
+export interface TemporalInferenceResult {
     dataTypeId: 'temporal';
     dataSubtypeId: TemporalSubtypeId;
     format: string;
@@ -126,20 +122,11 @@ interface TemporalInferenceResult {
     inputValueWasQuoted: boolean;
     inferredValue: Date;
 }
-interface UnknownInferenceResult {
+export interface UnknownInferenceResult {
     dataTypeId: 'unknown';
     dataSubtypeId: undefined;
     inputValue: string | null;
     inputValueWasQuoted: boolean;
     inferredValue: null;
 }
-export { ORDERED_VALUE_DELIMITER_IDS };
-export type { DataViewInterface, PreviewConfig, ContentAuditConfig, RelationshipsAuditConfig, DataFormatId, RecordDelimiterId, ValueDelimiterId, ParsingRecord, ParsingResult, DataTypeId, // Data type.
-DataSubtypeId, NumericSubtypeId, // Numeric subtype and characteristics.
-NumericSignId, NumericUnitsId, StringSubtypeId, // String subtype.
-TemporalSubtypeId, // Temporal subtype.
-InferenceSummary, InferenceRecord, InferenceResult, BooleanInferenceResult, // Boolean.
-NumericInferenceResult, // Numeric.
-BigIntInferenceResult, NumberInferenceResult, StringInferenceResult, // String.
-TemporalInferenceResult, // Temporal.
-UnknownInferenceResult };
+export declare const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[];

@@ -1,4 +1,4 @@
-export declare const moduleTypeIdSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"app", undefined>, import('valibot').LiteralSchema<"engine", undefined>, import('valibot').LiteralSchema<"connector", undefined>, import('valibot').LiteralSchema<"context", undefined>, import('valibot').LiteralSchema<"presenter", undefined>, import('valibot').LiteralSchema<"tool", undefined>], undefined>;
+export declare const moduleTypeIdSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"engine", undefined>, import('valibot').LiteralSchema<"connector", undefined>, import('valibot').LiteralSchema<"context", undefined>, import('valibot').LiteralSchema<"cookbook", undefined>, import('valibot').LiteralSchema<"presenter", undefined>, import('valibot').LiteralSchema<"tool", undefined>], undefined>;
 export declare const moduleConfigCoreFields: {
     version: import('valibot').StringSchema<undefined>;
     id: import('valibot').StringSchema<undefined>;
@@ -22,7 +22,7 @@ export declare const moduleConfigCoreFields: {
     statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>, import('valibot').LiteralSchema<"notApplicable", undefined>, import('valibot').LiteralSchema<"preAlpha", undefined>, import('valibot').LiteralSchema<"proposed", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"unavailable", undefined>, import('valibot').LiteralSchema<"underReview", undefined>], undefined>, undefined>;
 };
 export declare const moduleConfigSchema: import('valibot').ObjectSchema<{
-    readonly typeId: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"app", undefined>, import('valibot').LiteralSchema<"engine", undefined>, import('valibot').LiteralSchema<"connector", undefined>, import('valibot').LiteralSchema<"context", undefined>, import('valibot').LiteralSchema<"presenter", undefined>, import('valibot').LiteralSchema<"tool", undefined>], undefined>;
+    readonly typeId: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"engine", undefined>, import('valibot').LiteralSchema<"connector", undefined>, import('valibot').LiteralSchema<"context", undefined>, import('valibot').LiteralSchema<"cookbook", undefined>, import('valibot').LiteralSchema<"presenter", undefined>, import('valibot').LiteralSchema<"tool", undefined>], undefined>;
     readonly version: import('valibot').StringSchema<undefined>;
     readonly id: import('valibot').StringSchema<undefined>;
     readonly label: import('valibot').ObjectSchema<{

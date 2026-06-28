@@ -387,31 +387,7 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 }), j = /* @__PURE__ */ S({
 	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
 	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
-}), M = O([
-	"app",
-	"connector",
-	"connectorConnection",
-	"context",
-	"contextModelGroup",
-	"contextModel",
-	"contextModelDimensionGroup",
-	"contextModelDimension",
-	"contextModelDimensionHierarchy",
-	"contextModelEntityGroup",
-	"contextModelEntity",
-	"contextModelEntityDataItem",
-	"contextModelEntityEvent",
-	"contextModelEntityPrimaryMeasure",
-	"contextModelSecondaryMeasureGroup",
-	"contextModelSecondaryMeasure",
-	"dataView",
-	"dimension",
-	"engine",
-	"eventQuery",
-	"presenter",
-	"presenterPresentation",
-	"tool"
-]), N = O([
+}), M = O(/* @__PURE__ */ "app.connection.connector.connectorConnection.context.contextModelGroup.contextModel.contextModelDimensionGroup.contextModelDimension.contextModelDimensionHierarchy.contextModelEntityGroup.contextModelEntity.contextModelEntityDataItem.contextModelEntityEvent.contextModelEntityPrimaryMeasure.contextModelSecondaryMeasureGroup.contextModelSecondaryMeasure.cookbook.cookbookRecipe.dataView.dimension.engine.eventQuery.presenter.presenterPresentation.tool".split(".")), N = O([
 	"amber",
 	"green",
 	"red",
@@ -450,8 +426,8 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	status: /* @__PURE__ */ b(F),
 	statusId: /* @__PURE__ */ b(P)
 }, R = /* @__PURE__ */ S({
-	...L,
-	typeId: M
+	typeId: M,
+	...L
 });
 //#endregion
 export { O as a, y as c, S as d, C as f, k as i, b as l, T as m, R as n, _ as o, w as p, I as r, v as s, L as t, x as u };

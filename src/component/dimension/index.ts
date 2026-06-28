@@ -1,8 +1,12 @@
 // ── DPUse (Local) Framework
-import type { ComponentConfig } from '@/component';
+import type { Component, ComponentConfig } from '@/component';
+
+// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+
+type DimensionInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface DimensionConfig extends ComponentConfig {
-    placeholder?: string;
+    typeId: 'dimension';
 }

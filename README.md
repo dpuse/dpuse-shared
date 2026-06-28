@@ -245,9 +245,8 @@ OData-to-internal type conversion, file path name and extension extraction, numb
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
-
-| Name | Version | License(s) | Document |
-| ---- | :-----: | ---------- | -------- |
+|Name|Version|License(s)|Document|
+|-|:-:|-|-|
 
 <!-- DEPENDENCY_LICENSES_END -->
 

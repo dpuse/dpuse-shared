@@ -41,12 +41,3 @@ export interface ListContextOptions extends EngineContextActionOptions {
 export interface ListContextResult {
     models: ContextModelGroupConfig[];
 }
-
-// ??? ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-interface Event {
-    id?: number;
-    entityId: string;
-    effDate: number;
-    typeId: string;
-}

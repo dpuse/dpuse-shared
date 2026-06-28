@@ -1,5 +1,5 @@
-import { a as e, c as t, d as n, o as r, r as i } from "./componentConfig.schema-B7kVKqVP.js";
-import { t as a } from "./moduleConfig.schema-Cvc9QRvr.js";
+import { a as e, c as t, d as n, o as r, r as i } from "./componentConfig.schema-B_4MN_YT.js";
+import { t as a } from "./moduleConfig.schema-DxRryk_6.js";
 //#region src/component/module/presenter/presenterConfig.schema.ts
 var o = e([
 	"list",

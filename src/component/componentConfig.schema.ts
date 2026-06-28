@@ -9,7 +9,7 @@ import { partialLocaleDescriptionSchema, partialLocaleLabelSchema } from '@/loca
 
 export const componentTypeIdSchema = literalUnion([
     'app',
-    // 'connection',
+    'connection',
     'connector',
     'connectorConnection',
     'context',
@@ -25,14 +25,14 @@ export const componentTypeIdSchema = literalUnion([
     'contextModelEntityPrimaryMeasure',
     'contextModelSecondaryMeasureGroup',
     'contextModelSecondaryMeasure',
-    // 'cookbook',
+    'cookbook',
+    'cookbookRecipe',
     'dataView',
     'dimension',
     'engine',
     'eventQuery',
     'presenter',
     'presenterPresentation',
-    // 'recipe',
     'tool'
 ]);
 

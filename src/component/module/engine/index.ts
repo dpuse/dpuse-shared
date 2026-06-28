@@ -7,6 +7,7 @@ import type { ToolConfig } from '@/component/module/tool';
 
 // ── Types - Runtime ──────────────────────────────────────────────────────────────────────────────────────────────────
 
+// TODO: Should this be interface?
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: string) => EncodingTypeConfig[];
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;

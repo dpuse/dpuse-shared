@@ -1,6 +1,6 @@
 import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
-import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-B7kVKqVP.js";
-import { t as p } from "./moduleConfig.schema-Cvc9QRvr.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-B_4MN_YT.js";
+import { t as p } from "./moduleConfig.schema-DxRryk_6.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
 var m = n([
 	"abortOperation",
@@ -100,8 +100,8 @@ var m = n([
 	};
 };
 function S(e) {
-	let t = new Set(e), n = "| Name | Supported |\n";
-	n += "| ---- | :-------: |\n";
+	let t = new Set(e), n = "|Action|Supported|\n";
+	n += "|:----|:-------:|\n";
 	for (let e of Object.keys(b)) n += `| ${b[e]} | ${t.has(e) ? "✓" : ""} |\n`;
 	return n;
 }

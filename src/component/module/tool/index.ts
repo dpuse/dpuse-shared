@@ -1,5 +1,10 @@
 // ── DPUse (Local) Framework
+import type { Component } from '@/component';
 import type { ModuleConfig } from '@/component/module';
+
+// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+
+type ToolInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 

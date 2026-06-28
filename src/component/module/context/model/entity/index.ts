@@ -4,7 +4,7 @@ import type { ContextModelEntityEventConfig } from './event';
 import type { ContextModelEntityPrimaryMeasureConfig } from './primaryMeasure';
 import type { LocaleLabel } from '@/locale';
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelEntityConfig {
     id: string;

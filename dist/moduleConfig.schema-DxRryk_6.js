@@ -1,10 +1,10 @@
-import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-B7kVKqVP.js";
+import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-B_4MN_YT.js";
 //#region src/component/module/moduleConfig.schema.ts
 var i = e([
-	"app",
 	"engine",
 	"connector",
 	"context",
+	"cookbook",
 	"presenter",
 	"tool"
 ]), a = {

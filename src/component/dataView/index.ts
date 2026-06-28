@@ -8,7 +8,7 @@ import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } 
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type DataViewInterface = Component;
+type DataViewInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
