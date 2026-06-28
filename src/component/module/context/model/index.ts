@@ -1,8 +1,8 @@
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import type { LocaleLabel } from '@/locale';
 import type { ComponentConfig, ComponentReference } from '@/component';
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelConfig extends ComponentConfig {
     diagramURL?: string;
@@ -11,7 +11,7 @@ export interface ContextModelConfig extends ComponentConfig {
     secondaryMeasures: ContextModelSecondaryMeasureGroupConfig[];
 }
 
-// Dimension Group Configuration ───────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Dimension Group Configuration ────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelDimensionGroupConfig {
     id: string;
@@ -20,7 +20,7 @@ export interface ContextModelDimensionGroupConfig {
     dimensionRefs: ComponentReference[];
 }
 
-// Entity Group Configuration ──────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Entity Group Configuration ───────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelEntityGroupConfig {
     id: string;
@@ -29,7 +29,7 @@ export interface ContextModelEntityGroupConfig {
     entityRefs: ComponentReference[];
 }
 
-// Secondary Measure Group Configuration ───────────────────────────────────────────────────────────────────────────────
+// ── Types - Secondary Measure Group Configuration ────────────────────────────────────────────────────────────────────
 
 export interface ContextModelSecondaryMeasureGroupConfig {
     id: string;
