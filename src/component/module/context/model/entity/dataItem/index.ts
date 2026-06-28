@@ -1,7 +1,7 @@
 // DPUse (Local) Framework
 import type { LocaleLabel } from '@/locale';
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelEntityDataItemConfig {
     id: string;

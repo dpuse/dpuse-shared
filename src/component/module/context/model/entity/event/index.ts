@@ -1,16 +1,18 @@
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// DPUse (Local) Framework
+import type { LocaleLabel } from '@/locale';
+
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ContextModelEntityEventConfig {
     id: string;
-    labelAction: Record<string, string>;
-    labelState: Record<string, string>;
+    labelAction: LocaleLabel;
+    labelState: LocaleLabel;
 }
 
-// ??? ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-interface Event {
-    id?: number;
-    entityId: string;
-    effDate: number;
-    typeId: string;
-}
+// TODO:
+// interface Event {
+//     id?: number;
+//     entityId: string;
+//     effDate: number;
+//     typeId: string;
+// }
