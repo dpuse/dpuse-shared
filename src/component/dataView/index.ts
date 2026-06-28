@@ -55,10 +55,16 @@ export interface PreviewConfig {
 
 export type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
 
-interface ObjectDataFormat {
-    id: DataFormatId;
-    label: string;
+export type ParsingRecord = ParsingResult[];
+
+export interface ParsingResult {
+    value: string | null;
+    valueWasQuoted: boolean;
 }
+
+export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
+
+export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
 export type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 
@@ -81,6 +87,96 @@ export interface RelationshipsAuditConfig {
     placeholder: string; // TODO
 }
 
+// ── Types - Data Type Identifiers ────────────────────────────────────────────────────────────────────────────────────
+
+export type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
+
+export type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtypeId;
+
+export type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
+
+export type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
+
+export type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
+
+// ── Types - Data Type Inference ──────────────────────────────────────────────────────────────────────────────────────
+
+export interface InferenceSummary {
+    columnConfigs: ObjectColumnConfig[];
+    hasHeaderRow: boolean;
+    typedRecords: InferenceRecord[];
+}
+
+export type InferenceRecord = InferenceResult[];
+
+export type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
+
+export interface BooleanInferenceResult {
+    dataTypeId: 'boolean';
+    dataSubtypeId: undefined;
+    inputValue: string;
+    inputValueWasQuoted: boolean;
+    inferredValue: boolean;
+}
+
+export type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
+
+export interface BigIntInferenceResult {
+    dataTypeId: 'numeric';
+    dataSubtypeId: 'bigint';
+    format: string;
+    inputValue: string;
+    inputValueWasQuoted: boolean;
+    inferredValue: bigint;
+    currencySymbolId: string | undefined;
+    decimalPlaces: number;
+    signId: NumericSignId;
+    unitsId: NumericUnitsId;
+}
+
+export interface NumberInferenceResult {
+    dataTypeId: 'numeric';
+    dataSubtypeId: 'integer' | 'decimal';
+    format: string;
+    inputValue: string;
+    inputValueWasQuoted: boolean;
+    inferredValue: number;
+    currencySymbolId: string | undefined;
+    decimalPlaces: number;
+    signId: NumericSignId;
+    unitsId: NumericUnitsId;
+}
+
+export type NumericSignId = 'negative' | 'zero' | 'positive';
+
+export type NumericUnitsId = 'currency' | 'percentage' | 'plain';
+
+export interface StringInferenceResult {
+    dataTypeId: 'string';
+    dataSubtypeId: StringSubtypeId;
+    format: string | undefined;
+    inputValue: string;
+    inputValueWasQuoted: boolean;
+    inferredValue: string;
+}
+
+export interface TemporalInferenceResult {
+    dataTypeId: 'temporal';
+    dataSubtypeId: TemporalSubtypeId;
+    format: string;
+    inputValue: string;
+    inputValueWasQuoted: boolean;
+    inferredValue: Date;
+}
+
+export interface UnknownInferenceResult {
+    dataTypeId: 'unknown';
+    dataSubtypeId: undefined;
+    inputValue: string | null;
+    inputValueWasQuoted: boolean;
+    inferredValue: null;
+}
+
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
@@ -94,20 +190,57 @@ const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
 
 export const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[] = [',', ';', '\t', '|', ' ', ':', '_', '!', '0x1F', '0x1E']; // Ordered from estimated most common to least common.
 
-//#region Record delimiter identifier.
-
-type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
-
-interface ObjectRecordDelimiter {
-    id: RecordDelimiterId;
-    label: string;
-}
-
 const RECORD_DELIMITERS_CONFIG: { id: RecordDelimiterId; labels: LocaleLabelMap }[] = [
     { id: '\n', labels: createLabelMap({ en: 'Newline' }) },
     { id: '\r', labels: createLabelMap({ en: 'Carriage Return' }) },
     { id: '\r\n', labels: createLabelMap({ en: 'Carriage Return/Newline' }) }
 ];
+
+const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[] = [
+    { id: ':', labels: createLabelMap({ en: 'Colon' }) },
+    { id: ',', labels: createLabelMap({ en: 'Comma' }) },
+    { id: '!', labels: createLabelMap({ en: 'Exclamation Mark' }) },
+    // { id: '', label: { 'en': 'Other' } }, // TODO: Maybe set this to a 'not printing' or special ascii character when there is a user supplied delimited, rather than ''?
+    { id: '0x1E', labels: createLabelMap({ en: 'Record Separator' }) },
+    { id: ';', labels: createLabelMap({ en: 'Semicolon' }) },
+    { id: ' ', labels: createLabelMap({ en: 'Space' }) },
+    { id: '\t', labels: createLabelMap({ en: 'Tab' }) },
+    { id: '_', labels: createLabelMap({ en: 'Underscore' }) },
+    { id: '0x1F', labels: createLabelMap({ en: 'Unit Separator' }) },
+    { id: '|', labels: createLabelMap({ en: 'Vertical Bar' }) }
+];
+
+// ── Actions - Data Format(s) ─────────────────────────────────────────────────────────────────────────────────────────
+
+interface ObjectDataFormat {
+    id: DataFormatId;
+    label: string;
+}
+
+function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
+    const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
+    if (dataFormat) {
+        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
+        return { id: dataFormat.id, label: localizedLabel ?? dataFormat.id };
+    }
+    return { id, label: id };
+}
+
+function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
+    const items: ObjectDataFormat[] = [];
+    for (const dataFormat of DATA_FORMATS_CONFIG) {
+        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
+        items.push({ id: dataFormat.id, label: localizedLabel ?? dataFormat.id });
+    }
+    return items.toSorted((first, second) => first.label.localeCompare(second.label));
+}
+
+// ── Actions - Record Delimiter(s) ────────────────────────────────────────────────────────────────────────────────────
+
+interface ObjectRecordDelimiter {
+    id: RecordDelimiterId;
+    label: string;
+}
 
 const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter => {
     const recordDelimiter = RECORD_DELIMITERS_CONFIG.find((recordDelimiter) => recordDelimiter.id === id);
@@ -127,29 +260,12 @@ const getRecordDelimiters = (localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimite
     return items.toSorted((first, second) => first.label.localeCompare(second.label));
 };
 
-//#region Value delimiter identifier.
-
-type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
+// ── Actions - Value Delimiter(s) ─────────────────────────────────────────────────────────────────────────────────────
 
 interface ValueDelimiter {
     id: ValueDelimiterId;
     label: string;
 }
-
-const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[] = [
-    { id: ':', labels: createLabelMap({ en: 'Colon' }) },
-    { id: ',', labels: createLabelMap({ en: 'Comma' }) },
-    { id: '!', labels: createLabelMap({ en: 'Exclamation Mark' }) },
-    // { id: '', label: { 'en': 'Other' } }, // TODO: Maybe set this to a 'not printing' or special ascii character when there is a user supplied delimited, rather than ''?
-    { id: '0x1E', labels: createLabelMap({ en: 'Record Separator' }) },
-    { id: ';', labels: createLabelMap({ en: 'Semicolon' }) },
-    { id: ' ', labels: createLabelMap({ en: 'Space' }) },
-    { id: '\t', labels: createLabelMap({ en: 'Tab' }) },
-    { id: '_', labels: createLabelMap({ en: 'Underscore' }) },
-    { id: '0x1F', labels: createLabelMap({ en: 'Unit Separator' }) },
-    { id: '|', labels: createLabelMap({ en: 'Vertical Bar' }) }
-];
-
 const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_ID): ValueDelimiter => {
     const valueDelimiter = VALUE_DELIMITERS_CONFIG.find((valueDelimiter) => valueDelimiter.id === id);
     if (valueDelimiter) {
@@ -167,153 +283,3 @@ const getValueDelimiters = (localeId = DEFAULT_LOCALE_ID): ValueDelimiter[] => {
     }
     return items.toSorted((first, second) => first.label.localeCompare(second.label));
 };
-
-//#region Parsing...
-
-type ParsingRecord = ParsingResult[];
-
-interface ParsingResult {
-    value: string | null;
-    valueWasQuoted: boolean;
-}
-
-//#region Data type, subtype and characteristics.
-
-type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
-
-type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtypeId;
-
-type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
-
-type NumericSignId = 'negative' | 'zero' | 'positive';
-
-type NumericUnitsId = 'currency' | 'percentage' | 'plain';
-
-type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
-
-type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
-
-//#region Inference, cast, type...
-
-interface InferenceSummary {
-    columnConfigs: ObjectColumnConfig[];
-    hasHeaderRow: boolean;
-    typedRecords: InferenceRecord[];
-}
-
-type InferenceRecord = InferenceResult[];
-
-type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
-
-interface BooleanInferenceResult {
-    dataTypeId: 'boolean';
-    dataSubtypeId: undefined;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: boolean;
-}
-
-type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
-
-interface BigIntInferenceResult {
-    dataTypeId: 'numeric';
-    dataSubtypeId: 'bigint';
-    format: string;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: bigint;
-    currencySymbolId: string | undefined;
-    decimalPlaces: number;
-    signId: NumericSignId;
-    unitsId: NumericUnitsId;
-}
-
-interface NumberInferenceResult {
-    dataTypeId: 'numeric';
-    dataSubtypeId: 'integer' | 'decimal';
-    format: string;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: number;
-    currencySymbolId: string | undefined;
-    decimalPlaces: number;
-    signId: NumericSignId;
-    unitsId: NumericUnitsId;
-}
-
-interface StringInferenceResult {
-    dataTypeId: 'string';
-    dataSubtypeId: StringSubtypeId;
-    format: string | undefined;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: string;
-}
-
-interface TemporalInferenceResult {
-    dataTypeId: 'temporal';
-    dataSubtypeId: TemporalSubtypeId;
-    format: string;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: Date;
-}
-
-interface UnknownInferenceResult {
-    dataTypeId: 'unknown';
-    dataSubtypeId: undefined;
-    inputValue: string | null;
-    inputValueWasQuoted: boolean;
-    inferredValue: null;
-}
-
-export type {
-    // Data format, record delimiter and value delimiter.
-    RecordDelimiterId,
-    ValueDelimiterId,
-
-    // Parsing record and result.
-    ParsingRecord,
-    ParsingResult,
-
-    // Data type, subtype and characteristics.
-    DataTypeId, // Data type.
-    DataSubtypeId,
-    NumericSubtypeId, // Numeric subtype and characteristics.
-    NumericSignId,
-    NumericUnitsId,
-    StringSubtypeId, // String subtype.
-    TemporalSubtypeId, // Temporal subtype.
-
-    // Inference record,result and summary.
-    InferenceSummary,
-    InferenceRecord,
-    InferenceResult,
-    BooleanInferenceResult, // Boolean.
-    NumericInferenceResult, // Numeric.
-    BigIntInferenceResult,
-    NumberInferenceResult,
-    StringInferenceResult, // String.
-    TemporalInferenceResult, // Temporal.
-    UnknownInferenceResult // Unknown.
-};
-
-// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
-    const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
-    if (dataFormat) {
-        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
-        return { id: dataFormat.id, label: localizedLabel ?? dataFormat.id };
-    }
-    return { id, label: id };
-}
-
-function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
-    const items: ObjectDataFormat[] = [];
-    for (const dataFormat of DATA_FORMATS_CONFIG) {
-        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
-        items.push({ id: dataFormat.id, label: localizedLabel ?? dataFormat.id });
-    }
-    return items.toSorted((first, second) => first.label.localeCompare(second.label));
-}
