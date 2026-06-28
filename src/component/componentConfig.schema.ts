@@ -9,6 +9,7 @@ import { partialLocaleDescriptionSchema, partialLocaleLabelSchema } from '@/loca
 
 export const componentTypeIdSchema = literalUnion([
     'app',
+    // 'connection',
     'connector',
     'connectorConnection',
     'context',
@@ -24,12 +25,14 @@ export const componentTypeIdSchema = literalUnion([
     'contextModelEntityPrimaryMeasure',
     'contextModelSecondaryMeasureGroup',
     'contextModelSecondaryMeasure',
+    // 'cookbook',
     'dataView',
     'dimension',
     'engine',
     'eventQuery',
     'presenter',
     'presenterPresentation',
+    // 'recipe',
     'tool'
 ]);
 
@@ -85,6 +88,6 @@ export const componentConfigCoreFields = {
 };
 
 export const componentConfigSchema = object({
-    ...componentConfigCoreFields,
-    typeId: componentTypeIdSchema
+    typeId: componentTypeIdSchema,
+    ...componentConfigCoreFields
 });

@@ -13,6 +13,7 @@ const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// Dynamically load tool.
 export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Promise<T> {
     const toolName = `dpuse-tool-${toolId}`;
     const toolModuleConfig = toolConfigs.find((config) => config.id === toolName);

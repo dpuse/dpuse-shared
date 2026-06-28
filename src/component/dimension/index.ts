@@ -1,7 +1,7 @@
-// External Dependencies
+// ── DPUse (Local) Framework
 import type { ComponentConfig } from '@/component';
 
-// Configuration ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface DimensionConfig extends ComponentConfig {
     placeholder?: string;

@@ -1,14 +1,19 @@
-// Vendor dependencies.
+// ── External Dependencies & Registrations
 import type { FileTypeResult } from 'file-type';
 
-// Framework dependencies.
+// ── DPUse (Local) Framework
 import type { Component, ComponentConfig } from '@/component';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale';
 
-type DataViewInterface = Component;
+// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type DataViewInterface = Component;
+
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface DataViewConfig extends ComponentConfig {
+    typeId: 'dataView';
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     previewConfig: PreviewConfig | undefined;
@@ -16,11 +21,9 @@ export interface DataViewConfig extends ComponentConfig {
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
 }
 
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-//#region Data view preview.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Preview Configuration ────────────────────────────────────────────────────────────────────────────────────
 
-interface PreviewConfig {
+export interface PreviewConfig {
     asAt: number;
     commentMarkId?: string | undefined; // TODO: under review.
     commentMarkOtherCharSeq?: string | undefined; // TODO: under review.
@@ -50,15 +53,18 @@ interface PreviewConfig {
     valueTrimMethodId?: ValueTrimMethodId | undefined; // TODO: under review.
 }
 
-type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
+export type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+interface ObjectDataFormat {
+    id: DataFormatId;
+    label: string;
+}
 
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-//#region Data view audit.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+export type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 
-interface ContentAuditConfig {
+// ── Types - Content Audit Configuration ──────────────────────────────────────────────────────────────────────────────
+
+export interface ContentAuditConfig {
     asAt: number;
     columns: ObjectColumnConfig[];
     commentLineCount: number;
@@ -69,28 +75,13 @@ interface ContentAuditConfig {
     recordCount: number;
 }
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────
 
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-//#region Data view relationships.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-interface RelationshipsAuditConfig {
-    placeholder: string;
+export interface RelationshipsAuditConfig {
+    placeholder: string; // TODO
 }
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-//#region Data format identifier.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'unknown';
-
-interface ObjectDataFormat {
-    id: DataFormatId;
-    label: string;
-}
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
     { id: 'dpe', labels: createLabelMap({ en: 'Data Positioning Events' }) },
@@ -101,29 +92,9 @@ const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
     { id: 'xml', labels: createLabelMap({ en: 'XML' }) }
 ];
 
-function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
-    const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
-    if (dataFormat) {
-        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
-        return { id: dataFormat.id, label: localizedLabel ?? dataFormat.id };
-    }
-    return { id, label: id };
-}
+export const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[] = [',', ';', '\t', '|', ' ', ':', '_', '!', '0x1F', '0x1E']; // Ordered from estimated most common to least common.
 
-function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
-    const items: ObjectDataFormat[] = [];
-    for (const dataFormat of DATA_FORMATS_CONFIG) {
-        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
-        items.push({ id: dataFormat.id, label: localizedLabel ?? dataFormat.id });
-    }
-    return items.toSorted((first, second) => first.label.localeCompare(second.label));
-}
-
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 //#region Record delimiter identifier.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
@@ -156,11 +127,7 @@ const getRecordDelimiters = (localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimite
     return items.toSorted((first, second) => first.label.localeCompare(second.label));
 };
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 //#region Value delimiter identifier.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
@@ -183,8 +150,6 @@ const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[
     { id: '|', labels: createLabelMap({ en: 'Vertical Bar' }) }
 ];
 
-const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[] = [',', ';', '\t', '|', ' ', ':', '_', '!', '0x1F', '0x1E']; // Ordered from estimated most common to least common.
-
 const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_ID): ValueDelimiter => {
     const valueDelimiter = VALUE_DELIMITERS_CONFIG.find((valueDelimiter) => valueDelimiter.id === id);
     if (valueDelimiter) {
@@ -203,11 +168,7 @@ const getValueDelimiters = (localeId = DEFAULT_LOCALE_ID): ValueDelimiter[] => {
     return items.toSorted((first, second) => first.label.localeCompare(second.label));
 };
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 //#region Parsing...
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type ParsingRecord = ParsingResult[];
 
@@ -216,11 +177,7 @@ interface ParsingResult {
     valueWasQuoted: boolean;
 }
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 //#region Data type, subtype and characteristics.
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
 
@@ -236,15 +193,8 @@ type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'pl
 
 type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 //#region Inference, cast, type...
-//──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/**
- *
- */
 interface InferenceSummary {
     columnConfigs: ObjectColumnConfig[];
     hasHeaderRow: boolean;
@@ -317,19 +267,8 @@ interface UnknownInferenceResult {
     inferredValue: null;
 }
 
-//#endregion ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-// Exposures.
-export { ORDERED_VALUE_DELIMITER_IDS };
 export type {
-    // Data view interface and configuration.
-    DataViewInterface,
-    PreviewConfig,
-    ContentAuditConfig,
-    RelationshipsAuditConfig,
-
     // Data format, record delimiter and value delimiter.
-    DataFormatId,
     RecordDelimiterId,
     ValueDelimiterId,
 
@@ -358,3 +297,23 @@ export type {
     TemporalInferenceResult, // Temporal.
     UnknownInferenceResult // Unknown.
 };
+
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
+    const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
+    if (dataFormat) {
+        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
+        return { id: dataFormat.id, label: localizedLabel ?? dataFormat.id };
+    }
+    return { id, label: id };
+}
+
+function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
+    const items: ObjectDataFormat[] = [];
+    for (const dataFormat of DATA_FORMATS_CONFIG) {
+        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
+        items.push({ id: dataFormat.id, label: localizedLabel ?? dataFormat.id });
+    }
+    return items.toSorted((first, second) => first.label.localeCompare(second.label));
+}

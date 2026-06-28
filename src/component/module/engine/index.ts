@@ -52,7 +52,7 @@ export interface EngineCallbackData {
     properties: Record<string, unknown>;
 }
 
-// ── Types -  Configuration ───────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';
