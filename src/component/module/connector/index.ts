@@ -234,8 +234,8 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
 
 export function getConnectorActionsTable(supported: ConnectorActionName[]): string {
     const supportedSet = new Set(supported);
-    let md = '| Name | Supported |\n';
-    md += '| ---- | :-------: |\n';
+    let md = '|Action|Supported|\n';
+    md += '|:----|:-------:|\n';
     for (const id of Object.keys(CONNECTOR_ACTION_NAME_MAP) as ConnectorActionName[]) {
         md += `| ${CONNECTOR_ACTION_NAME_MAP[id]} | ${supportedSet.has(id) ? '✓' : ''} |\n`;
     }
