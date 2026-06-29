@@ -9,7 +9,7 @@ export interface ContextInterface extends Component {
 }
 export type ContextConfig = InferOutput<typeof contextConfigSchema>;
 export type ContextActionName = InferOutput<typeof contextActionNameSchema>;
-export interface ContextModelGroupConfig extends ComponentConfig {
+export interface ContextAreaConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
 }
@@ -17,5 +17,5 @@ export interface ListContextOptions extends EngineContextActionOptions {
     placeholder: unknown;
 }
 export interface ListContextResult {
-    models: ContextModelGroupConfig[];
+    models: ContextAreaConfig[];
 }

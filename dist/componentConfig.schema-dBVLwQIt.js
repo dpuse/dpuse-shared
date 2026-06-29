@@ -393,7 +393,7 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	"connector",
 	"connectorConnection",
 	"context",
-	"contextModelGroup",
+	"contextArea",
 	"contextModel",
 	"contextModelDimension",
 	"contextModelDimensionHierarchy",

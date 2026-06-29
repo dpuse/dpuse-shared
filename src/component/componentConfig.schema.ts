@@ -13,7 +13,7 @@ export const componentTypeIdSchema = literalUnion([
     'connector',
     'connectorConnection',
     'context',
-    'contextModelGroup',
+    'contextArea',
     'contextModel',
     'contextModelDimension',
     'contextModelDimensionHierarchy',

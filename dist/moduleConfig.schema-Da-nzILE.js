@@ -1,4 +1,4 @@
-import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-C4pc6MHl.js";
+import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-dBVLwQIt.js";
 //#region src/component/module/moduleConfig.schema.ts
 var i = e([
 	"engine",

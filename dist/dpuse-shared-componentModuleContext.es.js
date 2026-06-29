@@ -1,8 +1,8 @@
-import { a as e, c as t, d as n, o as r, r as i, t as a, u as o } from "./componentConfig.schema-C4pc6MHl.js";
-import { t as s } from "./moduleConfig.schema-Cxl5Qw2d.js";
+import { a as e, c as t, d as n, o as r, r as i, t as a, u as o } from "./componentConfig.schema-dBVLwQIt.js";
+import { t as s } from "./moduleConfig.schema-Da-nzILE.js";
 //#region src/component/module/context/contextConfig.schema.ts
 var c = n({
-	typeId: t("contextModelGroup"),
+	typeId: t("contextArea"),
 	...a,
 	modelRefs: r(i),
 	order: o()

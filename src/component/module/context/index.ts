@@ -27,7 +27,7 @@ export type ContextActionName = InferOutput<typeof contextActionNameSchema>;
 
 // ── Types - Model Group Configuration ────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelGroupConfig extends ComponentConfig {
+export interface ContextAreaConfig extends ComponentConfig {
     modelRefs: ComponentReference[];
     order: number;
 }
@@ -39,5 +39,5 @@ export interface ListContextOptions extends EngineContextActionOptions {
 }
 
 export interface ListContextResult {
-    models: ContextModelGroupConfig[];
+    models: ContextAreaConfig[];
 }

@@ -6,10 +6,10 @@ import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 import { componentConfigCoreFields, componentReferenceSchema } from '@/component/componentConfig.schema';
 
-// ── Schemas - Model Group Configuration ──────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Area Configuration ─────────────────────────────────────────────────────────────────────────────────────
 
-const contextModelGroupConfigSchema = object({
-    typeId: literal('contextModelGroup'),
+const contextAreaConfig = object({
+    typeId: literal('contextArea'),
     ...componentConfigCoreFields,
     modelRefs: array(componentReferenceSchema),
     order: number()
@@ -25,5 +25,5 @@ export const contextConfigSchema = object({
     typeId: literal('context'),
     ...moduleConfigCoreFields,
     actionNames: array(contextActionNameSchema),
-    models: array(contextModelGroupConfigSchema)
+    models: array(contextAreaConfig)
 });

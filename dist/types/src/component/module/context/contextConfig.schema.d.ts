@@ -38,7 +38,7 @@ export declare const contextConfigSchema: import('valibot').ObjectSchema<{
             readonly label: import('valibot').StringSchema<undefined>;
         }, undefined>, undefined>;
         readonly statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>, import('valibot').LiteralSchema<"notApplicable", undefined>, import('valibot').LiteralSchema<"preAlpha", undefined>, import('valibot').LiteralSchema<"proposed", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"unavailable", undefined>, import('valibot').LiteralSchema<"underReview", undefined>], undefined>, undefined>;
-        readonly typeId: import('valibot').LiteralSchema<"contextModelGroup", undefined>;
+        readonly typeId: import('valibot').LiteralSchema<"contextArea", undefined>;
     }, undefined>, undefined>;
     readonly version: import('valibot').StringSchema<undefined>;
     readonly id: import('valibot').StringSchema<undefined>;
