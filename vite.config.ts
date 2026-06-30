@@ -1,19 +1,14 @@
 // ── External Dependencies & Registrations
-import { defineConfig } from 'vite'; // Core Vite API.
-import dts from 'vite-plugin-dts'; // Emit .d.ts files alongside the bundle.
-import type { PackageJson } from 'type-fest';
-import Sonda from 'sonda/vite'; // Visualize bundle results with Sonda plugin.
-import { visualizer } from 'rollup-plugin-visualizer'; // Generate bundle size report.
-import { fileURLToPath, URL } from 'node:url'; // ESM-safe path helpers.
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import Sonda from 'sonda/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { fileURLToPath, URL } from 'node:url';
 
 // ── Data
-import config from './config.json' with { type: 'json' }; // Provide configuration identifier for naming.
-import package_ from './package.json' with { type: 'json' }; // Provide package for peer dependency detection.
+import config from './config.json' with { type: 'json' };
 
 // ── Vite Configuration ───────────────────────────────────────────────────────────────────────────────────────────────
-
-const { peerDependencies } = package_ as PackageJson;
-const external = peerDependencies ? Object.keys(peerDependencies) : []; // Keep peer dependencies out of the bundle.
 
 export default defineConfig({
     build: {
@@ -49,7 +44,6 @@ export default defineConfig({
             formats: ['es']
         },
         rollupOptions: {
-            external,
             plugins: [
                 Sonda({ filename: 'index', format: 'html', gzip: true, brotli: true, open: false, outputDir: './bundle-analysis-reports/sonda' }),
                 visualizer({ filename: './bundle-analysis-reports/rollup-visualiser/index.html', open: false, gzipSize: true, brotliSize: true })
