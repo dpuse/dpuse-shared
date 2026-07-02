@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.727",
+    "version": "0.3.728",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -121,7 +121,7 @@
     "prettier": "@dpuse/dpuse-development/prettierrc",
     "allowScripts": {
         "fsevents@2.3.3": true,
-        "unrs-resolver@1.11.1": true
+        "unrs-resolver@1.12.2": true
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
@@ -135,18 +135,10 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.623",
-        "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
-        "@types/eslint-plugin-security": "^3.0.1",
+        "@dpuse/dpuse-development": "^0.3.634",
+        "@dpuse/eslint-config-dpuse": "^1.0.82",
         "@types/node": "^26.1.0",
         "eslint": "^10.6.0",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-import-resolver-typescript": "^4.4.5",
-        "eslint-plugin-import-x": "^4.17.1",
-        "eslint-plugin-regexp": "^3.1.1",
-        "eslint-plugin-security": "^4.0.1",
-        "eslint-plugin-sonarjs": "^4.1.0",
-        "eslint-plugin-unicorn": "^69.0.0",
         "file-type": "^22.0.1",
         "jiti": "^2.7.0",
         "license-checker-rseidelsohn": "^5.0.1",
@@ -156,7 +148,6 @@
         "sonda": "^0.13.1",
         "type-fest": "^5.7.0",
         "typescript": "^6.0.3",
-        "typescript-eslint": "^8.62.1",
         "valibot": "^1.4.2",
         "vite": "^8.1.2",
         "vite-plugin-dts": "^5.0.3",
