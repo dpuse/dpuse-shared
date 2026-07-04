@@ -5,11 +5,7 @@ import { dpuseESLintConfig } from '@dpuse/eslint-config-dpuse';
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = dpuseESLintConfig({
-    files: ['eslint.config.js', 'src/**/*.ts', 'vite.config.ts', 'vitest.config.ts'],
     ignores: ['rust/**'],
-    importCoreModules: ['cloudflare:workers'],
-    tsconfigPath: './tsconfig.json',
-    tsconfigRootDir: import.meta.dirname,
     rules: {
         'unicorn/filename-case': ['error', { cases: { camelCase: true, pascalCase: true }, ignore: [/\.schema\.ts$/] }],
         'unicorn/max-nested-calls': ['error', { max: 5 }] // Increased level from default of 3 to 4 for Valibot schema definitions.
