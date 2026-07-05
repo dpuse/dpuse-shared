@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.731",
+    "version": "0.3.732",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -115,8 +115,8 @@
         "dist"
     ],
     "engines": {
-        "node": ">=22.0.0",
-        "npm": ">=11.0.0"
+        "node": ">=22",
+        "npm": ">=11"
     },
     "prettier": "@dpuse/dpuse-development/prettierrc",
     "allowScripts": {
@@ -135,13 +135,13 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.647",
-        "@dpuse/eslint-config-dpuse": "^1.0.98",
+        "@dpuse/dpuse-development": "^0.3.661",
+        "@dpuse/eslint-config-dpuse": "^1.0.105",
         "@types/node": "^26.1.0",
         "eslint": "^10.6.0",
         "file-type": "^22.0.1",
         "prettier": "^3.9.4",
-        "sonda": "^0.13.1",
+        "sonda": "^0.14.0",
         "typescript": "^6.0.3",
         "valibot": "^1.4.2",
         "vite": "^8.1.3",
