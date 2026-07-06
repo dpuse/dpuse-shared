@@ -89,7 +89,27 @@ var m = n([
 	retrieveChunks: "Retrieve Chunks",
 	retrieveRecords: "Retrieve Records",
 	upsertRecords: "Upsert Records"
-}, x = (n, r = "en") => {
+}, x = /* @__PURE__ */ new Set([
+	"createObject",
+	"dropObject",
+	"removeRecords",
+	"upsertRecords"
+]), S = /* @__PURE__ */ new Set([
+	"auditObjectContent",
+	"findObject",
+	"getReadableStream",
+	"getRecord",
+	"listNodes",
+	"previewObject",
+	"retrieveChunks",
+	"retrieveRecords"
+]);
+function C(e) {
+	let t = !1, n = !1;
+	for (let r of e) S.has(r) && (t = !0), x.has(r) && (n = !0);
+	return t && n ? "bidirectional" : t ? "source" : n ? "destination" : "unknown";
+}
+var w = (n, r = "en") => {
 	let i = y.find((e) => e.id === n);
 	return i ? {
 		label: t(e(i.label), r) ?? i.id,
@@ -99,11 +119,11 @@ var m = n([
 		description: []
 	};
 };
-function S(e) {
+function T(e) {
 	let t = new Set(e), n = "|Action|Supported|\n";
 	n += "|:----|:-------:|\n";
 	for (let e of Object.keys(b)) n += `| ${b[e]} | ${t.has(e) ? "✓" : ""} |\n`;
 	return n;
 }
 //#endregion
-export { b as CONNECTOR_ACTION_NAME_MAP, v as connectorConfigSchema, x as constructConnectorCategoryConfig, S as getConnectorActionsTable };
+export { b as CONNECTOR_ACTION_NAME_MAP, v as connectorConfigSchema, w as constructConnectorCategoryConfig, C as determineConnectorUsageId, T as getConnectorActionsTable };

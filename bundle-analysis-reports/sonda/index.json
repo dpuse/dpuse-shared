@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-07-05T16:33:23.761Z",
+    "generatedAt": "2026-07-06T15:01:26.744Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -124,9 +124,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentModuleConnector.es.js",
       "type": "script",
-      "uncompressed": 2526,
+      "uncompressed": 3023,
       "gzip": 0,
-      "brotli": 984
+      "brotli": 1109
     },
     {
       "kind": "asset",
@@ -318,7 +318,7 @@
       "name": "src/component/module/connector/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1910
+      "uncompressed": 2747
     },
     {
       "kind": "filesystem",

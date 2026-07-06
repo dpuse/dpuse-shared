@@ -220,7 +220,37 @@ export const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     upsertRecords: 'Upsert Records'
 };
 
+const CONNECTOR_DESTINATION_OPERATIONS = new Set<ConnectorActionName>(['createObject', 'dropObject', 'removeRecords', 'upsertRecords']);
+const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
+    'auditObjectContent',
+    'findObject',
+    'getReadableStream',
+    'getRecord',
+    'listNodes',
+    'previewObject',
+    'retrieveChunks',
+    'retrieveRecords'
+]);
+
+// ── Types - Usage ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type ConnectorUsageId = 'bidirectional' | 'destination' | 'source' | 'unknown';
+
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// Determines whether a connector is a source, destination, or bidirectional connector, based on the actions it implements.
+export function determineConnectorUsageId(actionNames: ConnectorActionName[]): ConnectorUsageId {
+    let isSourceOperation = false;
+    let isDestinationOperation = false;
+    for (const actionName of actionNames) {
+        if (CONNECTOR_SOURCE_OPERATIONS.has(actionName)) isSourceOperation = true;
+        if (CONNECTOR_DESTINATION_OPERATIONS.has(actionName)) isDestinationOperation = true;
+    }
+    if (isSourceOperation && isDestinationOperation) return 'bidirectional';
+    if (isSourceOperation) return 'source';
+    if (isDestinationOperation) return 'destination';
+    return 'unknown';
+}
 
 export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorCategoryConfig> => {
     const connectorCategory = CONNECTOR_CATEGORY_CONFIGS.find((connectorCategory) => connectorCategory.id === id);

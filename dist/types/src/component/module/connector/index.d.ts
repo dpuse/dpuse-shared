@@ -132,5 +132,7 @@ export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     path: string;
 }
 export declare const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string>;
+export type ConnectorUsageId = 'bidirectional' | 'destination' | 'source' | 'unknown';
+export declare function determineConnectorUsageId(actionNames: ConnectorActionName[]): ConnectorUsageId;
 export declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorCategoryConfig>;
 export declare function getConnectorActionsTable(supported: ConnectorActionName[]): string;
