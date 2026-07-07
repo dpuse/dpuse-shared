@@ -63,7 +63,6 @@ export const componentReferenceSchema = object({
     description: partialLocaleDescriptionSchema,
     icon: nullable(string()),
     iconDark: nullable(string()),
-    iconNeutral: nullable(string()),
     order: number(),
     path: string()
 });
@@ -78,7 +77,6 @@ export const componentConfigCoreFields = {
     firstCreatedAt: nullable(number()),
     icon: nullable(string()),
     iconDark: nullable(string()),
-    iconNeutral: nullable(string()),
     lastUpdatedAt: nullable(number()),
     status: nullable(componentStatusConfigSchema),
     statusId: nullable(componentStatusIdSchema)
