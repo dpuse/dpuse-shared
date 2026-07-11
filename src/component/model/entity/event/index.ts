@@ -1,4 +1,4 @@
-// DPUse (Local) Framework
+// ── DPUse (Local) Framework
 import { ComponentConfig } from '@/component';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
