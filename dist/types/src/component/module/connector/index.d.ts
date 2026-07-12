@@ -17,6 +17,7 @@ export interface ConnectorInterface extends Component {
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>;
     dropObject?(options: DropObjectOptions): Promise<void>;
     findObject?(options: FindObjectOptions): Promise<FindObjectResult>;
+    getInfo?(options: GetInfoOptions): Promise<GetInfoResult>;
     getReadableStream?(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>;
     getRecord?(options: GetRecordOptions): Promise<GetRecordResult>;
     listNodes?(options: ListNodesOptions): Promise<ListNodesResult>;
@@ -73,6 +74,12 @@ export interface FindObjectOptions extends EngineConnectorActionOptions {
 }
 export interface FindObjectResult {
     path: string | undefined;
+}
+export interface GetInfoOptions extends EngineConnectorActionOptions {
+    path: string;
+}
+export interface GetInfoResult {
+    info: Record<string, unknown>;
 }
 export interface GetReadableStreamOptions extends EngineConnectorActionOptions {
     id: string;

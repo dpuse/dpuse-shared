@@ -26,6 +26,7 @@ export interface ConnectorInterface extends Component {
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
     dropObject?(options: DropObjectOptions): Promise<void>; // Drop (delete) an object for a specified connection.
     findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Find an object for a specified connection.
+    getInfo?(options: GetInfoOptions): Promise<GetInfoResult>; // Get metadata/info for a node (at any hierarchy level) for a specified connection.
     getReadableStream?(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>; // Get a reader that can retrieve all records from an object for a specified connection.
     getRecord?(options: GetRecordOptions): Promise<GetRecordResult>; // Get a record for an object for a specified connection.
     listNodes?(options: ListNodesOptions): Promise<ListNodesResult>; // List nodes in a folder for a specified connection.
@@ -110,6 +111,15 @@ export interface FindObjectOptions extends EngineConnectorActionOptions {
 }
 export interface FindObjectResult {
     path: string | undefined;
+}
+
+// ── Types - Action - Get Info ────────────────────────────────────────────────────────────────────────────────────────
+
+export interface GetInfoOptions extends EngineConnectorActionOptions {
+    path: string;
+}
+export interface GetInfoResult {
+    info: Record<string, unknown>; // Raw, connector-specific metadata — not yet normalized to a common shape.
 }
 
 // ── Types - Action - Get Readable Stream ─────────────────────────────────────────────────────────────────────────────
@@ -210,6 +220,7 @@ export const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     describeConnection: 'Describe Connection',
     dropObject: 'Drop Object',
     findObject: 'Find Object',
+    getInfo: 'Get Info',
     getReadableStream: 'Get Readable Stream',
     getRecord: 'Get Record',
     listNodes: 'List Nodes',
@@ -224,6 +235,7 @@ const CONNECTOR_DESTINATION_OPERATIONS = new Set<ConnectorActionName>(['createOb
 const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'auditObjectContent',
     'findObject',
+    'getInfo',
     'getReadableStream',
     'getRecord',
     'listNodes',

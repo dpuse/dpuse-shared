@@ -1,5 +1,5 @@
-import { a as e, c as t, d as n, o as r, r as i, t as a, u as o } from "./componentConfig.schema-dBVLwQIt.js";
-import { t as s } from "./moduleConfig.schema-CUHmgYLu.js";
+import { a as e, c as t, d as n, o as r, r as i, t as a, u as o } from "./componentConfig.schema-DzuoA1f0.js";
+import { t as s } from "./moduleConfig.schema-COF8ocp_.js";
 //#region src/component/module/context/contextConfig.schema.ts
 var c = n({
 	typeId: t("contextArea"),

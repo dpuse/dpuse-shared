@@ -21,6 +21,7 @@ export const connectorActionNameSchema = literalUnion([
     'describeConnection',
     'dropObject',
     'findObject',
+    'getInfo',
     'getReadableStream',
     'getRecord',
     'listNodes',

@@ -1,6 +1,6 @@
 import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
-import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-dBVLwQIt.js";
-import { t as p } from "./moduleConfig.schema-CUHmgYLu.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-DzuoA1f0.js";
+import { t as p } from "./moduleConfig.schema-COF8ocp_.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
 var m = n([
 	"abortOperation",
@@ -9,6 +9,7 @@ var m = n([
 	"describeConnection",
 	"dropObject",
 	"findObject",
+	"getInfo",
 	"getReadableStream",
 	"getRecord",
 	"listNodes",
@@ -81,6 +82,7 @@ var m = n([
 	describeConnection: "Describe Connection",
 	dropObject: "Drop Object",
 	findObject: "Find Object",
+	getInfo: "Get Info",
 	getReadableStream: "Get Readable Stream",
 	getRecord: "Get Record",
 	listNodes: "List Nodes",
@@ -97,6 +99,7 @@ var m = n([
 ]), S = /* @__PURE__ */ new Set([
 	"auditObjectContent",
 	"findObject",
+	"getInfo",
 	"getReadableStream",
 	"getRecord",
 	"listNodes",
