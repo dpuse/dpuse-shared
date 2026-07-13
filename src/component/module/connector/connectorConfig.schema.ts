@@ -73,7 +73,7 @@ export const connectorConfigSchema = object({
     categoryId: connectorCategoryIdSchema,
     implementations: record(string(), connectorImplementationSchema),
     usage: nullable(connectorUsageConfigSchema),
-    usageId: connectorUsageIdSchema,
+    usageId: nullable(connectorUsageIdSchema),
     vendorAccountURL: nullable(string()),
     vendorDocumentationURL: nullable(string()),
     vendorHomeURL: nullable(string())
