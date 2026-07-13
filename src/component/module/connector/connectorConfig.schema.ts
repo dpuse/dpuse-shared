@@ -40,6 +40,14 @@ export const connectorCategoryConfigSchema = object({
     label: localeLabelSchema
 });
 
+// ── Schemas - Usage ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']); // Connector data pipeline usage identifiers.
+
+export const connectorUsageConfigSchema = object({
+    label: localeLabelSchema
+});
+
 // ── Schemas - Implementation ─────────────────────────────────────────────────────────────────────────────────────────
 
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']); // Authentication method identifiers supported by a connector implementation.
@@ -64,6 +72,8 @@ export const connectorConfigSchema = object({
     category: nullable(connectorCategoryConfigSchema),
     categoryId: connectorCategoryIdSchema,
     implementations: record(string(), connectorImplementationSchema),
+    usage: nullable(connectorUsageConfigSchema),
+    usageId: connectorUsageIdSchema,
     vendorAccountURL: nullable(string()),
     vendorDocumentationURL: nullable(string()),
     vendorHomeURL: nullable(string())

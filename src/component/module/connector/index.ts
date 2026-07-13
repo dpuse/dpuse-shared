@@ -6,7 +6,13 @@ import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { ToolConfig } from '@/component/module/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
-import type { connectorActionNameSchema, connectorCategoryConfigSchema, connectorConfigSchema } from '@/component/module/connector/connectorConfig.schema';
+import type {
+    connectorActionNameSchema,
+    connectorCategoryConfigSchema,
+    connectorConfigSchema,
+    connectorUsageConfigSchema,
+    connectorUsageIdSchema
+} from '@/component/module/connector/connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, type LocalisedConfig, resolveLabel } from '@/locale';
 
@@ -56,6 +62,8 @@ export interface ConnectorUtilities {
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
+
+type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 
 // ── Types - Action - Audit Object Content ────────────────────────────────────────────────────────────────────────────
 
@@ -231,6 +239,13 @@ export const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     upsertRecords: 'Upsert Records'
 };
 
+const CONNECTOR_USAGE_CONFIGS: { id: string; label: LocaleLabel }[] = [
+    { id: 'bidirectional', label: { en: 'Bidirectional', es: 'Bidireccional' } },
+    { id: 'destination', label: { en: 'Destination', es: 'Destino' } },
+    { id: 'source', label: { en: 'Source', es: 'Origen' } },
+    { id: 'unknown', label: { en: 'Unknown', es: 'Desconocido' } }
+];
+
 const CONNECTOR_DESTINATION_OPERATIONS = new Set<ConnectorActionName>(['createObject', 'dropObject', 'removeRecords', 'upsertRecords']);
 const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'auditObjectContent',
@@ -246,7 +261,7 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 
 // ── Types - Usage ────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type ConnectorUsageId = 'bidirectional' | 'destination' | 'source' | 'unknown';
+export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -270,6 +285,16 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
         const labelMap = createLabelMap(connectorCategory.label);
         const localizedLabel = resolveLabel(labelMap, localeId);
         return { label: localizedLabel ?? connectorCategory.id, description: [] };
+    }
+    return { label: id, description: [] };
+};
+
+export const constructConnectorUsageConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorUsageConfig> => {
+    const connectorUsage = CONNECTOR_USAGE_CONFIGS.find((connectorUsage) => connectorUsage.id === id);
+    if (connectorUsage) {
+        const labelMap = createLabelMap(connectorUsage.label);
+        const localizedLabel = resolveLabel(labelMap, localeId);
+        return { label: localizedLabel ?? connectorUsage.id, description: [] };
     }
     return { label: id, description: [] };
 };
