@@ -135,9 +135,7 @@ export function serialiseError(error?: unknown): SerialisedError[] {
 // reconstructs the appropriate error class based on serialized properties;
 // chains errors from outermost to root cause using the `cause` option;
 // returns `undefined` if the input array is empty
-export function unserialiseError(serialisedErrors: SerialisedError[]): Error | undefined {
-    if (serialisedErrors.length === 0) return undefined;
-
+export function unserialiseError(serialisedErrors: SerialisedError[]): Error {
     // Build the error chain from root cause (end) to outermost (start)
     let rebuiltError: Error | undefined;
     for (const serialised of serialisedErrors.toReversed()) {
@@ -145,7 +143,7 @@ export function unserialiseError(serialisedErrors: SerialisedError[]): Error | u
         if (serialised.stack !== undefined) error.stack = serialised.stack; // Restore stack trace if available
         rebuiltError = error;
     }
-    return rebuiltError;
+    return rebuiltError ?? new Error('No error to unserialise.');
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
