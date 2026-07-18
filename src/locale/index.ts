@@ -18,6 +18,13 @@ interface UnlocalisedConfig {
     description: LocaleDescription;
     verb?: LocaleLabel | undefined;
 }
+export type LocalisedReference<T> = Omit<T, 'label' | 'description'> & { label: string; description: string[] };
+
+interface UnlocalisedReference {
+    id: string;
+    label: LocaleLabel;
+    description: LocaleDescription;
+}
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -51,6 +58,14 @@ export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], local
         verb: config.verb?.[localeId] ?? undefined
     }));
     return isResultSorted ? mapped.toSorted((a, b) => a.label.localeCompare(b.label) || a.id.localeCompare(b.id)) : mapped;
+}
+
+export function localiseReference<T extends UnlocalisedReference>(reference: T, localeId: LocaleId): LocalisedReference<T> {
+    return {
+        ...reference,
+        label: reference.label[localeId] ?? reference.id,
+        description: reference.description[localeId]
+    };
 }
 
 export function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId = DEFAULT_LOCALE_ID): string | undefined {
