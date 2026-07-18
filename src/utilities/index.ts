@@ -13,7 +13,7 @@ const DURATION_LEVELS: DurationLevelTuple[] = [
     ['ms', 0, (n: number): string => `${formatNumberAsWholeNumber(n)} ms`]
 ];
 
-const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en-GB';
+const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en';
 const NUMBER_FORMATTER_MAP = new Map<string, Intl.NumberFormat>();
 
 // ── Actions - Data Type Conversion ───────────────────────────────────────────────────────────────────────────────────
