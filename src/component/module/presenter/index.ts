@@ -15,7 +15,7 @@ export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
 
     list(): ComponentReference[]; // TODO: Do we need this? Configuration contains list.
-    render(presentationPath: string, renderTo: HTMLElement, data?: unknown): Promise<void>;
+    render(presentationReference: ComponentReference, renderTo: HTMLElement, data?: unknown): Promise<void>;
     setColorMode(colorModeId: string): void;
 }
 
