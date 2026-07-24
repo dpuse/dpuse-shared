@@ -145,7 +145,7 @@ var m = n([
 function E(e) {
 	let t = !1, n = !1;
 	for (let r of e) T.has(r) && (t = !0), w.has(r) && (n = !0);
-	return t && n ? "bidirectional" : t ? "source" : n ? "destination" : "unknown";
+	return t && n ? "bidirectional" : t ? "source" : n ? "destination" : "source";
 }
 var D = (n, r = "en") => {
 	let i = x.find((e) => e.id === n);

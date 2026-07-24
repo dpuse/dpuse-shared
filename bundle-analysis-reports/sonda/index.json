@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-07-24T08:46:34.255Z",
+    "generatedAt": "2026-07-24T09:04:20.127Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -36,9 +36,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentContext.es.js",
       "type": "script",
-      "uncompressed": 464,
+      "uncompressed": 0,
       "gzip": 0,
-      "brotli": 238
+      "brotli": 1
     },
     {
       "kind": "asset",
@@ -124,7 +124,7 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentModuleConnector.es.js",
       "type": "script",
-      "uncompressed": 3713,
+      "uncompressed": 3712,
       "gzip": 0,
       "brotli": 1219
     },
@@ -239,17 +239,10 @@
     },
     {
       "kind": "filesystem",
-      "name": "src/component/context/contextConfig.schema.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 713
-    },
-    {
-      "kind": "filesystem",
       "name": "src/component/context/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 84
+      "uncompressed": 11
     },
     {
       "kind": "filesystem",
@@ -333,7 +326,7 @@
       "name": "src/component/module/connector/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3597
+      "uncompressed": 3596
     },
     {
       "kind": "filesystem",

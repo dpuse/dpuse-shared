@@ -150,13 +150,13 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | dist/dpuse-shared-component.es.js | 1.3 kB · brotli 458 B |
 | dist/dpuse-shared-locale.es.js | 987 B · brotli 390 B |
 | dist/dpuse-shared-componentDataView.es.js | 722 B · brotli 310 B |
-| dist/dpuse-shared-componentContext.es.js | 464 B · brotli 238 B |
 | dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 226 B |
 | dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 234 B |
 | dist/dpuse-shared-componentModuleTool.es.js | 325 B · brotli 223 B |
 | dist/moduleConfig.schema-COF8ocp_.js | 325 B · brotli 207 B |
 | dist/dpuse-shared-componentRecipe.es.js | 94 B · brotli 70 B |
 | dist/dpuse-shared-componentConnection.es.js | 0 B · brotli 1 B |
+| dist/dpuse-shared-componentContext.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModel.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelEntity.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelEntityDataItem.es.js | 0 B · brotli 1 B |

@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.749",
+    "version": "0.3.750",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -119,7 +119,7 @@
         "dist"
     ],
     "engines": {
-        "node": ">=22",
+        "node": ">=23.11",
         "npm": ">=11"
     },
     "prettier": "@dpuse/dpuse-development/prettierrc",
