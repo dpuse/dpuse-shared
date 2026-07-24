@@ -90,7 +90,7 @@
 | Types     | `AuditObjectContentOptions`, `AuditObjectContentOptions1`, `AuditObjectContentResult`, `AuditObjectContentResult1`, `ConnectorActionName`, `ConnectorConfig`, `ConnectorConstructor`, `ConnectorInterface`, `ConnectorUtilities`, `CreateObjectOptions`, `DescribeConnectionOptions`, `DropObjectOptions`, `FindObjectOptions`, `FindObjectResult`, `GetReadableStreamOptions`, `GetRecordOptions`, `GetRecordResult`, `ListNodesOptions`, `ListNodesResult`, `PreviewObjectOptions`, `RecordRetrievalTypeId`, `RemoveRecordsOptions`, `RetrieveChunksOptions`, `RetrieveRecordsOptions`, `RetrieveRecordsSummary`, `UpsertRecordsOptions` |
 | Actions   | `constructConnectorCategoryConfig(id, localeId?)`, `getConnectorActionsTable(supported)`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-### `@dpuse/dpuse-shared/component/module/context`
+### `@dpuse/dpuse-shared/component/context`
 
 | Category | Exports                                                                                                                  |
 | -------- | ------------------------------------------------------------------------------------------------------------------------ |
