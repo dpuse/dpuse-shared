@@ -34,4 +34,4 @@ export declare function concatenateSerialisedErrorMessages(serialisedErrors: Ser
 export declare function ignoreErrors(action: () => void): void;
 export declare function normalizeToError(value: unknown): Error;
 export declare function serialiseError(error?: unknown): SerialisedError[];
-export declare function unserialiseError(serialisedErrors: SerialisedError[]): Error | undefined;
+export declare function unserialiseError(serialisedErrors: SerialisedError[]): Error;

@@ -23,7 +23,11 @@ var m = n([
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), g = i({ label: o }), _ = i({
+]), g = i({ label: o }), _ = n([
+	"bidirectional",
+	"destination",
+	"source"
+]), v = i({ label: o }), y = i({
 	authMethodId: n([
 		"apiKey",
 		"disabled",
@@ -36,17 +40,19 @@ var m = n([
 	label: a(o),
 	maxConnectionCount: s(f()),
 	params: a(l(u(c(), c())))
-}), v = i({
+}), b = i({
 	typeId: r("connector"),
 	...p,
 	actionNames: l(m),
 	category: s(g),
 	categoryId: h,
-	implementations: u(c(), _),
+	implementations: u(c(), y),
+	usage: s(v),
+	usageId: s(_),
 	vendorAccountURL: s(c()),
 	vendorDocumentationURL: s(c()),
 	vendorHomeURL: s(c())
-}), y = [
+}), x = [
 	{
 		id: "application",
 		label: {
@@ -75,7 +81,7 @@ var m = n([
 			es: "Almacén de Archivos"
 		}
 	}
-], b = {
+], S = {
 	abortOperation: "Abort Operation",
 	auditObjectContent: "Audit Object Content",
 	createObject: "Create Object",
@@ -91,12 +97,41 @@ var m = n([
 	retrieveChunks: "Retrieve Chunks",
 	retrieveRecords: "Retrieve Records",
 	upsertRecords: "Upsert Records"
-}, x = /* @__PURE__ */ new Set([
+}, C = [
+	{
+		id: "bidirectional",
+		label: {
+			en: "Bidirectional",
+			es: "Bidireccional"
+		}
+	},
+	{
+		id: "destination",
+		label: {
+			en: "Destination",
+			es: "Destino"
+		}
+	},
+	{
+		id: "source",
+		label: {
+			en: "Source",
+			es: "Origen"
+		}
+	},
+	{
+		id: "unknown",
+		label: {
+			en: "Unknown",
+			es: "Desconocido"
+		}
+	}
+], w = /* @__PURE__ */ new Set([
 	"createObject",
 	"dropObject",
 	"removeRecords",
 	"upsertRecords"
-]), S = /* @__PURE__ */ new Set([
+]), T = /* @__PURE__ */ new Set([
 	"auditObjectContent",
 	"findObject",
 	"getInfo",
@@ -107,13 +142,22 @@ var m = n([
 	"retrieveChunks",
 	"retrieveRecords"
 ]);
-function C(e) {
+function E(e) {
 	let t = !1, n = !1;
-	for (let r of e) S.has(r) && (t = !0), x.has(r) && (n = !0);
+	for (let r of e) T.has(r) && (t = !0), w.has(r) && (n = !0);
 	return t && n ? "bidirectional" : t ? "source" : n ? "destination" : "unknown";
 }
-var w = (n, r = "en") => {
-	let i = y.find((e) => e.id === n);
+var D = (n, r = "en") => {
+	let i = x.find((e) => e.id === n);
+	return i ? {
+		label: t(e(i.label), r) ?? i.id,
+		description: []
+	} : {
+		label: n,
+		description: []
+	};
+}, O = (n, r = "en") => {
+	let i = C.find((e) => e.id === n);
 	return i ? {
 		label: t(e(i.label), r) ?? i.id,
 		description: []
@@ -122,11 +166,11 @@ var w = (n, r = "en") => {
 		description: []
 	};
 };
-function T(e) {
+function k(e) {
 	let t = new Set(e), n = "|Action|Supported|\n";
 	n += "|:----|:-------:|\n";
-	for (let e of Object.keys(b)) n += `| ${b[e]} | ${t.has(e) ? "✓" : ""} |\n`;
+	for (let e of Object.keys(S)) n += `| ${S[e]} | ${t.has(e) ? "✓" : ""} |\n`;
 	return n;
 }
 //#endregion
-export { b as CONNECTOR_ACTION_NAME_MAP, v as connectorConfigSchema, w as constructConnectorCategoryConfig, C as determineConnectorUsageId, T as getConnectorActionsTable };
+export { S as CONNECTOR_ACTION_NAME_MAP, b as connectorConfigSchema, D as constructConnectorCategoryConfig, O as constructConnectorUsageConfig, E as determineConnectorUsageId, k as getConnectorActionsTable };

@@ -25,7 +25,7 @@ var e = [
 		0,
 		(e) => `${u(e)} ms`
 	]
-], t = "en-GB", n = /* @__PURE__ */ new Map();
+], t = "en", n = /* @__PURE__ */ new Map();
 function r(e) {
 	switch (e) {
 		case "Edm.Binary": return "unknown";

@@ -1,6 +1,6 @@
 import { InferOutput } from 'valibot';
-import { EngineContextActionOptions } from '../engine';
-import { Component, ComponentConfig, ComponentReference } from '../..';
+import { EngineContextActionOptions } from '../module/engine';
+import { Component, ComponentConfig, ComponentReference } from '..';
 import { contextActionNameSchema, contextConfigSchema } from './contextConfig.schema';
 export { contextConfigSchema } from './contextConfig.schema';
 export interface ContextInterface extends Component {

@@ -9,6 +9,13 @@ export declare const connectorCategoryConfigSchema: import('valibot').ObjectSche
         readonly es: import('valibot').StringSchema<undefined>;
     }, undefined>;
 }, undefined>;
+export declare const connectorUsageIdSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"bidirectional", undefined>, import('valibot').LiteralSchema<"destination", undefined>, import('valibot').LiteralSchema<"source", undefined>], undefined>;
+export declare const connectorUsageConfigSchema: import('valibot').ObjectSchema<{
+    readonly label: import('valibot').ObjectSchema<{
+        readonly en: import('valibot').StringSchema<undefined>;
+        readonly es: import('valibot').StringSchema<undefined>;
+    }, undefined>;
+}, undefined>;
 export declare const connectorConfigSchema: import('valibot').ObjectSchema<{
     readonly actionNames: import('valibot').ArraySchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"abortOperation", undefined>, import('valibot').LiteralSchema<"auditObjectContent", undefined>, import('valibot').LiteralSchema<"createObject", undefined>, import('valibot').LiteralSchema<"describeConnection", undefined>, import('valibot').LiteralSchema<"dropObject", undefined>, import('valibot').LiteralSchema<"findObject", undefined>, import('valibot').LiteralSchema<"getInfo", undefined>, import('valibot').LiteralSchema<"getReadableStream", undefined>, import('valibot').LiteralSchema<"getRecord", undefined>, import('valibot').LiteralSchema<"listNodes", undefined>, import('valibot').LiteralSchema<"previewObject", undefined>, import('valibot').LiteralSchema<"removeRecords", undefined>, import('valibot').LiteralSchema<"retrieveChunks", undefined>, import('valibot').LiteralSchema<"retrieveRecords", undefined>, import('valibot').LiteralSchema<"upsertRecords", undefined>], undefined>, undefined>;
     readonly category: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
@@ -30,6 +37,13 @@ export declare const connectorConfigSchema: import('valibot').ObjectSchema<{
         readonly maxConnectionCount: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
         readonly params: import('valibot').OptionalSchema<import('valibot').ArraySchema<import('valibot').RecordSchema<import('valibot').StringSchema<undefined>, import('valibot').StringSchema<undefined>, undefined>, undefined>, undefined>;
     }, undefined>, undefined>;
+    readonly usage: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
+        readonly label: import('valibot').ObjectSchema<{
+            readonly en: import('valibot').StringSchema<undefined>;
+            readonly es: import('valibot').StringSchema<undefined>;
+        }, undefined>;
+    }, undefined>, undefined>;
+    readonly usageId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"bidirectional", undefined>, import('valibot').LiteralSchema<"destination", undefined>, import('valibot').LiteralSchema<"source", undefined>], undefined>, undefined>;
     readonly vendorAccountURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     readonly vendorDocumentationURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     readonly vendorHomeURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;

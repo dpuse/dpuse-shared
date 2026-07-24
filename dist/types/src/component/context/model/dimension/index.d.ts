@@ -1,4 +1,4 @@
-import { ComponentConfig } from '../..';
+import { ComponentConfig } from '../../..';
 export interface ContextModelDimensionConfig extends ComponentConfig {
     typeId: 'contextModelDimension';
     groupId: string;

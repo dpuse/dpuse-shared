@@ -4,11 +4,11 @@ import type { InferOutput } from 'valibot';
 // ── DPUse (Local) Framework
 import type { EngineContextActionOptions } from '@/component/module/engine';
 import type { Component, ComponentConfig, ComponentReference } from '@/component';
-import type { contextActionNameSchema, contextConfigSchema } from '@/component/module/context/contextConfig.schema';
+import type { contextActionNameSchema, contextConfigSchema } from '~/src/component/context/contextConfig.schema';
 
 // ── Schema ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { contextConfigSchema } from '@/component/module/context/contextConfig.schema';
+export { contextConfigSchema } from '~/src/component/context/contextConfig.schema';
 
 // ── Types - Context Interface ────────────────────────────────────────────────────────────────────────────────────────
 

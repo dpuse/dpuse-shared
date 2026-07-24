@@ -1,4 +1,4 @@
-import { ComponentConfig } from '../../..';
+import { ComponentConfig } from '../../../..';
 export interface ContextModelEntityDataItemConfig extends ComponentConfig {
     typeId: 'contextModelEntityDataItem';
 }

@@ -65,13 +65,12 @@ function d(e) {
 	return n;
 }
 function f(e) {
-	if (e.length === 0) return;
 	let t;
 	for (let n of e.toReversed()) {
 		let e = m(n, t);
 		n.stack !== void 0 && (e.stack = n.stack), t = e;
 	}
-	return t;
+	return t ?? /* @__PURE__ */ Error("No error to unserialise.");
 }
 function p(e) {
 	let t;

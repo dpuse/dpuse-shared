@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.748",
+    "version": "0.3.749",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -38,33 +38,33 @@
             "import": "./dist/dpuse-shared-componentEventQuery.es.js",
             "types": "./dist/types/src/component/eventQuery/index.d.ts"
         },
-        "./component/model": {
-            "import": "./dist/dpuse-shared-componentModuleContextModel.es.js",
-            "types": "./dist/types/src/component/model/index.d.ts"
+        "./component/context": {
+            "import": "./dist/dpuse-shared-componentContext.es.js",
+            "types": "./dist/types/src/component/context/index.d.ts"
         },
-        "./component/model/dimension": {
-            "import": "./dist/dpuse-shared-componentModuleContextModelDimension.es.js",
-            "types": "./dist/types/src/component/model/dimension/index.d.ts"
+        "./component/context/model": {
+            "import": "./dist/dpuse-shared-componentContextModel.es.js",
+            "types": "./dist/types/src/component/context/model/index.d.ts"
         },
-        "./component/model/entity": {
-            "import": "./dist/dpuse-shared-componentModuleContextModelEntity.es.js",
-            "types": "./dist/types/src/component/model/entity/index.d.ts"
+        "./component/context/model/entity": {
+            "import": "./dist/dpuse-shared-componentContextModelEntity.es.js",
+            "types": "./dist/types/src/component/context/model/entity/index.d.ts"
         },
-        "./component/model/entity/dataItem": {
-            "import": "./dist/dpuse-shared-componentModuleContextModelEntityDataItem.es.js",
-            "types": "./dist/types/src/component/model/entity/dataItem/index.d.ts"
+        "./component/context/model/entity/dataItem": {
+            "import": "./dist/dpuse-shared-componentContextModelEntityDataItem.es.js",
+            "types": "./dist/types/src/component/context/model/entity/dataItem/index.d.ts"
         },
-        "./component/model/entity/event": {
-            "import": "./dist/dpuse-shared-componentModuleContextModelEntityEvent.es.js",
-            "types": "./dist/types/src/component/model/entity/event/index.d.ts"
+        "./component/context/model/entity/event": {
+            "import": "./dist/dpuse-shared-componentContextModelEntityEvent.es.js",
+            "types": "./dist/types/src/component/context/model/entity/event/index.d.ts"
         },
-        "./component/model/entity/primaryMeasure": {
-            "import": "./dist/dpuse-shared-componentModuleContextModelEntityPrimaryMeasure.es.js",
-            "types": "./dist/types/src/component/model/entity/primaryMeasure/index.d.ts"
+        "./component/context/model/entity/primaryMeasure": {
+            "import": "./dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js",
+            "types": "./dist/types/src/component/context/model/entity/primaryMeasure/index.d.ts"
         },
-        "./component/model/secondaryMeasure": {
-            "import": "./dist/dpuse-shared-componentModuleContextModelSecondaryMeasure.es.js",
-            "types": "./dist/types/src/component/model/secondaryMeasure/index.d.ts"
+        "./component/context/model/secondaryMeasure": {
+            "import": "./dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js",
+            "types": "./dist/types/src/component/context/model/secondaryMeasure/index.d.ts"
         },
         "./component/module": {
             "import": "./dist/dpuse-shared-componentModule.es.js",
@@ -74,10 +74,6 @@
             "import": "./dist/dpuse-shared-componentModuleConnector.es.js",
             "types": "./dist/types/src/component/module/connector/index.d.ts"
         },
-        "./component/module/context": {
-            "import": "./dist/dpuse-shared-componentModuleContext.es.js",
-            "types": "./dist/types/src/component/module/context/index.d.ts"
-        },
         "./component/module/engine": {
             "import": "./dist/dpuse-shared-componentModuleEngine.es.js",
             "types": "./dist/types/src/component/module/engine/index.d.ts"
@@ -86,13 +82,21 @@
             "import": "./dist/dpuse-shared-componentModulePresenter.es.js",
             "types": "./dist/types/src/component/module/presenter/index.d.ts"
         },
+        "./component/module/cookbook": {
+            "import": "./dist/dpuse-shared-componentModuleCookbook.es.js",
+            "types": "./dist/types/src/component/module/cookbook/index.d.ts"
+        },
         "./component/module/tool": {
             "import": "./dist/dpuse-shared-componentModuleTool.es.js",
             "types": "./dist/types/src/component/module/tool/index.d.ts"
         },
         "./component/presentation": {
-            "import": "./dist/dpuse-shared-componentModulePresenterPresentation.es.js",
+            "import": "./dist/dpuse-shared-componentModulePresentation.es.js",
             "types": "./dist/types/src/component/presentation/index.d.ts"
+        },
+        "./component/recipe": {
+            "import": "./dist/dpuse-shared-componentModuleRecipe.es.js",
+            "types": "./dist/types/src/component/recipe/index.d.ts"
         },
         "./encoding": {
             "import": "./dist/dpuse-shared-encoding.es.js",

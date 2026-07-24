@@ -3,7 +3,7 @@ import { Component } from '../..';
 import { EngineConnectorActionOptions } from '../engine';
 import { ToolConfig } from '../tool';
 import { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '../../connection';
-import { connectorActionNameSchema, connectorCategoryConfigSchema, connectorConfigSchema } from './connectorConfig.schema';
+import { connectorActionNameSchema, connectorCategoryConfigSchema, connectorConfigSchema, connectorUsageConfigSchema, connectorUsageIdSchema } from './connectorConfig.schema';
 import { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '../../dataView';
 import { LocalisedConfig } from '../../../locale';
 export { connectorConfigSchema } from './connectorConfig.schema';
@@ -36,6 +36,7 @@ export interface ConnectorUtilities {
 }
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
+type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
@@ -139,7 +140,8 @@ export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     path: string;
 }
 export declare const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string>;
-export type ConnectorUsageId = 'bidirectional' | 'destination' | 'source' | 'unknown';
+export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>;
 export declare function determineConnectorUsageId(actionNames: ConnectorActionName[]): ConnectorUsageId;
 export declare const constructConnectorCategoryConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorCategoryConfig>;
+export declare const constructConnectorUsageConfig: (id: string, localeId?: import('../../../locale').LocaleId) => LocalisedConfig<ConnectorUsageConfig>;
 export declare function getConnectorActionsTable(supported: ConnectorActionName[]): string;

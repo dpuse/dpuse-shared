@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-07-12T10:23:58.951Z",
+    "generatedAt": "2026-07-24T08:46:34.255Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -34,6 +34,62 @@
     },
     {
       "kind": "asset",
+      "name": "dist/dpuse-shared-componentContext.es.js",
+      "type": "script",
+      "uncompressed": 464,
+      "gzip": 0,
+      "brotli": 238
+    },
+    {
+      "kind": "asset",
+      "name": "dist/dpuse-shared-componentContextModel.es.js",
+      "type": "script",
+      "uncompressed": 0,
+      "gzip": 0,
+      "brotli": 1
+    },
+    {
+      "kind": "asset",
+      "name": "dist/dpuse-shared-componentContextModelEntity.es.js",
+      "type": "script",
+      "uncompressed": 0,
+      "gzip": 0,
+      "brotli": 1
+    },
+    {
+      "kind": "asset",
+      "name": "dist/dpuse-shared-componentContextModelEntityDataItem.es.js",
+      "type": "script",
+      "uncompressed": 0,
+      "gzip": 0,
+      "brotli": 1
+    },
+    {
+      "kind": "asset",
+      "name": "dist/dpuse-shared-componentContextModelEntityEvent.es.js",
+      "type": "script",
+      "uncompressed": 0,
+      "gzip": 0,
+      "brotli": 1
+    },
+    {
+      "kind": "asset",
+      "name": "dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js",
+      "type": "script",
+      "uncompressed": 0,
+      "gzip": 0,
+      "brotli": 1
+    },
+    {
+      "kind": "asset",
+      "name": "dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js",
+      "type": "script",
+      "uncompressed": 0,
+      "gzip": 0,
+      "brotli": 1
+    },
+    {
+      "kind": "asset",
       "name": "dist/dpuse-shared-componentDataView.es.js",
       "type": "script",
       "uncompressed": 722,
@@ -58,62 +114,6 @@
     },
     {
       "kind": "asset",
-      "name": "dist/dpuse-shared-componentModel.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse-shared-componentModelDimension.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse-shared-componentModelEntity.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse-shared-componentModelEntityDataItem.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse-shared-componentModelEntityEvent.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse-shared-componentModelEntityPrimaryMeasure.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse-shared-componentModelSecondaryMeasure.es.js",
-      "type": "script",
-      "uncompressed": 0,
-      "gzip": 0,
-      "brotli": 1
-    },
-    {
-      "kind": "asset",
       "name": "dist/dpuse-shared-componentModule.es.js",
       "type": "script",
       "uncompressed": 0,
@@ -124,17 +124,17 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentModuleConnector.es.js",
       "type": "script",
-      "uncompressed": 3069,
+      "uncompressed": 3713,
       "gzip": 0,
-      "brotli": 1120
+      "brotli": 1219
     },
     {
       "kind": "asset",
-      "name": "dist/dpuse-shared-componentModuleContext.es.js",
+      "name": "dist/dpuse-shared-componentModuleCookbook.es.js",
       "type": "script",
-      "uncompressed": 471,
+      "uncompressed": 370,
       "gzip": 0,
-      "brotli": 239
+      "brotli": 234
     },
     {
       "kind": "asset",
@@ -170,6 +170,14 @@
     },
     {
       "kind": "asset",
+      "name": "dist/dpuse-shared-componentRecipe.es.js",
+      "type": "script",
+      "uncompressed": 94,
+      "gzip": 0,
+      "brotli": 70
+    },
+    {
+      "kind": "asset",
       "name": "dist/dpuse-shared-encoding.es.js",
       "type": "script",
       "uncompressed": 7010,
@@ -180,25 +188,25 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-errors.es.js",
       "type": "script",
-      "uncompressed": 3598,
+      "uncompressed": 3622,
       "gzip": 0,
-      "brotli": 1118
+      "brotli": 1119
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-shared-locale.es.js",
       "type": "script",
-      "uncompressed": 859,
+      "uncompressed": 987,
       "gzip": 0,
-      "brotli": 381
+      "brotli": 390
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-shared-utilities.es.js",
       "type": "script",
-      "uncompressed": 3655,
+      "uncompressed": 3652,
       "gzip": 0,
-      "brotli": 1178
+      "brotli": 1176
     },
     {
       "kind": "asset",
@@ -225,6 +233,62 @@
     {
       "kind": "filesystem",
       "name": "src/component/connection/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 11
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/contextConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 713
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 84
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/model/entity/dataItem/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 11
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/model/entity/event/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 11
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/model/entity/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 11
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/model/entity/primaryMeasure/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 11
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/model/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 11
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/context/model/secondaryMeasure/index.ts",
       "type": "script",
       "format": "esm",
       "uncompressed": 11
@@ -259,80 +323,31 @@
     },
     {
       "kind": "filesystem",
-      "name": "src/component/model/dimension/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/component/model/entity/dataItem/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/component/model/entity/event/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/component/model/entity/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/component/model/entity/primaryMeasure/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/component/model/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/component/model/secondaryMeasure/index.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11
-    },
-    {
-      "kind": "filesystem",
       "name": "src/component/module/connector/connectorConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1814
+      "uncompressed": 2085
     },
     {
       "kind": "filesystem",
       "name": "src/component/module/connector/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 2781
+      "uncompressed": 3597
     },
     {
       "kind": "filesystem",
-      "name": "src/component/module/context/contextConfig.schema.ts",
+      "name": "src/component/module/cookbook/cookbookConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 713
+      "uncompressed": 511
     },
     {
       "kind": "filesystem",
-      "name": "src/component/module/context/index.ts",
+      "name": "src/component/module/cookbook/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 87
+      "uncompressed": 90
     },
     {
       "kind": "filesystem",
@@ -385,6 +400,13 @@
     },
     {
       "kind": "filesystem",
+      "name": "src/component/recipe/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 48
+    },
+    {
+      "kind": "filesystem",
       "name": "src/encoding/encodingConfigs.json",
       "type": "script",
       "format": "esm",
@@ -402,14 +424,14 @@
       "name": "src/errors/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 5365
+      "uncompressed": 5352
     },
     {
       "kind": "filesystem",
       "name": "src/locale/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1154
+      "uncompressed": 1342
     },
     {
       "kind": "filesystem",
@@ -430,7 +452,7 @@
       "name": "src/utilities/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 5860
+      "uncompressed": 5857
     }
   ],
   "connections": [],

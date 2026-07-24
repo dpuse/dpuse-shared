@@ -1,4 +1,4 @@
-import { ComponentConfig, ComponentReference } from '..';
+import { ComponentConfig, ComponentReference } from '../..';
 export interface ContextModelConfig extends ComponentConfig {
     diagramURL?: string;
     dimensions: ComponentReference[];
