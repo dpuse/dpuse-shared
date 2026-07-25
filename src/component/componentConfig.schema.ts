@@ -62,7 +62,8 @@ export const componentBaseSchema = {
     label: partialLocaleLabelSchema,
     description: partialLocaleDescriptionSchema,
     icon: nullable(string()),
-    iconDark: nullable(string())
+    iconDark: nullable(string()),
+    typeId: componentTypeIdSchema
 };
 
 // ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
@@ -86,6 +87,5 @@ export const componentConfigCoreFields = {
 };
 
 export const componentConfigSchema = object({
-    typeId: componentTypeIdSchema,
     ...componentConfigCoreFields
 });
