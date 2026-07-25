@@ -1,9 +1,16 @@
 // ── External Dependencies & Registrations
+import { object } from 'valibot';
 import type { InferOutput } from 'valibot';
 
 // ── DPUse (Local) Framework
+import { componentBaseSchema } from '@/component/componentConfig.schema';
 import { DEFAULT_LOCALE_ID } from '@/locale';
-import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
+import type {
+    componentConfigSchema,
+    componentReferenceSchema,
+    componentStatusColorIdSchema,
+    componentStatusConfigSchema
+} from '@/component/componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -15,6 +22,10 @@ export { componentConfigSchema } from '@/component/componentConfig.schema';
 export interface Component {
     readonly config: ComponentConfig;
 }
+
+// ── Types - Base ─────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type ComponentBase = InferOutput<ReturnType<typeof object<typeof componentBaseSchema>>>;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 

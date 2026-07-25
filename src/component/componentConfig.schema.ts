@@ -54,15 +54,22 @@ export const componentStatusConfigSchema = object({
     label: string()
 });
 
-// ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Base ───────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Common structure for referencing all components.
-export const componentReferenceSchema = object({
+// Common base structure components and component references.
+export const componentBaseSchema = {
     id: string(),
     label: partialLocaleLabelSchema,
     description: partialLocaleDescriptionSchema,
     icon: nullable(string()),
-    iconDark: nullable(string()),
+    iconDark: nullable(string())
+};
+
+// ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
+
+// Common structure for referencing all components.
+export const componentReferenceSchema = object({
+    ...componentBaseSchema,
     order: number(),
     path: string()
 });
@@ -71,12 +78,8 @@ export const componentReferenceSchema = object({
 
 // Core fields present in all components.
 export const componentConfigCoreFields = {
-    id: string(),
-    label: partialLocaleLabelSchema,
-    description: partialLocaleDescriptionSchema,
+    ...componentBaseSchema,
     firstCreatedAt: nullable(number()),
-    icon: nullable(string()),
-    iconDark: nullable(string()),
     lastUpdatedAt: nullable(number()),
     status: nullable(componentStatusConfigSchema),
     statusId: nullable(componentStatusIdSchema)
