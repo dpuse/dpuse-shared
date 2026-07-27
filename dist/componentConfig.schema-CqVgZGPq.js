@@ -382,8 +382,8 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	en: /* @__PURE__ */ T(),
 	es: /* @__PURE__ */ T()
 }), A = /* @__PURE__ */ S({
-	en: /* @__PURE__ */ C(/* @__PURE__ */ _(/* @__PURE__ */ T())),
-	es: /* @__PURE__ */ C(/* @__PURE__ */ _(/* @__PURE__ */ T()))
+	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
+	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
 }), j = /* @__PURE__ */ S({
 	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
 	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
@@ -429,27 +429,23 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 ]), F = /* @__PURE__ */ S({
 	color: N,
 	label: /* @__PURE__ */ T()
-}), I = /* @__PURE__ */ S({
+}), I = {
 	id: /* @__PURE__ */ T(),
 	label: j,
 	description: A,
 	icon: /* @__PURE__ */ b(/* @__PURE__ */ T()),
 	iconDark: /* @__PURE__ */ b(/* @__PURE__ */ T()),
+	typeId: M
+}, L = /* @__PURE__ */ S({
+	...I,
 	order: /* @__PURE__ */ x(),
 	path: /* @__PURE__ */ T()
-}), L = {
-	id: /* @__PURE__ */ T(),
-	label: j,
-	description: A,
+}), R = {
+	...I,
 	firstCreatedAt: /* @__PURE__ */ b(/* @__PURE__ */ x()),
-	icon: /* @__PURE__ */ b(/* @__PURE__ */ T()),
-	iconDark: /* @__PURE__ */ b(/* @__PURE__ */ T()),
 	lastUpdatedAt: /* @__PURE__ */ b(/* @__PURE__ */ x()),
 	status: /* @__PURE__ */ b(F),
 	statusId: /* @__PURE__ */ b(P)
-}, R = /* @__PURE__ */ S({
-	typeId: M,
-	...L
-});
+}, z = /* @__PURE__ */ S({ ...R });
 //#endregion
-export { O as a, y as c, S as d, C as f, k as i, b as l, T as m, R as n, _ as o, w as p, I as r, v as s, L as t, x as u };
+export { O as a, y as c, S as d, C as f, k as i, b as l, T as m, z as n, _ as o, w as p, L as r, v as s, R as t, x as u };

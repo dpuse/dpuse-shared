@@ -4,6 +4,7 @@ export interface ContextConfig extends ComponentConfig {
     areas: ContextAreaConfig[];
 }
 export interface ContextAreaConfig extends ComponentConfig {
+    typeId: 'contextArea';
     models: ComponentReference[];
     order: number;
 }

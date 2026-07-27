@@ -142,18 +142,18 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 |Chunk/Module/File|Composition|
 |:------ |:-----------|
-| dist/componentConfig.schema-DzuoA1f0.js | 10.9 kB · brotli 2.3 kB |
+| dist/componentConfig.schema-CqVgZGPq.js | 10.8 kB · brotli 2.3 kB |
 | dist/dpuse-shared-encoding.es.js | 6.8 kB · brotli 953 B |
 | dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · brotli 1.2 kB |
 | dist/dpuse-shared-utilities.es.js | 3.6 kB · brotli 1.1 kB |
 | dist/dpuse-shared-errors.es.js | 3.5 kB · brotli 1.1 kB |
-| dist/dpuse-shared-component.es.js | 1.3 kB · brotli 458 B |
+| dist/dpuse-shared-component.es.js | 1.3 kB · brotli 451 B |
 | dist/dpuse-shared-locale.es.js | 987 B · brotli 390 B |
 | dist/dpuse-shared-componentDataView.es.js | 722 B · brotli 310 B |
-| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 226 B |
-| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 234 B |
+| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 219 B |
+| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 233 B |
 | dist/dpuse-shared-componentModuleTool.es.js | 325 B · brotli 223 B |
-| dist/moduleConfig.schema-COF8ocp_.js | 325 B · brotli 207 B |
+| dist/moduleConfig.schema-CXWl_g98.js | 325 B · brotli 209 B |
 | dist/dpuse-shared-componentRecipe.es.js | 94 B · brotli 70 B |
 | dist/dpuse-shared-componentConnection.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContext.es.js | 0 B · brotli 1 B |
@@ -168,6 +168,8 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | dist/dpuse-shared-componentModule.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentModuleEngine.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentPresentation.es.js | 0 B · brotli 1 B |
+
+(unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
 
 <!-- BUNDLE_END -->
 
