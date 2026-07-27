@@ -6,11 +6,11 @@ export type LocaleId = 'en' | 'es';
 
 export type LocaleLabel = Partial<Record<LocaleId, string>>;
 
-export type LocaleDescription = Partial<Record<LocaleId, string[]>>;
+export type LocaleDescription = Partial<Record<LocaleId, string>>;
 
 export type LocaleLabelMap = ReadonlyMap<string, string>;
 
-export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & { label: string; description: string[]; verb?: string | undefined };
+export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & { label: string; description: string; verb?: string | undefined };
 
 interface UnlocalisedConfig {
     id: string;
@@ -18,7 +18,7 @@ interface UnlocalisedConfig {
     description: LocaleDescription;
     verb?: LocaleLabel | undefined;
 }
-export type LocalisedReference<T> = Omit<T, 'label' | 'description'> & { label: string; description: string[] };
+export type LocalisedReference<T> = Omit<T, 'label' | 'description'> & { label: string; description: string };
 
 interface UnlocalisedReference {
     id: string;
