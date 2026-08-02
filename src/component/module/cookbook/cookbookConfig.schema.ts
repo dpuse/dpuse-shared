@@ -13,8 +13,8 @@ export const cookbookActionNameSchema = literalUnion(['list']);
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const cookbookConfigSchema = object({
-    typeId: literal('cookbook'),
     ...moduleConfigCoreFields,
+    typeId: literal('cookbook'),
     actionNames: array(cookbookActionNameSchema),
     recipes: array(componentReferenceSchema)
 });

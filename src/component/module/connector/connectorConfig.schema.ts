@@ -66,8 +66,8 @@ const connectorImplementationSchema = object({
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const connectorConfigSchema = object({
-    typeId: literal('connector'),
     ...moduleConfigCoreFields,
+    typeId: literal('connector'),
     actionNames: array(connectorActionNameSchema),
     category: nullable(connectorCategoryConfigSchema),
     categoryId: connectorCategoryIdSchema,

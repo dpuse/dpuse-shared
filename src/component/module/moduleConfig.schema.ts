@@ -8,7 +8,7 @@ import { literalUnion } from '@/schema';
 // ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────
 
 // We include 'app' here so we can monitor updates in 'dpuse-app'.
-export const moduleTypeIdSchema = literalUnion(['app', 'engine', 'connector', 'context', 'cookbook', 'presenter', 'tool']);
+export const moduleTypeIdSchema = literalUnion(['app', 'engine', 'connector', 'cookbook', 'presenter', 'tool']);
 
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 

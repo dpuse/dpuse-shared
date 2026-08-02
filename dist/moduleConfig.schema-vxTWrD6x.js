@@ -4,7 +4,6 @@ var i = e([
 	"app",
 	"engine",
 	"connector",
-	"context",
 	"cookbook",
 	"presenter",
 	"tool"

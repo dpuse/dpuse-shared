@@ -284,9 +284,9 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
     if (connectorCategory) {
         const labelMap = createLabelMap(connectorCategory.label);
         const localizedLabel = resolveLabel(labelMap, localeId);
-        return { label: localizedLabel ?? connectorCategory.id, description: [] };
+        return { label: localizedLabel ?? connectorCategory.id, description: '' };
     }
-    return { label: id, description: [] };
+    return { label: id, description: '' };
 };
 
 export const constructConnectorUsageConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorUsageConfig> => {
@@ -294,9 +294,9 @@ export const constructConnectorUsageConfig = (id: string, localeId = DEFAULT_LOC
     if (connectorUsage) {
         const labelMap = createLabelMap(connectorUsage.label);
         const localizedLabel = resolveLabel(labelMap, localeId);
-        return { label: localizedLabel ?? connectorUsage.id, description: [] };
+        return { label: localizedLabel ?? connectorUsage.id, description: '' };
     }
-    return { label: id, description: [] };
+    return { label: id, description: '' };
 };
 
 export function getConnectorActionsTable(supported: ConnectorActionName[]): string {

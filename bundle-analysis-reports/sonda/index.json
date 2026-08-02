@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-07-27T11:46:09.544Z",
+    "generatedAt": "2026-08-02T10:22:30.547Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -126,7 +126,7 @@
       "type": "script",
       "uncompressed": 3712,
       "gzip": 0,
-      "brotli": 1218
+      "brotli": 1214
     },
     {
       "kind": "asset",
@@ -134,7 +134,7 @@
       "type": "script",
       "uncompressed": 370,
       "gzip": 0,
-      "brotli": 233
+      "brotli": 231
     },
     {
       "kind": "asset",
@@ -150,7 +150,7 @@
       "type": "script",
       "uncompressed": 411,
       "gzip": 0,
-      "brotli": 219
+      "brotli": 226
     },
     {
       "kind": "asset",
@@ -210,11 +210,11 @@
     },
     {
       "kind": "asset",
-      "name": "dist/moduleConfig.schema-CXWl_g98.js",
+      "name": "dist/moduleConfig.schema-vxTWrD6x.js",
       "type": "script",
-      "uncompressed": 325,
+      "uncompressed": 313,
       "gzip": 0,
-      "brotli": 209
+      "brotli": 200
     },
     {
       "kind": "filesystem",
@@ -361,7 +361,7 @@
       "name": "src/component/module/moduleConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 492
+      "uncompressed": 480
     },
     {
       "kind": "filesystem",

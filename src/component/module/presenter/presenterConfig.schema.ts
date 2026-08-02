@@ -13,8 +13,8 @@ export const presenterActionNameSchema = literalUnion(['list', 'render', 'setCol
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const presenterConfigSchema = object({
-    typeId: literal('presenter'),
     ...moduleConfigCoreFields,
+    typeId: literal('presenter'),
     actionNames: array(presenterActionNameSchema),
     presentations: array(componentReferenceSchema)
 });

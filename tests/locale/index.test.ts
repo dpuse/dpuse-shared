@@ -14,7 +14,7 @@ describe('createLabelMap', () => {
 describe('localiseConfig', () => {
     it('localizes label and description for the requested locale', () => {
         const config = {
-            description: { en: ['English description'], es: ['Descripción'] },
+            description: { en: 'English description', es: 'Descripción' },
             id: 'demo',
             label: { en: 'English label', es: 'Etiqueta' },
             other: 1
@@ -43,13 +43,13 @@ describe('localiseConfig', () => {
 describe('localiseConfigs', () => {
     it('localizes every config in the collection', () => {
         const configs = [
-            { description: { en: ['First description'] }, id: 'first', label: { en: 'First' } },
+            { description: { en: 'First description' }, id: 'first', label: { en: 'First' } },
             { description: {}, id: 'second', label: {} }
         ];
 
         expect(localiseConfigs(configs, 'en')).toEqual([
-            { description: ['First description'], id: 'first', label: 'First' },
-            { description: [], id: 'second', label: 'second' }
+            { description: 'First description', id: 'first', label: 'First' },
+            { description: '', id: 'second', label: 'second' }
         ]);
     });
 });
