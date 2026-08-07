@@ -27,7 +27,7 @@ export class DPUseError extends Error {
     }
 }
 
-// Thrown when an app (workbench/knowledge) error occurs
+// Thrown when an app (studio/assistant) error occurs
 export class AppError extends DPUseError {
     constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
         super(message, locator, data, options);
