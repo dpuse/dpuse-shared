@@ -9,7 +9,7 @@ import { partialLocaleDescriptionSchema, partialLocaleLabelSchema } from '@/loca
 
 export const componentTypeIdSchema = literalUnion([
     'app',
-    'connection',
+    // 'connection',
     'connector',
     'connectorConnection',
     'context',
