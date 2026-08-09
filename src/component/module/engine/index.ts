@@ -1,5 +1,5 @@
-// ── DPUse (Local) Framework
-import type { ComponentConfig } from '@/component';
+// ── DPUse Framework
+import type { ComponentInstanceConfig } from '@/component';
 import type { EncodingTypeConfig } from '@/encoding';
 import type { LocalisedConfig } from '../../../locale';
 import type { ModuleConfig } from '@/component/module';
@@ -19,7 +19,7 @@ export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
     processRequest: (
         id: string,
-        config: ComponentConfig | LocalisedConfig<ComponentConfig>,
+        config: ComponentInstanceConfig | LocalisedConfig<ComponentInstanceConfig>,
         options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions,
         callback?: (callbackData: EngineCallbackData) => void
     ) => Promise<unknown>;

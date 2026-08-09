@@ -1,4 +1,4 @@
-import { ComponentConfig } from '..';
-export interface EventQueryConfig extends ComponentConfig {
+import { ComponentInstanceConfig } from '..';
+export interface EventQueryConfig extends ComponentInstanceConfig {
     typeId: 'eventQuery';
 }

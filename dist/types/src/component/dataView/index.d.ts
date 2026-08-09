@@ -1,7 +1,7 @@
 import { FileTypeResult } from 'file-type';
-import { ComponentConfig } from '..';
+import { ComponentInstanceConfig } from '..';
 import { ConnectionNodeConfig, ObjectColumnConfig } from '../connection';
-export interface DataViewConfig extends ComponentConfig {
+export interface DataViewConfig extends ComponentInstanceConfig {
     typeId: 'dataView';
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;

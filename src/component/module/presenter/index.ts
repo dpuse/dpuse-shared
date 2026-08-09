@@ -1,9 +1,9 @@
 // ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
 
-// ── DPUse (Local) Framework
+// ── DPUse Framework
 import { LocalisedReference } from '@/locale';
-import type { Component, ComponentReference } from '@/component';
+import type { Component, ComponentReferenceConfig } from '@/component';
 import type { presenterActionNameSchema, presenterConfigSchema } from '@/component/module/presenter/presenterConfig.schema';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -15,8 +15,8 @@ export { presenterConfigSchema } from '@/component/module/presenter/presenterCon
 export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
 
-    list(): ComponentReference[]; // TODO: Do we need this? Configuration contains list.
-    render(presentationReference: LocalisedReference<ComponentReference>, renderTo: HTMLElement, data?: unknown): Promise<void>;
+    list(): ComponentReferenceConfig[]; // TODO: Do we need this? Configuration contains list.
+    render(presentationReference: LocalisedReference<ComponentReferenceConfig>, renderTo: HTMLElement, data?: unknown): Promise<void>;
     setColorMode(colorModeId: string): void;
 }
 

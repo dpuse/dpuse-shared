@@ -97,7 +97,7 @@ function m(e, t) {
 	}
 }
 function h(t) {
-	if (!(t == null || t === "")) return t.length > e ? `${t.slice(0, e)}... [truncated]` : t;
+	if (t != null && t !== "") return t.length > e ? `${t.slice(0, e)}... [truncated]` : t;
 }
 function g(e) {
 	let n = e.cause == null ? null : u(e.cause);

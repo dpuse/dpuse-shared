@@ -1,9 +1,9 @@
-// ── DPUse (Local) Framework
-import { ComponentConfig } from '@/component';
+// ── DPUse Framework
+import { ComponentInstanceConfig } from '@/component';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelEntityEventConfig extends ComponentConfig {
+export interface ContextModelEntityEventConfig extends ComponentInstanceConfig {
     typeId: 'contextModelEntityEvent';
 }
 

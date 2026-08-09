@@ -1,8 +1,8 @@
 import { ConnectorConfig } from '../module/connector';
 import { LocaleLabel } from '../../locale';
-import { ComponentConfig } from '..';
+import { ComponentInstanceConfig } from '..';
 import { DataSubtypeId, DataTypeId } from '../dataView';
-export interface ConnectionConfig extends ComponentConfig {
+export interface ConnectionConfig extends ComponentInstanceConfig {
     typeId: 'connectorConnection';
     authorisation: Record<string, ConnectionAuthorisationConfig>;
     connectorConfig: ConnectorConfig;

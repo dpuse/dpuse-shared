@@ -1,4 +1,4 @@
-import { ComponentConfig } from '../../../..';
-export interface ContextModelEntityPrimaryMeasureConfig extends ComponentConfig {
+import { ComponentInstanceConfig } from '../../../..';
+export interface ContextModelEntityPrimaryMeasureConfig extends ComponentInstanceConfig {
     typeId: 'contextModelEntityPrimaryMeasure';
 }

@@ -1,8 +1,9 @@
+// ── External Dependencies & Registrations
+import type { InferOutput, object } from 'valibot';
+
 // ── DPUse Framework
-import { ComponentInstanceConfig } from '@/component';
+import { baseConfigSchema } from '@/baseConfig.schema';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelEntityDataItemConfig extends ComponentInstanceConfig {
-    typeId: 'contextModelEntityDataItem';
-}
+export type BaseConfig = InferOutput<ReturnType<typeof object<typeof baseConfigSchema>>>;

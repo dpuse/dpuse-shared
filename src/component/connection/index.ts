@@ -1,7 +1,7 @@
-// ── DPUse (Local) Framework
+// ── DPUse Framework
 import type { ConnectorConfig } from '@/component/module/connector';
 import type { LocaleLabel } from '@/locale';
-import type { Component, ComponentConfig } from '@/component';
+import type { Component, ComponentInstanceConfig } from '@/component';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -10,7 +10,7 @@ type ConnectionInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ConnectionConfig extends ComponentConfig {
+export interface ConnectionConfig extends ComponentInstanceConfig {
     typeId: 'connectorConnection';
     authorisation: Record<string, ConnectionAuthorisationConfig>;
     connectorConfig: ConnectorConfig;

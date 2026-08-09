@@ -1,5 +1,5 @@
 // External Dependencies
-import type { Component, ComponentConfig } from '@/component';
+import type { Component, ComponentInstanceConfig } from '@/component';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -7,6 +7,6 @@ type EventQueryInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface EventQueryConfig extends ComponentConfig {
+export interface EventQueryConfig extends ComponentInstanceConfig {
     typeId: 'eventQuery';
 }

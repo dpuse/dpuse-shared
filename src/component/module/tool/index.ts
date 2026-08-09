@@ -1,4 +1,4 @@
-// ── DPUse (Local) Framework
+// ── DPUse Framework
 import type { Component } from '@/component';
 import type { ModuleConfig } from '@/component/module';
 

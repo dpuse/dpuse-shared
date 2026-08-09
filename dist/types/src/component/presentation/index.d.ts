@@ -1,5 +1,5 @@
-import { ComponentConfig } from '..';
-export interface PresentationConfig extends ComponentConfig {
+import { ComponentInstanceConfig } from '..';
+export interface PresentationConfig extends ComponentInstanceConfig {
     typeId: 'presenterPresentation';
     content: string;
     order: number;

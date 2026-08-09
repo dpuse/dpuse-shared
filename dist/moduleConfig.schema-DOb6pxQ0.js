@@ -1,6 +1,6 @@
-import { a as e, d as t, m as n, t as r } from "./componentConfig.schema-CqVgZGPq.js";
+import { d as e, i as t, m as n, t as r } from "./componentConfig.schema-BRbvCPIW.js";
 //#region src/component/module/moduleConfig.schema.ts
-var i = e([
+var i = t([
 	"app",
 	"engine",
 	"connector",
@@ -11,7 +11,7 @@ var i = e([
 	...r,
 	version: n()
 };
-t({
+e({
 	...a,
 	typeId: i
 });

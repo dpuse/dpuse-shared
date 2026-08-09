@@ -85,7 +85,7 @@ Implements the common Data Positioning repository management command set. For mo
 
 ### Component Hierarchy
 
-`Component` is the foundational base type for all DPUse components. All component types extend `ComponentConfig` and are logically grouped in the following hierarchy. `Module` is a component type whose implementations are dynamically loaded by the host modules (App and API):
+`Component` is the foundational base type for all DPUse components. All component types extend `ComponentInstanceConfig` and are logically grouped in the following hierarchy. `Module` is a component type whose implementations are dynamically loaded by the host modules (App and API):
 
 ![Schematic](./schematic.svg)
 
@@ -117,8 +117,8 @@ License data is collected automatically on each release using [license-checker](
 
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
-|Dependency|Version|License(s)|Document|
-|:-|:-:|:-|:-|
+| Dependency | Version | License(s) | Document |
+| :--------- | :-----: | :--------- | :------- |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -142,18 +142,18 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 |Chunk/Module/File|Composition|
 |:------ |:-----------|
-| dist/componentConfig.schema-CqVgZGPq.js | 10.8 kB · brotli 2.3 kB |
+| dist/componentConfig.schema-BRbvCPIW.js | 10.7 kB · brotli 2.3 kB |
 | dist/dpuse-shared-encoding.es.js | 6.8 kB · brotli 953 B |
-| dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · brotli 1.2 kB |
+| dist/dpuse-shared-componentModuleConnector.es.js | 3.7 kB · brotli 1.2 kB |
 | dist/dpuse-shared-utilities.es.js | 3.6 kB · brotli 1.1 kB |
 | dist/dpuse-shared-errors.es.js | 3.5 kB · brotli 1.1 kB |
-| dist/dpuse-shared-component.es.js | 1.3 kB · brotli 451 B |
 | dist/dpuse-shared-locale.es.js | 987 B · brotli 390 B |
+| dist/dpuse-shared-component.es.js | 830 B · brotli 359 B |
 | dist/dpuse-shared-componentDataView.es.js | 722 B · brotli 310 B |
 | dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 226 B |
-| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 231 B |
+| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 214 B |
 | dist/dpuse-shared-componentModuleTool.es.js | 325 B · brotli 223 B |
-| dist/moduleConfig.schema-vxTWrD6x.js | 313 B · brotli 200 B |
+| dist/moduleConfig.schema-DOb6pxQ0.js | 313 B · brotli 210 B |
 | dist/dpuse-shared-componentRecipe.es.js | 94 B · brotli 70 B |
 | dist/dpuse-shared-componentConnection.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContext.es.js | 0 B · brotli 1 B |

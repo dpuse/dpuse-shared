@@ -377,19 +377,24 @@ function D(e, t) {
 	};
 }
 //#endregion
-//#region src/schema.ts
-var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__PURE__ */ S({
+//#region src/locale/locale.schema.ts
+var O = /* @__PURE__ */ S({
 	en: /* @__PURE__ */ T(),
 	es: /* @__PURE__ */ T()
-}), A = /* @__PURE__ */ S({
-	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
-	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
-}), j = /* @__PURE__ */ S({
-	en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
-	es: /* @__PURE__ */ C(/* @__PURE__ */ T())
-}), M = O([
+}), k = {
+	id: /* @__PURE__ */ T(),
+	label: /* @__PURE__ */ S({
+		en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
+		es: /* @__PURE__ */ C(/* @__PURE__ */ T())
+	}),
+	description: /* @__PURE__ */ S({
+		en: /* @__PURE__ */ C(/* @__PURE__ */ T()),
+		es: /* @__PURE__ */ C(/* @__PURE__ */ T())
+	}),
+	icon: /* @__PURE__ */ b(/* @__PURE__ */ T()),
+	iconDark: /* @__PURE__ */ b(/* @__PURE__ */ T())
+}, A = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), j = A([
 	"app",
-	"connection",
 	"connector",
 	"connectorConnection",
 	"context",
@@ -411,41 +416,31 @@ var O = (e) => /* @__PURE__ */ D(e.map((e) => /* @__PURE__ */ y(e))), k = /* @__
 	"presenter",
 	"presenterPresentation",
 	"tool"
-]), N = O([
+]), M = A([
 	"amber",
 	"green",
-	"red",
-	"other"
-]), P = O([
+	"red"
+]), N = A([
 	"alpha",
 	"beta",
-	"generalAvailability",
-	"notApplicable",
-	"preAlpha",
-	"proposed",
 	"releaseCandidate",
-	"unavailable",
-	"underReview"
-]), F = /* @__PURE__ */ S({
-	color: N,
+	"generalAvailability"
+]), P = /* @__PURE__ */ S({
+	color: M,
 	label: /* @__PURE__ */ T()
-}), I = {
-	id: /* @__PURE__ */ T(),
-	label: j,
-	description: A,
-	icon: /* @__PURE__ */ b(/* @__PURE__ */ T()),
-	iconDark: /* @__PURE__ */ b(/* @__PURE__ */ T()),
-	typeId: M
-}, L = /* @__PURE__ */ S({
-	...I,
+}), F = {
+	...k,
+	typeId: j
+}, I = /* @__PURE__ */ S({
+	...F,
 	order: /* @__PURE__ */ x(),
 	path: /* @__PURE__ */ T()
-}), R = {
-	...I,
+}), L = {
+	...F,
 	firstCreatedAt: /* @__PURE__ */ b(/* @__PURE__ */ x()),
 	lastUpdatedAt: /* @__PURE__ */ b(/* @__PURE__ */ x()),
-	status: /* @__PURE__ */ b(F),
-	statusId: /* @__PURE__ */ b(P)
-}, z = /* @__PURE__ */ S({ ...R });
+	status: /* @__PURE__ */ b(P),
+	statusId: /* @__PURE__ */ b(N)
+}, R = /* @__PURE__ */ S({ ...L });
 //#endregion
-export { O as a, y as c, S as d, C as f, k as i, b as l, T as m, z as n, _ as o, w as p, L as r, v as s, R as t, x as u };
+export { O as a, y as c, S as d, C as f, A as i, b as l, T as m, R as n, _ as o, w as p, I as r, v as s, L as t, x as u };

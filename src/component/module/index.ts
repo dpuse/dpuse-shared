@@ -1,7 +1,7 @@
 // ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
 
-// ── DPUse (Local) Framework
+// ── DPUse Framework
 import type { moduleConfigSchema, moduleTypeIdSchema } from '@/component/module/moduleConfig.schema';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────

@@ -1,9 +1,9 @@
-// ── DPUse (Local) Framework
-import type { ComponentConfig } from '@/component';
+// ── DPUse Framework
+import type { ComponentInstanceConfig } from '@/component';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface PresentationConfig extends ComponentConfig {
+export interface PresentationConfig extends ComponentInstanceConfig {
     typeId: 'presenterPresentation';
     content: string;
     order: number;

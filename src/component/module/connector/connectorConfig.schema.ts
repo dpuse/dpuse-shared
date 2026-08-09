@@ -6,7 +6,7 @@
 // ── External Dependencies & Registrations
 import { array, boolean, literal, nullable, number, object, optional, record, string } from 'valibot';
 
-// ── DPUse (Local) Framework
+// ── DPUse Framework
 import { literalUnion } from '@/schema';
 import { localeLabelSchema } from '@/locale/locale.schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';

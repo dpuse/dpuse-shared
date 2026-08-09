@@ -1,9 +1,9 @@
-import { ComponentConfig } from '..';
-export interface ContextModelDimensionConfig extends ComponentConfig {
+import { ComponentInstanceConfig } from '..';
+export interface ContextModelDimensionConfig extends ComponentInstanceConfig {
     typeId: 'contextModelDimension';
     groupId: string;
     hierarchies: ContextModelDimensionHierarchyConfig[];
 }
-export interface ContextModelDimensionHierarchyConfig extends ComponentConfig {
+export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceConfig {
     typeId: 'contextModelDimensionHierarchy';
 }

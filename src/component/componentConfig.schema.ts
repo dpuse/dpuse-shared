@@ -1,15 +1,14 @@
 // ── External Dependencies & Registrations
 import { nullable, number, object, string } from 'valibot';
 
-// ── DPUse (Local) Framework
+// ── DPUse Framework
+import { baseConfigSchema } from '@/baseConfig.schema';
 import { literalUnion } from '@/schema';
-import { partialLocaleDescriptionSchema, partialLocaleLabelSchema } from '@/locale/locale.schema';
 
-// ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────
 
 export const componentTypeIdSchema = literalUnion([
     'app',
-    // 'connection',
     'connector',
     'connectorConnection',
     'context',
@@ -35,19 +34,9 @@ export const componentTypeIdSchema = literalUnion([
 
 // ── Schemas - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red', 'other']);
+export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red']);
 
-export const componentStatusIdSchema = literalUnion([
-    'alpha',
-    'beta',
-    'generalAvailability',
-    'notApplicable',
-    'preAlpha',
-    'proposed',
-    'releaseCandidate',
-    'unavailable',
-    'underReview'
-]);
+export const componentStatusIdSchema = literalUnion(['alpha', 'beta', 'releaseCandidate', 'generalAvailability']);
 
 export const componentStatusConfigSchema = object({
     color: componentStatusColorIdSchema,
@@ -57,20 +46,16 @@ export const componentStatusConfigSchema = object({
 // ── Schemas - Base ───────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Common base structure components and component references.
-export const componentBaseSchema = {
-    id: string(),
-    label: partialLocaleLabelSchema,
-    description: partialLocaleDescriptionSchema,
-    icon: nullable(string()),
-    iconDark: nullable(string()),
+export const componentBaseConfigSchema = {
+    ...baseConfigSchema,
     typeId: componentTypeIdSchema
 };
 
 // ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
 
 // Common structure for referencing all components.
-export const componentReferenceSchema = object({
-    ...componentBaseSchema,
+export const componentReferenceConfigSchema = object({
+    ...componentBaseConfigSchema,
     order: number(),
     path: string()
 });
@@ -78,14 +63,14 @@ export const componentReferenceSchema = object({
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 // Core fields present in all components.
-export const componentConfigCoreFields = {
-    ...componentBaseSchema,
+export const componentCoreFieldsConfig = {
+    ...componentBaseConfigSchema,
     firstCreatedAt: nullable(number()),
     lastUpdatedAt: nullable(number()),
     status: nullable(componentStatusConfigSchema),
     statusId: nullable(componentStatusIdSchema)
 };
 
-export const componentConfigSchema = object({
-    ...componentConfigCoreFields
+export const componentInstanceConfigSchema = object({
+    ...componentCoreFieldsConfig
 });

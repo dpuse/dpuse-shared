@@ -1,10 +1,10 @@
-import { ComponentConfig, ComponentReference } from '..';
-export interface ContextConfig extends ComponentConfig {
+import { ComponentInstanceConfig, ComponentReferenceConfig } from '..';
+export interface ContextConfig extends ComponentInstanceConfig {
     typeId: 'context';
     areas: ContextAreaConfig[];
 }
-export interface ContextAreaConfig extends ComponentConfig {
+export interface ContextAreaConfig extends ComponentInstanceConfig {
     typeId: 'contextArea';
-    models: ComponentReference[];
+    models: ComponentReferenceConfig[];
     order: number;
 }

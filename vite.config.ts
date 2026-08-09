@@ -5,7 +5,7 @@ import Sonda from 'sonda/vite';
 import { fileURLToPath, URL } from 'node:url';
 
 // ── Data
-import config from './config.json';
+import config from './config.json' with { type: 'json' };
 
 // ── Vite Configuration ───────────────────────────────────────────────────────────────────────────────────────────────
 

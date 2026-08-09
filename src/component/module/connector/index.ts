@@ -1,7 +1,7 @@
 // ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
 
-// ── DPUse (Local) Framework
+// ── DPUse Framework
 import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { ToolConfig } from '@/component/module/tool';

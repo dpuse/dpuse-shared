@@ -1,8 +1,8 @@
 import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
-import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-CqVgZGPq.js";
-import { t as p } from "./moduleConfig.schema-vxTWrD6x.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-BRbvCPIW.js";
+import { t as p } from "./moduleConfig.schema-DOb6pxQ0.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
-var m = n([
+var m = o([
 	"abortOperation",
 	"auditObjectContent",
 	"createObject",
@@ -18,41 +18,41 @@ var m = n([
 	"retrieveChunks",
 	"retrieveRecords",
 	"upsertRecords"
-]), h = n([
+]), h = o([
 	"application",
 	"curatedDataset",
 	"database",
 	"fileStore"
-]), g = i({ label: o }), _ = n([
+]), g = i({ label: n }), _ = o([
 	"bidirectional",
 	"destination",
 	"source"
-]), v = i({ label: o }), y = i({
-	authMethodId: n([
-		"apiKey",
-		"disabled",
-		"oAuth2",
-		"none"
-	]),
+]), v = i({ label: n }), y = o([
+	"apiKey",
+	"disabled",
+	"oAuth2",
+	"none"
+]), b = i({
+	authMethodId: y,
 	activeConnectionCount: a(f()),
 	canDescribe: a(d()),
 	id: a(c()),
-	label: a(o),
+	label: a(n),
 	maxConnectionCount: s(f()),
 	params: a(l(u(c(), c())))
-}), b = i({
+}), x = i({
 	...p,
 	typeId: r("connector"),
 	actionNames: l(m),
 	category: s(g),
 	categoryId: h,
-	implementations: u(c(), y),
+	implementations: u(c(), b),
 	usage: s(v),
 	usageId: s(_),
 	vendorAccountURL: s(c()),
 	vendorDocumentationURL: s(c()),
 	vendorHomeURL: s(c())
-}), x = [
+}), S = [
 	{
 		id: "application",
 		label: {
@@ -81,7 +81,7 @@ var m = n([
 			es: "Almacén de Archivos"
 		}
 	}
-], S = {
+], C = {
 	abortOperation: "Abort Operation",
 	auditObjectContent: "Audit Object Content",
 	createObject: "Create Object",
@@ -97,7 +97,7 @@ var m = n([
 	retrieveChunks: "Retrieve Chunks",
 	retrieveRecords: "Retrieve Records",
 	upsertRecords: "Upsert Records"
-}, C = [
+}, w = [
 	{
 		id: "bidirectional",
 		label: {
@@ -126,12 +126,12 @@ var m = n([
 			es: "Desconocido"
 		}
 	}
-], w = /* @__PURE__ */ new Set([
+], T = /* @__PURE__ */ new Set([
 	"createObject",
 	"dropObject",
 	"removeRecords",
 	"upsertRecords"
-]), T = /* @__PURE__ */ new Set([
+]), E = /* @__PURE__ */ new Set([
 	"auditObjectContent",
 	"findObject",
 	"getInfo",
@@ -142,35 +142,43 @@ var m = n([
 	"retrieveChunks",
 	"retrieveRecords"
 ]);
-function E(e) {
+function D(e) {
 	let t = !1, n = !1;
-	for (let r of e) T.has(r) && (t = !0), w.has(r) && (n = !0);
+	for (let r of e) E.has(r) && (t = !0), T.has(r) && (n = !0);
 	return t && n ? "bidirectional" : t ? "source" : n ? "destination" : "source";
 }
-var D = (n, r = "en") => {
-	let i = x.find((e) => e.id === n);
-	return i ? {
-		label: t(e(i.label), r) ?? i.id,
-		description: ""
-	} : {
+var O = (n, r = "en") => {
+	let i = S.find((e) => e.id === n);
+	if (i) {
+		let n = e(i.label);
+		return {
+			label: t(n, r) ?? i.id,
+			description: ""
+		};
+	}
+	return {
 		label: n,
 		description: ""
 	};
-}, O = (n, r = "en") => {
-	let i = C.find((e) => e.id === n);
-	return i ? {
-		label: t(e(i.label), r) ?? i.id,
-		description: ""
-	} : {
+}, k = (n, r = "en") => {
+	let i = w.find((e) => e.id === n);
+	if (i) {
+		let n = e(i.label);
+		return {
+			label: t(n, r) ?? i.id,
+			description: ""
+		};
+	}
+	return {
 		label: n,
 		description: ""
 	};
 };
-function k(e) {
+function A(e) {
 	let t = new Set(e), n = "|Action|Supported|\n";
 	n += "|:----|:-------:|\n";
-	for (let e of Object.keys(S)) n += `| ${S[e]} | ${t.has(e) ? "✓" : ""} |\n`;
+	for (let e of Object.keys(C)) n += `| ${C[e]} | ${t.has(e) ? "✓" : ""} |\n`;
 	return n;
 }
 //#endregion
-export { S as CONNECTOR_ACTION_NAME_MAP, b as connectorConfigSchema, D as constructConnectorCategoryConfig, O as constructConnectorUsageConfig, E as determineConnectorUsageId, k as getConnectorActionsTable };
+export { C as CONNECTOR_ACTION_NAME_MAP, x as connectorConfigSchema, O as constructConnectorCategoryConfig, k as constructConnectorUsageConfig, D as determineConnectorUsageId, A as getConnectorActionsTable };

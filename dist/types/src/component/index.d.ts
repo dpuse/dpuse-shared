@@ -1,13 +1,13 @@
-import { object, InferOutput } from 'valibot';
-import { componentBaseSchema, componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from './componentConfig.schema';
+import { InferOutput, object } from 'valibot';
+import { componentBaseConfigSchema, componentInstanceConfigSchema, componentReferenceConfigSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from './componentConfig.schema';
 import { LocaleId } from '../locale';
-export { componentConfigSchema } from './componentConfig.schema';
+export { componentInstanceConfigSchema } from './componentConfig.schema';
 export interface Component {
-    readonly config: ComponentConfig;
+    readonly config: ComponentInstanceConfig;
 }
-export type ComponentBase = InferOutput<ReturnType<typeof object<typeof componentBaseSchema>>>;
-export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
-export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
+export type ComponentBaseConfig = InferOutput<ReturnType<typeof object<typeof componentBaseConfigSchema>>>;
+export type ComponentInstanceConfig = InferOutput<typeof componentInstanceConfigSchema>;
+export type ComponentReferenceConfig = InferOutput<typeof componentReferenceConfigSchema>;
 export type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
 export type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
 export declare function getComponentStatus(id: string, localeId?: LocaleId): ComponentStatus;

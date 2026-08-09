@@ -1,9 +1,9 @@
-// ── DPUse (Local) Framework
-import { ComponentConfig } from '@/component';
+// ── DPUse Framework
+import { ComponentInstanceConfig } from '@/component';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelDimensionConfig extends ComponentConfig {
+export interface ContextModelDimensionConfig extends ComponentInstanceConfig {
     typeId: 'contextModelDimension';
     groupId: string;
     hierarchies: ContextModelDimensionHierarchyConfig[];
@@ -11,6 +11,6 @@ export interface ContextModelDimensionConfig extends ComponentConfig {
 
 // ── Types - Hierarchy Configuration ──────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelDimensionHierarchyConfig extends ComponentConfig {
+export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceConfig {
     typeId: 'contextModelDimensionHierarchy';
 }

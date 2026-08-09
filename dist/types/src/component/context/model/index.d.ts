@@ -1,7 +1,7 @@
-import { ComponentConfig } from '../..';
+import { ComponentInstanceConfig } from '../..';
 import { ContextModelEntityConfig } from './entity';
 import { ContextModelSecondaryMeasureConfig } from './secondaryMeasure';
-export interface ContextModelConfig extends ComponentConfig {
+export interface ContextModelConfig extends ComponentInstanceConfig {
     typeId: 'contextModel';
     diagramURL?: string;
     entities: ContextModelEntityConfig[];

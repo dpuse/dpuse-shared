@@ -2,33 +2,33 @@
 import type { InferOutput } from 'valibot';
 import { object } from 'valibot';
 
-// ── DPUse (Local) Framework
-import { componentBaseSchema } from '@/component/config.schema';
+// ── DPUse Framework
+import { componentBaseConfigSchema } from '@/component/componentConfig.schema';
 import { DEFAULT_LOCALE_ID } from '@/locale';
-import type { componentConfigSchema, componentReferenceSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/config.schema';
+import type { componentInstanceConfigSchema, componentReferenceConfigSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { componentConfigSchema } from '@/component/config.schema';
+export { componentInstanceConfigSchema } from '@/component/componentConfig.schema';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface Component {
-    readonly config: ComponentConfig;
+    readonly config: ComponentInstanceConfig;
 }
 
 // ── Types - Base ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type ComponentBase = InferOutput<ReturnType<typeof object<typeof componentBaseSchema>>>;
+export type ComponentBaseConfig = InferOutput<ReturnType<typeof object<typeof componentBaseConfigSchema>>>;
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Instance Configuration ───────────────────────────────────────────────────────────────────────────────────
 
-export type ComponentConfig = InferOutput<typeof componentConfigSchema>;
+export type ComponentInstanceConfig = InferOutput<typeof componentInstanceConfigSchema>;
 
-// ── Types - Reference ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Reference Configuration ──────────────────────────────────────────────────────────────────────────────────
 
-export type ComponentReference = InferOutput<typeof componentReferenceSchema>;
+export type ComponentReferenceConfig = InferOutput<typeof componentReferenceConfigSchema>;
 
 // ── Types - Status ───────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -40,13 +40,8 @@ export type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSc
 const COMPONENT_STATUS_CONFIGS: { id: string; color: ComponentStatusColorId; labels: LocaleLabel }[] = [
     { id: 'alpha', color: 'red', labels: { en: 'alpha', es: 'alfa' } },
     { id: 'beta', color: 'amber', labels: { en: 'beta', es: 'beta' } },
-    { id: 'generalAvailability', color: 'green', labels: { en: '', es: '' } },
-    { id: 'notApplicable', color: 'green', labels: { en: 'not-applicable', es: 'no-aplicable' } },
-    { id: 'preAlpha', color: 'red', labels: { en: 'pre-alpha', es: 'pre-alfa' } },
-    { id: 'proposed', color: 'other', labels: { en: 'proposed', es: 'propuesto' } },
     { id: 'releaseCandidate', color: 'green', labels: { en: 'release-candidate', es: 'candidato-de-lanzamiento' } },
-    { id: 'unavailable', color: 'other', labels: { en: 'unavailable', es: 'no-disponible' } },
-    { id: 'underReview', color: 'other', labels: { en: 'under-review', es: 'en-revisión' } }
+    { id: 'generalAvailability', color: 'green', labels: { en: '', es: '' } }
 ];
 
 // ── Actions - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
@@ -57,5 +52,5 @@ export function getComponentStatus(id: string, localeId: LocaleId = DEFAULT_LOCA
         const label = componentStatus.labels[localeId] ?? componentStatus.labels[DEFAULT_LOCALE_ID] ?? componentStatus.id;
         return { color: componentStatus.color, label };
     }
-    return { color: 'other', label: id };
+    return { color: 'red', label: id };
 }

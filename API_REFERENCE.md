@@ -2,11 +2,11 @@
 
 ### `@dpuse/dpuse-shared/component`
 
-| Category | Exports                                                                                           |
-| -------- | ------------------------------------------------------------------------------------------------- |
-| Schema   | `componentConfigSchema`                                                                           |
-| Types    | `Component`, `ComponentConfig`, `ComponentReference`, `ComponentStatus`, `ComponentStatusColorId` |
-| Actions  | `getComponentStatus(id, localeId?)`                                                               |
+| Category | Exports                                                                                                         |
+| -------- | --------------------------------------------------------------------------------------------------------------- |
+| Schema   | `componentInstanceConfigSchema`                                                                                 |
+| Types    | `Component`, `ComponentInstanceConfig`, `ComponentReferenceConfig`, `ComponentStatus`, `ComponentStatusColorId` |
+| Actions  | `getComponentStatus(id, localeId?)`                                                                             |
 
 ### `@dpuse/dpuse-shared/component/connection`
 

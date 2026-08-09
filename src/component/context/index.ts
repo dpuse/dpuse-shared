@@ -1,15 +1,15 @@
-// ── DPUse (Local) Framework
-import type { ComponentConfig, ComponentReference } from '@/component';
+// ── DPUse Framework
+import type { ComponentInstanceConfig, ComponentReferenceConfig } from '@/component';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextConfig extends ComponentConfig {
+export interface ContextConfig extends ComponentInstanceConfig {
     typeId: 'context';
     areas: ContextAreaConfig[];
 }
 
-export interface ContextAreaConfig extends ComponentConfig {
+export interface ContextAreaConfig extends ComponentInstanceConfig {
     typeId: 'contextArea';
-    models: ComponentReference[];
+    models: ComponentReferenceConfig[];
     order: number;
 }

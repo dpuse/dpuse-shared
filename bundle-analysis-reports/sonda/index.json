@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-08-02T10:22:30.547Z",
+    "generatedAt": "2026-08-09T13:56:39.349Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -10,19 +10,19 @@
   "resources": [
     {
       "kind": "asset",
-      "name": "dist/componentConfig.schema-CqVgZGPq.js",
+      "name": "dist/componentConfig.schema-BRbvCPIW.js",
       "type": "script",
-      "uncompressed": 11021,
+      "uncompressed": 10941,
       "gzip": 0,
-      "brotli": 2362
+      "brotli": 2334
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-shared-component.es.js",
       "type": "script",
-      "uncompressed": 1341,
+      "uncompressed": 830,
       "gzip": 0,
-      "brotli": 451
+      "brotli": 359
     },
     {
       "kind": "asset",
@@ -124,9 +124,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentModuleConnector.es.js",
       "type": "script",
-      "uncompressed": 3712,
+      "uncompressed": 3780,
       "gzip": 0,
-      "brotli": 1214
+      "brotli": 1220
     },
     {
       "kind": "asset",
@@ -134,7 +134,7 @@
       "type": "script",
       "uncompressed": 370,
       "gzip": 0,
-      "brotli": 231
+      "brotli": 214
     },
     {
       "kind": "asset",
@@ -188,9 +188,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-errors.es.js",
       "type": "script",
-      "uncompressed": 3622,
+      "uncompressed": 3619,
       "gzip": 0,
-      "brotli": 1119
+      "brotli": 1117
     },
     {
       "kind": "asset",
@@ -210,11 +210,11 @@
     },
     {
       "kind": "asset",
-      "name": "dist/moduleConfig.schema-vxTWrD6x.js",
+      "name": "dist/moduleConfig.schema-DOb6pxQ0.js",
       "type": "script",
       "uncompressed": 313,
       "gzip": 0,
-      "brotli": 200
+      "brotli": 210
     },
     {
       "kind": "filesystem",
@@ -225,10 +225,17 @@
     },
     {
       "kind": "filesystem",
+      "name": "src/baseConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 332
+    },
+    {
+      "kind": "filesystem",
       "name": "src/component/componentConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1768
+      "uncompressed": 1525
     },
     {
       "kind": "filesystem",
@@ -312,7 +319,7 @@
       "name": "src/component/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1487
+      "uncompressed": 976
     },
     {
       "kind": "filesystem",
@@ -333,7 +340,7 @@
       "name": "src/component/module/cookbook/cookbookConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 511
+      "uncompressed": 523
     },
     {
       "kind": "filesystem",
@@ -375,7 +382,7 @@
       "name": "src/component/module/presenter/presenterConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 552
+      "uncompressed": 564
     },
     {
       "kind": "filesystem",

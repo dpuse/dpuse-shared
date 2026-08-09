@@ -1,4 +1,4 @@
-import { ComponentConfig } from '../../../..';
-export interface ContextModelEntityEventConfig extends ComponentConfig {
+import { ComponentInstanceConfig } from '../../../..';
+export interface ContextModelEntityEventConfig extends ComponentInstanceConfig {
     typeId: 'contextModelEntityEvent';
 }

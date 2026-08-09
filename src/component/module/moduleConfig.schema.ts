@@ -1,8 +1,8 @@
 // ── External Dependencies & Registrations
 import { object, string } from 'valibot';
 
-// ── DPUse (Local) Framework
-import { componentConfigCoreFields } from '@/component/config.schema';
+// ── DPUse Framework
+import { componentCoreFieldsConfig } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 
 // ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────
@@ -13,7 +13,7 @@ export const moduleTypeIdSchema = literalUnion(['app', 'engine', 'connector', 'c
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
 export const moduleConfigCoreFields = {
-    ...componentConfigCoreFields,
+    ...componentCoreFieldsConfig,
     version: string()
 };
 

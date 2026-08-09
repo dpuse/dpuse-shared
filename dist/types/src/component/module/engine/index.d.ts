@@ -1,4 +1,4 @@
-import { ComponentConfig } from '../..';
+import { ComponentInstanceConfig } from '../..';
 import { EncodingTypeConfig } from '../../../encoding';
 import { LocalisedConfig } from '../../../locale';
 import { ModuleConfig } from '..';
@@ -9,7 +9,7 @@ export interface EngineRuntime {
 }
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
-    processRequest: (id: string, config: ComponentConfig | LocalisedConfig<ComponentConfig>, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
+    processRequest: (id: string, config: ComponentInstanceConfig | LocalisedConfig<ComponentInstanceConfig>, options: EngineAuthActionOptions | EngineConnectorActionOptions | EngineContextActionOptions, callback?: (callbackData: EngineCallbackData) => void) => Promise<unknown>;
 }
 export interface EngineInitialiseOptions {
     connectorStorageURLPrefix: string;

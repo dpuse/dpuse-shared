@@ -1,4 +1,4 @@
-import { ComponentConfig } from '..';
-export interface DimensionConfig extends ComponentConfig {
+import { ComponentInstanceConfig } from '..';
+export interface DimensionConfig extends ComponentInstanceConfig {
     typeId: 'dimension';
 }

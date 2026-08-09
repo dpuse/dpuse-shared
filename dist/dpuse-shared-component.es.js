@@ -1,5 +1,5 @@
 import "./dpuse-shared-locale.es.js";
-import { n as e } from "./componentConfig.schema-CqVgZGPq.js";
+import { n as e } from "./componentConfig.schema-BRbvCPIW.js";
 //#region src/component/index.ts
 var t = [
 	{
@@ -19,38 +19,6 @@ var t = [
 		}
 	},
 	{
-		id: "generalAvailability",
-		color: "green",
-		labels: {
-			en: "",
-			es: ""
-		}
-	},
-	{
-		id: "notApplicable",
-		color: "green",
-		labels: {
-			en: "not-applicable",
-			es: "no-aplicable"
-		}
-	},
-	{
-		id: "preAlpha",
-		color: "red",
-		labels: {
-			en: "pre-alpha",
-			es: "pre-alfa"
-		}
-	},
-	{
-		id: "proposed",
-		color: "other",
-		labels: {
-			en: "proposed",
-			es: "propuesto"
-		}
-	},
-	{
 		id: "releaseCandidate",
 		color: "green",
 		labels: {
@@ -59,19 +27,11 @@ var t = [
 		}
 	},
 	{
-		id: "unavailable",
-		color: "other",
+		id: "generalAvailability",
+		color: "green",
 		labels: {
-			en: "unavailable",
-			es: "no-disponible"
-		}
-	},
-	{
-		id: "underReview",
-		color: "other",
-		labels: {
-			en: "under-review",
-			es: "en-revisión"
+			en: "",
+			es: ""
 		}
 	}
 ];
@@ -85,9 +45,9 @@ function n(e, n = "en") {
 		};
 	}
 	return {
-		color: "other",
+		color: "red",
 		label: e
 	};
 }
 //#endregion
-export { e as componentConfigSchema, n as getComponentStatus };
+export { e as componentInstanceConfigSchema, n as getComponentStatus };

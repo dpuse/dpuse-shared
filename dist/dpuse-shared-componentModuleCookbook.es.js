@@ -1,9 +1,9 @@
-import { a as e, c as t, d as n, o as r, r as i } from "./componentConfig.schema-CqVgZGPq.js";
-import { t as a } from "./moduleConfig.schema-vxTWrD6x.js";
+import { c as e, d as t, i as n, o as r, r as i } from "./componentConfig.schema-BRbvCPIW.js";
+import { t as a } from "./moduleConfig.schema-DOb6pxQ0.js";
 //#region src/component/module/cookbook/cookbookConfig.schema.ts
-var o = e(["list"]), s = n({
+var o = n(["list"]), s = t({
 	...a,
-	typeId: t("cookbook"),
+	typeId: e("cookbook"),
 	actionNames: r(o),
 	recipes: r(i)
 });

@@ -1,8 +1,8 @@
 // ── External Dependencies & Registrations
 import type { FileTypeResult } from 'file-type';
 
-// ── DPUse (Local) Framework
-import type { Component, ComponentConfig } from '@/component';
+// ── DPUse Framework
+import type { Component, ComponentInstanceConfig } from '@/component';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale';
 
@@ -12,7 +12,7 @@ type DataViewInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface DataViewConfig extends ComponentConfig {
+export interface DataViewConfig extends ComponentInstanceConfig {
     typeId: 'dataView';
     connectionId: string | undefined;
     connectionNodeConfig: ConnectionNodeConfig | undefined;

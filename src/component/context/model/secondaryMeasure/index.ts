@@ -1,9 +1,9 @@
-// ── DPUse (Local) Framework
-import { ComponentConfig } from '@/component';
+// ── DPUse Framework
+import { ComponentInstanceConfig } from '@/component';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ContextModelSecondaryMeasureConfig extends ComponentConfig {
+export interface ContextModelSecondaryMeasureConfig extends ComponentInstanceConfig {
     typeId: 'contextModelSecondaryMeasure';
     groupId: string;
 }
