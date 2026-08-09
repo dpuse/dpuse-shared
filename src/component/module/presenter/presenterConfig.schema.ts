@@ -2,7 +2,7 @@
 import { array, literal, object } from 'valibot';
 
 // ── DPUse (Local) Framework
-import { componentReferenceSchema } from '@/component/componentConfig.schema';
+import { componentReferenceSchema } from '@/component/config.schema';
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 

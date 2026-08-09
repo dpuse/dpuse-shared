@@ -2,7 +2,7 @@
 import { object, string } from 'valibot';
 
 // ── DPUse (Local) Framework
-import { componentConfigCoreFields } from '@/component/componentConfig.schema';
+import { componentConfigCoreFields } from '@/component/config.schema';
 import { literalUnion } from '@/schema';
 
 // ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────

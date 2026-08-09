@@ -1,7 +1,7 @@
 import { safeParse } from 'valibot';
 import { describe, expect, it } from 'vitest';
 
-import { componentTypeIdSchema } from '@/component/componentConfig.schema';
+import { componentTypeIdSchema } from '@/component/config.schema';
 import { literalUnion } from '@/schema';
 import { localeLabelSchema, partialLocaleLabelSchema } from '@/locale/locale.schema';
 
