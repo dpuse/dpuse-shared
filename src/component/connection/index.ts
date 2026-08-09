@@ -44,17 +44,18 @@ export interface ConnectionDescriptionConfig {
 // ── Types - Configuration - Node ─────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectionNodeConfig {
+    id: string;
+    label: string;
+    description: string;
+    icon: string | null;
+    iconDark: string | null;
     childCount: number | undefined;
     childNodes: ConnectionNodeConfig[];
     // columnsConfigs?: ObjectColumnConfig[];
     extension: string | undefined;
     folderPath: string;
     handle: DPAFileSystemFileHandle | undefined;
-    icon: string | null;
-    iconDark: string | null;
-    id: string;
     //nodeDisplayHeight?: number;
-    label: string;
     lastModifiedAt: number | undefined;
     mimeType: string | undefined;
     name: string;
