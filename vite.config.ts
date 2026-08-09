@@ -13,6 +13,7 @@ export default defineConfig({
     build: {
         lib: {
             entry: {
+                index: fileURLToPath(new URL('src/index.ts', import.meta.url)),
                 component: fileURLToPath(new URL('src/component/index.ts', import.meta.url)),
                 componentConnection: fileURLToPath(new URL('src/component/connection/index.ts', import.meta.url)),
                 componentDataView: fileURLToPath(new URL('src/component/dataView/index.ts', import.meta.url)),

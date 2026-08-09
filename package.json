@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.764",
+    "version": "0.3.765",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -18,6 +18,10 @@
     "module": "./dist/dpuse-shared.es.js",
     "types": "./dist/types/src/index.d.ts",
     "exports": {
+        ".": {
+            "import": "./dist/dpuse-shared.es.js",
+            "types": "./dist/types/src/index.d.ts"
+        },
         "./component": {
             "import": "./dist/dpuse-shared-component.es.js",
             "types": "./dist/types/src/component/index.d.ts"

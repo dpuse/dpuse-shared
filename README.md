@@ -168,6 +168,7 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | dist/dpuse-shared-componentModule.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentModuleEngine.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentPresentation.es.js | 0 B · brotli 1 B |
+| dist/dpuse-shared.es.js | 0 B · brotli 1 B |
 
 (unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
 
