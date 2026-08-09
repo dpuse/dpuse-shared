@@ -51,6 +51,7 @@ export interface ConnectionNodeConfig {
     folderPath: string;
     handle: DPAFileSystemFileHandle | undefined;
     icon?: string | null;
+    iconDark?: string | null;
     id: string;
     //nodeDisplayHeight?: number;
     label: string;
