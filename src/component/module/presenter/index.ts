@@ -12,6 +12,12 @@ export { presenterConfigSchema } from '@/component/module/presenter/presenterCon
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
+// Sanitizes an HTML string for insertion into the DOM (e.g. via 'innerHTML'). Presenters are dynamically loaded from a
+// remote URL and must not sanitize HTML themselves - the host app hands this function to the presenter's constructor
+// (see dpuse-app's loadSanitizeHTML()) so that sanitization stays under the host's control regardless of what any
+// given presenter version does.
+export type SanitizeHTML = (html: string) => TrustedHTML | string;
+
 export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
 
