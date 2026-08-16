@@ -45,7 +45,7 @@ export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId:
     return {
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId],
+        description: config.description[localeId] ?? config.description[DEFAULT_LOCALE_ID],
         verb: config.verb?.[localeId] ?? undefined
     };
 }
@@ -54,7 +54,7 @@ export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], local
     const mapped = configs.map((config) => ({
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId],
+        description: config.description[localeId] ?? config.description[DEFAULT_LOCALE_ID],
         verb: config.verb?.[localeId] ?? undefined
     }));
     return isResultSorted ? mapped.toSorted((a, b) => a.label.localeCompare(b.label) || a.id.localeCompare(b.id)) : mapped;
@@ -64,7 +64,7 @@ export function localiseReference<T extends UnlocalisedReference>(reference: T, 
     return {
         ...reference,
         label: reference.label[localeId] ?? reference.id,
-        description: reference.description[localeId]
+        description: reference.description[localeId] ?? reference.description[DEFAULT_LOCALE_ID]
     };
 }
 
