@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.777",
+    "version": "0.3.778",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -147,7 +147,7 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.705",
+        "@dpuse/dpuse-development": "^0.3.706",
         "@dpuse/eslint-config-dpuse": "^1.0.116",
         "@types/node": "^26.2.0",
         "eslint": "^10.8.1",
