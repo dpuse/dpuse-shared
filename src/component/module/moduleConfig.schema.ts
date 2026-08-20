@@ -14,13 +14,13 @@ export const moduleTypeIdSchema = literalUnion(['app', 'engine', 'connector', 'c
 
 export const moduleConfigCoreFields = {
     ...componentCoreFieldsConfig,
+    vendorAccountURL: nullable(string()),
+    vendorDocumentationURL: nullable(string()),
+    vendorHomeURL: nullable(string()),
     version: string()
 };
 
 export const moduleConfigSchema = object({
     ...moduleConfigCoreFields,
-    typeId: moduleTypeIdSchema,
-    vendorAccountURL: nullable(string()),
-    vendorDocumentationURL: nullable(string()),
-    vendorHomeURL: nullable(string())
+    typeId: moduleTypeIdSchema
 });
