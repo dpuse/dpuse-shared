@@ -34,7 +34,7 @@ export const componentTypeIdSchema = literalUnion([
 
 // ── Schemas - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
 
-export const componentStatusColorIdSchema = literalUnion(['amber', 'green', 'red']);
+export const componentStatusColorIdSchema = literalUnion(['danger', 'success', 'warning']);
 
 export const componentStatusIdSchema = literalUnion(['alpha', 'beta', 'releaseCandidate', 'generalAvailability']);
 

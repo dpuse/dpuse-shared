@@ -38,10 +38,10 @@ export type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSc
 // ── Constants - Status ───────────────────────────────────────────────────────────────────────────────────────────────
 
 const COMPONENT_STATUS_CONFIGS: { id: string; color: ComponentStatusColorId; labels: LocaleLabel }[] = [
-    { id: 'alpha', color: 'red', labels: { en: 'alpha', es: 'alfa' } },
-    { id: 'beta', color: 'amber', labels: { en: 'beta', es: 'beta' } },
-    { id: 'releaseCandidate', color: 'green', labels: { en: 'release-candidate', es: 'candidato-de-lanzamiento' } },
-    { id: 'generalAvailability', color: 'green', labels: { en: '', es: '' } }
+    { id: 'alpha', color: 'danger', labels: { en: 'alpha', es: 'alfa' } },
+    { id: 'beta', color: 'warning', labels: { en: 'beta', es: 'beta' } },
+    { id: 'releaseCandidate', color: 'success', labels: { en: 'release-candidate', es: 'candidato-de-lanzamiento' } },
+    { id: 'generalAvailability', color: 'success', labels: { en: '', es: '' } }
 ];
 
 // ── Actions - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
@@ -52,5 +52,5 @@ export function getComponentStatus(id: string, localeId: LocaleId = DEFAULT_LOCA
         const label = componentStatus.labels[localeId] ?? componentStatus.labels[DEFAULT_LOCALE_ID] ?? componentStatus.id;
         return { color: componentStatus.color, label };
     }
-    return { color: 'red', label: id };
+    return { color: 'danger', label: id };
 }

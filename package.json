@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.776",
+    "version": "0.3.777",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -148,7 +148,7 @@
     },
     "devDependencies": {
         "@dpuse/dpuse-development": "^0.3.705",
-        "@dpuse/eslint-config-dpuse": "^1.0.113",
+        "@dpuse/eslint-config-dpuse": "^1.0.116",
         "@types/node": "^26.2.0",
         "eslint": "^10.8.1",
         "file-type": "^22.0.2",
