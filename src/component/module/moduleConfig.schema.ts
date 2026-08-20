@@ -1,5 +1,5 @@
 // ── External Dependencies & Registrations
-import { object, string } from 'valibot';
+import { nullable, object, string } from 'valibot';
 
 // ── DPUse Framework
 import { componentCoreFieldsConfig } from '@/component/componentConfig.schema';
@@ -19,5 +19,8 @@ export const moduleConfigCoreFields = {
 
 export const moduleConfigSchema = object({
     ...moduleConfigCoreFields,
-    typeId: moduleTypeIdSchema
+    typeId: moduleTypeIdSchema,
+    vendorAccountURL: nullable(string()),
+    vendorDocumentationURL: nullable(string()),
+    vendorHomeURL: nullable(string())
 });

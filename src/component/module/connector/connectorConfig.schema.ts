@@ -68,13 +68,9 @@ const connectorImplementationSchema = object({
 export const connectorConfigSchema = object({
     ...moduleConfigCoreFields,
     typeId: literal('connector'),
-    actionNames: array(connectorActionNameSchema),
     category: nullable(connectorCategoryConfigSchema),
     categoryId: connectorCategoryIdSchema,
     implementations: record(string(), connectorImplementationSchema),
     usage: nullable(connectorUsageConfigSchema),
-    usageId: nullable(connectorUsageIdSchema),
-    vendorAccountURL: nullable(string()),
-    vendorDocumentationURL: nullable(string()),
-    vendorHomeURL: nullable(string())
+    usageId: nullable(connectorUsageIdSchema)
 });
