@@ -22,7 +22,7 @@ const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
 export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Promise<T> {
     const toolName = `dpuse-tool-${toolId}`;
     const toolModuleConfig = toolConfigs.find((config) => config.id === toolName);
-    if (!toolModuleConfig) throw new Error(`Connector could not load unknown tool '${toolId}'.`);
+    if (!toolModuleConfig) throw new Error(`Tool '${toolId} not found'.`);
 
     const url = `${LOAD_URL_PREFIX}/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
     const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
