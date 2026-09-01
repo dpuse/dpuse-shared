@@ -27,14 +27,16 @@ export interface ConnectionDescriptionConfig {
     }[];
 }
 export interface ConnectionNodeConfig {
+    id: string;
+    label: string;
+    description: string;
+    icon: string | null;
+    iconDark: string | null;
     childCount: number | undefined;
     childNodes: ConnectionNodeConfig[];
     extension: string | undefined;
     folderPath: string;
     handle: DPAFileSystemFileHandle | undefined;
-    icon?: string | null;
-    id: string;
-    label: string;
     lastModifiedAt: number | undefined;
     mimeType: string | undefined;
     name: string;

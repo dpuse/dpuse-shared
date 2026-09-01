@@ -1,10 +1,13 @@
 export declare const moduleTypeIdSchema: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"app", undefined>, import('valibot').LiteralSchema<"engine", undefined>, import('valibot').LiteralSchema<"connector", undefined>, import('valibot').LiteralSchema<"cookbook", undefined>, import('valibot').LiteralSchema<"presenter", undefined>, import('valibot').LiteralSchema<"tool", undefined>], undefined>;
 export declare const moduleConfigCoreFields: {
+    vendorAccountURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
+    vendorDocumentationURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
+    vendorHomeURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     version: import('valibot').StringSchema<undefined>;
     firstCreatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     lastUpdatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     status: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
-        readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"amber", undefined>, import('valibot').LiteralSchema<"green", undefined>, import('valibot').LiteralSchema<"red", undefined>], undefined>;
+        readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"danger", undefined>, import('valibot').LiteralSchema<"success", undefined>, import('valibot').LiteralSchema<"warning", undefined>], undefined>;
         readonly label: import('valibot').StringSchema<undefined>;
     }, undefined>, undefined>;
     statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>], undefined>, undefined>;
@@ -23,11 +26,14 @@ export declare const moduleConfigCoreFields: {
 };
 export declare const moduleConfigSchema: import('valibot').ObjectSchema<{
     readonly typeId: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"app", undefined>, import('valibot').LiteralSchema<"engine", undefined>, import('valibot').LiteralSchema<"connector", undefined>, import('valibot').LiteralSchema<"cookbook", undefined>, import('valibot').LiteralSchema<"presenter", undefined>, import('valibot').LiteralSchema<"tool", undefined>], undefined>;
+    readonly vendorAccountURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
+    readonly vendorDocumentationURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
+    readonly vendorHomeURL: import('valibot').NullableSchema<import('valibot').StringSchema<undefined>, undefined>;
     readonly version: import('valibot').StringSchema<undefined>;
     readonly firstCreatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly lastUpdatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly status: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
-        readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"amber", undefined>, import('valibot').LiteralSchema<"green", undefined>, import('valibot').LiteralSchema<"red", undefined>], undefined>;
+        readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"danger", undefined>, import('valibot').LiteralSchema<"success", undefined>, import('valibot').LiteralSchema<"warning", undefined>], undefined>;
         readonly label: import('valibot').StringSchema<undefined>;
     }, undefined>, undefined>;
     readonly statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>], undefined>, undefined>;

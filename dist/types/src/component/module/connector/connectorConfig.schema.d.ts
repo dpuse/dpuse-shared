@@ -52,7 +52,7 @@ export declare const connectorConfigSchema: import('valibot').ObjectSchema<{
     readonly firstCreatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly lastUpdatedAt: import('valibot').NullableSchema<import('valibot').NumberSchema<undefined>, undefined>;
     readonly status: import('valibot').NullableSchema<import('valibot').ObjectSchema<{
-        readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"amber", undefined>, import('valibot').LiteralSchema<"green", undefined>, import('valibot').LiteralSchema<"red", undefined>], undefined>;
+        readonly color: import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"danger", undefined>, import('valibot').LiteralSchema<"success", undefined>, import('valibot').LiteralSchema<"warning", undefined>], undefined>;
         readonly label: import('valibot').StringSchema<undefined>;
     }, undefined>, undefined>;
     readonly statusId: import('valibot').NullableSchema<import('valibot').UnionSchema<readonly [import('valibot').LiteralSchema<"alpha", undefined>, import('valibot').LiteralSchema<"beta", undefined>, import('valibot').LiteralSchema<"releaseCandidate", undefined>, import('valibot').LiteralSchema<"generalAvailability", undefined>], undefined>, undefined>;

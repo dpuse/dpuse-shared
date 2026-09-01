@@ -1,10 +1,10 @@
 import "./dpuse-shared-locale.es.js";
-import { n as e } from "./componentConfig.schema-BRbvCPIW.js";
+import { n as e } from "./componentConfig.schema-BvhUd4m4.js";
 //#region src/component/index.ts
 var t = [
 	{
 		id: "alpha",
-		color: "red",
+		color: "danger",
 		labels: {
 			en: "alpha",
 			es: "alfa"
@@ -12,7 +12,7 @@ var t = [
 	},
 	{
 		id: "beta",
-		color: "amber",
+		color: "warning",
 		labels: {
 			en: "beta",
 			es: "beta"
@@ -20,7 +20,7 @@ var t = [
 	},
 	{
 		id: "releaseCandidate",
-		color: "green",
+		color: "success",
 		labels: {
 			en: "release-candidate",
 			es: "candidato-de-lanzamiento"
@@ -28,7 +28,7 @@ var t = [
 	},
 	{
 		id: "generalAvailability",
-		color: "green",
+		color: "success",
 		labels: {
 			en: "",
 			es: ""
@@ -45,7 +45,7 @@ function n(e, n = "en") {
 		};
 	}
 	return {
-		color: "red",
+		color: "danger",
 		label: e
 	};
 }

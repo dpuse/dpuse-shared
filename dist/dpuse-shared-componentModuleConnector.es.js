@@ -1,6 +1,6 @@
 import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
-import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-BRbvCPIW.js";
-import { t as p } from "./moduleConfig.schema-DOb6pxQ0.js";
+import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-BvhUd4m4.js";
+import { t as p } from "./moduleConfig.schema-CcJFr8H1.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
 var m = o([
 	"abortOperation",
@@ -48,10 +48,7 @@ var m = o([
 	categoryId: h,
 	implementations: u(c(), b),
 	usage: s(v),
-	usageId: s(_),
-	vendorAccountURL: s(c()),
-	vendorDocumentationURL: s(c()),
-	vendorHomeURL: s(c())
+	usageId: s(_)
 }), S = [
 	{
 		id: "application",
