@@ -70,6 +70,32 @@ Rules:
 - Avoid verbs. `Display`, `Manager`, `Handler` say what a component does in the vaguest available terms; `ErrorDisplay`
   became `ErrorShell` for that reason.
 
+### Locale strings
+
+Translations live in a file-local `T` table, keyed by what the string is for, never by what it says:
+
+```ts
+const T = {
+    'cancel.label': { en: 'Cancel', es: 'Cancelar' },
+    'reporting.pending.text': { en: 'Logging this error…', es: 'Registrando este error…' },
+    'step.label': { en: 'Step {number}', es: 'Paso {number}' }
+};
+```
+
+The key is `subject.role`, in lowerCamel segments, quoted, alphabetical. Rules:
+
+- The last segment is the **role**, drawn from a closed set: `label` for buttons, menu items, field names and short
+  headings; `title` for panel and page headers; `text` for prose; `placeholder`; `aria` for screen-reader-only
+  strings; `error` for validation and failure messages.
+- Earlier segments are the **subject** — a noun, plus a state where one applies (`reporting.pending`,
+  `reporting.failed`). `T` is file-local, so the component is already the scope: a key needs no prefix naming it.
+- `label` and `aria` are alternatives, not a stack. `detail.aria`, never `detail.label.aria`.
+- Plurals take `.one` / `.other` before the role: `dataView.one.text`, `dataView.other.text`.
+- **The key never carries copy.** No English sentences, no `{number}` placeholders, no punctuation, and no casing
+  that means something — placeholders and casing belong to the values. This is the component-name rule one level
+  down: name the contract, not the content, because the content is the part that changes. A key reading
+  `Select_a_connection_to_configure_the_data_view_before_continuing` outlived the sentence it was named for.
+
 ### Comments
 
 Comment why the code is not the obvious thing, not what it does. Do not restate class lists or method names.
