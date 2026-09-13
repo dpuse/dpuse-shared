@@ -42,45 +42,58 @@ See [PaneSplitter.vue](src/components/ui/PaneSplitter.vue) for a worked example.
 
 ### Component names
 
-A component's suffix names its contract with its host, never its shape or its content. Shape varies — the same error
-body renders as a card, as a dialog body, and inside a badge — and content changes; the contract does not.
+Name a component for what it **is**, not for an architectural role. Plain nouns by default — `Button`, `Card`,
+`Dialog`, `Menu`, `Panel` — and no suffix taxonomy to enforce.
 
-Three tiers:
+- **Disambiguate only on collision.** Add a suffix or prefix when two things would otherwise share a name, or to
+  name a shared primitive several variants build on — `ButtonBase`, `ProductCard` vs. `UserCard`.
+- **Compound components for complex interactive widgets** — dialogs, menus, dropdowns, tabs. Split by role within
+  the family rather than inventing a global suffix: `Dialog.Root`, `Dialog.Trigger`, `Dialog.Content`; `Menu.Root`,
+  `Menu.Item`.
+- **`Wrapper` is a normal, acceptable name** for a component whose job is to wrap children with cross-cutting
+  behaviour (error boundaries, providers, polymorphic root elements). Do not avoid it.
+- **`Shell` is reserved for the single top-level app frame** (`AppShell`) — not applied generically to dialogs,
+  error displays, or plugin panels.
+- Avoid vague verb-suffixes (`Display`, `Manager`, `Handler`) only when a more specific noun is obviously
+  available; don't force a rename otherwise.
 
-| Tier   | Contract                                        | Suffixes                                                             |
-| ------ | ----------------------------------------------- | -------------------------------------------------------------------- |
-| Host   | Owns a region and arranges others inside it     | `Layout`, `Dialog`, `Bar`, `Menu`, `Shell`                           |
-| Region | Swapped into a host by route or selection       | `Panel`                                                              |
-| Leaf   | Presentational, reused anywhere, owns no region | `Button`, `List`, `Table`, `Form`, `Header`, `Card`, `Input`, `Body` |
+### Props
 
-Rules:
+Type props inline in `defineProps`, destructured directly — no separate `interface Properties`:
 
-- `Panel` is reserved for routable or selectable content regions that fill a host. It is the largest bucket and the
-  most attractive default, which is the reason to guard it: a leaf named `Panel` claims a region it does not own.
-- Do not add content-shaped suffixes — `Detail`, `Summary`, `Info`. They name what a component says rather than what
-  it is, and what it says is the part that changes.
-- A leaf takes the primitive noun that fits it. Where none does, because the component is deliberately shape-agnostic,
-  it takes `Body` — the inner content a shell wraps. `ErrorBody` is the worked example: `ErrorShell` places it in a
-  card, in a detail dialog, and in a screen-owning modal.
-- `Shell` is the host that owns a region and chooses how its content is presented, as against `Layout`, which arranges
-  several children it does not choose between. Prefer it to `Wrapper`, which names containment — a mechanic every host
-  shares — rather than a role.
-- The suffix is the last word. A leaf must not lead with a host or region term either — `PanelLoadFailure` read as a
-  region and is now `LoadFailureNotice`.
-- Avoid verbs. `Display`, `Manager`, `Handler` say what a component does in the vaguest available terms; `ErrorDisplay`
-  became `ErrorShell` for that reason.
+```ts
+const { pluginLocalisedConfig, setupOptionLocalisedConfig } = defineProps<{
+    pluginLocalisedConfig: LocalisedConfig<PluginConfig>;
+    setupOptionLocalisedConfig: LocalisedConfig<SetupOptionConfig>;
+}>();
+```
+
+A prop passed through several layers unchanged (a dynamic tab's config, threaded from a list down through a
+wrapper into the component that renders it) keeps the same name at every layer, so the binding at each `<Component
+:prop="...">` call site never has to translate one name into another.
 
 ### Locale strings
 
-Translations live in a file-local `T` table, keyed by what the string is for, never by what it says:
+Translations live in a `T` table, keyed by what the string is for, never by what it says. `T` is defined in a sibling
+JSON file named after the component with a trailing underscore — `PluginPanel.vue` reads from `PluginPanel_.json` —
+and imported as a named export:
 
 ```ts
-const T = {
-    'cancel.label': { en: 'Cancel', es: 'Cancelar' },
-    'reporting.pending.text': { en: 'Logging this error…', es: 'Registrando este error…' },
-    'step.label': { en: 'Step {number}', es: 'Paso {number}' }
-};
+import { T } from './PluginPanel_.json';
 ```
+
+```json
+{
+    "T": {
+        "cancel.label": { "en": "Cancel", "es": "Cancelar" },
+        "reporting.pending.text": { "en": "Logging this error…", "es": "Registrando este error…" },
+        "step.label": { "en": "Step {number}", "es": "Paso {number}" }
+    }
+}
+```
+
+Import the named export directly (`import { T } from './X_.json'`) — never a default import followed by a `.T`
+lookup. Named JSON imports work throughout this codebase without extra config.
 
 The key is `subject.role`, in lowerCamel segments, quoted, alphabetical. Rules:
 
@@ -88,7 +101,8 @@ The key is `subject.role`, in lowerCamel segments, quoted, alphabetical. Rules:
   headings; `title` for panel and page headers; `text` for prose; `placeholder`; `aria` for screen-reader-only
   strings; `error` for validation and failure messages.
 - Earlier segments are the **subject** — a noun, plus a state where one applies (`reporting.pending`,
-  `reporting.failed`). `T` is file-local, so the component is already the scope: a key needs no prefix naming it.
+  `reporting.failed`). `T` is scoped one-to-one to its component, so the component is already the scope: a key needs
+  no prefix naming it.
 - `label` and `aria` are alternatives, not a stack. `detail.aria`, never `detail.label.aria`.
 - Plurals take `.one` / `.other` before the role: `dataView.one.text`, `dataView.other.text`.
 - **The key never carries copy.** No English sentences, no `{number}` placeholders, no punctuation, and no casing
