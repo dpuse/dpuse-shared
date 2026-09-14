@@ -1,8 +1,9 @@
 import { LocaleDescription, LocaleLabel } from '../../../../../locale';
 export interface ContextModelEntityPrimaryMeasureConfig {
+    id: string;
     label: LocaleLabel;
     description: LocaleDescription;
     formula?: string;
     events?: unknown[];
 }
-export type ContextModelEntityPrimaryMeasuresConfig = Record<string, ContextModelEntityPrimaryMeasureConfig | null>;
+export type ContextModelEntityPrimaryMeasuresConfig = ContextModelEntityPrimaryMeasureConfig[];

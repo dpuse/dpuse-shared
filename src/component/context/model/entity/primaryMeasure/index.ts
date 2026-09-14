@@ -3,9 +3,12 @@ import type { LocaleDescription, LocaleLabel } from '@/locale';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-// Lighter than 'ComponentInstanceConfig': the measure's own identity is the key it is stored under in
-// 'ContextModelEntityPrimaryMeasuresConfig', not a field of its own.
+// Lighter than 'ComponentInstanceConfig': no icon, status, or timestamps — a primary measure is a fixed calculation
+// on its entity, not an independently managed component. 'id' is the measure name; the set varies per entity — some
+// add their own alongside common ones (e.g. 'personLanguage' has 'personAverageLanguageCount') — so, unlike
+// 'ContextModelEntityEventId', it is not a fixed union.
 export interface ContextModelEntityPrimaryMeasureConfig {
+    id: string;
     label: LocaleLabel;
     description: LocaleDescription;
     formula?: string;
@@ -14,7 +17,5 @@ export interface ContextModelEntityPrimaryMeasureConfig {
     events?: unknown[];
 }
 
-// Keyed by measure name. The set of keys varies per entity — some add their own alongside the common ones (e.g.
-// 'personLanguage' has 'personAverageLanguageCount') — so, unlike 'ContextModelEntityEventId', this is not a fixed
-// union.
-export type ContextModelEntityPrimaryMeasuresConfig = Record<string, ContextModelEntityPrimaryMeasureConfig | null>;
+// Only the measures that apply to this entity — an entity that doesn't define a given measure has no entry for it.
+export type ContextModelEntityPrimaryMeasuresConfig = ContextModelEntityPrimaryMeasureConfig[];
