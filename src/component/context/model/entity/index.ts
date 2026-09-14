@@ -13,6 +13,11 @@ export interface ContextModelEntityConfig extends ComponentInstanceConfig {
     groupId: string;
     dataItems: ContextModelEntityDataItemConfig[];
     events: ContextModelEntityEventsConfig;
-    parents?: string[];
+    parents?: ContextModelEntityParentConfig[];
     primaryMeasures: ContextModelEntityPrimaryMeasuresConfig;
+}
+
+// A reference to another entity that this one is subordinate to (e.g. a 'position' belongs to an 'organisation').
+export interface ContextModelEntityParentConfig {
+    entityTypeId: string;
 }
