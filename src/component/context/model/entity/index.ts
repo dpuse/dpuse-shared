@@ -1,8 +1,8 @@
 // ── DPUse Framework
 import { ComponentInstanceConfig } from '@/component';
 import type { ContextModelEntityDataItemConfig } from './dataItem';
-import type { ContextModelEntityEventConfig } from './event';
-import type { ContextModelEntityPrimaryMeasureConfig } from './primaryMeasure';
+import type { ContextModelEntityEventsConfig } from './event';
+import type { ContextModelEntityPrimaryMeasuresConfig } from './primaryMeasure';
 import type { LocaleLabel } from '@/locale';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
@@ -12,7 +12,7 @@ export interface ContextModelEntityConfig extends ComponentInstanceConfig {
     labelPlural: LocaleLabel;
     groupId: string;
     dataItems: ContextModelEntityDataItemConfig[];
-    events: ContextModelEntityEventConfig[];
+    events: ContextModelEntityEventsConfig;
     parents?: string[];
-    primaryMeasures: ContextModelEntityPrimaryMeasureConfig[];
+    primaryMeasures: ContextModelEntityPrimaryMeasuresConfig;
 }
