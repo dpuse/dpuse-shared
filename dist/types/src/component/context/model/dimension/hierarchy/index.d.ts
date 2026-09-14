@@ -1,3 +1,4 @@
+import { BaseConfig } from '../../../../../index';
 import { ComponentInstanceConfig } from '../../../..';
 import { LocaleDescription, LocaleLabel } from '../../../../../locale';
 export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceConfig {
@@ -6,11 +7,7 @@ export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceC
     levels: ContextModelDimensionHierarchyLevelConfig[];
     children: ContextModelDimensionHierarchyNodeConfig[];
 }
-export interface ContextModelDimensionHierarchyLevelConfig {
-    id: string;
-    label: LocaleLabel;
-    description: LocaleDescription;
-}
+export type ContextModelDimensionHierarchyLevelConfig = BaseConfig;
 export interface ContextModelDimensionHierarchyNodeConfig {
     id: string | number;
     label?: LocaleLabel;

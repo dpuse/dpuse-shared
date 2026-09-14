@@ -1,8 +1,7 @@
-import { LocaleDescription, LocaleLabel } from '../../../../../locale';
-export interface ContextModelEntityPrimaryMeasureConfig {
-    id: string;
-    label: LocaleLabel;
-    description: LocaleDescription;
+import { BaseConfig } from '../../../../../index';
+import { LocaleDescription } from '../../../../../locale';
+export interface ContextModelEntityPrimaryMeasureConfig extends Omit<BaseConfig, 'description'> {
+    description?: LocaleDescription;
     formula?: string;
     events?: unknown[];
 }
