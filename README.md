@@ -142,28 +142,29 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 |Chunk/Module/File|Composition|
 |:------ |:-----------|
-| dist/componentConfig.schema-BvhUd4m4.js | 10.4 kB · brotli 2.2 kB |
+| dist/componentConfig.schema-Dxqinpxy.js | 9.9 kB · brotli 2.2 kB |
 | dist/dpuse-shared-encoding.es.js | 6.8 kB · brotli 953 B |
 | dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · brotli 1.2 kB |
 | dist/dpuse-shared-utilities.es.js | 3.6 kB · brotli 1.1 kB |
 | dist/dpuse-shared-errors.es.js | 3.5 kB · brotli 1.1 kB |
 | dist/dpuse-shared-locale.es.js | 1.0 kB · brotli 393 B |
-| dist/dpuse-shared-component.es.js | 842 B · brotli 355 B |
+| dist/dpuse-shared-component.es.js | 842 B · brotli 350 B |
 | dist/dpuse-shared-componentModuleTool.es.js | 784 B · brotli 398 B |
 | dist/dpuse-shared-componentDataView.es.js | 722 B · brotli 310 B |
-| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 225 B |
-| dist/moduleConfig.schema-CcJFr8H1.js | 405 B · brotli 224 B |
-| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 203 B |
+| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 223 B |
+| dist/moduleConfig.schema-B_EBeUaj.js | 405 B · brotli 224 B |
+| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 210 B |
 | dist/dpuse-shared-componentRecipe.es.js | 94 B · brotli 70 B |
 | dist/dpuse-shared-componentConnection.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContext.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModel.es.js | 0 B · brotli 1 B |
+| dist/dpuse-shared-componentContextModelDimension.es.js | 0 B · brotli 1 B |
+| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelEntity.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelEntityDataItem.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelEntityEvent.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js | 0 B · brotli 1 B |
-| dist/dpuse-shared-componentDimension.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentEventQuery.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentModule.es.js | 0 B · brotli 1 B |
 | dist/dpuse-shared-componentModuleEngine.es.js | 0 B · brotli 1 B |

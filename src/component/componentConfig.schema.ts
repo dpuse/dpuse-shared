@@ -24,7 +24,6 @@ export const componentTypeIdSchema = literalUnion([
     'cookbook',
     'cookbookRecipe',
     'dataView',
-    'dimension',
     'engine',
     'eventQuery',
     'presenter',

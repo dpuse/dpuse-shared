@@ -36,26 +36,25 @@ function r(e, t, r, i, a) {
 	}, u = e.kind === "schema", d = a?.message ?? e.message ?? (e.reference, l.lang, void 0) ?? (u ? (l.lang, void 0) : null) ?? i.message ?? (l.lang, void 0);
 	d !== void 0 && (l.message = typeof d == "function" ? d(l) : d), u && (r.typed = !1), r.issues ? r.issues.push(l) : r.issues = [l];
 }
-var i = /* @__PURE__ */ new WeakMap();
 /* @__NO_SIDE_EFFECTS__ */
-function a(e) {
-	let n = i.get(e);
-	return n || (n = {
-		version: 1,
-		vendor: "valibot",
-		validate(n) {
-			return e["~run"]({ value: n }, /* @__PURE__ */ t());
-		}
-	}, i.set(e, n)), n;
+function i(e, t) {
+	return e === t || Number.isNaN(e) && Number.isNaN(t);
 }
 /* @__NO_SIDE_EFFECTS__ */
-function o(e, t) {
+function a(e, t) {
 	return Object.prototype.hasOwnProperty.call(e, t) && t !== "__proto__" && t !== "prototype" && t !== "constructor";
 }
 /* @__NO_SIDE_EFFECTS__ */
-function s(e, t) {
+function o(e, t) {
 	let n = [...new Set(e)];
 	return n.length > 1 ? `(${n.join(` ${t} `)})` : n[0] ?? "never";
+}
+function s(e) {
+	return e["~standard"] = {
+		version: 1,
+		vendor: "valibot",
+		validate: (n) => e["~run"]({ value: n }, /* @__PURE__ */ t())
+	}, e;
 }
 /* @__NO_SIDE_EFFECTS__ */
 function c(e, t, n) {
@@ -67,7 +66,7 @@ function l(e, t, n) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function u(e, t) {
-	return {
+	return s({
 		kind: "schema",
 		type: "array",
 		reference: u,
@@ -75,9 +74,6 @@ function u(e, t) {
 		async: !1,
 		item: e,
 		message: t,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			let n = e.value;
 			if (Array.isArray(n)) {
@@ -103,28 +99,25 @@ function u(e, t) {
 			} else r(this, "type", e, t);
 			return e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function d(e) {
-	return {
+	return s({
 		kind: "schema",
 		type: "boolean",
 		reference: d,
 		expects: "boolean",
 		async: !1,
 		message: e,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			return typeof e.value == "boolean" ? e.typed = !0 : r(this, "type", e, t), e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function f(e, t) {
-	return {
+	return s({
 		kind: "schema",
 		type: "literal",
 		reference: f,
@@ -132,17 +125,14 @@ function f(e, t) {
 		async: !1,
 		literal: e,
 		message: t,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
-			return e.value === this.literal ? e.typed = !0 : r(this, "type", e, t), e;
+			return /* @__PURE__ */ i(e.value, this.literal) ? e.typed = !0 : r(this, "type", e, t), e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function p(e, t) {
-	return {
+	return s({
 		kind: "schema",
 		type: "nullable",
 		reference: p,
@@ -150,34 +140,28 @@ function p(e, t) {
 		async: !1,
 		wrapped: e,
 		default: t,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			return e.value === null && (this.default !== void 0 && (e.value = /* @__PURE__ */ l(this, e, t)), e.value === null) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function m(e) {
-	return {
+	return s({
 		kind: "schema",
 		type: "number",
 		reference: m,
 		expects: "number",
 		async: !1,
 		message: e,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			return typeof e.value == "number" && !isNaN(e.value) ? e.typed = !0 : r(this, "type", e, t), e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function h(e, t) {
-	return {
+	return s({
 		kind: "schema",
 		type: "object",
 		reference: h,
@@ -185,9 +169,6 @@ function h(e, t) {
 		async: !1,
 		entries: e,
 		message: t,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			let n = e.value;
 			if (n && typeof n == "object") {
@@ -227,11 +208,11 @@ function h(e, t) {
 			} else r(this, "type", e, t);
 			return e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function g(e, t) {
-	return {
+	return s({
 		kind: "schema",
 		type: "optional",
 		reference: g,
@@ -239,17 +220,14 @@ function g(e, t) {
 		async: !1,
 		wrapped: e,
 		default: t,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			return e.value === void 0 && (this.default !== void 0 && (e.value = /* @__PURE__ */ l(this, e, t)), e.value === void 0) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function _(e, t, n) {
-	return {
+	return s({
 		kind: "schema",
 		type: "record",
 		reference: _,
@@ -258,14 +236,11 @@ function _(e, t, n) {
 		key: e,
 		value: t,
 		message: n,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			let n = e.value;
 			if (n && typeof n == "object") {
 				e.typed = !0, e.value = {};
-				for (let r in n) if (/* @__PURE__ */ o(n, r)) {
+				for (let r in n) if (/* @__PURE__ */ a(n, r)) {
 					let i = n[r], a = this.key["~run"]({ value: r }, t);
 					if (a.issues) {
 						let o = {
@@ -301,24 +276,21 @@ function _(e, t, n) {
 			} else r(this, "type", e, t);
 			return e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function v(e) {
-	return {
+	return s({
 		kind: "schema",
 		type: "string",
 		reference: v,
 		expects: "string",
 		async: !1,
 		message: e,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			return typeof e.value == "string" ? e.typed = !0 : r(this, "type", e, t), e;
 		}
-	};
+	});
 }
 /* @__NO_SIDE_EFFECTS__ */
 function y(e) {
@@ -329,17 +301,14 @@ function y(e) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function b(e, t) {
-	return {
+	return s({
 		kind: "schema",
 		type: "union",
 		reference: b,
-		expects: /* @__PURE__ */ s(e.map((e) => e.expects), "|"),
+		expects: /* @__PURE__ */ o(e.map((e) => e.expects), "|"),
 		async: !1,
 		options: e,
 		message: t,
-		get "~standard"() {
-			return /* @__PURE__ */ a(this);
-		},
 		"~run"(e, t) {
 			let n, i, a;
 			for (let r of this.options) {
@@ -360,7 +329,7 @@ function b(e, t) {
 			else r(this, "type", e, t, { issues: /* @__PURE__ */ y(a) });
 			return e;
 		}
-	};
+	});
 }
 //#endregion
 //#region src/locale/locale.schema.ts
@@ -396,7 +365,6 @@ var x = /* @__PURE__ */ h({
 	"cookbook",
 	"cookbookRecipe",
 	"dataView",
-	"dimension",
 	"engine",
 	"eventQuery",
 	"presenter",

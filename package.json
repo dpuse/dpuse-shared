@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.802",
+    "version": "0.3.803",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -34,10 +34,6 @@
             "import": "./dist/dpuse-shared-componentDataView.es.js",
             "types": "./dist/types/src/component/dataView/index.d.ts"
         },
-        "./component/dimension": {
-            "import": "./dist/dpuse-shared-componentDimension.es.js",
-            "types": "./dist/types/src/component/dimension/index.d.ts"
-        },
         "./component/eventQuery": {
             "import": "./dist/dpuse-shared-componentEventQuery.es.js",
             "types": "./dist/types/src/component/eventQuery/index.d.ts"
@@ -49,6 +45,14 @@
         "./component/context/model": {
             "import": "./dist/dpuse-shared-componentContextModel.es.js",
             "types": "./dist/types/src/component/context/model/index.d.ts"
+        },
+        "./component/context/model/dimension": {
+            "import": "./dist/dpuse-shared-componentContextModelDimension.es.js",
+            "types": "./dist/types/src/component/context/model/dimension/index.d.ts"
+        },
+        "./component/context/model/dimension/hierarchy": {
+            "import": "./dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js",
+            "types": "./dist/types/src/component/context/model/dimension/hierarchy/index.d.ts"
         },
         "./component/context/model/entity": {
             "import": "./dist/dpuse-shared-componentContextModelEntity.es.js",
