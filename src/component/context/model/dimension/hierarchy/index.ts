@@ -15,7 +15,9 @@ export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceC
 
 // Names one rank of the hierarchy's tree (e.g. 'Decade', 'Year'), top to bottom — not itself a node in the tree.
 export interface ContextModelDimensionHierarchyLevelConfig {
+    id: string;
     label: LocaleLabel;
+    description: LocaleDescription;
 }
 
 // ── Types - Node Configuration ───────────────────────────────────────────────────────────────────────────────────────

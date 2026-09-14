@@ -7,7 +7,9 @@ export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceC
     children: ContextModelDimensionHierarchyNodeConfig[];
 }
 export interface ContextModelDimensionHierarchyLevelConfig {
+    id: string;
     label: LocaleLabel;
+    description: LocaleDescription;
 }
 export interface ContextModelDimensionHierarchyNodeConfig {
     id: string | number;
