@@ -6,4 +6,5 @@ import { ComponentInstanceConfig } from '@/component';
 export interface ContextModelSecondaryMeasureConfig extends ComponentInstanceConfig {
     typeId: 'contextModelSecondaryMeasure';
     groupId: string;
+    formula: string;
 }

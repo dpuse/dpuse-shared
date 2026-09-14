@@ -13,5 +13,6 @@ export interface ContextModelEntityConfig extends ComponentInstanceConfig {
     groupId: string;
     dataItems: ContextModelEntityDataItemConfig[];
     events: ContextModelEntityEventConfig[];
+    parents?: string[];
     primaryMeasures: ContextModelEntityPrimaryMeasureConfig[];
 }
