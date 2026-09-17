@@ -33,8 +33,9 @@ const splitterIsDragging = ref(false);
 
 Rules:
 
-- Groups are separated by a blank line, each starting with `// <GroupName>` on its own line.
-- Explanation for the whole group continues on the same comment block, after an em dash.
+- Groups are separated by a blank line. A group starts with either `// <GroupName>` on its own line, or a plain
+  comment that explains the group, e.g. `// An item's edits go into its entry for the current language.`
+- Where a group has a name, explanation for the whole group continues on the same comment block, after an em dash.
 - Notes about a single definition go as a trailing comment, not an extra line above it.
 - Definitions are alphabetical within a group.
 
@@ -74,17 +75,18 @@ wrapper into the component that renders it) keeps the same name at every layer, 
 
 ### Locale strings
 
-Translations live in a `T` table, keyed by what the string is for, never by what it says. `T` is defined in a sibling
-JSON file named after the component with a trailing underscore — `PluginPanel.vue` reads from `PluginPanel_.json` —
-and imported as a named export:
+Translations live in a `TEXT` table, keyed by what the string is for, never by what it says. It is not called `T`,
+because `T` is the generic type parameter throughout the app. `TEXT` is defined in a sibling JSON file named after the
+component with a trailing underscore — `PluginPanel.vue` reads from `PluginPanel_.json` — and imported as a named
+export:
 
 ```ts
-import { T } from './PluginPanel_.json';
+import { TEXT } from './PluginPanel_.json';
 ```
 
 ```json
 {
-    "T": {
+    "TEXT": {
         "cancel.label": { "en": "Cancel", "es": "Cancelar" },
         "reporting.pending.text": { "en": "Logging this error…", "es": "Registrando este error…" },
         "step.label": { "en": "Step {number}", "es": "Paso {number}" }
@@ -92,7 +94,7 @@ import { T } from './PluginPanel_.json';
 }
 ```
 
-Import the named export directly (`import { T } from './X_.json'`) — never a default import followed by a `.T`
+Import the named export directly (`import { TEXT } from './X_.json'`) — never a default import followed by a `.TEXT`
 lookup. Named JSON imports work throughout this codebase without extra config.
 
 The key is `subject.role`, in lowerCamel segments, quoted, alphabetical. Rules:
@@ -101,8 +103,8 @@ The key is `subject.role`, in lowerCamel segments, quoted, alphabetical. Rules:
   headings; `title` for panel and page headers; `text` for prose; `placeholder`; `aria` for screen-reader-only
   strings; `error` for validation and failure messages.
 - Earlier segments are the **subject** — a noun, plus a state where one applies (`reporting.pending`,
-  `reporting.failed`). `T` is scoped one-to-one to its component, so the component is already the scope: a key needs
-  no prefix naming it.
+  `reporting.failed`). `TEXT` is scoped one-to-one to its component, so the component is already the scope: a key
+  needs no prefix naming it.
 - `label` and `aria` are alternatives, not a stack. `detail.aria`, never `detail.label.aria`.
 - Plurals take `.one` / `.other` before the role: `dataView.one.text`, `dataView.other.text`.
 - **The key never carries copy.** No English sentences, no `{number}` placeholders, no punctuation, and no casing
@@ -114,5 +116,7 @@ The key is `subject.role`, in lowerCamel segments, quoted, alphabetical. Rules:
 
 Comment why the code is not the obvious thing, not what it does. Do not restate class lists or method names.
 
-Template comments must not sit above a component's root element — they become sibling root nodes, which makes the
-component multi-root and silently breaks attribute fallthrough. Put such notes inside the root element instead.
+A template comment may sit above a component's root element. It does not make the component multi-root: in
+development Vue skips comments when it looks for the single root to pass attributes to, and production builds strip
+comments altogether, so attribute fallthrough still works (verified on Vue 3.5). What does break fallthrough is a
+second element or text node at the root.
