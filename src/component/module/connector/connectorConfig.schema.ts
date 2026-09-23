@@ -52,6 +52,8 @@ export const connectorUsageConfigSchema = object({
 
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']); // Authentication method identifiers supported by a connector implementation.
 
+const connectorImplementationParametersSchema = record(string(), string()); // One set of implementation parameters, keyed by name.
+
 // A connector implementation variant. A single connector may expose multiple implementations differing by auth method, limits, or vendor-specific behavior.
 const connectorImplementationSchema = object({
     authMethodId: connectorAuthMethodIdSchema,
@@ -60,7 +62,7 @@ const connectorImplementationSchema = object({
     id: optional(string()),
     label: optional(localeLabelSchema),
     maxConnectionCount: nullable(number()),
-    params: optional(array(record(string(), string())))
+    params: optional(array(connectorImplementationParametersSchema))
 });
 
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
