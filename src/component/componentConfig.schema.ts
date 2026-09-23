@@ -35,7 +35,7 @@ export const componentTypeIdSchema = literalUnion([
 
 export const componentStatusColorIdSchema = literalUnion(['danger', 'success', 'warning']);
 
-export const componentStatusIdSchema = literalUnion(['alpha', 'beta', 'releaseCandidate', 'generalAvailability']);
+const componentStatusIdSchema = literalUnion(['alpha', 'beta', 'releaseCandidate', 'generalAvailability']);
 
 export const componentStatusConfigSchema = object({
     color: componentStatusColorIdSchema,

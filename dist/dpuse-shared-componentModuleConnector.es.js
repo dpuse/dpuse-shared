@@ -32,24 +32,24 @@ var m = o([
 	"disabled",
 	"oAuth2",
 	"none"
-]), b = i({
+]), b = u(c(), c()), x = i({
 	authMethodId: y,
 	activeConnectionCount: a(f()),
 	canDescribe: a(d()),
 	id: a(c()),
 	label: a(n),
 	maxConnectionCount: s(f()),
-	params: a(l(u(c(), c())))
-}), x = i({
+	params: a(l(b))
+}), S = i({
 	...p,
 	typeId: r("connector"),
 	actionNames: l(m),
 	category: s(g),
 	categoryId: h,
-	implementations: u(c(), b),
+	implementations: u(c(), x),
 	usage: s(v),
 	usageId: s(_)
-}), S = [
+}), C = [
 	{
 		id: "application",
 		label: {
@@ -78,7 +78,7 @@ var m = o([
 			es: "Almacén de Archivos"
 		}
 	}
-], C = {
+], w = {
 	abortOperation: "Abort Operation",
 	auditObjectContent: "Audit Object Content",
 	createObject: "Create Object",
@@ -94,7 +94,7 @@ var m = o([
 	retrieveChunks: "Retrieve Chunks",
 	retrieveRecords: "Retrieve Records",
 	upsertRecords: "Upsert Records"
-}, w = [
+}, T = [
 	{
 		id: "bidirectional",
 		label: {
@@ -123,12 +123,12 @@ var m = o([
 			es: "Desconocido"
 		}
 	}
-], T = /* @__PURE__ */ new Set([
+], E = /* @__PURE__ */ new Set([
 	"createObject",
 	"dropObject",
 	"removeRecords",
 	"upsertRecords"
-]), E = /* @__PURE__ */ new Set([
+]), D = /* @__PURE__ */ new Set([
 	"auditObjectContent",
 	"findObject",
 	"getInfo",
@@ -139,13 +139,13 @@ var m = o([
 	"retrieveChunks",
 	"retrieveRecords"
 ]);
-function D(e) {
+function O(e) {
 	let t = !1, n = !1;
-	for (let r of e) E.has(r) && (t = !0), T.has(r) && (n = !0);
+	for (let r of e) D.has(r) && (t = !0), E.has(r) && (n = !0);
 	return t && n ? "bidirectional" : t ? "source" : n ? "destination" : "source";
 }
-var O = (n, r = "en") => {
-	let i = S.find((e) => e.id === n);
+var k = (n, r = "en") => {
+	let i = C.find((e) => e.id === n);
 	if (i) {
 		let n = e(i.label);
 		return {
@@ -157,8 +157,8 @@ var O = (n, r = "en") => {
 		label: n,
 		description: ""
 	};
-}, k = (n, r = "en") => {
-	let i = w.find((e) => e.id === n);
+}, A = (n, r = "en") => {
+	let i = T.find((e) => e.id === n);
 	if (i) {
 		let n = e(i.label);
 		return {
@@ -171,11 +171,11 @@ var O = (n, r = "en") => {
 		description: ""
 	};
 };
-function A(e) {
+function j(e) {
 	let t = new Set(e), n = "|Action|Supported|\n";
 	n += "|:----|:-------:|\n";
-	for (let e of Object.keys(C)) n += `| ${C[e]} | ${t.has(e) ? "✓" : ""} |\n`;
+	for (let e of Object.keys(w)) n += `| ${w[e]} | ${t.has(e) ? "✓" : ""} |\n`;
 	return n;
 }
 //#endregion
-export { C as CONNECTOR_ACTION_NAME_MAP, x as connectorConfigSchema, O as constructConnectorCategoryConfig, k as constructConnectorUsageConfig, D as determineConnectorUsageId, A as getConnectorActionsTable };
+export { w as CONNECTOR_ACTION_NAME_MAP, S as connectorConfigSchema, k as constructConnectorCategoryConfig, A as constructConnectorUsageConfig, O as determineConnectorUsageId, j as getConnectorActionsTable };

@@ -275,8 +275,7 @@ export function determineConnectorUsageId(actionNames: ConnectorActionName[]): C
     }
     if (isSourceOperation && isDestinationOperation) return 'bidirectional';
     if (isSourceOperation) return 'source';
-    if (isDestinationOperation) return 'destination';
-    return 'source';
+    return isDestinationOperation ? 'destination' : 'source';
 }
 
 export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorCategoryConfig> => {
