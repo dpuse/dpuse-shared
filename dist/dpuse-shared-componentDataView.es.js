@@ -1,4 +1,4 @@
-import { createLabelMap as e } from "./dpuse-shared-locale.es.js";
+import { r as e } from "./label-DexpXrnC.js";
 //#region src/component/dataView/index.ts
 e({ en: "Data Positioning Events" }), e({ en: "Delimited Text" }), e({ en: "JSON" }), e({ en: "SPSS" }), e({ en: "XLSX" }), e({ en: "XML" });
 var t = [

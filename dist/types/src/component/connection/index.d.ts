@@ -1,5 +1,5 @@
 import { ConnectorConfig } from '../module/connector';
-import { LocaleLabel } from '../../locale';
+import { LocaleLabel } from '../../locale/label';
 import { ComponentInstanceConfig } from '..';
 import { DataSubtypeId, DataTypeId } from '../dataView';
 export interface ConnectionConfig extends ComponentInstanceConfig {

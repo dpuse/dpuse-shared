@@ -1,6 +1,6 @@
 // ── DPUse Framework
 import type { BaseConfig } from '@/index';
-import type { LocaleDescription } from '@/locale';
+import type { LocaleDescription } from '@/locale/label';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 

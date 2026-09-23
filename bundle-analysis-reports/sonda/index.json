@@ -1,13 +1,161 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-09-23T12:04:18.448Z",
+    "generatedAt": "2026-09-23T14:50:21.928Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
     "brotli": true
   },
   "resources": [
+    {
+      "kind": "sourcemap",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 0,
+      "parent": null
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 296,
+      "gzip": 0,
+      "brotli": 131,
+      "parent": "dist/dpuse-shared-component.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 156,
+      "gzip": 0,
+      "brotli": 103,
+      "parent": "dist/dpuse-shared-componentDataView.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 776,
+      "gzip": 0,
+      "brotli": 228,
+      "parent": "dist/dpuse-shared-componentModuleConnector.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 275,
+      "gzip": 0,
+      "brotli": 126,
+      "parent": "dist/dpuse-shared-componentModuleCookbook.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 281,
+      "gzip": 0,
+      "brotli": 127,
+      "parent": "dist/dpuse-shared-componentModulePresenter.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 209,
+      "gzip": 0,
+      "brotli": 125,
+      "parent": "dist/dpuse-shared-componentModuleTool.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 82,
+      "gzip": 0,
+      "brotli": 57,
+      "parent": "dist/dpuse-shared-componentRecipe.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 6797,
+      "gzip": 0,
+      "brotli": 823,
+      "parent": "dist/dpuse-shared-encoding.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 452,
+      "gzip": 0,
+      "brotli": 177,
+      "parent": "dist/dpuse-shared-errors.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 310,
+      "gzip": 0,
+      "brotli": 157,
+      "parent": "dist/dpuse-shared-locale.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 482,
+      "gzip": 0,
+      "brotli": 182,
+      "parent": "dist/dpuse-shared-utilities.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 1716,
+      "gzip": 0,
+      "brotli": 210,
+      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 95,
+      "gzip": 0,
+      "brotli": 67,
+      "parent": "dist/label-DexpXrnC.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 194,
+      "gzip": 0,
+      "brotli": 110,
+      "parent": "dist/moduleConfig.schema-B_EBeUaj.js"
+    },
     {
       "kind": "asset",
       "name": "dist/componentConfig.schema-Dxqinpxy.js",
@@ -20,9 +168,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-component.es.js",
       "type": "script",
-      "uncompressed": 842,
+      "uncompressed": 834,
       "gzip": 0,
-      "brotli": 350
+      "brotli": 353
     },
     {
       "kind": "asset",
@@ -108,9 +256,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentDataView.es.js",
       "type": "script",
-      "uncompressed": 722,
+      "uncompressed": 701,
       "gzip": 0,
-      "brotli": 310
+      "brotli": 297
     },
     {
       "kind": "asset",
@@ -132,9 +280,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-componentModuleConnector.es.js",
       "type": "script",
-      "uncompressed": 3703,
+      "uncompressed": 3671,
       "gzip": 0,
-      "brotli": 1197
+      "brotli": 1181
     },
     {
       "kind": "asset",
@@ -204,17 +352,17 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-locale.es.js",
       "type": "script",
-      "uncompressed": 1047,
+      "uncompressed": 856,
       "gzip": 0,
-      "brotli": 393
+      "brotli": 330
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-shared-utilities.es.js",
       "type": "script",
-      "uncompressed": 3652,
+      "uncompressed": 3570,
       "gzip": 0,
-      "brotli": 1176
+      "brotli": 1140
     },
     {
       "kind": "asset",
@@ -223,6 +371,14 @@
       "uncompressed": 0,
       "gzip": 0,
       "brotli": 1
+    },
+    {
+      "kind": "asset",
+      "name": "dist/label-DexpXrnC.js",
+      "type": "script",
+      "uncompressed": 361,
+      "gzip": 0,
+      "brotli": 204
     },
     {
       "kind": "asset",
@@ -240,6 +396,16 @@
       "uncompressed": 206411
     },
     {
+      "kind": "chunk",
+      "name": "node_modules/valibot/dist/index.mjs",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 6932,
+      "gzip": 0,
+      "brotli": 1528,
+      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/baseConfig.schema.ts",
       "type": "script",
@@ -247,11 +413,31 @@
       "uncompressed": 332
     },
     {
+      "kind": "chunk",
+      "name": "src/baseConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 187,
+      "gzip": 0,
+      "brotli": 88,
+      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/component/componentConfig.schema.ts",
       "type": "script",
       "format": "esm",
       "uncompressed": 1511
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/componentConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 926,
+      "gzip": 0,
+      "brotli": 313,
+      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
     },
     {
       "kind": "filesystem",
@@ -328,7 +514,17 @@
       "name": "src/component/dataView/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3847
+      "uncompressed": 3853
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/dataView/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 545,
+      "gzip": 0,
+      "brotli": 194,
+      "parent": "dist/dpuse-shared-componentDataView.es.js"
     },
     {
       "kind": "filesystem",
@@ -342,7 +538,17 @@
       "name": "src/component/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 988
+      "uncompressed": 994
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 538,
+      "gzip": 0,
+      "brotli": 222,
+      "parent": "dist/dpuse-shared-component.es.js"
     },
     {
       "kind": "filesystem",
@@ -352,11 +558,31 @@
       "uncompressed": 2054
     },
     {
+      "kind": "chunk",
+      "name": "src/component/module/connector/connectorConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 796,
+      "gzip": 0,
+      "brotli": 315,
+      "parent": "dist/dpuse-shared-componentModuleConnector.es.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/component/module/connector/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3596
+      "uncompressed": 3592
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/module/connector/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2099,
+      "gzip": 0,
+      "brotli": 638,
+      "parent": "dist/dpuse-shared-componentModuleConnector.es.js"
     },
     {
       "kind": "filesystem",
@@ -364,6 +590,16 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 523
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/module/cookbook/cookbookConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 95,
+      "gzip": 0,
+      "brotli": 84,
+      "parent": "dist/dpuse-shared-componentModuleCookbook.es.js"
     },
     {
       "kind": "filesystem",
@@ -394,6 +630,16 @@
       "uncompressed": 610
     },
     {
+      "kind": "chunk",
+      "name": "src/component/module/moduleConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 211,
+      "gzip": 0,
+      "brotli": 114,
+      "parent": "dist/moduleConfig.schema-B_EBeUaj.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/component/module/presenter/index.ts",
       "type": "script",
@@ -408,11 +654,31 @@
       "uncompressed": 564
     },
     {
+      "kind": "chunk",
+      "name": "src/component/module/presenter/presenterConfig.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 130,
+      "gzip": 0,
+      "brotli": 96,
+      "parent": "dist/dpuse-shared-componentModulePresenter.es.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/component/module/tool/index.ts",
       "type": "script",
       "format": "esm",
       "uncompressed": 966
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/module/tool/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 575,
+      "gzip": 0,
+      "brotli": 273,
+      "parent": "dist/dpuse-shared-componentModuleTool.es.js"
     },
     {
       "kind": "filesystem",
@@ -429,6 +695,16 @@
       "uncompressed": 48
     },
     {
+      "kind": "chunk",
+      "name": "src/component/recipe/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 12,
+      "gzip": 0,
+      "brotli": 13,
+      "parent": "dist/dpuse-shared-componentRecipe.es.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/encoding/encodingConfigs.json",
       "type": "script",
@@ -443,11 +719,31 @@
       "uncompressed": 482
     },
     {
+      "kind": "chunk",
+      "name": "src/encoding/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 213,
+      "gzip": 0,
+      "brotli": 130,
+      "parent": "dist/dpuse-shared-encoding.es.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/errors/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 5352
+      "uncompressed": 5329
+    },
+    {
+      "kind": "chunk",
+      "name": "src/errors/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 3167,
+      "gzip": 0,
+      "brotli": 940,
+      "parent": "dist/dpuse-shared-errors.es.js"
     },
     {
       "kind": "filesystem",
@@ -461,7 +757,34 @@
       "name": "src/locale/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1468
+      "uncompressed": 1030
+    },
+    {
+      "kind": "chunk",
+      "name": "src/locale/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 546,
+      "gzip": 0,
+      "brotli": 173,
+      "parent": "dist/dpuse-shared-locale.es.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/locale/label.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 530
+    },
+    {
+      "kind": "chunk",
+      "name": "src/locale/label.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 266,
+      "gzip": 0,
+      "brotli": 137,
+      "parent": "dist/label-DexpXrnC.js"
     },
     {
       "kind": "filesystem",
@@ -471,6 +794,16 @@
       "uncompressed": 337
     },
     {
+      "kind": "chunk",
+      "name": "src/locale/locale.schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 265,
+      "gzip": 0,
+      "brotli": 84,
+      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/schema.ts",
       "type": "script",
@@ -478,14 +811,101 @@
       "uncompressed": 141
     },
     {
+      "kind": "chunk",
+      "name": "src/schema.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 66,
+      "gzip": 0,
+      "brotli": 49,
+      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+    },
+    {
       "kind": "filesystem",
       "name": "src/utilities/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 5857
+      "uncompressed": 5691
+    },
+    {
+      "kind": "chunk",
+      "name": "src/utilities/index.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 3088,
+      "gzip": 0,
+      "brotli": 958,
+      "parent": "dist/dpuse-shared-utilities.es.js"
     }
   ],
-  "connections": [],
+  "connections": [
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-component.es.js",
+      "target": "src/component/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-componentDataView.es.js",
+      "target": "src/component/dataView/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-componentModuleConnector.es.js",
+      "target": "src/component/module/connector/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-componentModuleCookbook.es.js",
+      "target": "src/component/module/cookbook/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-componentModulePresenter.es.js",
+      "target": "src/component/module/presenter/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-componentModuleTool.es.js",
+      "target": "src/component/module/tool/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-componentRecipe.es.js",
+      "target": "src/component/recipe/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-encoding.es.js",
+      "target": "src/encoding/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-errors.es.js",
+      "target": "src/errors/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-locale.es.js",
+      "target": "src/locale/index.ts",
+      "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/dpuse-shared-utilities.es.js",
+      "target": "src/utilities/index.ts",
+      "original": null
+    }
+  ],
   "dependencies": [
     {
       "name": "valibot",

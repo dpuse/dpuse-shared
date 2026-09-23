@@ -134,7 +134,7 @@ export function serialiseError(error?: unknown): SerialisedError[] {
 // Unserialises an array of serialised error objects back into an error with a cause chain;
 // reconstructs the appropriate error class based on serialized properties;
 // chains errors from outermost to root cause using the `cause` option;
-// returns `undefined` if the input array is empty
+// returns a placeholder error if the input array is empty
 export function unserialiseError(serialisedErrors: SerialisedError[]): Error {
     // Build the error chain from root cause (end) to outermost (start)
     let rebuiltError: Error | undefined;
@@ -195,8 +195,7 @@ function serialiseSingleError(cause: Error): [SerialisedError, Error | null] {
         return [{ data: cause.data, locator: cause.locator, message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
     }
     const customProperties = Object.fromEntries(Object.entries(cause).filter(([k]) => k !== 'cause'));
-    if (cause.name) {
-        return [{ data: customProperties, locator: '', message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
-    }
-    return [{ data: customProperties, locator: '', message: buildFallbackMessage(cause), name: 'Error', stack: undefined }, null];
+    return cause.name
+        ? [{ data: customProperties, locator: '', message: cause.message, name: cause.name, stack: cause.stack }, nextCause]
+        : [{ data: customProperties, locator: '', message: buildFallbackMessage(cause), name: 'Error', stack: undefined }, null];
 }

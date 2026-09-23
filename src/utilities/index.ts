@@ -111,8 +111,9 @@ export function formatNumberAsSize(number?: number, decimalPlaces = 1): string {
     if (number < 1000) return formatNumberAsWholeNumber(number);
     if (number < 1_000_000) return `${formatNumberAsDecimalNumber(number / 1000, decimalPlaces, 0)}K`;
     if (number < 1_000_000_000) return `${formatNumberAsDecimalNumber(number / 1_000_000, decimalPlaces, 0)}M`;
-    if (number < 1_000_000_000_000) return `${formatNumberAsDecimalNumber(number / 1_000_000_000, decimalPlaces, 0)}B`;
-    return `${formatNumberAsDecimalNumber(number / 1_000_000_000_000, decimalPlaces, 0)}T`;
+    return number < 1_000_000_000_000
+        ? `${formatNumberAsDecimalNumber(number / 1_000_000_000, decimalPlaces, 0)}B`
+        : `${formatNumberAsDecimalNumber(number / 1_000_000_000_000, decimalPlaces, 0)}T`;
 }
 
 export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): string {
@@ -121,33 +122,27 @@ export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1): s
     if (number < 1024) return `${formatNumberAsWholeNumber(number)} bytes`;
     if (number < 1_048_576) return `${formatNumberAsDecimalNumber(number / 1024, decimalPlaces, 0)} KB`;
     if (number < 1_073_741_824) return `${formatNumberAsDecimalNumber(number / 1_048_576, decimalPlaces, 0)} MB`;
-    if (number < 1_099_511_627_776) return `${formatNumberAsDecimalNumber(number / 1_073_741_824, decimalPlaces, 0)} GB`;
-    return `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
+    return number < 1_099_511_627_776
+        ? `${formatNumberAsDecimalNumber(number / 1_073_741_824, decimalPlaces, 0)} GB`
+        : `${formatNumberAsDecimalNumber(number / 1_099_511_627_776, decimalPlaces, 0)} TB`;
 }
 
 export function formatNumberAsDuration(number?: number, stopAt: DurationLevel = 'ms'): string {
     if (number == null) return '';
 
+    // Start at the largest unit the value actually fills, so a value below the requested level still reads sensibly
+    // rather than as a run of zeroes.
+    const startIndex = DURATION_LEVELS.findIndex(([, threshold]) => number >= threshold);
+    const firstIndex = startIndex === -1 ? DURATION_LEVELS.length - 1 : startIndex;
     const stopIndex = DURATION_LEVELS.findIndex(([level]) => level === stopAt);
-    const stopThreshold = DURATION_LEVELS[stopIndex]?.[1] ?? 0;
 
-    if (number < stopThreshold) {
-        const found = DURATION_LEVELS.find(([, t]) => number >= t);
-        if (found == null) return `${formatNumberAsWholeNumber(number)} ms`;
-        const [, threshold, format] = found;
-        return format(threshold > 0 ? Math.floor(number / threshold) : number);
-    }
-
+    const durationLevels = DURATION_LEVELS.slice(firstIndex, Math.max(stopIndex, firstIndex) + 1);
     const parts: string[] = [];
     let remaining = number;
-    const durationLevels = DURATION_LEVELS.slice(0, stopIndex + 1);
     for (const [, threshold, format] of durationLevels) {
-        if (threshold === 0) {
-            if (remaining > 0 || parts.length === 0) parts.push(format(remaining));
-        } else if (remaining >= threshold) {
-            parts.push(format(Math.floor(remaining / threshold)));
-            remaining %= threshold;
-        }
+        if (remaining < threshold || (remaining === 0 && parts.length > 0)) continue;
+        parts.push(format(threshold > 0 ? Math.floor(remaining / threshold) : remaining));
+        remaining %= threshold > 0 ? threshold : 1;
     }
     return parts.join(' ');
 }
@@ -173,7 +168,8 @@ export function formatNumberAsWholeNumber(number?: number, locale = NUMBER_FORMA
 // ── Actions - Lookup ─────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function lookupMimeTypeForExtension(extension?: string): string {
-    switch (extension) {
+    // Extensions arrive from file names as typed, so 'REPORT.CSV' must resolve the same as 'report.csv'.
+    switch (extension?.toLowerCase()) {
         case 'csv':
             return 'text/csv';
         case 'tab':

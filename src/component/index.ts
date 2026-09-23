@@ -4,9 +4,9 @@ import { object } from 'valibot';
 
 // ── DPUse Framework
 import { componentBaseConfigSchema } from '@/component/componentConfig.schema';
-import { DEFAULT_LOCALE_ID } from '@/locale';
+import { DEFAULT_LOCALE_ID } from '@/locale/label';
 import type { componentInstanceConfigSchema, componentReferenceConfigSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
-import type { LocaleId, LocaleLabel } from '@/locale';
+import type { LocaleId, LocaleLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

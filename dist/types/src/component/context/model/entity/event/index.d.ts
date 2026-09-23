@@ -1,4 +1,4 @@
-import { LocaleDescription, LocaleLabel } from '../../../../../locale';
+import { LocaleDescription, LocaleLabel } from '../../../../../locale/label';
 export type ContextModelEntityEventId = 'creation' | 'activation' | 'recognition' | 'correction' | 'modification' | 'derecognition' | 'deactivation' | 'archival' | 'deletion';
 export interface ContextModelEntityEventConfig {
     id: ContextModelEntityEventId;

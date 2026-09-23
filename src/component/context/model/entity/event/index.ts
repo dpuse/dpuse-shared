@@ -1,5 +1,5 @@
 // ── DPUse Framework
-import type { LocaleDescription, LocaleLabel } from '@/locale';
+import type { LocaleDescription, LocaleLabel } from '@/locale/label';
 
 // ── Types - Identifier ───────────────────────────────────────────────────────────────────────────────────────────────
 

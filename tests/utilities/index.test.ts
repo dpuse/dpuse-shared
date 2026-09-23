@@ -21,6 +21,26 @@ describe('convertODataTypeIdToUsageTypeId', () => {
         expect(convertODataTypeIdToUsageTypeId('Edm.Time')).toBe('momentTime');
     });
 
+    it.each([
+        ['Edm.Binary', 'unknown'],
+        ['Edm.Boolean', 'boolean'],
+        ['Edm.Byte', 'wholeNumber'],
+        ['Edm.DateTime', 'moment'],
+        ['Edm.DateTimeOffset', 'moment'],
+        ['Edm.Decimal', 'decimalNumber'],
+        ['Edm.Double', 'decimalNumber'],
+        ['Edm.Guid', 'string'],
+        ['Edm.Int16', 'wholeNumber'],
+        ['Edm.Int32', 'wholeNumber'],
+        ['Edm.Int64', 'wholeNumber'],
+        ['Edm.SByte', 'wholeNumber'],
+        ['Edm.Single', 'decimalNumber'],
+        ['Edm.String', 'string'],
+        ['Edm.Time', 'momentTime']
+    ])('maps %s to %s', (oDataTypeId, usageTypeId) => {
+        expect(convertODataTypeIdToUsageTypeId(oDataTypeId)).toBe(usageTypeId);
+    });
+
     it('falls back to unknown for unsupported odata types', () => {
         expect(convertODataTypeIdToUsageTypeId('Edm.Stream')).toBe('unknown');
     });
@@ -105,6 +125,12 @@ describe('formatNumberAsSize', () => {
         expect(formatNumberAsSize(1000)).toBe('1K');
         expect(formatNumberAsSize(1500)).toBe('1.5K');
         expect(formatNumberAsSize(1_000_000)).toBe('1M');
+        expect(formatNumberAsSize(1_000_000_000)).toBe('1B');
+        expect(formatNumberAsSize(1_000_000_000_000)).toBe('1T');
+    });
+
+    it('returns an empty string for nullish values', () => {
+        expect(formatNumberAsSize()).toBe('');
     });
 });
 
@@ -118,12 +144,30 @@ describe('formatNumberAsStorageSize', () => {
         expect(formatNumberAsStorageSize(1024)).toBe('1 KB');
         expect(formatNumberAsStorageSize(1536)).toBe('1.5 KB');
         expect(formatNumberAsStorageSize(1_048_576)).toBe('1 MB');
+        expect(formatNumberAsStorageSize(1_073_741_824)).toBe('1 GB');
+        expect(formatNumberAsStorageSize(1_099_511_627_776)).toBe('1 TB');
+    });
+
+    it('returns an empty string for nullish values', () => {
+        expect(formatNumberAsStorageSize()).toBe('');
     });
 });
 
 describe('formatNumberAsDuration', () => {
     it('returns an empty string for nullish values', () => {
         expect(formatNumberAsDuration()).toBe('');
+    });
+
+    it('stops at the requested level, dropping the finer units', () => {
+        expect(formatNumberAsDuration(90_500, 'secs')).toBe('1 min 30 secs'); // Default would add '500 ms'.
+        expect(formatNumberAsDuration(5_400_000, 'mins')).toBe('1 hr 30 mins');
+        expect(formatNumberAsDuration(108_000_000, 'hrs')).toBe('1 day 6 hrs');
+        expect(formatNumberAsDuration(108_000_000, 'days')).toBe('1 day');
+    });
+
+    it('still picks a sensible single unit for values below the requested level', () => {
+        expect(formatNumberAsDuration(5000, 'days')).toBe('5 secs');
+        expect(formatNumberAsDuration(500, 'days')).toBe('500 ms');
     });
 
     it('formats durations across unit boundaries', () => {
@@ -141,13 +185,20 @@ describe('formatNumberAsDuration', () => {
 
 describe('lookupMimeTypeForExtension', () => {
     it('returns known mime types for supported extensions', () => {
+        expect(lookupMimeTypeForExtension('tab')).toBe('text/tab-separated-values');
+        expect(lookupMimeTypeForExtension('xls')).toBe('application/vnd.ms-excel');
         expect(lookupMimeTypeForExtension('csv')).toBe('text/csv');
         expect(lookupMimeTypeForExtension('tsv')).toBe('text/tab-separated-values');
         expect(lookupMimeTypeForExtension('xlsx')).toBe('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     });
 
-    it('falls back to octet-stream for unsupported extensions', () => {
-        expect(lookupMimeTypeForExtension('CSV')).toBe('application/octet-stream');
+    it('ignores the case of the extension', () => {
+        expect(lookupMimeTypeForExtension('CSV')).toBe('text/csv');
+        expect(lookupMimeTypeForExtension('XlSx')).toBe('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    });
+
+    it('falls back to octet-stream for unsupported and missing extensions', () => {
         expect(lookupMimeTypeForExtension('json')).toBe('application/octet-stream');
+        expect(lookupMimeTypeForExtension()).toBe('application/octet-stream');
     });
 });

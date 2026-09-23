@@ -48,6 +48,7 @@ export default defineConfig({
         rollupOptions: {
             plugins: [Sonda({ filename: 'index', format: 'json', brotli: true, gzip: false, open: false, outputDir: './bundle-analysis-reports/sonda' })]
         },
+        sourcemap: 'hidden',
         target: 'ESNext'
     },
     plugins: [dts({ outDirs: 'dist/types' })],

@@ -6,6 +6,7 @@ import {
     buildFetchError,
     concatenateSerialisedErrorMessages,
     ConnectorError,
+    EngineError,
     FetchError,
     ignoreErrors,
     normalizeToError,
@@ -18,6 +19,19 @@ describe('normalizeToError', () => {
         expect(normalizeToError('boom').message).toBe('boom');
         expect(normalizeToError(42).message).toBe('42');
         expect(normalizeToError(Symbol('token')).message).toBe('token');
+    });
+
+    it('normalizes the remaining primitive kinds', () => {
+        expect(normalizeToError(true).message).toBe('true');
+        expect(normalizeToError(10n).message).toBe('10');
+        expect(normalizeToError(undefined).message).toBe('Unknown error');
+        expect(normalizeToError(Symbol()).message).toBe('Unknown error'); // A symbol with no description.
+    });
+
+    it('returns an error unchanged', () => {
+        const error = new Error('original');
+
+        expect(normalizeToError(error)).toBe(error);
     });
 
     it('falls back to unknown error for circular objects', () => {
@@ -109,8 +123,8 @@ describe('serialiseError and unserialiseError', () => {
 
         expect(rebuilt).toBeInstanceOf(AppError);
         expect((rebuilt as AppError).locator).toBe('tests.app');
-        expect(rebuilt?.cause).toBeInstanceOf(ConnectorError);
-        expect((rebuilt?.cause as ConnectorError | undefined)?.locator).toBe('tests.connector');
+        expect(rebuilt.cause).toBeInstanceOf(ConnectorError);
+        expect((rebuilt.cause as ConnectorError).locator).toBe('tests.connector');
     });
 
     it('stops at cycles in the cause chain', () => {
@@ -120,8 +134,60 @@ describe('serialiseError and unserialiseError', () => {
         expect(serialiseError(error)).toHaveLength(1);
     });
 
-    it('returns undefined when there is nothing to unserialize', () => {
-        expect(unserialiseError([])).toBeUndefined();
+    it('rebuilds every DPUse error class, including EngineError', () => {
+        const rebuilt = unserialiseError(serialiseError(new EngineError('Engine failed', 'tests.engine', { engineId: 'demo' })));
+
+        expect(rebuilt).toBeInstanceOf(EngineError);
+        expect((rebuilt as EngineError).locator).toBe('tests.engine');
+        expect((rebuilt as EngineError).data).toEqual({ engineId: 'demo' });
+    });
+
+    it('rebuilds an unrecognised error name as a plain error that keeps the name', () => {
+        const serialised = serialiseError(new Error('Third party failed'));
+        const [outerError] = serialised;
+        if (!outerError) throw new TypeError('Expected one serialised error.');
+        outerError.name = 'ThirdPartyError';
+
+        const rebuilt = unserialiseError(serialised);
+
+        expect(rebuilt.name).toBe('ThirdPartyError');
+        expect(rebuilt.message).toBe('Third party failed.');
+    });
+
+    it('falls back to a serialised copy of the error when it has no name', () => {
+        class NamelessError extends Error {
+            override name = '';
+        }
+        const error = new NamelessError('Nameless');
+
+        const [serialisedError] = serialiseError(error);
+
+        expect(serialisedError?.name).toBe('Error');
+        expect(serialisedError?.message).toBe('{"name":""}.');
+    });
+
+    it('rebuilds APIError and FetchError from their serialised names', () => {
+        const apiError = unserialiseError(serialiseError(new APIError('API failed', 'tests.api')));
+        const fetchError = unserialiseError(serialiseError(new FetchError('Fetch failed', 'tests.fetch')));
+
+        expect(apiError).toBeInstanceOf(APIError);
+        expect(fetchError).toBeInstanceOf(FetchError);
+        expect((fetchError as FetchError).locator).toBe('tests.fetch');
+    });
+
+    it('leaves a message that already ends in punctuation alone', () => {
+        const [withStop] = serialiseError(new AppError('Ends in a stop.', 'tests.app'));
+        const [withEllipsis] = serialiseError(new AppError('Still going...', 'tests.app'));
+
+        expect(withStop?.message).toBe('Ends in a stop.');
+        expect(withEllipsis?.message).toBe('Still going...');
+    });
+
+    it('returns a placeholder error when there is nothing to unserialize', () => {
+        const rebuilt = unserialiseError([]);
+
+        expect(rebuilt).toBeInstanceOf(Error);
+        expect(rebuilt.message).toBe('No error to unserialise.');
     });
 });
 

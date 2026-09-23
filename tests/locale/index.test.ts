@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { createLabelMap, DEFAULT_LOCALE_ID, localiseConfig, localiseConfigs, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, localiseConfig, localiseConfigs, localiseReference, resolveLabel } from '@/locale';
 
 describe('createLabelMap', () => {
     it('builds a map from a plain record', () => {
@@ -21,18 +21,18 @@ describe('localiseConfig', () => {
         };
 
         expect(localiseConfig(config, 'es')).toEqual({
-            description: ['Descripción'],
+            description: 'Descripción',
             id: 'demo',
             label: 'Etiqueta',
             other: 1
         });
     });
 
-    it('falls back to empty array when localized description is missing', () => {
+    it('falls back to an empty string when the localized description is missing', () => {
         const config = { description: {}, id: 'demo', label: {}, other: 1 };
 
         expect(localiseConfig(config, 'en')).toEqual({
-            description: [],
+            description: '',
             id: 'demo',
             label: 'demo',
             other: 1
@@ -51,6 +51,39 @@ describe('localiseConfigs', () => {
             { description: 'First description', id: 'first', label: 'First' },
             { description: '', id: 'second', label: 'second' }
         ]);
+    });
+});
+
+describe('localiseConfigs sorting', () => {
+    it('sorts by label, falling back to the id when two labels match', () => {
+        const configs = [
+            { description: {}, id: 'zulu', label: { en: 'Same' } },
+            { description: {}, id: 'alpha', label: { en: 'Same' } },
+            { description: {}, id: 'first', label: { en: 'Another' } }
+        ];
+
+        expect(localiseConfigs(configs, 'en', true).map((config) => config.id)).toEqual(['first', 'alpha', 'zulu']);
+    });
+
+    it('preserves the original order when sorting is not requested', () => {
+        const configs = [
+            { description: {}, id: 'zulu', label: { en: 'Zulu' } },
+            { description: {}, id: 'alpha', label: { en: 'Alpha' } }
+        ];
+
+        expect(localiseConfigs(configs, 'en').map((config) => config.id)).toEqual(['zulu', 'alpha']);
+    });
+});
+
+describe('localiseReference', () => {
+    it('localizes label and description for the requested locale', () => {
+        const reference = { description: { en: 'English description', es: 'Descripción' }, id: 'demo', label: { en: 'English label', es: 'Etiqueta' } };
+
+        expect(localiseReference(reference, 'es')).toEqual({ description: 'Descripción', id: 'demo', label: 'Etiqueta' });
+    });
+
+    it('falls back to the id for the label and to an empty string for the description', () => {
+        expect(localiseReference({ description: {}, id: 'demo', label: {} }, 'en')).toEqual({ description: '', id: 'demo', label: 'demo' });
     });
 });
 

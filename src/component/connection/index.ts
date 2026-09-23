@@ -1,6 +1,6 @@
 // ── DPUse Framework
 import type { ConnectorConfig } from '@/component/module/connector';
-import type { LocaleLabel } from '@/locale';
+import type { LocaleLabel } from '@/locale/label';
 import type { Component, ComponentInstanceConfig } from '@/component';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 

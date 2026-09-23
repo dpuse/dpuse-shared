@@ -79,16 +79,9 @@ function c(e, t = 1) {
 }
 function l(t, n = "ms") {
 	if (t == null) return "";
-	let r = e.findIndex(([e]) => e === n);
-	if (t < (e[r]?.[1] ?? 0)) {
-		let n = e.find(([, e]) => t >= e);
-		if (n == null) return `${u(t)} ms`;
-		let [, r, i] = n;
-		return i(r > 0 ? Math.floor(t / r) : t);
-	}
-	let i = [], a = t, o = e.slice(0, r + 1);
-	for (let [, e, t] of o) e === 0 ? (a > 0 || i.length === 0) && i.push(t(a)) : a >= e && (i.push(t(Math.floor(a / e))), a %= e);
-	return i.join(" ");
+	let r = e.findIndex(([, e]) => t >= e), i = r === -1 ? e.length - 1 : r, a = e.findIndex(([e]) => e === n), o = e.slice(i, Math.max(a, i) + 1), s = [], c = t;
+	for (let [, e, t] of o) c < e || c === 0 && s.length > 0 || (s.push(t(e > 0 ? Math.floor(c / e) : c)), c %= e > 0 ? e : 1);
+	return s.join(" ");
 }
 function u(e, r = t) {
 	if (e == null) return "";
@@ -103,7 +96,7 @@ function u(e, r = t) {
 	}), n.set(i, a)), a.format(e);
 }
 function d(e) {
-	switch (e) {
+	switch (e?.toLowerCase()) {
 		case "csv": return "text/csv";
 		case "tab":
 		case "tsv": return "text/tab-separated-values";

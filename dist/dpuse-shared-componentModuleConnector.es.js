@@ -1,4 +1,4 @@
-import { createLabelMap as e, resolveLabel as t } from "./dpuse-shared-locale.es.js";
+import { i as e, r as t } from "./label-DexpXrnC.js";
 import { a as n, c as r, d as i, f as a, i as o, l as s, m as c, o as l, p as u, s as d, u as f } from "./componentConfig.schema-Dxqinpxy.js";
 import { t as p } from "./moduleConfig.schema-B_EBeUaj.js";
 //#region src/component/module/connector/connectorConfig.schema.ts
@@ -147,9 +147,9 @@ function O(e) {
 var k = (n, r = "en") => {
 	let i = C.find((e) => e.id === n);
 	if (i) {
-		let n = e(i.label);
+		let n = t(i.label);
 		return {
-			label: t(n, r) ?? i.id,
+			label: e(n, r) ?? i.id,
 			description: ""
 		};
 	}
@@ -160,9 +160,9 @@ var k = (n, r = "en") => {
 }, A = (n, r = "en") => {
 	let i = T.find((e) => e.id === n);
 	if (i) {
-		let n = e(i.label);
+		let n = t(i.label);
 		return {
-			label: t(n, r) ?? i.id,
+			label: e(n, r) ?? i.id,
 			description: ""
 		};
 	}

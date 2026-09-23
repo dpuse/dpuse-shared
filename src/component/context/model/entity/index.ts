@@ -3,7 +3,7 @@ import { ComponentInstanceConfig } from '@/component';
 import type { ContextModelEntityDataItemConfig } from './dataItem';
 import type { ContextModelEntityEventsConfig } from './event';
 import type { ContextModelEntityPrimaryMeasuresConfig } from './primaryMeasure';
-import type { LocaleLabel } from '@/locale';
+import type { LocaleLabel } from '@/locale/label';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 

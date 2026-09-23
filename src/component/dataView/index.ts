@@ -4,7 +4,7 @@ import type { FileTypeResult } from 'file-type';
 // ── DPUse Framework
 import type { Component, ComponentInstanceConfig } from '@/component';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
-import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale';
+import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale/label';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 

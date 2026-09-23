@@ -1,14 +1,12 @@
+// ── DPUse Framework
+import { DEFAULT_LOCALE_ID } from '@/locale/label';
+import type { LocaleDescription, LocaleId, LocaleLabel } from '@/locale/label';
+
+// The label vocabulary is re-exported so that the published '@dpuse/dpuse-shared/locale' entry point stays one import
+// for consumers, while modules inside this package can depend on '@/locale/label' alone.
+export * from '@/locale/label';
+
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export type FlagId = 'es' | 'gb';
-
-export type LocaleId = 'en' | 'es';
-
-export type LocaleLabel = Partial<Record<LocaleId, string>>;
-
-export type LocaleDescription = Partial<Record<LocaleId, string>>;
-
-export type LocaleLabelMap = ReadonlyMap<string, string>;
 
 export type LocalisedConfig<T> = Omit<T, 'label' | 'description' | 'verb'> & { label: string; description: string; verb?: string | undefined };
 
@@ -18,6 +16,7 @@ interface UnlocalisedConfig {
     description: LocaleDescription;
     verb?: LocaleLabel | undefined;
 }
+
 export type LocalisedReference<T> = Omit<T, 'label' | 'description'> & { label: string; description: string };
 
 interface UnlocalisedReference {
@@ -26,26 +25,13 @@ interface UnlocalisedReference {
     description: LocaleDescription;
 }
 
-// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export const DEFAULT_LOCALE_ID: LocaleId = 'en';
-
-export const SUPPORTED_LANGUAGES: { id: LocaleId; flag: FlagId; label: string }[] = [
-    { id: 'en', flag: 'gb', label: 'English' },
-    { id: 'es', flag: 'es', label: 'Español' }
-];
-
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export function createLabelMap(labels: Record<string, string>): LocaleLabelMap {
-    return new Map(Object.entries(labels));
-}
 
 export function localiseConfig<T extends UnlocalisedConfig>(config: T, localeId: LocaleId): LocalisedConfig<T> {
     return {
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? config.description[DEFAULT_LOCALE_ID],
+        description: config.description[localeId] ?? config.description[DEFAULT_LOCALE_ID] ?? '',
         verb: config.verb?.[localeId] ?? undefined
     };
 }
@@ -54,7 +40,7 @@ export function localiseConfigs<T extends UnlocalisedConfig>(configs: T[], local
     const mapped = configs.map((config) => ({
         ...config,
         label: config.label[localeId] ?? config.id,
-        description: config.description[localeId] ?? config.description[DEFAULT_LOCALE_ID],
+        description: config.description[localeId] ?? config.description[DEFAULT_LOCALE_ID] ?? '',
         verb: config.verb?.[localeId] ?? undefined
     }));
     return isResultSorted ? mapped.toSorted((a, b) => a.label.localeCompare(b.label) || a.id.localeCompare(b.id)) : mapped;
@@ -64,13 +50,6 @@ export function localiseReference<T extends UnlocalisedReference>(reference: T, 
     return {
         ...reference,
         label: reference.label[localeId] ?? reference.id,
-        description: reference.description[localeId] ?? reference.description[DEFAULT_LOCALE_ID]
+        description: reference.description[localeId] ?? reference.description[DEFAULT_LOCALE_ID] ?? ''
     };
-}
-
-export function resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId = DEFAULT_LOCALE_ID): string | undefined {
-    const localizedLabel = labels.get(localeId);
-    if (localizedLabel !== undefined) return localizedLabel;
-    if (fallbackLocaleId === localeId) return undefined;
-    return labels.get(fallbackLocaleId);
 }

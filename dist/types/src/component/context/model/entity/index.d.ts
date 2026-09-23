@@ -2,7 +2,7 @@ import { ComponentInstanceConfig } from '../../..';
 import { ContextModelEntityDataItemConfig } from './dataItem';
 import { ContextModelEntityEventsConfig } from './event';
 import { ContextModelEntityPrimaryMeasuresConfig } from './primaryMeasure';
-import { LocaleLabel } from '../../../../locale';
+import { LocaleLabel } from '../../../../locale/label';
 export interface ContextModelEntityConfig extends ComponentInstanceConfig {
     typeId: 'contextModelEntity';
     labelPlural: LocaleLabel;

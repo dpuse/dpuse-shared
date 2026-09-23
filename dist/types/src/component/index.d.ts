@@ -1,6 +1,6 @@
 import { InferOutput, object } from 'valibot';
 import { componentBaseConfigSchema, componentInstanceConfigSchema, componentReferenceConfigSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from './componentConfig.schema';
-import { LocaleId } from '../locale';
+import { LocaleId } from '../locale/label';
 export { componentInstanceConfigSchema } from './componentConfig.schema';
 export interface Component {
     readonly config: ComponentInstanceConfig;
