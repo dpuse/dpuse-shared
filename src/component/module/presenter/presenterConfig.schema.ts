@@ -1,5 +1,5 @@
 // ── External Dependencies & Registrations
-import { array, literal, object } from 'valibot';
+import { array, literal, strictObject } from 'valibot';
 
 // ── DPUse Framework
 import { componentReferenceConfigSchema } from '@/component/componentConfig.schema';
@@ -12,7 +12,7 @@ export const presenterActionNameSchema = literalUnion(['list', 'render', 'setCol
 
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
-export const presenterConfigSchema = object({
+export const presenterConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: literal('presenter'),
     actionNames: array(presenterActionNameSchema),

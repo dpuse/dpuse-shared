@@ -1,6 +1,6 @@
 // ── External Dependencies & Registrations
 import type { InferOutput } from 'valibot';
-import { object } from 'valibot';
+import { strictObject } from 'valibot';
 
 // ── DPUse Framework
 import { componentBaseConfigSchema } from '@/component/componentConfig.schema';
@@ -20,7 +20,7 @@ export interface Component {
 
 // ── Types - Base ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type ComponentBaseConfig = InferOutput<ReturnType<typeof object<typeof componentBaseConfigSchema>>>;
+export type ComponentBaseConfig = InferOutput<ReturnType<typeof strictObject<typeof componentBaseConfigSchema>>>;
 
 // ── Types - Instance Configuration ───────────────────────────────────────────────────────────────────────────────────
 

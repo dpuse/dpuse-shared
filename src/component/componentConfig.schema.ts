@@ -1,5 +1,5 @@
 // ── External Dependencies & Registrations
-import { nullable, number, object, string } from 'valibot';
+import { nullable, number, strictObject, string } from 'valibot';
 
 // ── DPUse Framework
 import { baseConfigSchema } from '@/baseConfig.schema';
@@ -37,7 +37,7 @@ export const componentStatusColorIdSchema = literalUnion(['danger', 'success', '
 
 const componentStatusIdSchema = literalUnion(['alpha', 'beta', 'releaseCandidate', 'generalAvailability']);
 
-export const componentStatusConfigSchema = object({
+export const componentStatusConfigSchema = strictObject({
     color: componentStatusColorIdSchema,
     label: string()
 });
@@ -53,7 +53,7 @@ export const componentBaseConfigSchema = {
 // ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
 
 // Common structure for referencing all components.
-export const componentReferenceConfigSchema = object({
+export const componentReferenceConfigSchema = strictObject({
     ...componentBaseConfigSchema,
     order: number(),
     path: string()
@@ -70,6 +70,6 @@ export const componentCoreFieldsConfig = {
     statusId: nullable(componentStatusIdSchema)
 };
 
-export const componentInstanceConfigSchema = object({
+export const componentInstanceConfigSchema = strictObject({
     ...componentCoreFieldsConfig
 });

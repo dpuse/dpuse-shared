@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-09-24T09:34:39.248Z",
+    "generatedAt": "2026-09-24T11:38:36.100Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -23,7 +23,7 @@
       "format": "other",
       "uncompressed": 296,
       "gzip": 0,
-      "brotli": 131,
+      "brotli": 145,
       "parent": "dist/dpuse-shared-component.es.js"
     },
     {
@@ -43,7 +43,7 @@
       "format": "other",
       "uncompressed": 776,
       "gzip": 0,
-      "brotli": 228,
+      "brotli": 248,
       "parent": "dist/dpuse-shared-componentModuleConnector.es.js"
     },
     {
@@ -53,7 +53,7 @@
       "format": "other",
       "uncompressed": 275,
       "gzip": 0,
-      "brotli": 126,
+      "brotli": 128,
       "parent": "dist/dpuse-shared-componentModuleCookbook.es.js"
     },
     {
@@ -63,7 +63,7 @@
       "format": "other",
       "uncompressed": 281,
       "gzip": 0,
-      "brotli": 127,
+      "brotli": 132,
       "parent": "dist/dpuse-shared-componentModulePresenter.es.js"
     },
     {
@@ -131,10 +131,10 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 1716,
+      "uncompressed": 1827,
       "gzip": 0,
-      "brotli": 210,
-      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+      "brotli": 213,
+      "parent": "dist/componentConfig.schema-DT3mO5rS.js"
     },
     {
       "kind": "chunk",
@@ -153,16 +153,16 @@
       "format": "other",
       "uncompressed": 194,
       "gzip": 0,
-      "brotli": 110,
-      "parent": "dist/moduleConfig.schema-B_EBeUaj.js"
+      "brotli": 115,
+      "parent": "dist/moduleConfig.schema-aYmFWSrn.js"
     },
     {
       "kind": "asset",
-      "name": "dist/componentConfig.schema-Dxqinpxy.js",
+      "name": "dist/componentConfig.schema-DT3mO5rS.js",
       "type": "script",
-      "uncompressed": 10092,
+      "uncompressed": 10456,
       "gzip": 0,
-      "brotli": 2272
+      "brotli": 2319
     },
     {
       "kind": "asset",
@@ -170,7 +170,7 @@
       "type": "script",
       "uncompressed": 834,
       "gzip": 0,
-      "brotli": 353
+      "brotli": 363
     },
     {
       "kind": "asset",
@@ -282,7 +282,7 @@
       "type": "script",
       "uncompressed": 3671,
       "gzip": 0,
-      "brotli": 1181
+      "brotli": 1185
     },
     {
       "kind": "asset",
@@ -290,7 +290,7 @@
       "type": "script",
       "uncompressed": 370,
       "gzip": 0,
-      "brotli": 210
+      "brotli": 212
     },
     {
       "kind": "asset",
@@ -306,7 +306,7 @@
       "type": "script",
       "uncompressed": 411,
       "gzip": 0,
-      "brotli": 223
+      "brotli": 225
     },
     {
       "kind": "asset",
@@ -382,11 +382,11 @@
     },
     {
       "kind": "asset",
-      "name": "dist/moduleConfig.schema-B_EBeUaj.js",
+      "name": "dist/moduleConfig.schema-aYmFWSrn.js",
       "type": "script",
       "uncompressed": 405,
       "gzip": 0,
-      "brotli": 224
+      "brotli": 225
     },
     {
       "kind": "filesystem",
@@ -400,10 +400,10 @@
       "name": "node_modules/valibot/dist/index.mjs",
       "type": "script",
       "format": "esm",
-      "uncompressed": 6932,
+      "uncompressed": 7185,
       "gzip": 0,
-      "brotli": 1528,
-      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+      "brotli": 1567,
+      "parent": "dist/componentConfig.schema-DT3mO5rS.js"
     },
     {
       "kind": "filesystem",
@@ -420,14 +420,14 @@
       "uncompressed": 187,
       "gzip": 0,
       "brotli": 88,
-      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+      "parent": "dist/componentConfig.schema-DT3mO5rS.js"
     },
     {
       "kind": "filesystem",
       "name": "src/component/componentConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1511
+      "uncompressed": 1535
     },
     {
       "kind": "chunk",
@@ -436,8 +436,8 @@
       "format": "esm",
       "uncompressed": 926,
       "gzip": 0,
-      "brotli": 313,
-      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+      "brotli": 314,
+      "parent": "dist/componentConfig.schema-DT3mO5rS.js"
     },
     {
       "kind": "filesystem",
@@ -547,7 +547,7 @@
       "format": "esm",
       "uncompressed": 538,
       "gzip": 0,
-      "brotli": 222,
+      "brotli": 218,
       "parent": "dist/dpuse-shared-component.es.js"
     },
     {
@@ -555,7 +555,7 @@
       "name": "src/component/module/connector/connectorConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 2054
+      "uncompressed": 2084
     },
     {
       "kind": "chunk",
@@ -564,7 +564,7 @@
       "format": "esm",
       "uncompressed": 796,
       "gzip": 0,
-      "brotli": 315,
+      "brotli": 310,
       "parent": "dist/dpuse-shared-componentModuleConnector.es.js"
     },
     {
@@ -581,7 +581,7 @@
       "format": "esm",
       "uncompressed": 2099,
       "gzip": 0,
-      "brotli": 638,
+      "brotli": 627,
       "parent": "dist/dpuse-shared-componentModuleConnector.es.js"
     },
     {
@@ -589,7 +589,7 @@
       "name": "src/component/module/cookbook/cookbookConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 523
+      "uncompressed": 535
     },
     {
       "kind": "chunk",
@@ -627,7 +627,7 @@
       "name": "src/component/module/moduleConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 610
+      "uncompressed": 622
     },
     {
       "kind": "chunk",
@@ -636,8 +636,8 @@
       "format": "esm",
       "uncompressed": 211,
       "gzip": 0,
-      "brotli": 114,
-      "parent": "dist/moduleConfig.schema-B_EBeUaj.js"
+      "brotli": 110,
+      "parent": "dist/moduleConfig.schema-aYmFWSrn.js"
     },
     {
       "kind": "filesystem",
@@ -651,7 +651,7 @@
       "name": "src/component/module/presenter/presenterConfig.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 564
+      "uncompressed": 576
     },
     {
       "kind": "chunk",
@@ -660,7 +660,7 @@
       "format": "esm",
       "uncompressed": 130,
       "gzip": 0,
-      "brotli": 96,
+      "brotli": 93,
       "parent": "dist/dpuse-shared-componentModulePresenter.es.js"
     },
     {
@@ -791,7 +791,7 @@
       "name": "src/locale/locale.schema.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 337
+      "uncompressed": 361
     },
     {
       "kind": "chunk",
@@ -800,8 +800,8 @@
       "format": "esm",
       "uncompressed": 265,
       "gzip": 0,
-      "brotli": 84,
-      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+      "brotli": 89,
+      "parent": "dist/componentConfig.schema-DT3mO5rS.js"
     },
     {
       "kind": "filesystem",
@@ -818,7 +818,7 @@
       "uncompressed": 66,
       "gzip": 0,
       "brotli": 49,
-      "parent": "dist/componentConfig.schema-Dxqinpxy.js"
+      "parent": "dist/componentConfig.schema-DT3mO5rS.js"
     },
     {
       "kind": "filesystem",

@@ -1,5 +1,5 @@
 // ── External Dependencies & Registrations
-import { nullable, object, string } from 'valibot';
+import { nullable, strictObject, string } from 'valibot';
 
 // ── DPUse Framework
 import { componentCoreFieldsConfig } from '@/component/componentConfig.schema';
@@ -20,7 +20,7 @@ export const moduleConfigCoreFields = {
     version: string()
 };
 
-export const moduleConfigSchema = object({
+export const moduleConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: moduleTypeIdSchema
 });

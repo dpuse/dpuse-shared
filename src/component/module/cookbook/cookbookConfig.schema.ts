@@ -1,5 +1,5 @@
 // ── External Dependencies & Registrations
-import { array, literal, object } from 'valibot';
+import { array, literal, strictObject } from 'valibot';
 
 // ── DPUse Framework
 import { componentReferenceConfigSchema } from '@/component/componentConfig.schema';
@@ -12,7 +12,7 @@ export const cookbookActionNameSchema = literalUnion(['list']);
 
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
-export const cookbookConfigSchema = object({
+export const cookbookConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: literal('cookbook'),
     actionNames: array(cookbookActionNameSchema),

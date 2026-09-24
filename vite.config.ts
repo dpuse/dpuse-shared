@@ -51,8 +51,6 @@ export default defineConfig({
         sourcemap: 'hidden',
         target: 'ESNext'
     },
-    // Tests and config files sit in the tsconfig so they get type-checked, but their declarations must not reach the
-    // published package. 'entryRoot' keeps the output under 'dist/types/src', which the package.json 'types' paths expect.
     plugins: [dts({ entryRoot: '.', exclude: ['tests/**', '*.config.*'], outDirs: 'dist/types' })],
     resolve: {
         alias: {

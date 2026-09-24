@@ -4,7 +4,7 @@
  */
 
 // ── External Dependencies & Registrations
-import { array, boolean, literal, nullable, number, object, optional, record, string } from 'valibot';
+import { array, boolean, literal, nullable, number, optional, record, strictObject, string } from 'valibot';
 
 // ── DPUse Framework
 import { literalUnion } from '@/schema';
@@ -36,7 +36,7 @@ export const connectorActionNameSchema = literalUnion([
 
 const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']); // Category identifiers used for grouping and filtering connectors.
 
-export const connectorCategoryConfigSchema = object({
+export const connectorCategoryConfigSchema = strictObject({
     label: localeLabelSchema
 });
 
@@ -44,7 +44,7 @@ export const connectorCategoryConfigSchema = object({
 
 export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source']); // Connector data pipeline usage identifiers.
 
-export const connectorUsageConfigSchema = object({
+export const connectorUsageConfigSchema = strictObject({
     label: localeLabelSchema
 });
 
@@ -55,7 +55,7 @@ const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2'
 const connectorImplementationParametersSchema = record(string(), string()); // One set of implementation parameters, keyed by name.
 
 // A connector implementation variant. A single connector may expose multiple implementations differing by auth method, limits, or vendor-specific behavior.
-const connectorImplementationSchema = object({
+const connectorImplementationSchema = strictObject({
     authMethodId: connectorAuthMethodIdSchema,
     activeConnectionCount: optional(number()),
     canDescribe: optional(boolean()),
@@ -67,7 +67,7 @@ const connectorImplementationSchema = object({
 
 // ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
 
-export const connectorConfigSchema = object({
+export const connectorConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: literal('connector'),
     actionNames: array(connectorActionNameSchema),
