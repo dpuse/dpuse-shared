@@ -1,9 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ENCODING_GROUP_CONFIG_MAP, ENCODING_TYPE_CONFIG_MAP, getEncodingTypeConfigs } from '@/encoding';
-
-// eslint-disable-next-line unicorn/text-encoding-identifier-case -- The encoding id is the standard 'utf-8' that TextDecoder and chardet use, not a Node Buffer encoding.
-const UTF_8_ID = 'utf-8';
+import { ENCODING_GROUP_CONFIG_MAP, ENCODING_TYPE_CONFIG_MAP, getEncodingTypeConfigs, isEncodingTypeId } from '@/encoding';
 
 describe('ENCODING_GROUP_CONFIG_MAP', () => {
     it('keys every group by its own id', () => {
@@ -27,6 +24,17 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
     });
 });
 
+describe('isEncodingTypeId', () => {
+    it('accepts a known encoding id', () => {
+        expect(isEncodingTypeId('windows-1252')).toBe(true);
+    });
+
+    it('rejects an unknown name, including an inherited object property', () => {
+        expect(isEncodingTypeId('utf16')).toBe(false);
+        expect(isEncodingTypeId('toString')).toBe(false);
+    });
+});
+
 describe('getEncodingTypeConfigs', () => {
     it('returns one config per entry in the encoding map', () => {
         expect(getEncodingTypeConfigs()).toHaveLength(Object.keys(ENCODING_TYPE_CONFIG_MAP).length);
@@ -37,7 +45,7 @@ describe('getEncodingTypeConfigs', () => {
 
         expect(encodingTypeConfigs.slice(0, 3).map((config) => [config.groupLabel, config.label])).toEqual([
             ['', 'ascii'],
-            ['', UTF_8_ID],
+            ['', 'utf-8'],
             ['Arabic', 'Arabic (iso-8859-6)']
         ]);
 
@@ -55,6 +63,6 @@ describe('getEncodingTypeConfigs', () => {
     });
 
     it('labels an ungrouped encoding with its id alone', () => {
-        expect(getEncodingTypeConfigs('es').find((config) => config.id === UTF_8_ID)).toMatchObject({ groupLabel: '', label: UTF_8_ID });
+        expect(getEncodingTypeConfigs('es').find((config) => config.id === 'utf-8')).toMatchObject({ groupLabel: '', label: 'utf-8' });
     });
 });

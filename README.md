@@ -143,27 +143,27 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 |Chunk/Module/File|Composition|
 |:------ |:-----------|
 | dist/componentConfig.schema-DT3mO5rS.js | 10.2 kB · brotli 2.3 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 21.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 5.5% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 21.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 5.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| dist/dpuse-shared-encoding.es.js | 6.8 kB · brotli 953 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `████░░░░░░░░░░░░░░░░` 20.5% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| dist/dpuse-shared-encoding.es.js | 7.4 kB · brotli 1.3 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `████░░░░░░░░░░░░░░░░` 19.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 3.0% |
 | dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · brotli 1.2 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.2% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.4% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 2.3% |
 | dist/dpuse-shared-errors.es.js | 3.5 kB · brotli 1.1 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 9.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 9.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.3% |
 | dist/dpuse-shared-utilities.es.js | 3.5 kB · brotli 1.1 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 9.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 9.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
 | dist/dpuse-shared-locale.es.js | 856 B · brotli 330 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.9% |

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-09-24T11:38:36.100Z",
+    "generatedAt": "2026-09-24T14:59:28.811Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -91,9 +91,9 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 6797,
+      "uncompressed": 1011,
       "gzip": 0,
-      "brotli": 823,
+      "brotli": 153,
       "parent": "dist/dpuse-shared-encoding.es.js"
     },
     {
@@ -336,9 +336,9 @@
       "kind": "asset",
       "name": "dist/dpuse-shared-encoding.es.js",
       "type": "script",
-      "uncompressed": 7010,
+      "uncompressed": 7557,
       "gzip": 0,
-      "brotli": 953
+      "brotli": 1335
     },
     {
       "kind": "asset",
@@ -706,26 +706,19 @@
     },
     {
       "kind": "filesystem",
-      "name": "src/encoding/encodingConfigs.json",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 6680
-    },
-    {
-      "kind": "filesystem",
       "name": "src/encoding/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 482
+      "uncompressed": 8164
     },
     {
       "kind": "chunk",
       "name": "src/encoding/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 213,
+      "uncompressed": 6546,
       "gzip": 0,
-      "brotli": 130,
+      "brotli": 1182,
       "parent": "dist/dpuse-shared-encoding.es.js"
     },
     {

@@ -1,6 +1,6 @@
 // ── DPUse Framework
 import type { ComponentInstanceConfig } from '@/component';
-import type { LocalisedEncodingTypeConfig } from '@/encoding';
+import type { EncodingTypeConfigLocalised } from '@/encoding';
 import type { LocaleId } from '@/locale/label';
 import type { LocalisedConfig } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
@@ -10,7 +10,7 @@ import type { ToolConfig } from '@/component/module/tool';
 
 // TODO: Should this be interface?
 export interface EngineRuntime {
-    getEncodingTypeConfigs: (localeId: LocaleId) => LocalisedEncodingTypeConfig[];
+    getEncodingTypeConfigs: (localeId: LocaleId) => EncodingTypeConfigLocalised[];
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;
 }
 
