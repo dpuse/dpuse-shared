@@ -1,5 +1,7 @@
+import { safeParse } from 'valibot';
 import { describe, expect, it } from 'vitest';
 
+import { connectorUsageIdSchema } from '@/component/module/connector/connectorConfig.schema';
 import { constructConnectorCategoryConfig, constructConnectorUsageConfig, determineConnectorUsageId, getConnectorActionsTable } from '@/component/module/connector';
 
 describe('determineConnectorUsageId', () => {
@@ -15,12 +17,18 @@ describe('determineConnectorUsageId', () => {
         expect(determineConnectorUsageId(['retrieveRecords', 'upsertRecords'])).toBe('bidirectional');
     });
 
-    it('returns source when the connector implements no source or destination actions', () => {
-        expect(determineConnectorUsageId(['abortOperation', 'describeConnection'])).toBe('source');
+    it('returns unknown when the connector implements no source or destination actions', () => {
+        expect(determineConnectorUsageId(['abortOperation', 'describeConnection'])).toBe('unknown');
     });
 
-    it('returns source when no actions are implemented', () => {
-        expect(determineConnectorUsageId([])).toBe('source');
+    it('returns unknown when no actions are implemented', () => {
+        expect(determineConnectorUsageId([])).toBe('unknown');
+    });
+});
+
+describe('connectorUsageIdSchema', () => {
+    it('accepts unknown, so a connector config can record that no usage was identified', () => {
+        expect(safeParse(connectorUsageIdSchema, 'unknown').success).toBe(true);
     });
 });
 
@@ -39,6 +47,11 @@ describe('constructConnectorUsageConfig', () => {
     it('localizes a known usage', () => {
         expect(constructConnectorUsageConfig('bidirectional')).toEqual({ label: 'Bidirectional', description: '' });
         expect(constructConnectorUsageConfig('source', 'es')).toEqual({ label: 'Origen', description: '' });
+    });
+
+    it('labels the unknown usage that a connector with no source or destination actions gets', () => {
+        expect(constructConnectorUsageConfig('unknown')).toEqual({ label: 'Unknown', description: '' });
+        expect(constructConnectorUsageConfig('unknown', 'es')).toEqual({ label: 'Desconocido', description: '' });
     });
 
     it('uses the id as the label for an unknown usage', () => {

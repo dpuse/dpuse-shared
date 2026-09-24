@@ -42,7 +42,7 @@ export const connectorCategoryConfigSchema = strictObject({
 
 // ── Schemas - Usage ──────────────────────────────────────────────────────────────────────────────────────────────────
 
-export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source']); // Connector data pipeline usage identifiers.
+export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']); // Connector data pipeline usage identifiers.
 
 export const connectorUsageConfigSchema = strictObject({
     label: localeLabelSchema
