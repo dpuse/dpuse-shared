@@ -1,1 +1,0 @@
-{"version":3,"file":"dpuse-shared-componentRecipe.es.js","names":[],"sources":["../src/component/recipe/index.ts"],"sourcesContent":["const PLACEHOLDER = '';\nexport { PLACEHOLDER };\n"],"mappings":";AAAA,IAAM,IAAc"}
