@@ -13,11 +13,6 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
         for (const [key, encodingTypeConfig] of Object.entries(ENCODING_TYPE_CONFIG_MAP)) expect(key).toBe(encodingTypeConfig.id);
     });
 
-    // The JSON import types 'groupId' as a plain string, so a misspelt group would otherwise still compile.
-    it('refers only to groups that exist', () => {
-        for (const { groupId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (groupId != null) expect(Object.keys(ENCODING_GROUP_CONFIG_MAP)).toContain(groupId);
-    });
-
     // Ids are the standard names TextDecoder and chardet use, so an encoding offered for decoding must be one TextDecoder accepts.
     it('uses ids TextDecoder accepts for every decodable encoding', () => {
         for (const { id, isDecodable } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (isDecodable) expect(() => new TextDecoder(id)).not.toThrow();

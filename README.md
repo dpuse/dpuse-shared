@@ -32,6 +32,22 @@ DPUse (Data Positioning & Use) is an in-browser application that positions your 
 
 <!-- OPENING_END -->
 
+<!-- USAGE_START -->
+
+This connector is automatically uploaded to the DPUse Engine cloud once released and becomes instantly available to all new browser app instances, with existing instances notified of the update.
+
+You may view or clone this repository for your own purposes, such as building a new, similar connector, though there is currently no process to accept third-party connectors into DPUse at this stage. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
+
+```bash
+git clone https://github.com/dpuse/dpuse-shared.git
+cd dpuse-shared
+npm install
+```
+
+_Requires [Node.js](https://nodejs.org/) 24 or later, [npm](https://www.npmjs.com/) 12 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
+
+<!-- USAGE_END -->
+
 ## Table of Contents
 
 ## Prerequisites
@@ -115,10 +131,22 @@ License data is collected automatically on each release using [license-checker](
 
 <!-- DEPENDENCY_LICENSES_START -->
 
-License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
+License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
-| Dependency | Version | License(s) | Document |
-| :--------- | :-----: | :--------- | :------- |
+|Dependency|Version|License(s)|Document|
+|:-|:-:|:-|:-|
+|[@borewit/text-codec](https://github.com/Borewit/text-codec)|0.2.2|MIT|[LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
+|[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)|0.4.1|MIT|[LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)|
+|[@tokenizer/token](https://github.com/Borewit/tokenizer-token)|0.3.0|MIT|[LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)|
+|[debug](https://github.com/debug-js/debug)|4.4.3|MIT|[LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)|
+|[file-type](https://github.com/sindresorhus/file-type)|22.1.1|MIT|[LICENSE](licenses/downloads/file-type@22.1.1-LICENSE.txt)|
+|[ieee754](https://github.com/feross/ieee754)|1.2.1|BSD-3-Clause|[LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)|
+|[ms](https://github.com/vercel/ms)|2.1.3|MIT|[LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)|
+|[strtok3](https://github.com/Borewit/strtok3)|10.3.5|MIT|[LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)|
+|[token-types](https://github.com/Borewit/token-types)|6.1.2|MIT|[LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)|
+|[typescript](https://github.com/microsoft/TypeScript)|6.0.3|Apache-2.0|[LICENSE](licenses/downloads/typescript@6.0.3-LICENSE.txt)|
+|[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)|1.5.0|MIT|[LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)|
+|[valibot](https://github.com/open-circle/valibot)|1.5.0|MIT|[LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)|
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -129,6 +157,21 @@ The dependency tree below lists every package in this project — direct and tra
 <!-- DEPENDENCY_TREE_START -->
 
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
+
+- **[file-type](https://github.com/sindresorhus/file-type)** 22.1.1 — this month: 2026-09-17
+  - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **10 months** ago: 2025-11-18 ⚠️
+    - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **12 months** ago: 2025-09-13 ⚠️
+      - **[ms](https://github.com/vercel/ms)** 2.1.3 — **69 months** ago: 2020-12-08 ⚠️
+    - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
+  - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **6 months** ago: 2026-03-21
+    - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
+  - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
+    - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **6 months** ago: 2026-03-11
+    - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
+    - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **70 months** ago: 2020-10-27 ⚠️
+  - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **13 months** ago: 2025-08-22 ⚠️
+- **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — this month: 2026-09-09
+  - **[typescript](https://github.com/microsoft/TypeScript)** 6.0.3 — **5 months** ago: 2026-04-16 → **latest**: 7.0.2 — **2 months** ago: 2026-07-08 ❗
 
 <!-- DEPENDENCY_TREE_END -->
 
