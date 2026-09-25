@@ -6,7 +6,7 @@
             "The library is written in TypeScript and designed to be consumed exclusively by TypeScript projects. All configuration types are schema-validated using [Valibot](https://valibot.dev/), giving consumers both compile-time safety and runtime validation from a single source of truth."
         ]
     },
-    "version": "0.3.831",
+    "version": "0.3.832",
     "icon": null,
     "iconDark": null
 }
