@@ -242,6 +242,24 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 [SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
 
+### Code Health
+
+[![Fallow code health](https://img.shields.io/badge/fallow-A%20%2890%29-brightgreen)](./code-health-reports/fallow/index.md)
+
+[Fallow](https://github.com/fallow-rs/fallow) analyses the TypeScript source on each release for unused code, duplication, complexity, and dependency hygiene. See the [full Fallow report](./code-health-reports/fallow/index.md) for every finding.
+
+|Measure|Value|
+|:-|-:|
+|Health score|90.0 (A)|
+|Maintainability (average)|93.1|
+|Unused files|0.0%|
+|Unused exports|0.0%|
+|Duplicated code|0.0%|
+|Functions over the complexity limits|4 of 83|
+|Unused dependencies|0|
+|Circular dependencies|0|
+|Hotspots (complex and often changed)|1|
+
 ### Vulnerability Scanning
 
 Two complementary tools continuously monitor dependencies for known vulnerabilities:
