@@ -20,6 +20,9 @@ export interface ConnectionConfig extends ComponentInstanceConfig {
 
 // ── Types - Configuration - Authorisation ────────────────────────────────────────────────────────────────────────────
 
+// TODO: Proof of concept for testing, not fully implemented. Tokens must not live in a connection config, which is saved,
+// synced and shown in the browser. Keep the refresh token on the server only and never send any token to the browser;
+// this should shrink to non-secret details such as the account id and expiry.
 export interface ConnectionAuthorisationConfig {
     accessToken: string; // Dropbox.
     accountId: string; // Dropbox.
