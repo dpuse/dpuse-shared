@@ -191,6 +191,49 @@ describe('serialiseError and unserialiseError', () => {
     });
 });
 
+describe('serialiseError redaction', () => {
+    it('masks the whole value of a data field whose name looks secret', () => {
+        const [serialised] = serialiseError(new AppError('Failed.', 'test', { accessToken: 'abc', nested: { clientSecret: 'def' }, status: 401 }));
+
+        expect(serialised?.data).toEqual({ accessToken: '[REDACTED]', nested: { clientSecret: '[REDACTED]' }, status: 401 });
+    });
+
+    it('masks secrets and email addresses in messages, stacks and text data', () => {
+        const body = '{"access_token":"sl.abcdefghijklmnopqrstu","token_type":"bearer","uid":"42"}';
+        const error = new FetchError('Call for jo@example.com failed with Authorization: Bearer abc.def.', 'test', { body });
+        error.stack = 'Error: at https://api.example.com/token?client_secret=xyz&code=1';
+        const [serialised] = serialiseError(error);
+
+        expect(serialised?.message).toBe('Call for [REDACTED] failed with Authorization: Bearer [REDACTED]');
+        expect(serialised?.data).toEqual({ body: '{"access_token":"[REDACTED]","token_type":"bearer","uid":"42"}' });
+        expect(serialised?.stack).toBe('Error: at https://api.example.com/token?client_secret=[REDACTED]&code=1');
+    });
+
+    it('leaves ordinary text untouched', () => {
+        const [serialised] = serialiseError(new AppError('File report.csv not found: status=404.', 'test'));
+
+        expect(serialised?.message).toBe('File report.csv not found: status=404.');
+    });
+
+    it('stops at circular data rather than looping', () => {
+        const data: Record<string, unknown> = { name: 'loop' };
+        data['self'] = data;
+        const [serialised] = serialiseError(new AppError('Failed.', 'test', data));
+
+        expect(serialised?.data).toEqual({ name: 'loop', self: '[Circular]' });
+    });
+
+    // The patterns are applied to response bodies of up to 2KB and to full stacks, so they must not slow down on long
+    // text that nearly matches.
+    it('redacts long near-matching text quickly', () => {
+        const nearMatches = `${'a.'.repeat(50_000)}@`;
+        const startedAt = performance.now();
+        serialiseError(new AppError(nearMatches, 'test'));
+
+        expect(performance.now() - startedAt).toBeLessThan(500);
+    });
+});
+
 describe('small error helpers', () => {
     it('concatenates serialised error messages in order', () => {
         expect(

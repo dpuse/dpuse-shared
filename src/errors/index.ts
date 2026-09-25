@@ -13,6 +13,25 @@ export interface SerialisedError {
 
 const RESPONSE_ERROR_BODY_LIMIT = 2048;
 
+// Redaction — serialised errors are shown in the browser and stored in Axiom, so secrets and email addresses are masked
+// first. Best effort: it catches the common shapes, not every possible secret.
+const REDACTED = '[REDACTED]';
+const REDACTION_MAX_DEPTH = 10; // Deeper 'data' is replaced whole rather than walked.
+const SECRET_KEY_PATTERN = /api[-_]?key|authori[sz]ation|cookie|credential|passw(?:or)?d|private[-_]?key|secret|token/i; // A 'data' field whose name matches has its whole value masked.
+// Each pattern is anchored to the start of a word, so it runs in linear time even over a long response body.
+const SECRET_TEXT_PATTERNS: [RegExp, (match: string, ...groups: string[]) => string][] = [
+    [/\b(Bearer|Basic) +[\w.~+/=-]+/gi, (_match, scheme) => `${scheme} ${REDACTED}`], // Authorisation header values.
+    // Any 'name: value' or 'name=value' pair, in JSON, query strings, form bodies or headers; masked when the name looks
+    // secret. A bare 'Basic' or 'Bearer' value is the scheme left by the pattern above, whose token is already masked.
+    [
+        /(?<![\w-])([\w-]+)(["']?[ \t]*[:=][ \t]*["']?)([^\s"'&,;}?#]+)/g,
+        (match, name, separator, value) => (SECRET_KEY_PATTERN.test(name) && !/^(?:Basic|Bearer)$/i.test(value) ? `${name}${separator}${REDACTED}` : match)
+    ],
+    [/\beyJ[\w-]+\.[\w-]+\.[\w-]*/g, () => REDACTED], // JSON web tokens.
+    [/\b(?:sk-|xaat-|xapt-|sl\.)[\w-]{16,}/g, () => REDACTED], // Known token prefixes: OpenAI, Anthropic, Axiom, Dropbox.
+    [/(?<![\w.+-])[\w.+-]+@[\w-]+\.[\w.-]+/g, () => REDACTED] // Email addresses.
+];
+
 // ── Errors ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Base class for all DPUse  errors; includes a locator for the error; never thrown directly
@@ -116,7 +135,8 @@ export function normalizeToError(value: unknown): Error {
 // Serializes an error and its cause chain into a array of serialised error objects;
 // errors are ordered from outermost to root cause;
 // cycles in the cause chain are safely ignored;
-// messages are normalized to end with punctuation
+// messages are normalized to end with punctuation;
+// secrets and email addresses in messages, stacks and data are redacted
 export function serialiseError(error?: unknown): SerialisedError[] {
     const seenCauses = new Set();
     const serialisedErrors: SerialisedError[] = [];
@@ -125,7 +145,7 @@ export function serialiseError(error?: unknown): SerialisedError[] {
         seenCauses.add(cause);
         const [serialisedError, nextCause] = serialiseSingleError(cause);
         if (!/(?:\.{3}|[.!?])$/.test(serialisedError.message)) serialisedError.message += '.';
-        serialisedErrors.push(serialisedError);
+        serialisedErrors.push(redactSerialisedError(serialisedError));
         cause = nextCause;
     }
     return serialisedErrors;
@@ -181,6 +201,37 @@ function reconstructError(serialised: SerialisedError, cause: Error | undefined)
             })(serialised.message, { cause });
         }
     }
+}
+
+function redactSerialisedError(serialisedError: SerialisedError): SerialisedError {
+    const { data, message, stack } = serialisedError;
+    return {
+        ...serialisedError,
+        data: data === undefined ? undefined : (redactValue(data, new WeakSet(), 0) as Record<string, unknown>),
+        message: redactText(message),
+        stack: stack === undefined ? undefined : redactText(stack)
+    };
+}
+
+function redactText(text: string): string {
+    let redactedText = text;
+    for (const [pattern, replacement] of SECRET_TEXT_PATTERNS)
+        redactedText = redactedText.replaceAll(pattern, (match: string, ...groups: string[]) => replacement(match, ...groups));
+    return redactedText;
+}
+
+// Walks 'data', masking any field whose name looks secret and any secret found in text.
+function redactValue(value: unknown, seen: WeakSet<object>, depth: number): unknown {
+    if (typeof value === 'string') return redactText(value);
+    if (typeof value !== 'object' || value === null) return value;
+    if (depth >= REDACTION_MAX_DEPTH) return REDACTED;
+    if (seen.has(value)) return '[Circular]';
+    seen.add(value);
+    return Array.isArray(value)
+        ? value.map((item) => redactValue(item, seen, depth + 1))
+        : Object.fromEntries(
+              Object.entries(value).map(([key, entryValue]) => [key, entryValue != null && SECRET_KEY_PATTERN.test(key) ? REDACTED : redactValue(entryValue, seen, depth + 1)])
+          );
 }
 
 // Sanitizes a response body; limits body size to avoid excessive payloads when logging
