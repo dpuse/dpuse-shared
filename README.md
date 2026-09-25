@@ -153,78 +153,80 @@ The dependency tree below lists every package in this project — direct and tra
 
 <!-- BUNDLE_START -->
 
+## Bundle Analysis
+
 The Bundle Analysis Report is generated automatically on each release using [Sonda](https://sonda.dev/), which analyses final source maps to reveal the actual effects of tree-shaking and minification rather than relying on pre-build estimates.
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
 |Chunk/Module/File|Composition|
 |:------ |:-----------|
-| dist/componentConfig.schema-DT3mO5rS.js | 10.2 kB · brotli 0 B |
+| dist/componentConfig.schema-DT3mO5rS.js | 10.2 kB · gzip 2.6 kB |
 | &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 20.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 5.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 5.2% |
 | &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.1% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.5% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| dist/dpuse-shared-encoding.es.js | 7.4 kB · brotli 0 B |
+| dist/dpuse-shared-encoding.es.js | 7.4 kB · gzip 1.5 kB |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `████░░░░░░░░░░░░░░░░` 18.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 2.9% |
-| dist/dpuse-shared-errors.es.js | 4.6 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 2.9% |
+| dist/dpuse-shared-errors.es.js | 4.6 kB · gzip 1.7 kB |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 12.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
-| dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
+| dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · gzip 1.3 kB |
 | &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.3% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.0% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 2.2% |
-| dist/dpuse-shared-utilities.es.js | 3.5 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 2.2% |
+| dist/dpuse-shared-utilities.es.js | 3.5 kB · gzip 1.3 kB |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 8.9% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
-| dist/dpuse-shared-locale.es.js | 856 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
+| dist/dpuse-shared-locale.es.js | 856 B · gzip 386 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
-| dist/dpuse-shared-component.es.js | 834 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
+| dist/dpuse-shared-component.es.js | 834 B · gzip 415 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.5% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
-| dist/dpuse-shared-componentModuleTool.es.js | 784 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
+| dist/dpuse-shared-componentModuleTool.es.js | 784 B · gzip 450 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
-| dist/dpuse-shared-componentDataView.es.js | 701 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| dist/dpuse-shared-componentDataView.es.js | 701 B · gzip 355 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
-| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 0 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · gzip 269 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → presenterConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
-| dist/moduleConfig.schema-aYmFWSrn.js | 405 B · brotli 0 B |
+| dist/moduleConfig.schema-aYmFWSrn.js | 405 B · gzip 274 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → moduleConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
-| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 0 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · gzip 248 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → cookbookConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
-| dist/label-DexpXrnC.js | 361 B · brotli 0 B |
+| dist/label-DexpXrnC.js | 361 B · gzip 251 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → label.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
-| dist/dpuse-shared-componentRecipe.es.js | 94 B · brotli 0 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| dist/dpuse-shared-componentRecipe.es.js | 94 B · gzip 110 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 0.0% |
-| dist/dpuse-shared-componentConnection.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContext.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModel.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelDimension.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelEntity.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelEntityDataItem.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelEntityEvent.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentEventQuery.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentModule.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentModuleEngine.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared-componentPresentation.es.js | 0 B · brotli 0 B |
-| dist/dpuse-shared.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentConnection.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContext.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModel.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelDimension.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelEntity.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelEntityDataItem.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelEntityEvent.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentEventQuery.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentModule.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentModuleEngine.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentPresentation.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared.es.js | 0 B · gzip 20 B |
 
-(unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
+(bundler output, whitespace & JSON) = bytes Sonda can't trace to a source file: whitespace (indentation and line breaks), code the bundler generates (region comments, the combined import/export lines, its small runtime helper and wrappers), and imported JSON such as `config.json`, which the bundler doesn't map. The JSON and the generated code are real bytes that ship; the whitespace mostly disappears once compressed.
 
 <!-- BUNDLE_END -->
 
