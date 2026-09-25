@@ -12,7 +12,15 @@
 
 ## About DPUse
 
-DPUse (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing. **Sourcing** uses a library of [Connectors](https://www.dpuse.app) to establish [Connections](https://www.dpuse.app) to applications, databases, file stores, and curated datasets; these connections are subsequently used to configure structured [Data Views](https://www.dpuse.app) from the underlying sources. **Contextualising** extracts chronological events from those [Data Views](https://www.dpuse.app) and maps them into comprehensive [Context Models](https://www.dpuse.app). This provides the DPUse Engine with the structural framework required to generate deterministic transactions, facts, or observations. **Publishing** employs a library of [Presenters](https://www.dpuse.app) to render standard [Presentations](https://www.dpuse.app) immediately using the contextualised data; additionally, [Cookbooks](https://www.dpuse.app) of [Recipes](https://www.dpuse.app) allow you to build Data Apps using your preferred tools.
+DPUse (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing.
+
+**Sourcing** uses a library of [Connectors](https://www.dpuse.app/connectors) to establish [Connections](https://www.dpuse.app) to applications, databases, file stores, and curated datasets; these connections are subsequently used to configure structured [Data Views](https://www.dpuse.app) from the underlying sources.
+
+**Contextualising** extracts chronological events from those [Data Views](https://www.dpuse.app) and maps them into comprehensive [Context Models](https://www.dpuse.app). This gives the DPUse Engine the structural framework needed to generate deterministic transactions, facts, or observations.
+
+**Publishing** uses a library of [Presenters](https://www.dpuse.app) to render standard [Presentations](https://www.dpuse.app) immediately using the contextualised data; additionally, [Cookbooks](https://www.dpuse.app) of [Recipes](https://www.dpuse.app) let you build Data Apps using your preferred tools.
+
+In addition, DPUse provides [Tools](https://www.dpuse.app) used by the application, and you can use them to construct connectors and presenters.
 
 ## Introduction
 
@@ -101,9 +109,9 @@ OData-to-internal type conversion, file path name and extension extraction, numb
 
 See [API_REFERENCE.md](./API_REFERENCE.md) for the complete API reference, including all exported schemas, types, classes, constants, and actions for each sub-path entry point.
 
-## Dependency Licenses
-
 <!-- DEPENDENCY_LICENSES_START -->
+
+## Dependency Licenses
 
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
@@ -122,13 +130,9 @@ License data is collected automatically on each release using [license-checker](
 |[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)|1.5.0|MIT|[LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)|
 |[valibot](https://github.com/open-circle/valibot)|1.5.0|MIT|[LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)|
 
-<!-- DEPENDENCY_LICENSES_END -->
-
 ### Dependency Tree
 
-<!-- DEPENDENCY_TREE_START -->
-
-The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
+The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
 - **[file-type](https://github.com/sindresorhus/file-type)** 22.1.1 — this month: 2026-09-17
   - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **10 months** ago: 2025-11-18 ⚠️
@@ -145,9 +149,7 @@ The dependency tree below lists every package in this project — direct and tra
 - **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — this month: 2026-09-09
   - **[typescript](https://github.com/microsoft/TypeScript)** 6.0.3 — **5 months** ago: 2026-04-16 → **latest**: 7.0.2 — **2 months** ago: 2026-07-08 ❗
 
-<!-- DEPENDENCY_TREE_END -->
-
-## Bundle Analysis
+<!-- DEPENDENCY_LICENSES_END -->
 
 <!-- BUNDLE_START -->
 
@@ -155,72 +157,72 @@ The Bundle Analysis Report is generated automatically on each release using [Son
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                                         | Composition                  |
-| :------------------------------------------------------------------------ | :--------------------------- |
-| dist/componentConfig.schema-DT3mO5rS.js                                   | 10.2 kB · brotli 2.3 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                          | `████░░░░░░░░░░░░░░░░` 21.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `█░░░░░░░░░░░░░░░░░░░` 5.4%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                               | `█░░░░░░░░░░░░░░░░░░░` 4.3%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts          | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts      | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts                 | `░░░░░░░░░░░░░░░░░░░░` 0.2%  |
-| dist/dpuse-shared-encoding.es.js                                          | 7.4 kB · brotli 1.3 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `████░░░░░░░░░░░░░░░░` 19.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `█░░░░░░░░░░░░░░░░░░░` 3.0%  |
-| dist/dpuse-shared-componentModuleConnector.es.js                          | 3.6 kB · brotli 1.2 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                               | `██░░░░░░░░░░░░░░░░░░` 8.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts                  | `█░░░░░░░░░░░░░░░░░░░` 6.2%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.4%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 2.3%  |
-| dist/dpuse-shared-errors.es.js                                            | 3.5 kB · brotli 1.1 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `██░░░░░░░░░░░░░░░░░░` 9.4%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 1.3%  |
-| dist/dpuse-shared-utilities.es.js                                         | 3.5 kB · brotli 1.1 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `██░░░░░░░░░░░░░░░░░░` 9.2%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 1.4%  |
-| dist/dpuse-shared-locale.es.js                                            | 856 B · brotli 330 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.9%  |
-| dist/dpuse-shared-component.es.js                                         | 834 B · brotli 363 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.9%  |
-| dist/dpuse-shared-componentModuleTool.es.js                               | 784 B · brotli 398 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.7%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
-| dist/dpuse-shared-componentDataView.es.js                                 | 701 B · brotli 297 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.5%  |
-| dist/dpuse-shared-componentModulePresenter.es.js                          | 411 B · brotli 225 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → presenterConfig.schema.ts                   | `░░░░░░░░░░░░░░░░░░░░` 0.4%  |
-| dist/moduleConfig.schema-aYmFWSrn.js                                      | 405 B · brotli 225 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → moduleConfig.schema.ts                      | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
-| dist/dpuse-shared-componentModuleCookbook.es.js                           | 370 B · brotli 212 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → cookbookConfig.schema.ts                    | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
-| dist/label-DexpXrnC.js                                                    | 361 B · brotli 204 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → label.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
-| dist/dpuse-shared-componentRecipe.es.js                                   | 94 B · brotli 70 B           |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                       | `░░░░░░░░░░░░░░░░░░░░` 0.2%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 0.0%  |
-| dist/dpuse-shared-componentConnection.es.js                               | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContext.es.js                                  | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModel.es.js                             | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelDimension.es.js                    | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js           | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelEntity.es.js                       | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelEntityDataItem.es.js               | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelEntityEvent.es.js                  | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js         | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js             | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentEventQuery.es.js                               | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentModule.es.js                                   | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentModuleEngine.es.js                             | 0 B · brotli 1 B             |
-| dist/dpuse-shared-componentPresentation.es.js                             | 0 B · brotli 1 B             |
-| dist/dpuse-shared.es.js                                                   | 0 B · brotli 1 B             |
+|Chunk/Module/File|Composition|
+|:------ |:-----------|
+| dist/componentConfig.schema-DT3mO5rS.js | 10.2 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 20.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 5.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| dist/dpuse-shared-encoding.es.js | 7.4 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `████░░░░░░░░░░░░░░░░` 18.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `█░░░░░░░░░░░░░░░░░░░` 2.9% |
+| dist/dpuse-shared-errors.es.js | 4.6 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 12.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
+| dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 2.2% |
+| dist/dpuse-shared-utilities.es.js | 3.5 kB · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 8.9% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
+| dist/dpuse-shared-locale.es.js | 856 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
+| dist/dpuse-shared-component.es.js | 834 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
+| dist/dpuse-shared-componentModuleTool.es.js | 784 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| dist/dpuse-shared-componentDataView.es.js | 701 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → presenterConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| dist/moduleConfig.schema-aYmFWSrn.js | 405 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → moduleConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → cookbookConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| dist/label-DexpXrnC.js | 361 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → label.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| dist/dpuse-shared-componentRecipe.es.js | 94 B · brotli 0 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 0.0% |
+| dist/dpuse-shared-componentConnection.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContext.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModel.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelDimension.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelEntity.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelEntityDataItem.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelEntityEvent.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentEventQuery.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentModule.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentModuleEngine.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared-componentPresentation.es.js | 0 B · brotli 0 B |
+| dist/dpuse-shared.es.js | 0 B · brotli 0 B |
 
 (unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
 
