@@ -30,9 +30,15 @@ In addition, DPUse provides [Tools](https://www.dpuse.app) used by the applicati
 
 <!-- USAGE_START -->
 
-This connector is automatically uploaded to the DPUse Engine cloud once released and becomes instantly available to all new browser app instances, with existing instances notified of the update.
+## Usage
 
-You may view or clone this repository for your own purposes, such as building a new, similar connector, though there is currently no process to accept third-party connectors into DPUse at this stage. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
+This package is published to the [public npm registry](https://www.npmjs.com/package/@dpuse/dpuse-shared). Install it with:
+
+```bash
+npm install @dpuse/dpuse-shared
+```
+
+To work on the source instead, clone this repository. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
 
 ```bash
 git clone https://github.com/dpuse/dpuse-shared.git
