@@ -40,9 +40,9 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 67.1 | 23 | 291 | 0.36 | 3 | cooling |
-| `src/utilities/index.ts` | 37.8 | 14 | 340 | 0.32 | 0 | cooling |
-| `src/errors/index.ts` | 27.0 | 7 | 229 | 0.30 | 1 | stable |
+| `src/locale/index.ts` | 67.0 | 23 | 291 | 0.36 | 3 | cooling |
+| `src/utilities/index.ts` | 37.9 | 14 | 340 | 0.32 | 0 | cooling |
+| `src/errors/index.ts` | 27.1 | 7 | 229 | 0.30 | 1 | stable |
 | `src/component/module/connector/index.ts` | 16.2 | 27 | 948 | 0.06 | 1 | cooling |
 | `src/component/index.ts` | 14.6 | 17 | 227 | 0.09 | 15 | stable |
 | `src/component/module/tool/index.ts` | 11.2 | 9 | 74 | 0.11 | 2 | accelerating |
