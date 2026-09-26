@@ -2,14 +2,14 @@
 # file is kept because OpenSSF Scorecard looks for it when checking that a dependency update tool is used.
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 0
+    - package-ecosystem: npm
+      directory: /
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 0
 
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 0
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 0

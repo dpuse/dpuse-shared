@@ -115,39 +115,39 @@ See [API_REFERENCE.md](./API_REFERENCE.md) for the complete API reference, inclu
 
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
-| Dependency                                                             | Version | License(s)   | Document                                                            |
-| :--------------------------------------------------------------------- | :-----: | :----------- | :------------------------------------------------------------------ |
-| [@borewit/text-codec](https://github.com/Borewit/text-codec)           |  0.2.2  | MIT          | [LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt) |
-| [@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)     |  0.4.1  | MIT          | [LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)  |
-| [@tokenizer/token](https://github.com/Borewit/tokenizer-token)         |  0.3.0  | MIT          | [LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)    |
-| [debug](https://github.com/debug-js/debug)                             |  4.4.3  | MIT          | [LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)               |
-| [file-type](https://github.com/sindresorhus/file-type)                 | 22.1.1  | MIT          | [LICENSE](licenses/downloads/file-type@22.1.1-LICENSE.txt)          |
-| [ieee754](https://github.com/feross/ieee754)                           |  1.2.1  | BSD-3-Clause | [LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)             |
-| [ms](https://github.com/vercel/ms)                                     |  2.1.3  | MIT          | [LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)                  |
-| [strtok3](https://github.com/Borewit/strtok3)                          | 10.3.5  | MIT          | [LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)            |
-| [token-types](https://github.com/Borewit/token-types)                  |  6.1.2  | MIT          | [LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)         |
-| [typescript](https://github.com/microsoft/TypeScript)                  |  6.0.3  | Apache-2.0   | [LICENSE](licenses/downloads/typescript@6.0.3-LICENSE.txt)          |
-| [uint8array-extras](https://github.com/sindresorhus/uint8array-extras) |  1.5.0  | MIT          | [LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)   |
-| [valibot](https://github.com/open-circle/valibot)                      |  1.5.0  | MIT          | [LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)             |
+|Dependency|Version|License(s)|Document|
+|:-|:-:|:-|:-|
+|[@borewit/text-codec](https://github.com/Borewit/text-codec)|0.2.2|MIT|[LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
+|[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)|0.4.1|MIT|[LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)|
+|[@tokenizer/token](https://github.com/Borewit/tokenizer-token)|0.3.0|MIT|[LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)|
+|[debug](https://github.com/debug-js/debug)|4.4.3|MIT|[LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)|
+|[file-type](https://github.com/sindresorhus/file-type)|22.1.1|MIT|[LICENSE](licenses/downloads/file-type@22.1.1-LICENSE.txt)|
+|[ieee754](https://github.com/feross/ieee754)|1.2.1|BSD-3-Clause|[LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)|
+|[ms](https://github.com/vercel/ms)|2.1.3|MIT|[LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)|
+|[strtok3](https://github.com/Borewit/strtok3)|10.3.5|MIT|[LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)|
+|[token-types](https://github.com/Borewit/token-types)|6.1.2|MIT|[LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)|
+|[typescript](https://github.com/microsoft/TypeScript)|6.0.3|Apache-2.0|[LICENSE](licenses/downloads/typescript@6.0.3-LICENSE.txt)|
+|[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)|1.5.0|MIT|[LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)|
+|[valibot](https://github.com/open-circle/valibot)|1.5.0|MIT|[LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)|
 
 ### Dependency Tree
 
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
 - **[file-type](https://github.com/sindresorhus/file-type)** 22.1.1 — this month: 2026-09-17
-    - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **10 months** ago: 2025-11-18 ⚠️
-        - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **12 months** ago: 2025-09-13 ⚠️
-            - **[ms](https://github.com/vercel/ms)** 2.1.3 — **69 months** ago: 2020-12-08 ⚠️
-        - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
-    - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **6 months** ago: 2026-03-21
-        - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
+  - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **10 months** ago: 2025-11-18 ⚠️
+    - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **12 months** ago: 2025-09-13 ⚠️
+      - **[ms](https://github.com/vercel/ms)** 2.1.3 — **69 months** ago: 2020-12-08 ⚠️
     - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
-        - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **6 months** ago: 2026-03-11
-        - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
-        - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **70 months** ago: 2020-10-27 ⚠️
-    - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **13 months** ago: 2025-08-22 ⚠️
+  - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **6 months** ago: 2026-03-21
+    - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
+  - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
+    - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **6 months** ago: 2026-03-11
+    - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
+    - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **70 months** ago: 2020-10-27 ⚠️
+  - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **13 months** ago: 2025-08-22 ⚠️
 - **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — this month: 2026-09-09
-    - **[typescript](https://github.com/microsoft/TypeScript)** 6.0.3 — **5 months** ago: 2026-04-16 → **latest**: 7.0.2 — **2 months** ago: 2026-07-08 ❗
+  - **[typescript](https://github.com/microsoft/TypeScript)** 6.0.3 — **5 months** ago: 2026-04-16 → **latest**: 7.0.2 — **2 months** ago: 2026-07-08 ❗
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -234,13 +234,24 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 ## Security & Quality
 
-### CodeQL
+### Checks & Settings
 
-[CodeQL](https://github.com/dpuse/dpuse-shared/security/code-scanning) static analysis runs on every push to `main` and on a weekly schedule, scanning TypeScript, JavaScript, Rust, and GitHub Actions workflow files for security vulnerabilities and coding errors.
+Read from the repository each time this README is generated, so the status is current as of the latest release.
 
-### SonarCloud
-
-[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
+|Check or setting|Status|What it does|
+|:-|:-|:-|
+|[CodeQL](https://github.com/dpuse/dpuse-shared/security/code-scanning)|✅ GitHub Actions, JavaScript/TypeScript|Static analysis for security vulnerabilities and coding errors, on every push and pull request to `main` and weekly.|
+|[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared)|✅ On|Code quality and security analysis on every push: bugs, code smells and vulnerabilities.|
+|Unit tests|✅ On|Run in CI on every push to `main`.|
+|Property-based tests|✅ fast-check|Fuzz testing: many random inputs per test to find edge cases, run with the unit tests.|
+|npm audit|✅ On|Fails CI when any dependency has a known vulnerability.|
+|[Socket.dev](https://socket.dev)|✅ On|Flags supply chain risk in dependencies: malicious packages, typosquatting and suspicious behaviour that may not yet have a CVE.|
+|Dependabot alerts|✅ On|Alerts when a dependency has a known vulnerability, using the GitHub Advisory Database.|
+|Dependabot security updates|❌ Off|Opens pull requests that update vulnerable dependencies.|
+|Dependabot version updates|❌ Off|Opens pull requests for new dependency versions.|
+|Secret scanning|✅ On|Detects credentials, such as API keys and tokens, committed to the repository.|
+|Push protection|✅ On|Blocks pushes that contain credentials.|
+|Private vulnerability reporting|✅ On|Lets anyone report a vulnerability privately. See [Reporting Vulnerabilities](#reporting-vulnerabilities).|
 
 ### Code Health
 
@@ -248,28 +259,17 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 [Fallow](https://github.com/fallow-rs/fallow) analyses the TypeScript source on each release for unused code, duplication, complexity, and dependency hygiene. See the [full Fallow report](./code-health-reports/fallow/index.md) for every finding.
 
-| Measure                              |    Value |
-| :----------------------------------- | -------: |
-| Health score                         | 90.0 (A) |
-| Maintainability (average)            |     93.1 |
-| Unused files                         |     0.0% |
-| Unused exports                       |     0.0% |
-| Duplicated code                      |     0.0% |
-| Functions over the complexity limits |  0 of 83 |
-| Unused dependencies                  |        0 |
-| Circular dependencies                |        0 |
-| Hotspots (complex and often changed) |        1 |
-
-### Vulnerability Scanning
-
-Two complementary tools continuously monitor dependencies for known vulnerabilities:
-
-- [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit) runs on every push to `main` via the CI workflow, failing the build if any high or critical severity vulnerabilities are detected.
-- [GitHub Dependabot](https://docs.github.com/en/code-security/dependabot) automatically raises pull requests to update vulnerable dependencies, drawing on the GitHub Advisory Database which combines NVD and npm-specific advisories.
-
-### Supply Chain Security
-
-[Socket.dev](https://socket.dev) monitors all dependencies for supply chain risk — detecting malicious packages, dependency confusion, typosquatting, and suspicious behaviour that may not yet have a CVE.
+|Measure|Value|
+|:-|-:|
+|Health score|90.0 (A)|
+|Maintainability (average)|93.1|
+|Unused files|0.0%|
+|Unused exports|0.0%|
+|Duplicated code|0.0%|
+|Functions over the complexity limits|0 of 83|
+|Unused dependencies|0|
+|Circular dependencies|0|
+|Hotspots (complex and often changed)|1|
 
 ### Reporting Vulnerabilities
 
@@ -292,6 +292,6 @@ For security vulnerabilities, see [Reporting Vulnerabilities](#reporting-vulnera
 
 This project is licensed under the MIT License, permitting free use, modification, and distribution.
 
-[MIT](./LICENSE) © 2026-present Jonathan Terrell
+[MIT](./LICENSE) © 2026 Jonathan Terrell
 
 <!-- GOVERNANCE_END -->
