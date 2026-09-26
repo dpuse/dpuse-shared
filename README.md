@@ -48,24 +48,29 @@ npm install
 
 _Requires [Node.js](https://nodejs.org/) 24 or later, [npm](https://www.npmjs.com/) 12 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
 
+Repository tasks run through npm scripts provided by [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development):
+
+|Command|What it does|
+|:-|:-|
+|`npm run build`|Builds the project.|
+|`npm test`|Runs the tests.|
+|`npm run test:coverage`|Runs the unit tests and measures coverage.|
+|`npm run lint`|Checks the code with ESLint.|
+|`npm run format`|Formats the code with Prettier.|
+|`npm run audit`|Checks dependencies for known vulnerabilities with npm audit.|
+|`npm run check`|Checks configuration files against the DPUse templates and lists outdated dependencies.|
+|`npm run document`|Regenerates the README's generated sections.|
+|`npm run documentOpening`|Regenerates the README's opening section.|
+|`npm run documentUsage`|Regenerates the README's Usage section.|
+|`npm run documentDependencies`|Regenerates the README's dependency licence report.|
+|`npm run documentBundleSizes`|Regenerates the README's bundle size report.|
+|`npm run documentGovernance`|Regenerates the README's Security & Quality, Contributing and License sections.|
+|`npm run sync`|Bumps the version, then commits and pushes to GitHub.|
+|`npm run release`|Bumps the version, commits and pushes, and creates a GitHub release.|
+
 <!-- USAGE_END -->
 
-### OLD Installation
-
-`@dpuse/dpuse-shared` is published to the [public npm registry](https://www.npmjs.com/package/@dpuse/dpuse-shared). Install it using your preferred package manager:
-
-```bash
-# npm
-npm install @dpuse/dpuse-shared
-
-# yarn
-yarn add @dpuse/dpuse-shared
-
-# pnpm
-pnpm add @dpuse/dpuse-shared
-```
-
-### OLD Usage
+### Example
 
 This package uses [sub-path exports](https://nodejs.org/api/packages.html#subpath-exports). Import only the entry points you need:
 
@@ -82,8 +87,6 @@ try {
     const serialised = serialiseError(error);
 }
 ```
-
-Implements the common Data Positioning repository management command set. For more information see [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development).
 
 ## Architecture
 
@@ -284,7 +287,10 @@ Please do not open public GitHub issues for security vulnerabilities. Use [GitHu
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14952/badge)](https://www.bestpractices.dev/projects/14952)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-shared/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-shared)
 
-This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-shared) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement. Apart from the Best Practices badge above, the remaining Scorecard gaps need multi-person review or a pull-request workflow, which this solo-maintained project doesn't use.
+This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
+
+> [!NOTE]
+> Apart from the Best Practices badge above, the remaining Scorecard gaps need multi-person review or a pull-request workflow, which this solo-maintained project doesn't use.
 
 ## Contributing
 
