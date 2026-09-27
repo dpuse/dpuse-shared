@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-09-25T15:09:38.211Z",
+    "generatedAt": "2026-09-27T14:45:51.674Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -538,7 +538,7 @@
       "name": "src/component/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 994
+      "uncompressed": 984
     },
     {
       "kind": "chunk",
@@ -572,7 +572,7 @@
       "name": "src/component/module/connector/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3593
+      "uncompressed": 3566
     },
     {
       "kind": "chunk",
@@ -606,7 +606,7 @@
       "name": "src/component/module/cookbook/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 90
+      "uncompressed": 64
     },
     {
       "kind": "filesystem",
@@ -644,7 +644,7 @@
       "name": "src/component/module/presenter/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 93
+      "uncompressed": 66
     },
     {
       "kind": "filesystem",
@@ -750,7 +750,7 @@
       "name": "src/locale/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1030
+      "uncompressed": 1016
     },
     {
       "kind": "chunk",

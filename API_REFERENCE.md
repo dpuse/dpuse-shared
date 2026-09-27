@@ -1,154 +1,359 @@
 # API Reference
 
-### `@dpuse/dpuse-shared/component`
+Every export, grouped by import path. This file is updated each time the project is built.
 
-| Category | Exports                                                                                                         |
-| -------- | --------------------------------------------------------------------------------------------------------------- |
-| Schema   | `componentInstanceConfigSchema`                                                                                 |
-| Types    | `Component`, `ComponentInstanceConfig`, `ComponentReferenceConfig`, `ComponentStatus`, `ComponentStatusColorId` |
-| Actions  | `getComponentStatus(id, localeId?)`                                                                             |
+## @dpuse/dpuse-shared
 
-### `@dpuse/dpuse-shared/component/connection`
+### Types
 
-| Category | Exports                                                                                                                                                                                    |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Types    | `ConnectionAuthorisationConfig`, `ConnectionConfig`, `ConnectionDescriptionConfig`, `ConnectionNodeConfig`, `DPAFileSystemFileHandle`, `NodeTypeId`, `ObjectColumnConfig`, `StorageTypeId` |
+- BaseConfig
 
-### `@dpuse/dpuse-shared/component/dataView`
+## @dpuse/dpuse-shared/component
 
-| Category  | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Constants | `ORDERED_VALUE_DELIMITER_IDS`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Types     | `BigIntInferenceResult`, `BooleanInferenceResult`, `ContentAuditConfig`, `DataFormatId`, `DataSubtypeId`, `DataTypeId`, `DataViewConfig`, `InferenceRecord`, `InferenceResult`, `InferenceSummary`, `NumberInferenceResult`, `NumericInferenceResult`, `NumericSignId`, `NumericSubtypeId`, `NumericUnitsId`, `ParsingRecord`, `ParsingResult`, `PreviewConfig`, `RecordDelimiterId`, `RelationshipsAuditConfig`, `StringInferenceResult`, `StringSubtypeId`, `TemporalInferenceResult`, `TemporalSubtypeId`, `UnknownInferenceResult`, `ValueDelimiterId`, `ValueTrimMethodId` |
+### Functions
 
-### `@dpuse/dpuse-shared/component/dimension`
+- getComponentStatus(id, localeId?)
 
-| Category | Exports           |
-| -------- | ----------------- |
-| Types    | `DimensionConfig` |
+### Schemas
 
-### `@dpuse/dpuse-shared/component/eventQuery`
+- componentInstanceConfigSchema
 
-| Category | Exports            |
-| -------- | ------------------ |
-| Types    | `EventQueryConfig` |
+### Types
 
-### `@dpuse/dpuse-shared/component/model`
+- Component
+- ComponentBaseConfig
+- ComponentInstanceConfig
+- ComponentReferenceConfig
+- ComponentStatus
+- ComponentStatusColorId
 
-| Category | Exports              |
-| -------- | -------------------- |
-| Types    | `ContextModelConfig` |
+## @dpuse/dpuse-shared/component/connection
 
-### `@dpuse/dpuse-shared/component/model/dimension`
+### Types
 
-| Category | Exports                                                               |
-| -------- | --------------------------------------------------------------------- |
-| Types    | `ContextModelDimensionConfig`, `ContextModelDimensionHierarchyConfig` |
+- ConnectionAuthorisationConfig
+- ConnectionConfig
+- ConnectionDescriptionConfig
+- ConnectionNodeConfig
+- DPAFileSystemFileHandle
+- NodeTypeId
+- ObjectColumnConfig
+- StorageTypeId
 
-### `@dpuse/dpuse-shared/component/model/entity`
+## @dpuse/dpuse-shared/component/dataView
 
-| Category | Exports                    |
-| -------- | -------------------------- |
-| Types    | `ContextModelEntityConfig` |
+### Constants
 
-### `@dpuse/dpuse-shared/component/model/entity/dataItem`
+- ORDERED_VALUE_DELIMITER_IDS
 
-| Category | Exports                            |
-| -------- | ---------------------------------- |
-| Types    | `ContextModelEntityDataItemConfig` |
+### Types
 
-### `@dpuse/dpuse-shared/component/model/entity/event`
+- BigIntInferenceResult
+- BooleanInferenceResult
+- ContentAuditConfig
+- DataFormatId
+- DataSubtypeId
+- DataTypeId
+- DataViewConfig
+- InferenceRecord
+- InferenceResult
+- InferenceSummary
+- NumberInferenceResult
+- NumericInferenceResult
+- NumericSignId
+- NumericSubtypeId
+- NumericUnitsId
+- ParsingRecord
+- ParsingResult
+- PreviewConfig
+- RecordDelimiterId
+- RelationshipsAuditConfig
+- StringInferenceResult
+- StringSubtypeId
+- TemporalInferenceResult
+- TemporalSubtypeId
+- UnknownInferenceResult
+- ValueDelimiterId
+- ValueTrimMethodId
 
-| Category | Exports                         |
-| -------- | ------------------------------- |
-| Types    | `ContextModelEntityEventConfig` |
+## @dpuse/dpuse-shared/component/eventQuery
 
-### `@dpuse/dpuse-shared/component/model/entity/primaryMeasure`
+### Types
 
-| Category | Exports                                  |
-| -------- | ---------------------------------------- |
-| Types    | `ContextModelEntityPrimaryMeasureConfig` |
+- EventQueryConfig
 
-### `@dpuse/dpuse-shared/component/model/secondaryMeasure`
+## @dpuse/dpuse-shared/component/context
 
-| Category | Exports                              |
-| -------- | ------------------------------------ |
-| Types    | `ContextModelSecondaryMeasureConfig` |
+### Types
 
-### `@dpuse/dpuse-shared/component/module`
+- ContextAreaConfig
+- ContextConfig
 
-| Category | Exports                        |
-| -------- | ------------------------------ |
-| Types    | `ModuleConfig`, `ModuleTypeId` |
+## @dpuse/dpuse-shared/component/context/model
 
-### `@dpuse/dpuse-shared/component/module/connector`
+### Types
 
-| Category  | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Schema    | `connectorConfigSchema`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| Constants | `CONNECTOR_ACTION_NAME_MAP`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| Types     | `AuditObjectContentOptions`, `AuditObjectContentOptions1`, `AuditObjectContentResult`, `AuditObjectContentResult1`, `ConnectorActionName`, `ConnectorConfig`, `ConnectorConstructor`, `ConnectorInterface`, `ConnectorUtilities`, `CreateObjectOptions`, `DescribeConnectionOptions`, `DropObjectOptions`, `FindObjectOptions`, `FindObjectResult`, `GetReadableStreamOptions`, `GetRecordOptions`, `GetRecordResult`, `ListNodesOptions`, `ListNodesResult`, `PreviewObjectOptions`, `RecordRetrievalTypeId`, `RemoveRecordsOptions`, `RetrieveChunksOptions`, `RetrieveRecordsOptions`, `RetrieveRecordsSummary`, `UpsertRecordsOptions` |
-| Actions   | `constructConnectorCategoryConfig(id, localeId?)`, `getConnectorActionsTable(supported)`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+- ContextModelConfig
 
-### `@dpuse/dpuse-shared/component/context`
+## @dpuse/dpuse-shared/component/context/model/dimension
 
-| Category | Exports                                                                                                                  |
-| -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Schema   | `contextConfigSchema`                                                                                                    |
-| Types    | `ContextActionName`, `ContextAreaConfig`, `ContextConfig`, `ContextInterface`, `ListContextOptions`, `ListContextResult` |
+### Types
 
-### `@dpuse/dpuse-shared/component/module/engine`
+- ContextModelDimensionConfig
 
-| Category | Exports                                                                                                                                                                                   |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Types    | `EngineAuthActionOptions`, `EngineCallbackData`, `EngineConfig`, `EngineConnectorActionOptions`, `EngineContextActionOptions`, `EngineInitialiseOptions`, `EngineRuntime`, `EngineWorker` |
+## @dpuse/dpuse-shared/component/context/model/dimension/hierarchy
 
-### `@dpuse/dpuse-shared/component/module/presenter`
+### Types
 
-| Category | Exports                                                        |
-| -------- | -------------------------------------------------------------- |
-| Schema   | `presenterConfigSchema`                                        |
-| Types    | `PresenterActionName`, `PresenterConfig`, `PresenterInterface` |
+- ContextModelDimensionHierarchyConfig
+- ContextModelDimensionHierarchyLevelConfig
+- ContextModelDimensionHierarchyNodeConfig
 
-### `@dpuse/dpuse-shared/component/module/tool`
+## @dpuse/dpuse-shared/component/context/model/entity
 
-| Category | Exports                            |
-| -------- | ---------------------------------- |
-| Types    | `ToolConfig`                       |
-| Actions  | `loadTool<T>(toolConfigs, toolId)` |
+### Types
 
-### `@dpuse/dpuse-shared/component/presentation`
+- ContextModelEntityConfig
+- ContextModelEntityParentConfig
 
-| Category | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Types    | `PresentationCartesianTypeId`, `PresentationCategoryId`, `PresentationConfig`, `PresentationPolarTypeId`, `PresentationRangeTypeId`, `PresentationView`, `PresentationVisualCartesianChartViewConfig`, `PresentationVisualChordDiagramViewConfig`, `PresentationVisualConfig`, `PresentationVisualContentConfig`, `PresentationVisualPeriodFlowBoundariesChartViewConfig`, `PresentationVisualPolarChartViewConfig`, `PresentationVisualRangeChartViewConfig`, `PresentationVisualSankeyDiagramViewConfig`, `PresentationVisualStreamGraphViewConfig`, `PresentationVisualValueTableViewConfig`, `PresentationVisualViewConfig` |
+## @dpuse/dpuse-shared/component/context/model/entity/dataItem
 
-### `@dpuse/dpuse-shared/encoding`
+### Types
 
-| Category  | Exports                                |
-| --------- | -------------------------------------- |
-| Constants | `encodingConfigMap`                    |
-| Types     | `EncodingConfig`, `EncodingTypeConfig` |
-| Actions   | `getEncodingTypeConfigs(localeId?)`    |
+- ContextModelEntityDataItemConfig
 
-### `@dpuse/dpuse-shared/errors`
+## @dpuse/dpuse-shared/component/context/model/entity/event
 
-| Category | Exports                                                                                                                                                                                                                  |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Types    | `SerialisedError`                                                                                                                                                                                                        |
-| Classes  | `APIError`, `AppError`, `ConnectorError`, `DPUseError`, `EngineError`, `FetchError`                                                                                                                                      |
-| Actions  | `buildFetchError(response, message, locator)`, `concatenateSerialisedErrorMessages(serialisedErrors)`, `ignoreErrors(action)`, `normalizeToError(value)`, `serialiseError(error?)`, `unserialiseError(serialisedErrors)` |
+### Types
 
-### `@dpuse/dpuse-shared/locale`
+- ContextModelEntityEventConfig
+- ContextModelEntityEventId
+- ContextModelEntityEventsConfig
 
-| Category  | Exports                                                                                                                                                                  |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Constants | `DEFAULT_LOCALE_ID`, `SUPPORTED_LANGUAGES`                                                                                                                               |
-| Types     | `FlagId`, `LocaleDescription`, `LocaleId`, `LocaleLabel`, `LocaleLabelMap`, `LocalisedConfig<T>`                                                                         |
-| Actions   | `createLabelMap(labels)`, `localiseConfig(config, localeId)`, `localiseConfigs(configs, localeId, isResultSorted?)`, `resolveLabel(labels, localeId, fallbackLocaleId?)` |
+## @dpuse/dpuse-shared/component/context/model/entity/primaryMeasure
 
-### `@dpuse/dpuse-shared/utilities`
+### Types
 
-| Category | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Actions  | `convertODataTypeIdToUsageTypeId(oDataTypeId)`, `extractExtensionFromPath(itemPath)`, `extractNameFromPath(itemPath)`, `formatNumberAsDecimalNumber(number?, decimalPlaces?, minimumFractionDigits?, locale?)`, `formatNumberAsDuration(number?, stopAt?)`, `formatNumberAsSize(number?, decimalPlaces?)`, `formatNumberAsStorageSize(number?, decimalPlaces?)`, `formatNumberAsWholeNumber(number?, locale?)`, `lookupMimeTypeForExtension(extension?)` |
+- ContextModelEntityPrimaryMeasureConfig
+- ContextModelEntityPrimaryMeasuresConfig
+
+## @dpuse/dpuse-shared/component/context/model/secondaryMeasure
+
+### Types
+
+- ContextModelSecondaryMeasureConfig
+
+## @dpuse/dpuse-shared/component/module
+
+### Types
+
+- ModuleConfig
+- ModuleTypeId
+
+## @dpuse/dpuse-shared/component/module/connector
+
+### Functions
+
+- constructConnectorCategoryConfig(id, localeId?)
+- constructConnectorUsageConfig(id, localeId?)
+- determineConnectorUsageId(actionNames)
+- getConnectorActionsTable(supported)
+
+### Constants
+
+- CONNECTOR_ACTION_NAME_MAP
+
+### Schemas
+
+- connectorConfigSchema
+
+### Types
+
+- AuditObjectContentOptions
+- AuditObjectContentOptions1
+- AuditObjectContentResult
+- AuditObjectContentResult1
+- ConnectorActionName
+- ConnectorConfig
+- ConnectorConstructor
+- ConnectorInterface
+- ConnectorUsageId
+- ConnectorUtilities
+- CreateObjectOptions
+- DescribeConnectionOptions
+- DropObjectOptions
+- FindObjectOptions
+- FindObjectResult
+- GetInfoOptions
+- GetInfoResult
+- GetReadableStreamOptions
+- GetRecordOptions
+- GetRecordResult
+- ListNodesOptions
+- ListNodesResult
+- PreviewObjectOptions
+- RecordRetrievalTypeId
+- RemoveRecordsOptions
+- RetrieveChunksOptions
+- RetrieveRecordsOptions
+- RetrieveRecordsSummary
+- UpsertRecordsOptions
+
+## @dpuse/dpuse-shared/component/module/engine
+
+### Types
+
+- EngineAuthActionOptions
+- EngineCallbackData
+- EngineConfig
+- EngineConnectorActionOptions
+- EngineContextActionOptions
+- EngineInitialiseOptions
+- EngineRuntime
+- EngineWorker
+
+## @dpuse/dpuse-shared/component/module/presenter
+
+### Schemas
+
+- presenterConfigSchema
+
+### Types
+
+- PresenterActionName
+- PresenterConfig
+- PresenterInterface
+
+## @dpuse/dpuse-shared/component/module/cookbook
+
+### Schemas
+
+- cookbookConfigSchema
+
+### Types
+
+- CookbookActionName
+- CookbookConfig
+- CookbookInterface
+
+## @dpuse/dpuse-shared/component/module/tool
+
+### Functions
+
+- loadTool(toolConfigs, toolId)
+
+### Types
+
+- ToolConfig
+
+## @dpuse/dpuse-shared/component/presentation
+
+### Types
+
+- PresentationCartesianTypeId
+- PresentationCategoryId
+- PresentationConfig
+- PresentationPolarTypeId
+- PresentationRangeTypeId
+- PresentationView
+- PresentationVisualCartesianChartViewConfig
+- PresentationVisualChordDiagramViewConfig
+- PresentationVisualConfig
+- PresentationVisualContentConfig
+- PresentationVisualPeriodFlowBoundariesChartViewConfig
+- PresentationVisualPolarChartViewConfig
+- PresentationVisualRangeChartViewConfig
+- PresentationVisualSankeyDiagramViewConfig
+- PresentationVisualStreamGraphViewConfig
+- PresentationVisualValueTableViewConfig
+- PresentationVisualViewConfig
+
+## @dpuse/dpuse-shared/component/recipe
+
+### Constants
+
+- PLACEHOLDER
+
+## @dpuse/dpuse-shared/encoding
+
+### Functions
+
+- getEncodingTypeConfigs(localeId?)
+- isEncodingTypeId(value)
+
+### Constants
+
+- ENCODING_GROUP_CONFIG_MAP
+- ENCODING_TYPE_CONFIG_MAP
+
+### Types
+
+- EncodingDetectionConfig
+- EncodingGroupConfig
+- EncodingGroupId
+- EncodingTypeConfig
+- EncodingTypeConfigLocalised
+- EncodingTypeId
+
+## @dpuse/dpuse-shared/errors
+
+### Functions
+
+- buildFetchError(response, message, locator)
+- concatenateSerialisedErrorMessages(serialisedErrors)
+- ignoreErrors(action)
+- normalizeToError(value)
+- serialiseError(error?)
+- unserialiseError(serialisedErrors)
+
+### Classes
+
+- APIError
+- AppError
+- ConnectorError
+- DPUseError
+- EngineError
+- FetchError
+
+### Types
+
+- SerialisedError
+
+## @dpuse/dpuse-shared/locale
+
+### Functions
+
+- createLabelMap(labels)
+- localiseConfig(config, localeId)
+- localiseConfigs(configs, localeId, isResultSorted?)
+- localiseReference(reference, localeId)
+- resolveLabel(labels, localeId, fallbackLocaleId?)
+
+### Constants
+
+- DEFAULT_LOCALE_ID
+- SUPPORTED_LANGUAGES
+
+### Types
+
+- FlagId
+- LocaleDescription
+- LocaleId
+- LocaleLabel
+- LocaleLabelMap
+- LocalisedConfig
+- LocalisedReference
+
+## @dpuse/dpuse-shared/utilities
+
+### Functions
+
+- convertODataTypeIdToUsageTypeId(oDataTypeId)
+- extractExtensionFromPath(itemPath)
+- extractNameFromPath(itemPath)
+- formatNumberAsDecimalNumber(number?, decimalPlaces?, minimumFractionDigits?, locale?)
+- formatNumberAsDuration(number?, stopAt?)
+- formatNumberAsSize(number?, decimalPlaces?)
+- formatNumberAsStorageSize(number?, decimalPlaces?)
+- formatNumberAsWholeNumber(number?, locale?)
+- lookupMimeTypeForExtension(extension?)
