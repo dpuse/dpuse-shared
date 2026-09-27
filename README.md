@@ -248,7 +248,7 @@ This section is updated each time `npm run document` is run. Settings come from 
 |:-|:-|:-|
 |Unit tests|✅ On|Run in CI on every push to `main`.|
 |Property-based tests|✅ fast-check|Fuzz testing: many random inputs per test to find edge cases, run with the unit tests.|
-|Test coverage|✅ 84.3% of lines|Share of source lines the unit tests run. The target is 80%.|
+|Test coverage|✅ 84.6% of lines|Share of source lines the unit tests run. The target is 80%.|
 
 ### Code Quality
 

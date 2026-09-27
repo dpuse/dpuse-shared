@@ -1,5 +1,5 @@
 {
-  "version": "0.3.854",
+  "version": "0.3.856",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "file-type": {

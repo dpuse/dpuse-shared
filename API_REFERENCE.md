@@ -6,13 +6,13 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- BaseConfig
+- BaseConfig (inferred from baseConfigSchema)
 
 ## @dpuse/dpuse-shared/component
 
 ### Functions
 
-- getComponentStatus(id, localeId?)
+- getComponentStatus(id: string, localeId?: LocaleId)
 
 ### Schemas
 
@@ -21,15 +21,15 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - Component
-- ComponentBaseConfig
-- ComponentInstanceConfig
-- ComponentReferenceConfig
+- ComponentBaseConfig (inferred from componentBaseConfigSchema, extends BaseConfig)
+- ComponentInstanceConfig (inferred from componentInstanceConfigSchema, extends ComponentBaseConfig)
+- ComponentReferenceConfig (inferred from componentReferenceConfigSchema, extends ComponentBaseConfig)
 
 ## @dpuse/dpuse-shared/component/connection
 
 ### Types
 
-- ConnectionConfig
+- ConnectionConfig (extends ComponentInstanceConfig)
 - ConnectionDescriptionConfig
 - ConnectionNodeConfig
 - ObjectColumnConfig
@@ -38,7 +38,7 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Constants
 
-- ORDERED_VALUE_DELIMITER_IDS
+- ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[]
 
 ### Types
 
@@ -47,7 +47,7 @@ Every export, grouped by import path. This file is updated each time the project
 - DataFormatId
 - DataSubtypeId
 - DataTypeId
-- DataViewConfig
+- DataViewConfig (extends ComponentInstanceConfig)
 - InferenceRecord
 - InferenceResult
 - InferenceSummary
@@ -67,31 +67,31 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- EventQueryConfig
+- EventQueryConfig (extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/context
 
 ### Types
 
-- ContextConfig
+- ContextConfig (extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/context/model
 
 ### Types
 
-- ContextModelConfig
+- ContextModelConfig (extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/context/model/dimension
 
 ### Types
 
-- ContextModelDimensionConfig
+- ContextModelDimensionConfig (extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/context/model/dimension/hierarchy
 
 ### Types
 
-- ContextModelDimensionHierarchyConfig
+- ContextModelDimensionHierarchyConfig (extends ComponentInstanceConfig)
 - ContextModelDimensionHierarchyLevelConfig
 - ContextModelDimensionHierarchyNodeConfig
 
@@ -99,13 +99,13 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- ContextModelEntityConfig
+- ContextModelEntityConfig (extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/context/model/entity/dataItem
 
 ### Types
 
-- ContextModelEntityDataItemConfig
+- ContextModelEntityDataItemConfig (extends Omit<BaseConfig, 'description'>)
 
 ## @dpuse/dpuse-shared/component/context/model/entity/event
 
@@ -118,29 +118,29 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- ContextModelEntityPrimaryMeasureConfig
+- ContextModelEntityPrimaryMeasureConfig (extends Omit<BaseConfig, 'description'>)
 - ContextModelEntityPrimaryMeasuresConfig
 
 ## @dpuse/dpuse-shared/component/context/model/secondaryMeasure
 
 ### Types
 
-- ContextModelSecondaryMeasureConfig
+- ContextModelSecondaryMeasureConfig (extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/module
 
 ### Types
 
-- ModuleConfig
+- ModuleConfig (inferred from moduleConfigSchema, extends ComponentInstanceConfig)
 
 ## @dpuse/dpuse-shared/component/module/connector
 
 ### Functions
 
-- constructConnectorCategoryConfig(id, localeId?)
-- constructConnectorUsageConfig(id, localeId?)
-- determineConnectorUsageId(actionNames)
-- getConnectorActionsTable(supported)
+- constructConnectorCategoryConfig(id: string, localeId?: LocaleId)
+- constructConnectorUsageConfig(id: string, localeId?: LocaleId)
+- determineConnectorUsageId(actionNames: ConnectorActionName[])
+- getConnectorActionsTable(supported: ConnectorActionName[])
 
 ### Schemas
 
@@ -148,33 +148,33 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- AuditObjectContentOptions
+- AuditObjectContentOptions (extends EngineConnectorActionOptions)
 - AuditObjectContentResult
-- ConnectorActionName
-- ConnectorConfig
+- ConnectorActionName (inferred from connectorActionNameSchema)
+- ConnectorConfig (inferred from connectorConfigSchema, extends ModuleConfig)
 - ConnectorConstructor
-- ConnectorInterface
-- ConnectorUsageId
+- ConnectorInterface (extends Component)
+- ConnectorUsageId (inferred from connectorUsageIdSchema)
 - ConnectorUtilities
-- CreateObjectOptions
+- CreateObjectOptions (extends EngineConnectorActionOptions)
 - DescribeConnectionOptions
-- DropObjectOptions
-- FindObjectOptions
+- DropObjectOptions (extends EngineConnectorActionOptions)
+- FindObjectOptions (extends EngineConnectorActionOptions)
 - FindObjectResult
-- GetInfoOptions
+- GetInfoOptions (extends EngineConnectorActionOptions)
 - GetInfoResult
-- GetReadableStreamOptions
-- GetRecordOptions
+- GetReadableStreamOptions (extends EngineConnectorActionOptions)
+- GetRecordOptions (extends EngineConnectorActionOptions)
 - GetRecordResult
-- ListNodesOptions
+- ListNodesOptions (extends EngineConnectorActionOptions)
 - ListNodesResult
-- PreviewObjectOptions
+- PreviewObjectOptions (extends EngineConnectorActionOptions)
 - RecordRetrievalTypeId
-- RemoveRecordsOptions
-- RetrieveChunksOptions
-- RetrieveRecordsOptions
+- RemoveRecordsOptions (extends EngineConnectorActionOptions)
+- RetrieveChunksOptions (extends EngineConnectorActionOptions)
+- RetrieveRecordsOptions (extends EngineConnectorActionOptions)
 - RetrieveRecordsSummary
-- UpsertRecordsOptions
+- UpsertRecordsOptions (extends EngineConnectorActionOptions)
 
 ## @dpuse/dpuse-shared/component/module/engine
 
@@ -182,7 +182,7 @@ Every export, grouped by import path. This file is updated each time the project
 
 - EngineAuthActionOptions
 - EngineCallbackData
-- EngineConfig
+- EngineConfig (extends ModuleConfig)
 - EngineConnectorActionOptions
 - EngineContextActionOptions
 - EngineInitialiseOptions
@@ -197,9 +197,9 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- PresenterActionName
-- PresenterConfig
-- PresenterInterface
+- PresenterActionName (inferred from presenterActionNameSchema)
+- PresenterConfig (inferred from presenterConfigSchema, extends ModuleConfig)
+- PresenterInterface (extends Component)
 
 ## @dpuse/dpuse-shared/component/module/cookbook
 
@@ -209,18 +209,18 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- CookbookConfig
-- CookbookInterface
+- CookbookConfig (inferred from cookbookConfigSchema, extends ModuleConfig)
+- CookbookInterface (extends Component)
 
 ## @dpuse/dpuse-shared/component/module/tool
 
 ### Functions
 
-- loadTool(toolConfigs, toolId)
+- loadTool(toolConfigs: ToolConfig[], toolId: string)
 
 ### Types
 
-- ToolConfig
+- ToolConfig (extends ModuleConfig)
 
 ## @dpuse/dpuse-shared/component/presentation
 
@@ -228,16 +228,16 @@ Every export, grouped by import path. This file is updated each time the project
 
 - PresentationCartesianTypeId
 - PresentationCategoryId
-- PresentationConfig
+- PresentationConfig (extends ComponentInstanceConfig)
 - PresentationPolarTypeId
 - PresentationRangeTypeId
 - PresentationView
-- PresentationVisualCartesianChartViewConfig
+- PresentationVisualCartesianChartViewConfig (extends PresentationVisualViewConfig)
 - PresentationVisualConfig
 - PresentationVisualContentConfig
-- PresentationVisualPeriodFlowBoundariesChartViewConfig
-- PresentationVisualPolarChartViewConfig
-- PresentationVisualRangeChartViewConfig
+- PresentationVisualPeriodFlowBoundariesChartViewConfig (extends PresentationVisualViewConfig)
+- PresentationVisualPolarChartViewConfig (extends PresentationVisualViewConfig)
+- PresentationVisualRangeChartViewConfig (extends PresentationVisualViewConfig)
 - PresentationVisualViewConfig
 
 ## @dpuse/dpuse-shared/component/recipe
@@ -246,13 +246,13 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Functions
 
-- getEncodingTypeConfigs(localeId?)
-- isEncodingTypeId(value)
+- getEncodingTypeConfigs(localeId?: LocaleId)
+- isEncodingTypeId(value: string)
 
 ### Constants
 
-- ENCODING_GROUP_CONFIG_MAP
-- ENCODING_TYPE_CONFIG_MAP
+- ENCODING_GROUP_CONFIG_MAP: Record<EncodingGroupId, EncodingGroupConfig>
+- ENCODING_TYPE_CONFIG_MAP: Record<EncodingTypeId, EncodingTypeConfig>
 
 ### Types
 
@@ -263,20 +263,20 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Functions
 
-- buildFetchError(response, message, locator)
-- concatenateSerialisedErrorMessages(serialisedErrors)
-- ignoreErrors(action)
-- normalizeToError(value)
-- serialiseError(error?)
-- unserialiseError(serialisedErrors)
+- buildFetchError(response: { status: number; statusText: string; text: () => Promise<string> }, message: string, locator: string)
+- concatenateSerialisedErrorMessages(serialisedErrors: SerialisedError[])
+- ignoreErrors(action: () => void)
+- normalizeToError(value: unknown)
+- serialiseError(error?: unknown)
+- unserialiseError(serialisedErrors: SerialisedError[])
 
 ### Classes
 
-- APIError
-- AppError
-- ConnectorError
-- EngineError
-- FetchError
+- APIError (extends DPUseError)
+- AppError (extends DPUseError)
+- ConnectorError (extends DPUseError)
+- EngineError (extends DPUseError)
+- FetchError (extends DPUseError)
 
 ### Types
 
@@ -286,16 +286,16 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Functions
 
-- createLabelMap(labels)
-- localiseConfig(config, localeId)
-- localiseConfigs(configs, localeId, isResultSorted?)
-- localiseReference(reference, localeId)
-- resolveLabel(labels, localeId, fallbackLocaleId?)
+- createLabelMap(labels: Record<string, string>)
+- localiseConfig(config: T, localeId: LocaleId)
+- localiseConfigs(configs: T[], localeId: LocaleId, isResultSorted?: boolean)
+- localiseReference(reference: T, localeId: LocaleId)
+- resolveLabel(labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: LocaleId)
 
 ### Constants
 
-- DEFAULT_LOCALE_ID
-- SUPPORTED_LANGUAGES
+- DEFAULT_LOCALE_ID: LocaleId
+- SUPPORTED_LANGUAGES: { id: LocaleId; flag: FlagId; label: string }[]
 
 ### Types
 
@@ -310,12 +310,12 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Functions
 
-- convertODataTypeIdToUsageTypeId(oDataTypeId)
-- extractExtensionFromPath(itemPath)
-- extractNameFromPath(itemPath)
-- formatNumberAsDecimalNumber(number?, decimalPlaces?, minimumFractionDigits?, locale?)
-- formatNumberAsDuration(number?, stopAt?)
-- formatNumberAsSize(number?, decimalPlaces?)
-- formatNumberAsStorageSize(number?, decimalPlaces?)
-- formatNumberAsWholeNumber(number?, locale?)
-- lookupMimeTypeForExtension(extension?)
+- convertODataTypeIdToUsageTypeId(oDataTypeId: string)
+- extractExtensionFromPath(itemPath: string)
+- extractNameFromPath(itemPath: string)
+- formatNumberAsDecimalNumber(number?: number, decimalPlaces?: number, minimumFractionDigits?: number, locale?: string)
+- formatNumberAsDuration(number?: number, stopAt?: DurationLevel)
+- formatNumberAsSize(number?: number, decimalPlaces?: number)
+- formatNumberAsStorageSize(number?: number, decimalPlaces?: number)
+- formatNumberAsWholeNumber(number?: number, locale?: string)
+- lookupMimeTypeForExtension(extension?: string)
