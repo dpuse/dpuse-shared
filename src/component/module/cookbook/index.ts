@@ -17,7 +17,7 @@ export interface CookbookInterface extends Component {
     list(): ComponentReferenceConfig[]; // TODO: Do we need this? Configuration contains list.
 }
 
-export type CookbookActionName = InferOutput<typeof cookbookActionNameSchema>; // Names of the actions a cookbook may implement.
+type CookbookActionName = InferOutput<typeof cookbookActionNameSchema>; // Names of the actions a cookbook may implement.
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 

@@ -18,6 +18,6 @@ export interface ContextModelEntityConfig extends ComponentInstanceConfig {
 }
 
 // A reference to another entity that this one is subordinate to (e.g. a 'position' belongs to an 'organisation').
-export interface ContextModelEntityParentConfig {
+interface ContextModelEntityParentConfig {
     entityTypeId: string;
 }

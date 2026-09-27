@@ -32,8 +32,8 @@ export type ComponentReferenceConfig = InferOutput<typeof componentReferenceConf
 
 // ── Types - Status ───────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
-export type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
+type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
+type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
 
 // ── Constants - Status ───────────────────────────────────────────────────────────────────────────────────────────────
 

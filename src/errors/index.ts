@@ -35,7 +35,7 @@ const SECRET_TEXT_PATTERNS: [RegExp, (match: string, ...groups: string[]) => str
 // ── Errors ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Base class for all DPUse  errors; includes a locator for the error; never thrown directly
-export class DPUseError extends Error {
+class DPUseError extends Error {
     readonly data: Record<string, unknown> | undefined;
     readonly locator: string; // Error locator 'package.module.method'
     constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {

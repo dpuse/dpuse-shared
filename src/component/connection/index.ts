@@ -23,7 +23,7 @@ export interface ConnectionConfig extends ComponentInstanceConfig {
 // TODO: Proof of concept for testing, not fully implemented. Tokens must not live in a connection config, which is saved,
 // synced and shown in the browser. Keep the refresh token on the server only and never send any token to the browser;
 // this should shrink to non-secret details such as the account id and expiry.
-export interface ConnectionAuthorisationConfig {
+interface ConnectionAuthorisationConfig {
     accessToken: string; // Dropbox.
     accountId: string; // Dropbox.
     expiresAt: number; // Dropbox.
@@ -66,12 +66,12 @@ export interface ConnectionNodeConfig {
     typeId: NodeTypeId;
 }
 
-export interface DPAFileSystemFileHandle {
+interface DPAFileSystemFileHandle {
     readonly kind: 'file';
     getFile(): Promise<File>;
 }
 
-export type NodeTypeId = 'folder' | 'object';
+type NodeTypeId = 'folder' | 'object';
 
 // ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
 
@@ -99,7 +99,7 @@ export interface ObjectColumnConfig {
     voidValueCount: number | undefined;
 }
 
-export type StorageTypeId =
+type StorageTypeId =
     | 'binary'
     | 'boolean'
     | 'byte'

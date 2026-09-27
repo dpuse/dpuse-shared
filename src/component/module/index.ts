@@ -10,4 +10,4 @@ export type ModuleConfig = InferOutput<typeof moduleConfigSchema>;
 
 // ── Types - Module Type Identifier ───────────────────────────────────────────────────────────────────────────────────
 
-export type ModuleTypeId = InferOutput<typeof moduleTypeIdSchema>;
+type ModuleTypeId = InferOutput<typeof moduleTypeIdSchema>;

@@ -170,24 +170,24 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 |Chunk/Module/File|Composition|
 |:------ |:-----------|
 | dist/componentConfig.schema-DT3mO5rS.js | 10.2 kB · gzip 2.6 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 20.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 5.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 20.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 5.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.2% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.5% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
 | dist/dpuse-shared-encoding.es.js | 7.4 kB · gzip 1.5 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `████░░░░░░░░░░░░░░░░` 18.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `████░░░░░░░░░░░░░░░░` 18.9% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 2.9% |
 | dist/dpuse-shared-errors.es.js | 4.6 kB · gzip 1.7 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 12.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 12.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.3% |
 | dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · gzip 1.3 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.1% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 2.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 2.1% |
 | dist/dpuse-shared-utilities.es.js | 3.5 kB · gzip 1.3 kB |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 8.9% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
@@ -195,7 +195,7 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
 | dist/dpuse-shared-component.es.js | 834 B · gzip 415 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
 | dist/dpuse-shared-componentModuleTool.es.js | 784 B · gzip 450 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.7% |
@@ -215,9 +215,6 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | dist/label-DexpXrnC.js | 361 B · gzip 251 B |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → label.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
-| dist/dpuse-shared-componentRecipe.es.js | 94 B · gzip 110 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 0.0% |
 | dist/dpuse-shared-componentConnection.es.js | 0 B · gzip 20 B |
 | dist/dpuse-shared-componentContext.es.js | 0 B · gzip 20 B |
 | dist/dpuse-shared-componentContextModel.es.js | 0 B · gzip 20 B |
@@ -232,6 +229,7 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | dist/dpuse-shared-componentModule.es.js | 0 B · gzip 20 B |
 | dist/dpuse-shared-componentModuleEngine.es.js | 0 B · gzip 20 B |
 | dist/dpuse-shared-componentPresentation.es.js | 0 B · gzip 20 B |
+| dist/dpuse-shared-componentRecipe.es.js | 0 B · gzip 20 B |
 | dist/dpuse-shared.es.js | 0 B · gzip 20 B |
 
 (bundler output, whitespace & JSON) = bytes Sonda can't trace to a source file: whitespace (indentation and line breaks), code the bundler generates (region comments, the combined import/export lines, its small runtime helper and wrappers), and imported JSON such as `config.json`, which the bundler doesn't map. The JSON and the generated code are real bytes that ship; the whitespace mostly disappears once compressed.

@@ -8,7 +8,7 @@ export interface ContextConfig extends ComponentInstanceConfig {
     areas: ContextAreaConfig[];
 }
 
-export interface ContextAreaConfig extends ComponentInstanceConfig {
+interface ContextAreaConfig extends ComponentInstanceConfig {
     typeId: 'contextArea';
     models: ComponentReferenceConfig[];
     order: number;

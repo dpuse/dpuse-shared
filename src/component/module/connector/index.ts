@@ -68,13 +68,13 @@ type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 
 // ── Types - Action - Audit Object Content ────────────────────────────────────────────────────────────────────────────
 
-export interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
+interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
     path: string;
     valueDelimiterId: ValueDelimiterId;
 }
-export interface AuditObjectContentResult1 {
+interface AuditObjectContentResult1 {
     contentAuditConfig: ContentAuditConfig;
 }
 
@@ -222,7 +222,7 @@ const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
     { id: 'fileStore', label: { en: 'File Store', es: 'Almacén de Archivos' } }
 ];
 
-export const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
+const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     abortOperation: 'Abort Operation',
     auditObjectContent: 'Audit Object Content',
     createObject: 'Create Object',

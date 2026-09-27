@@ -1,2 +1,1 @@
 const PLACEHOLDER = '';
-export { PLACEHOLDER };

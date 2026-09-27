@@ -24,21 +24,15 @@ Every export, grouped by import path. This file is updated each time the project
 - ComponentBaseConfig
 - ComponentInstanceConfig
 - ComponentReferenceConfig
-- ComponentStatus
-- ComponentStatusColorId
 
 ## @dpuse/dpuse-shared/component/connection
 
 ### Types
 
-- ConnectionAuthorisationConfig
 - ConnectionConfig
 - ConnectionDescriptionConfig
 - ConnectionNodeConfig
-- DPAFileSystemFileHandle
-- NodeTypeId
 - ObjectColumnConfig
-- StorageTypeId
 
 ## @dpuse/dpuse-shared/component/dataView
 
@@ -48,7 +42,6 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- BigIntInferenceResult
 - BooleanInferenceResult
 - ContentAuditConfig
 - DataFormatId
@@ -58,23 +51,17 @@ Every export, grouped by import path. This file is updated each time the project
 - InferenceRecord
 - InferenceResult
 - InferenceSummary
-- NumberInferenceResult
 - NumericInferenceResult
 - NumericSignId
 - NumericSubtypeId
 - NumericUnitsId
 - ParsingRecord
-- ParsingResult
 - PreviewConfig
 - RecordDelimiterId
-- RelationshipsAuditConfig
 - StringInferenceResult
-- StringSubtypeId
 - TemporalInferenceResult
 - TemporalSubtypeId
-- UnknownInferenceResult
 - ValueDelimiterId
-- ValueTrimMethodId
 
 ## @dpuse/dpuse-shared/component/eventQuery
 
@@ -86,7 +73,6 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- ContextAreaConfig
 - ContextConfig
 
 ## @dpuse/dpuse-shared/component/context/model
@@ -114,7 +100,6 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - ContextModelEntityConfig
-- ContextModelEntityParentConfig
 
 ## @dpuse/dpuse-shared/component/context/model/entity/dataItem
 
@@ -127,7 +112,6 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - ContextModelEntityEventConfig
-- ContextModelEntityEventId
 - ContextModelEntityEventsConfig
 
 ## @dpuse/dpuse-shared/component/context/model/entity/primaryMeasure
@@ -148,7 +132,6 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - ModuleConfig
-- ModuleTypeId
 
 ## @dpuse/dpuse-shared/component/module/connector
 
@@ -159,10 +142,6 @@ Every export, grouped by import path. This file is updated each time the project
 - determineConnectorUsageId(actionNames)
 - getConnectorActionsTable(supported)
 
-### Constants
-
-- CONNECTOR_ACTION_NAME_MAP
-
 ### Schemas
 
 - connectorConfigSchema
@@ -170,9 +149,7 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - AuditObjectContentOptions
-- AuditObjectContentOptions1
 - AuditObjectContentResult
-- AuditObjectContentResult1
 - ConnectorActionName
 - ConnectorConfig
 - ConnectorConstructor
@@ -232,7 +209,6 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- CookbookActionName
 - CookbookConfig
 - CookbookInterface
 
@@ -257,22 +233,14 @@ Every export, grouped by import path. This file is updated each time the project
 - PresentationRangeTypeId
 - PresentationView
 - PresentationVisualCartesianChartViewConfig
-- PresentationVisualChordDiagramViewConfig
 - PresentationVisualConfig
 - PresentationVisualContentConfig
 - PresentationVisualPeriodFlowBoundariesChartViewConfig
 - PresentationVisualPolarChartViewConfig
 - PresentationVisualRangeChartViewConfig
-- PresentationVisualSankeyDiagramViewConfig
-- PresentationVisualStreamGraphViewConfig
-- PresentationVisualValueTableViewConfig
 - PresentationVisualViewConfig
 
 ## @dpuse/dpuse-shared/component/recipe
-
-### Constants
-
-- PLACEHOLDER
 
 ## @dpuse/dpuse-shared/encoding
 
@@ -289,11 +257,7 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - EncodingDetectionConfig
-- EncodingGroupConfig
-- EncodingGroupId
-- EncodingTypeConfig
 - EncodingTypeConfigLocalised
-- EncodingTypeId
 
 ## @dpuse/dpuse-shared/errors
 
@@ -311,7 +275,6 @@ Every export, grouped by import path. This file is updated each time the project
 - APIError
 - AppError
 - ConnectorError
-- DPUseError
 - EngineError
 - FetchError
 
@@ -336,7 +299,6 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- FlagId
 - LocaleDescription
 - LocaleId
 - LocaleLabel

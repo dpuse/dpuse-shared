@@ -43,7 +43,7 @@ export type PresentationCartesianTypeId = 'areaLine' | 'areaSpline' | 'bar' | 'c
 
 // ── Types - Visual View Configuration - Chord Diagram ────────────────────────────────────────────────────────────────
 
-export interface PresentationVisualChordDiagramViewConfig extends PresentationVisualViewConfig {
+interface PresentationVisualChordDiagramViewConfig extends PresentationVisualViewConfig {
     categoryId: 'chordDiagram';
 }
 
@@ -75,19 +75,19 @@ export type PresentationRangeTypeId = 'areaLine' | 'areaSpline' | 'bar' | 'colum
 
 // ── Types - Visual View Configuration - Sankey Diagram ───────────────────────────────────────────────────────────────
 
-export interface PresentationVisualSankeyDiagramViewConfig extends PresentationVisualViewConfig {
+interface PresentationVisualSankeyDiagramViewConfig extends PresentationVisualViewConfig {
     categoryId: 'sankeyDiagram';
 }
 
 // ── Types - Visual View Configuration - Stream Graph ─────────────────────────────────────────────────────────────────
 
-export interface PresentationVisualStreamGraphViewConfig extends PresentationVisualViewConfig {
+interface PresentationVisualStreamGraphViewConfig extends PresentationVisualViewConfig {
     categoryId: 'streamGraph';
 }
 
 // ── Types - Visual View Configuration - Value Table ──────────────────────────────────────────────────────────────────
 
-export interface PresentationVisualValueTableViewConfig extends PresentationVisualViewConfig {
+interface PresentationVisualValueTableViewConfig extends PresentationVisualViewConfig {
     categoryId: 'valueTable';
 }
 

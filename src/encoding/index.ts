@@ -3,15 +3,15 @@ import { DEFAULT_LOCALE_ID, type LocaleId, type LocaleLabel } from '@/locale/lab
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export type EncodingGroupId = keyof typeof ENCODING_GROUP_CONFIG_DATA;
-export type EncodingTypeId = keyof typeof ENCODING_TYPE_CONFIG_DATA;
+type EncodingGroupId = keyof typeof ENCODING_GROUP_CONFIG_DATA;
+type EncodingTypeId = keyof typeof ENCODING_TYPE_CONFIG_DATA;
 
-export interface EncodingGroupConfig {
+interface EncodingGroupConfig {
     id: EncodingGroupId;
     label: LocaleLabel;
 }
 
-export interface EncodingTypeConfig {
+interface EncodingTypeConfig {
     id: EncodingTypeId;
     groupId: EncodingGroupId | null; // Null for encodings that belong to no group, e.g. 'ascii' and 'utf-8'.
     isDetectable: boolean;

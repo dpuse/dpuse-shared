@@ -57,7 +57,7 @@ export type DataFormatId = 'dpe' | 'dtv' | 'json' | 'spss' | 'xlsx' | 'xml' | 'u
 
 export type ParsingRecord = ParsingResult[];
 
-export interface ParsingResult {
+interface ParsingResult {
     value: string | null;
     valueWasQuoted: boolean;
 }
@@ -66,7 +66,7 @@ export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special
 
 export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-export type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
+type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 
 // ── Types - Content Audit Configuration ──────────────────────────────────────────────────────────────────────────────
 
@@ -83,7 +83,7 @@ export interface ContentAuditConfig {
 
 // ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────
 
-export interface RelationshipsAuditConfig {
+interface RelationshipsAuditConfig {
     placeholder: string; // TODO
 }
 
@@ -95,7 +95,7 @@ export type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtype
 
 export type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
 
-export type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
+type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
 
 export type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
 
@@ -121,7 +121,7 @@ export interface BooleanInferenceResult {
 
 export type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
 
-export interface BigIntInferenceResult {
+interface BigIntInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'bigint';
     format: string;
@@ -134,7 +134,7 @@ export interface BigIntInferenceResult {
     unitsId: NumericUnitsId;
 }
 
-export interface NumberInferenceResult {
+interface NumberInferenceResult {
     dataTypeId: 'numeric';
     dataSubtypeId: 'integer' | 'decimal';
     format: string;
@@ -169,7 +169,7 @@ export interface TemporalInferenceResult {
     inferredValue: Date;
 }
 
-export interface UnknownInferenceResult {
+interface UnknownInferenceResult {
     dataTypeId: 'unknown';
     dataSubtypeId: undefined;
     inputValue: string | null;
