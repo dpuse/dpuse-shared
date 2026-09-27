@@ -12,14 +12,14 @@ import type {
     connectorConfigSchema,
     connectorUsageConfigSchema,
     connectorUsageIdSchema
-} from '@/component/module/connector/connectorConfig.schema';
+} from './connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 import type { LocalisedConfig } from '@/locale';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { connectorConfigSchema } from '@/component/module/connector/connectorConfig.schema';
+export { connectorConfigSchema } from './connectorConfig.schema';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 

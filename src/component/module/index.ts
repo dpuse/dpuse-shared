@@ -2,7 +2,7 @@
 import type { InferOutput } from 'valibot';
 
 // ── DPUse Framework
-import type { moduleConfigSchema, moduleTypeIdSchema } from '@/component/module/moduleConfig.schema';
+import type { moduleConfigSchema, moduleTypeIdSchema } from './moduleConfig.schema';
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 

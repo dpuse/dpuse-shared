@@ -1,10 +1,10 @@
 // ── DPUse Framework
-import { DEFAULT_LOCALE_ID } from '@/locale/label';
-import type { LocaleDescription, LocaleId, LocaleLabel } from '@/locale/label';
+import { DEFAULT_LOCALE_ID } from './label';
+import type { LocaleDescription, LocaleId, LocaleLabel } from './label';
 
 // The label vocabulary is re-exported so that the published '@dpuse/dpuse-shared/locale' entry point stays one import
 // for consumers, while modules inside this package can depend on '@/locale/label' alone.
-export * from '@/locale/label';
+export * from './label';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 

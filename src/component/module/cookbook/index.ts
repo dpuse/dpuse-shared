@@ -3,11 +3,11 @@ import type { InferOutput } from 'valibot';
 
 // ── DPUse Framework
 import type { Component, ComponentReferenceConfig } from '@/component';
-import type { cookbookActionNameSchema, cookbookConfigSchema } from '@/component/module/cookbook/cookbookConfig.schema';
+import type { cookbookActionNameSchema, cookbookConfigSchema } from './cookbookConfig.schema';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { cookbookConfigSchema } from '@/component/module/cookbook/cookbookConfig.schema';
+export { cookbookConfigSchema } from './cookbookConfig.schema';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 

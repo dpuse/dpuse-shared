@@ -3,14 +3,14 @@ import type { InferOutput } from 'valibot';
 import { strictObject } from 'valibot';
 
 // ── DPUse Framework
-import { componentBaseConfigSchema } from '@/component/componentConfig.schema';
+import { componentBaseConfigSchema } from './componentConfig.schema';
 import { DEFAULT_LOCALE_ID } from '@/locale/label';
-import type { componentInstanceConfigSchema, componentReferenceConfigSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from '@/component/componentConfig.schema';
+import type { componentInstanceConfigSchema, componentReferenceConfigSchema, componentStatusColorIdSchema, componentStatusConfigSchema } from './componentConfig.schema';
 import type { LocaleId, LocaleLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { componentInstanceConfigSchema } from '@/component/componentConfig.schema';
+export { componentInstanceConfigSchema } from './componentConfig.schema';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 

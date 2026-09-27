@@ -4,11 +4,11 @@ import type { InferOutput } from 'valibot';
 // ── DPUse Framework
 import { LocalisedReference } from '@/locale';
 import type { Component, ComponentReferenceConfig } from '@/component';
-import type { presenterActionNameSchema, presenterConfigSchema } from '@/component/module/presenter/presenterConfig.schema';
+import type { presenterActionNameSchema, presenterConfigSchema } from './presenterConfig.schema';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { presenterConfigSchema } from '@/component/module/presenter/presenterConfig.schema';
+export { presenterConfigSchema } from './presenterConfig.schema';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
