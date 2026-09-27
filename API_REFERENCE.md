@@ -6,7 +6,7 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`BaseConfig`** (inferred from baseConfigSchema)
+- **`BaseConfig`** (inferred from `baseConfigSchema`)
 
 ## @dpuse/dpuse-shared/component
 
@@ -21,15 +21,15 @@ Every export, grouped by import path. This file is updated each time the project
 ### Types
 
 - **`Component`**
-- **`ComponentBaseConfig`** (inferred from componentBaseConfigSchema, extends BaseConfig)
-- **`ComponentInstanceConfig`** (inferred from componentInstanceConfigSchema, extends ComponentBaseConfig)
-- **`ComponentReferenceConfig`** (inferred from componentReferenceConfigSchema, extends ComponentBaseConfig)
+- **`ComponentBaseConfig`** (inferred from `componentBaseConfigSchema`, extends `BaseConfig`)
+- **`ComponentInstanceConfig`** (inferred from `componentInstanceConfigSchema`, extends `ComponentBaseConfig`)
+- **`ComponentReferenceConfig`** (inferred from `componentReferenceConfigSchema`, extends `ComponentBaseConfig`)
 
 ## @dpuse/dpuse-shared/component/connection
 
 ### Types
 
-- **`ConnectionConfig`** (extends ComponentInstanceConfig)
+- **`ConnectionConfig`** (extends `ComponentInstanceConfig`)
 - **`ConnectionDescriptionConfig`**
 - **`ConnectionNodeConfig`**
 - **`ObjectColumnConfig`**
@@ -47,7 +47,7 @@ Every export, grouped by import path. This file is updated each time the project
 - **`DataFormatId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**
-- **`DataViewConfig`** (extends ComponentInstanceConfig)
+- **`DataViewConfig`** (extends `ComponentInstanceConfig`)
 - **`InferenceRecord`**
 - **`InferenceResult`**
 - **`InferenceSummary`**
@@ -67,31 +67,31 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`EventQueryConfig`** (extends ComponentInstanceConfig)
+- **`EventQueryConfig`** (extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/context
 
 ### Types
 
-- **`ContextConfig`** (extends ComponentInstanceConfig)
+- **`ContextConfig`** (extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/context/model
 
 ### Types
 
-- **`ContextModelConfig`** (extends ComponentInstanceConfig)
+- **`ContextModelConfig`** (extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/context/model/dimension
 
 ### Types
 
-- **`ContextModelDimensionConfig`** (extends ComponentInstanceConfig)
+- **`ContextModelDimensionConfig`** (extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/context/model/dimension/hierarchy
 
 ### Types
 
-- **`ContextModelDimensionHierarchyConfig`** (extends ComponentInstanceConfig)
+- **`ContextModelDimensionHierarchyConfig`** (extends `ComponentInstanceConfig`)
 - **`ContextModelDimensionHierarchyLevelConfig`**
 - **`ContextModelDimensionHierarchyNodeConfig`**
 
@@ -99,13 +99,13 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`ContextModelEntityConfig`** (extends ComponentInstanceConfig)
+- **`ContextModelEntityConfig`** (extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/context/model/entity/dataItem
 
 ### Types
 
-- **`ContextModelEntityDataItemConfig`** (extends Omit\<BaseConfig, 'description'>)
+- **`ContextModelEntityDataItemConfig`** (extends `Omit<BaseConfig, 'description'>`)
 
 ## @dpuse/dpuse-shared/component/context/model/entity/event
 
@@ -118,20 +118,20 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`ContextModelEntityPrimaryMeasureConfig`** (extends Omit\<BaseConfig, 'description'>)
+- **`ContextModelEntityPrimaryMeasureConfig`** (extends `Omit<BaseConfig, 'description'>`)
 - **`ContextModelEntityPrimaryMeasuresConfig`**
 
 ## @dpuse/dpuse-shared/component/context/model/secondaryMeasure
 
 ### Types
 
-- **`ContextModelSecondaryMeasureConfig`** (extends ComponentInstanceConfig)
+- **`ContextModelSecondaryMeasureConfig`** (extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/module
 
 ### Types
 
-- **`ModuleConfig`** (inferred from moduleConfigSchema, extends ComponentInstanceConfig)
+- **`ModuleConfig`** (inferred from `moduleConfigSchema`, extends `ComponentInstanceConfig`)
 
 ## @dpuse/dpuse-shared/component/module/connector
 
@@ -148,33 +148,33 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`AuditObjectContentOptions`** (extends EngineConnectorActionOptions)
+- **`AuditObjectContentOptions`** (extends `EngineConnectorActionOptions`)
 - **`AuditObjectContentResult`**
-- **`ConnectorActionName`** (inferred from connectorActionNameSchema)
-- **`ConnectorConfig`** (inferred from connectorConfigSchema, extends ModuleConfig)
+- **`ConnectorActionName`** (inferred from `connectorActionNameSchema`)
+- **`ConnectorConfig`** (inferred from `connectorConfigSchema`, extends `ModuleConfig`)
 - **`ConnectorConstructor`**
-- **`ConnectorInterface`** (extends Component)
-- **`ConnectorUsageId`** (inferred from connectorUsageIdSchema)
+- **`ConnectorInterface`** (extends `Component`)
+- **`ConnectorUsageId`** (inferred from `connectorUsageIdSchema`)
 - **`ConnectorUtilities`**
-- **`CreateObjectOptions`** (extends EngineConnectorActionOptions)
+- **`CreateObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`DescribeConnectionOptions`**
-- **`DropObjectOptions`** (extends EngineConnectorActionOptions)
-- **`FindObjectOptions`** (extends EngineConnectorActionOptions)
+- **`DropObjectOptions`** (extends `EngineConnectorActionOptions`)
+- **`FindObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`FindObjectResult`**
-- **`GetInfoOptions`** (extends EngineConnectorActionOptions)
+- **`GetInfoOptions`** (extends `EngineConnectorActionOptions`)
 - **`GetInfoResult`**
-- **`GetReadableStreamOptions`** (extends EngineConnectorActionOptions)
-- **`GetRecordOptions`** (extends EngineConnectorActionOptions)
+- **`GetReadableStreamOptions`** (extends `EngineConnectorActionOptions`)
+- **`GetRecordOptions`** (extends `EngineConnectorActionOptions`)
 - **`GetRecordResult`**
-- **`ListNodesOptions`** (extends EngineConnectorActionOptions)
+- **`ListNodesOptions`** (extends `EngineConnectorActionOptions`)
 - **`ListNodesResult`**
-- **`PreviewObjectOptions`** (extends EngineConnectorActionOptions)
+- **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`RecordRetrievalTypeId`**
-- **`RemoveRecordsOptions`** (extends EngineConnectorActionOptions)
-- **`RetrieveChunksOptions`** (extends EngineConnectorActionOptions)
-- **`RetrieveRecordsOptions`** (extends EngineConnectorActionOptions)
+- **`RemoveRecordsOptions`** (extends `EngineConnectorActionOptions`)
+- **`RetrieveChunksOptions`** (extends `EngineConnectorActionOptions`)
+- **`RetrieveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsSummary`**
-- **`UpsertRecordsOptions`** (extends EngineConnectorActionOptions)
+- **`UpsertRecordsOptions`** (extends `EngineConnectorActionOptions`)
 
 ## @dpuse/dpuse-shared/component/module/engine
 
@@ -182,7 +182,7 @@ Every export, grouped by import path. This file is updated each time the project
 
 - **`EngineAuthActionOptions`**
 - **`EngineCallbackData`**
-- **`EngineConfig`** (extends ModuleConfig)
+- **`EngineConfig`** (extends `ModuleConfig`)
 - **`EngineConnectorActionOptions`**
 - **`EngineContextActionOptions`**
 - **`EngineInitialiseOptions`**
@@ -197,9 +197,9 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`PresenterActionName`** (inferred from presenterActionNameSchema)
-- **`PresenterConfig`** (inferred from presenterConfigSchema, extends ModuleConfig)
-- **`PresenterInterface`** (extends Component)
+- **`PresenterActionName`** (inferred from `presenterActionNameSchema`)
+- **`PresenterConfig`** (inferred from `presenterConfigSchema`, extends `ModuleConfig`)
+- **`PresenterInterface`** (extends `Component`)
 
 ## @dpuse/dpuse-shared/component/module/cookbook
 
@@ -209,8 +209,8 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`CookbookConfig`** (inferred from cookbookConfigSchema, extends ModuleConfig)
-- **`CookbookInterface`** (extends Component)
+- **`CookbookConfig`** (inferred from `cookbookConfigSchema`, extends `ModuleConfig`)
+- **`CookbookInterface`** (extends `Component`)
 
 ## @dpuse/dpuse-shared/component/module/tool
 
@@ -220,7 +220,7 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Types
 
-- **`ToolConfig`** (extends ModuleConfig)
+- **`ToolConfig`** (extends `ModuleConfig`)
 
 ## @dpuse/dpuse-shared/component/presentation
 
@@ -228,16 +228,16 @@ Every export, grouped by import path. This file is updated each time the project
 
 - **`PresentationCartesianTypeId`**
 - **`PresentationCategoryId`**
-- **`PresentationConfig`** (extends ComponentInstanceConfig)
+- **`PresentationConfig`** (extends `ComponentInstanceConfig`)
 - **`PresentationPolarTypeId`**
 - **`PresentationRangeTypeId`**
 - **`PresentationView`**
-- **`PresentationVisualCartesianChartViewConfig`** (extends PresentationVisualViewConfig)
+- **`PresentationVisualCartesianChartViewConfig`** (extends `PresentationVisualViewConfig`)
 - **`PresentationVisualConfig`**
 - **`PresentationVisualContentConfig`**
-- **`PresentationVisualPeriodFlowBoundariesChartViewConfig`** (extends PresentationVisualViewConfig)
-- **`PresentationVisualPolarChartViewConfig`** (extends PresentationVisualViewConfig)
-- **`PresentationVisualRangeChartViewConfig`** (extends PresentationVisualViewConfig)
+- **`PresentationVisualPeriodFlowBoundariesChartViewConfig`** (extends `PresentationVisualViewConfig`)
+- **`PresentationVisualPolarChartViewConfig`** (extends `PresentationVisualViewConfig`)
+- **`PresentationVisualRangeChartViewConfig`** (extends `PresentationVisualViewConfig`)
 - **`PresentationVisualViewConfig`**
 
 ## @dpuse/dpuse-shared/component/recipe
@@ -272,11 +272,11 @@ Every export, grouped by import path. This file is updated each time the project
 
 ### Classes
 
-- **`APIError`** (extends DPUseError)
-- **`AppError`** (extends DPUseError)
-- **`ConnectorError`** (extends DPUseError)
-- **`EngineError`** (extends DPUseError)
-- **`FetchError`** (extends DPUseError)
+- **`APIError`** (extends `DPUseError`)
+- **`AppError`** (extends `DPUseError`)
+- **`ConnectorError`** (extends `DPUseError`)
+- **`EngineError`** (extends `DPUseError`)
+- **`FetchError`** (extends `DPUseError`)
 
 ### Types
 
