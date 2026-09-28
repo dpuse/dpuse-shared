@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "0.3.859",
+    "version": "0.3.860",
     "private": false,
     "description": "Common constants, types and utilities used across all DPUse projects.",
     "license": "MIT",
@@ -149,28 +149,21 @@
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
-        "build": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\" && npm run documentBundleSizes",
-        "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkConfigFiles())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
-        "document": "npm run documentOpening && npm run documentUsage && npm run documentDependencies && npm run documentGovernance",
-        "documentBundleSizes": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentBundleSizes())\"",
-        "documentDependencies": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('Apache-2.0;BSD-3-Clause;MIT'))\"",
-        "documentGovernance": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentGovernance())\"",
-        "documentOpening": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentOpening())\"",
-        "documentUsage": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentUsage())\"",
+        "build": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
+        "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkProject())\"",
+        "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentProject({ allowedLicenses: 'Apache-2.0;BSD-3-Clause;MIT' }))\"",
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
-        "health": "npm run test:coverage && fallow --coverage coverage/coverage-final.json",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
-        "release": "npm run sync && gh release create \"v$(npm pkg get version | tr -d '\"')\" --target \"$(git rev-parse HEAD)\" --generate-notes --latest",
+        "release": "npm run build && npm run document && npm run sync && gh release create \"v$(npm pkg get version | tr -d '\"')\" --target \"$(git rev-parse HEAD)\" --generate-notes --latest",
         "sync": "node -e \"import('@dpuse/dpuse-development').then(m => m.syncProjectWithGitHub())\"",
-        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\"",
-        "test:coverage": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject(['unit'], true))\""
+        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "dependencies": {
         "file-type": "^22.1.1",
         "valibot": "^1.5.0"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.766",
+        "@dpuse/dpuse-development": "^0.3.787",
         "@dpuse/eslint-config-dpuse": "^1.0.123",
         "@types/node": "^26.6.3",
         "@vitest/coverage-v8": "^5.0.2",

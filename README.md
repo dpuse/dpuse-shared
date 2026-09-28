@@ -5,11 +5,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![DPUse version](https://img.shields.io/github/v/release/dpuse/dpuse-shared?color=f6821f&label=DPUse)](https://github.com/dpuse/dpuse-shared/releases/latest)
 [![CI](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/dpuse/dpuse-shared/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-shared/actions/workflows/codeql.yml)
-[![Fallow code health](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdpuse%2Fdpuse-shared%2Fmain%2Fcode-health-reports%2Ffallow%2Fbadge.json)](./code-health-reports/fallow/index.md)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-shared&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared)
 
-[Documentation](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-shared/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-shared/issues)
+[DPUse](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-shared/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-shared/issues)
+
+Common constants, types and utilities used across all DPUse projects.
 
 ## About DPUse
 
@@ -25,7 +24,9 @@ In addition, DPUse provides [Tools](https://www.dpuse.app) used by the applicati
 
 ## Introduction
 
-@dpuse/dpuse-shared is the foundational library for the [DPUse](https://www.dpuse.app/) ecosystem. It provides the common constants, types, errors, and utilities that are shared across all DPUse modules — including the App, API, Engine, Connectors, Contexts, Presenters and Recipes.,The library is written in TypeScript and designed to be consumed exclusively by TypeScript projects. All configuration types are schema-validated using [Valibot](https://valibot.dev/), giving consumers both compile-time safety and runtime validation from a single source of truth.
+@dpuse/dpuse-shared is the foundational library for the [DPUse](https://www.dpuse.app/) ecosystem. It provides the common constants, types, errors, and utilities that are shared across all DPUse modules — including the App, API, Engine, Connectors, Contexts, Presenters and Recipes.
+
+The library is written in TypeScript and designed to be consumed exclusively by TypeScript projects. All configuration types are schema-validated using [Valibot](https://valibot.dev/), giving consumers both compile-time safety and runtime validation from a single source of truth.
 
 <!-- OPENING_END -->
 
@@ -33,13 +34,13 @@ In addition, DPUse provides [Tools](https://www.dpuse.app) used by the applicati
 
 ## Usage
 
-This package is published to the [public npm registry](https://www.npmjs.com/package/@dpuse/dpuse-shared). Install it with:
+This [package](https://www.npmjs.com/package/@dpuse/dpuse-shared) is available on [npm](https://www.npmjs.com/). Install it with:
 
 ```bash
 npm install @dpuse/dpuse-shared
 ```
 
-To work on the source instead, clone this repository. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
+To work on the source instead, clone this repository.
 
 ```bash
 git clone https://github.com/dpuse/dpuse-shared.git
@@ -49,25 +50,7 @@ npm install
 
 _Requires [Node.js](https://nodejs.org/) 24 or later, [npm](https://www.npmjs.com/) 12 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
 
-Repository tasks run through npm scripts provided by [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development):
-
-|Command|What it does|
-|:-|:-|
-|`npm run build`|Builds the project.|
-|`npm test`|Runs the tests.|
-|`npm run test:coverage`|Runs the unit tests and measures coverage.|
-|`npm run lint`|Checks the code with ESLint.|
-|`npm run format`|Formats the code with Prettier.|
-|`npm run audit`|Checks dependencies for known vulnerabilities with npm audit.|
-|`npm run check`|Checks configuration files against the DPUse templates and lists outdated dependencies.|
-|`npm run document`|Regenerates the README's generated sections.|
-|`npm run documentOpening`|Regenerates the README's opening section.|
-|`npm run documentUsage`|Regenerates the README's Usage section.|
-|`npm run documentDependencies`|Regenerates the README's dependency licence report.|
-|`npm run documentBundleSizes`|Regenerates the README's bundle size report.|
-|`npm run documentGovernance`|Regenerates the README's Quality & Security, Contributing and License sections.|
-|`npm run sync`|Bumps the version, then commits and pushes to GitHub.|
-|`npm run release`|Bumps the version, commits and pushes, and creates a GitHub release.|
+This repository is managed using the common set of actions provided by [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development). See the `scripts` block in [package.json](https://github.com/dpuse/dpuse-shared/blob/main/package.json) for details.
 
 <!-- USAGE_END -->
 
@@ -123,39 +106,39 @@ See [API_REFERENCE.md](./API_REFERENCE.md) for the complete API reference, inclu
 
 License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
-|Dependency|Version|License(s)|Document|
-|:-|:-:|:-|:-|
-|[@borewit/text-codec](https://github.com/Borewit/text-codec)|0.2.2|MIT|[LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
-|[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)|0.4.1|MIT|[LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)|
-|[@tokenizer/token](https://github.com/Borewit/tokenizer-token)|0.3.0|MIT|[LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)|
-|[debug](https://github.com/debug-js/debug)|4.4.3|MIT|[LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)|
-|[file-type](https://github.com/sindresorhus/file-type)|22.1.1|MIT|[LICENSE](licenses/downloads/file-type@22.1.1-LICENSE.txt)|
-|[ieee754](https://github.com/feross/ieee754)|1.2.1|BSD-3-Clause|[LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)|
-|[ms](https://github.com/vercel/ms)|2.1.3|MIT|[LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)|
-|[strtok3](https://github.com/Borewit/strtok3)|10.3.5|MIT|[LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)|
-|[token-types](https://github.com/Borewit/token-types)|6.1.2|MIT|[LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)|
-|[typescript](https://github.com/microsoft/TypeScript)|6.0.3|Apache-2.0|[LICENSE](licenses/downloads/typescript@6.0.3-LICENSE.txt)|
-|[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)|1.5.0|MIT|[LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)|
-|[valibot](https://github.com/open-circle/valibot)|1.5.0|MIT|[LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)|
+| Dependency                                                             | Version | License(s)   | Document                                                            |
+| :--------------------------------------------------------------------- | :-----: | :----------- | :------------------------------------------------------------------ |
+| [@borewit/text-codec](https://github.com/Borewit/text-codec)           |  0.2.2  | MIT          | [LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt) |
+| [@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)     |  0.4.1  | MIT          | [LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)  |
+| [@tokenizer/token](https://github.com/Borewit/tokenizer-token)         |  0.3.0  | MIT          | [LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)    |
+| [debug](https://github.com/debug-js/debug)                             |  4.4.3  | MIT          | [LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)               |
+| [file-type](https://github.com/sindresorhus/file-type)                 | 22.1.1  | MIT          | [LICENSE](licenses/downloads/file-type@22.1.1-LICENSE.txt)          |
+| [ieee754](https://github.com/feross/ieee754)                           |  1.2.1  | BSD-3-Clause | [LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)             |
+| [ms](https://github.com/vercel/ms)                                     |  2.1.3  | MIT          | [LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)                  |
+| [strtok3](https://github.com/Borewit/strtok3)                          | 10.3.5  | MIT          | [LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)            |
+| [token-types](https://github.com/Borewit/token-types)                  |  6.1.2  | MIT          | [LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)         |
+| [typescript](https://github.com/microsoft/TypeScript)                  |  6.0.3  | Apache-2.0   | [LICENSE](licenses/downloads/typescript@6.0.3-LICENSE.txt)          |
+| [uint8array-extras](https://github.com/sindresorhus/uint8array-extras) |  1.5.0  | MIT          | [LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)   |
+| [valibot](https://github.com/open-circle/valibot)                      |  1.5.0  | MIT          | [LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)             |
 
 ### Dependency Tree
 
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
 - **[file-type](https://github.com/sindresorhus/file-type)** 22.1.1 — this month: 2026-09-17
-  - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **10 months** ago: 2025-11-18 ⚠️
-    - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **12 months** ago: 2025-09-13 ⚠️
-      - **[ms](https://github.com/vercel/ms)** 2.1.3 — **69 months** ago: 2020-12-08 ⚠️
+    - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **10 months** ago: 2025-11-18 ⚠️
+        - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **12 months** ago: 2025-09-13 ⚠️
+            - **[ms](https://github.com/vercel/ms)** 2.1.3 — **69 months** ago: 2020-12-08 ⚠️
+        - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
+    - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **6 months** ago: 2026-03-21
+        - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
     - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
-  - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **6 months** ago: 2026-03-21
-    - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
-  - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **8 months** ago: 2026-01-01 ⚠️
-    - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **6 months** ago: 2026-03-11
-    - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
-    - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **71 months** ago: 2020-10-27 ⚠️
-  - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **13 months** ago: 2025-08-22 ⚠️ → **latest**: 1.6.0 — this month: 2026-09-26 ❗
+        - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **6 months** ago: 2026-03-11
+        - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **62 months** ago: 2021-07-12 ⚠️
+        - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **71 months** ago: 2020-10-27 ⚠️
+    - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **13 months** ago: 2025-08-22 ⚠️ → **latest**: 1.6.0 — this month: 2026-09-26 ❗
 - **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — this month: 2026-09-09
-  - **[typescript](https://github.com/microsoft/TypeScript)** 6.0.3 — **5 months** ago: 2026-04-16 → **latest**: 7.0.2 — **2 months** ago: 2026-07-08 ❗
+    - **[typescript](https://github.com/microsoft/TypeScript)** 6.0.3 — **5 months** ago: 2026-04-16 → **latest**: 7.0.2 — **2 months** ago: 2026-07-08 ❗
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -163,117 +146,118 @@ The dependency tree below lists every package in this project — direct and tra
 
 ## Bundle Analysis
 
-This report is updated each time the project is built, using [Sonda](https://sonda.dev/), which analyses final source maps to reveal the actual effects of tree-shaking and minification rather than relying on pre-build estimates.
+This report is updated with each release, from the bundle the release builds, using [Sonda](https://sonda.dev/), which analyses final source maps to reveal the actual effects of tree-shaking and minification rather than relying on pre-build estimates.
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-|Chunk/Module/File|Composition|
-|:------ |:-----------|
-| dist/componentConfig.schema-DT3mO5rS.js | 10.2 kB · gzip 2.6 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs | `████░░░░░░░░░░░░░░░░` 20.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 5.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 4.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.5% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| dist/dpuse-shared-encoding.es.js | 7.4 kB · gzip 1.5 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `████░░░░░░░░░░░░░░░░` 18.9% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `█░░░░░░░░░░░░░░░░░░░` 2.9% |
-| dist/dpuse-shared-errors.es.js | 4.6 kB · gzip 1.7 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 12.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.3% |
-| dist/dpuse-shared-componentModuleConnector.es.js | 3.6 kB · gzip 1.3 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | `██░░░░░░░░░░░░░░░░░░` 8.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.1% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 2.1% |
-| dist/dpuse-shared-utilities.es.js | 3.5 kB · gzip 1.3 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `██░░░░░░░░░░░░░░░░░░` 8.9% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 1.4% |
-| dist/dpuse-shared-locale.es.js | 856 B · gzip 386 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
-| dist/dpuse-shared-component.es.js | 834 B · gzip 415 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.9% |
-| dist/dpuse-shared-componentModuleTool.es.js | 784 B · gzip 450 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
-| dist/dpuse-shared-componentDataView.es.js | 701 B · gzip 355 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
-| dist/dpuse-shared-componentModulePresenter.es.js | 411 B · gzip 269 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → presenterConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
-| dist/moduleConfig.schema-aYmFWSrn.js | 405 B · gzip 274 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → moduleConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
-| dist/dpuse-shared-componentModuleCookbook.es.js | 370 B · gzip 248 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → cookbookConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
-| dist/label-DexpXrnC.js | 361 B · gzip 251 B |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → label.ts | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
-| dist/dpuse-shared-componentConnection.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContext.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModel.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelDimension.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelEntity.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelEntityDataItem.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelEntityEvent.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentEventQuery.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentModule.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentModuleEngine.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentPresentation.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared-componentRecipe.es.js | 0 B · gzip 20 B |
-| dist/dpuse-shared.es.js | 0 B · gzip 20 B |
+| Chunk/Module/File                                                         | Composition                  |
+| :------------------------------------------------------------------------ | :--------------------------- |
+| dist/componentConfig.schema-DT3mO5rS.js                                   | 10.2 kB · gzip 2.6 kB        |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                          | `████░░░░░░░░░░░░░░░░` 20.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `█░░░░░░░░░░░░░░░░░░░` 5.3%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;src                                               | `█░░░░░░░░░░░░░░░░░░░` 4.2%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;componentConfig.schema.ts | `█░░░░░░░░░░░░░░░░░░░` 2.7%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locale.schema.ts          | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseConfig.schema.ts      | `░░░░░░░░░░░░░░░░░░░░` 0.5%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schema.ts                 | `░░░░░░░░░░░░░░░░░░░░` 0.2%  |
+| dist/dpuse-shared-encoding.es.js                                          | 7.4 kB · gzip 1.5 kB         |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `████░░░░░░░░░░░░░░░░` 18.9% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `█░░░░░░░░░░░░░░░░░░░` 2.9%  |
+| dist/dpuse-shared-errors.es.js                                            | 4.6 kB · gzip 1.7 kB         |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `██░░░░░░░░░░░░░░░░░░` 12.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 1.3%  |
+| dist/dpuse-shared-componentModuleConnector.es.js                          | 3.6 kB · gzip 1.3 kB         |
+| &nbsp;&nbsp;&nbsp;&nbsp;src                                               | `██░░░░░░░░░░░░░░░░░░` 8.4%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts                  | `█░░░░░░░░░░░░░░░░░░░` 6.1%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░` 2.3%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 2.1%  |
+| dist/dpuse-shared-utilities.es.js                                         | 3.5 kB · gzip 1.3 kB         |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `██░░░░░░░░░░░░░░░░░░` 8.9%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 1.4%  |
+| dist/dpuse-shared-locale.es.js                                            | 856 B · gzip 386 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.9%  |
+| dist/dpuse-shared-component.es.js                                         | 834 B · gzip 415 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.9%  |
+| dist/dpuse-shared-componentModuleTool.es.js                               | 784 B · gzip 450 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.7%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
+| dist/dpuse-shared-componentDataView.es.js                                 | 701 B · gzip 355 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.4%  |
+| dist/dpuse-shared-componentModulePresenter.es.js                          | 411 B · gzip 269 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → presenterConfig.schema.ts                   | `░░░░░░░░░░░░░░░░░░░░` 0.4%  |
+| dist/moduleConfig.schema-aYmFWSrn.js                                      | 405 B · gzip 274 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → moduleConfig.schema.ts                      | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.6%  |
+| dist/dpuse-shared-componentModuleCookbook.es.js                           | 370 B · gzip 248 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → cookbookConfig.schema.ts                    | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
+| dist/label-DexpXrnC.js                                                    | 361 B · gzip 251 B           |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → label.ts                                    | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)               | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
+| dist/dpuse-shared-componentConnection.es.js                               | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContext.es.js                                  | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModel.es.js                             | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelDimension.es.js                    | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelDimensionHierarchy.es.js           | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelEntity.es.js                       | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelEntityDataItem.es.js               | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelEntityEvent.es.js                  | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelEntityPrimaryMeasure.es.js         | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentContextModelSecondaryMeasure.es.js             | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentEventQuery.es.js                               | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentModule.es.js                                   | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentModuleEngine.es.js                             | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentPresentation.es.js                             | 0 B · gzip 20 B              |
+| dist/dpuse-shared-componentRecipe.es.js                                   | 0 B · gzip 20 B              |
+| dist/dpuse-shared.es.js                                                   | 0 B · gzip 20 B              |
 
 (bundler output, whitespace & JSON) = bytes Sonda can't trace to a source file: whitespace (indentation and line breaks), code the bundler generates (region comments, the combined import/export lines, its small runtime helper and wrappers), and imported JSON such as `config.json`, which the bundler doesn't map. The JSON and the generated code are real bytes that ship; the whitespace mostly disappears once compressed.
 
 <!-- BUNDLE_END -->
 
-<!-- GOVERNANCE_START -->
+<!-- QUALITY_SECURITY_START -->
 
 ## Quality & Security
 
-This section is updated each time `npm run document` is run. Settings come from the repository's workflow files and GitHub, and test coverage and the Fallow score are measured at the same time.
+This section is updated each time `npm run document` is run. Settings come from the repository's workflow files and GitHub. Test coverage and the Fallow score are measured at the same time.
 
 ### Testing
 
-|Check or setting|Status|What it does|
-|:-|:-|:-|
-|Unit tests|✅ On|Run in CI on every push to `main`.|
-|Property-based tests|✅ fast-check|Fuzz testing: many random inputs per test to find edge cases, run with the unit tests.|
-|Test coverage|✅ 84.6% of lines|Share of source lines the unit tests run. The target is 80%.|
+| Check                | Status | What it does                                                                                                                                                                                                                                                                                           |
+| :------------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit tests           | ✅ On  | [Vitest](https://vitest.dev) runs the unit tests. Runs in the [CI workflow](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml) on every push to `main`.                                                                                                                                   |
+| Property-based tests | ✅ On  | [fast-check](https://fast-check.dev) runs many random inputs per test to find edge cases, alongside the unit tests. Runs in the [CI workflow](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml) on every push to `main`.                                                                 |
+| Test coverage        | ✅ On  | ![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdpuse%2Fdpuse-shared%2Fmain%2Fcode-health-reports%2Fvitest%2Fbadge.json) [Vitest's V8 coverage](https://vitest.dev/guide/coverage) measures the share of source lines the unit tests run. The target is 80%. |
 
 ### Code Quality
 
-|Check or setting|Status|What it does|
-|:-|:-|:-|
-|[Fallow](./code-health-reports/fallow/index.md)|✅ A (90)|Unused code, duplication, complexity and dependency hygiene.|
-|[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared)|✅ On|Code quality and security analysis on every push: bugs, code smells and vulnerabilities.|
+| Check         | Status | What it does                                                                                                                                                                                                                                                                                                                            |
+| :------------ | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Code health   | ✅ On  | [![Fallow code health](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdpuse%2Fdpuse-shared%2Fmain%2Fcode-health-reports%2Ffallow%2Fbadge.json)](./code-health-reports/fallow/index.md) [Fallow](https://github.com/fallow-rs/fallow) finds unused code, duplication, complexity and dependency problems. |
+| Code analysis | ✅ On  | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-shared&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared) [SonarCloud](https://sonarcloud.io) checks every push for bugs, code smells and vulnerabilities.                                                |
+| Linting       | ✅ On  | [ESLint](https://eslint.org) checks the code for errors and style problems. Runs in the [CI workflow](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml) on every push to `main`.                                                                                                                                          |
 
 ### Security Analysis
 
-|Check or setting|Status|What it does|
-|:-|:-|:-|
-|[CodeQL](https://github.com/dpuse/dpuse-shared/security/code-scanning)|✅ GitHub Actions, JavaScript/TypeScript|Static analysis for security vulnerabilities, using the extended security queries, on every push and pull request to `main` and weekly.|
-|Secret scanning|✅ On|Detects credentials, such as API keys and tokens, committed to the repository.|
-|Push protection|✅ On|Blocks pushes that contain credentials.|
+| Check           | Status | What it does                                                                                                                                                                                                                                                                                                                                                       |
+| :-------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Push protection | ✅ On  | [GitHub push protection](https://docs.github.com/en/code-security/secret-scanning/push-protection-for-repositories-and-organizations) blocks pushes that contain credentials.                                                                                                                                                                                      |
+| Static analysis | ✅ On  | [![CodeQL](https://github.com/dpuse/dpuse-shared/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-shared/security/code-scanning) [CodeQL](https://codeql.github.com) scans GitHub Actions and JavaScript/TypeScript for security vulnerabilities, using the extended security queries, on every push and pull request to `main` and weekly. |
+| Secret scanning | ✅ On  | [GitHub secret scanning](https://docs.github.com/en/code-security/secret-scanning) detects credentials, such as API keys and tokens, committed to the repository.                                                                                                                                                                                                  |
 
 ### Dependencies
 
-|Check or setting|Status|What it does|
-|:-|:-|:-|
-|npm audit|✅ On|Fails CI when any dependency has a known vulnerability.|
-|[Socket.dev](https://socket.dev)|✅ On|Flags supply chain risk in dependencies: malicious packages, typosquatting and suspicious behaviour that may not yet have a CVE.|
-|Dependabot alerts|✅ On|Alerts when a dependency has a known vulnerability, using the GitHub Advisory Database.|
-|Dependabot security updates|❌ Off|Opens pull requests that update vulnerable dependencies.|
-|Dependabot version updates|❌ Off|Opens pull requests for new dependency versions.|
+| Check               | Status | What it does                                                                                                                                                                                                                       |
+| :------------------ | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vulnerability audit | ✅ On  | [npm audit](https://docs.npmjs.com/cli/commands/npm-audit) fails when any dependency has a known vulnerability. Runs in the [CI workflow](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml) on every push to `main`. |
+| Supply chain risk   | ✅ On  | [Socket](https://socket.dev) flags malicious packages, typosquatting and suspicious behaviour that may not yet have a CVE.                                                                                                         |
+| Security alerts     | ✅ On  | [Dependabot](https://docs.github.com/en/code-security/dependabot) alerts when a dependency has a known vulnerability, using the GitHub Advisory Database.                                                                          |
+| Security updates    | ❌ Off | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests that update vulnerable dependencies. These are handled manually.                                                                             |
+| Version updates     | ❌ Off | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests for new dependency versions. These are handled manually.                                                                                     |
 
 ### OpenSSF 🚧
 
@@ -289,6 +273,10 @@ This project is working towards the [OpenSSF Best Practices](https://www.bestpra
 
 Please do not open public GitHub issues for security vulnerabilities. Use [GitHub private vulnerability reporting](https://github.com/dpuse/dpuse-shared/security/advisories/new) instead. See [SECURITY.md](./SECURITY.md) for the full disclosure policy, contact details, and expected response times.
 
+<!-- QUALITY_SECURITY_END -->
+
+<!-- CONTRIBUTING_LICENSE_START -->
+
 ## Contributing
 
 This repository is maintained solely by its owner and does not, at present, accept external contributions into the canonical repo. Its source is published openly under the MIT License — every DPUse project is fully open source except DPUse Engine, which remains closed and proprietary.
@@ -301,4 +289,4 @@ This project is licensed under the MIT License, permitting free use, modificatio
 
 [MIT](./LICENSE) © 2026 Jonathan Terrell
 
-<!-- GOVERNANCE_END -->
+<!-- CONTRIBUTING_LICENSE_END -->
