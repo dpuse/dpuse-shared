@@ -4,43 +4,103 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 ## @dpuse/dpuse-shared
 
-### Types
+### General
+
+#### Types
 
 - **`BaseConfig`** (inferred from `baseConfigSchema`)
 
-## @dpuse/dpuse-shared/component
+### Component
 
-### Functions
+#### Functions
 
 - **`getComponentStatus`**`(id: string, localeId?: LocaleId)`
 
-### Schemas
+#### Schemas
 
 - **`componentInstanceConfigSchema`**
 
-### Types
+#### Types
 
 - **`Component`**
 - **`ComponentBaseConfig`** (inferred from `componentBaseConfigSchema`, extends `BaseConfig`)
 - **`ComponentInstanceConfig`** (inferred from `componentInstanceConfigSchema`, extends `ComponentBaseConfig`)
 - **`ComponentReferenceConfig`** (inferred from `componentReferenceConfigSchema`, extends `ComponentBaseConfig`)
 
-## @dpuse/dpuse-shared/component/connection
+### Component › Connection
 
-### Types
+#### Types
 
 - **`ConnectionConfig`** (extends `ComponentInstanceConfig`)
 - **`ConnectionDescriptionConfig`**
 - **`ConnectionNodeConfig`**
 - **`ObjectColumnConfig`**
 
-## @dpuse/dpuse-shared/component/dataView
+### Component › Context
 
-### Constants
+#### Types
+
+- **`ContextConfig`** (extends `ComponentInstanceConfig`)
+
+### Component › Context › Model
+
+#### Types
+
+- **`ContextModelConfig`** (extends `ComponentInstanceConfig`)
+
+### Component › Context › Model › Dimension
+
+#### Types
+
+- **`ContextModelDimensionConfig`** (extends `ComponentInstanceConfig`)
+
+### Component › Context › Model › Dimension › Hierarchy
+
+#### Types
+
+- **`ContextModelDimensionHierarchyConfig`** (extends `ComponentInstanceConfig`)
+- **`ContextModelDimensionHierarchyLevelConfig`**
+- **`ContextModelDimensionHierarchyNodeConfig`**
+
+### Component › Context › Model › Entity
+
+#### Types
+
+- **`ContextModelEntityConfig`** (extends `ComponentInstanceConfig`)
+
+### Component › Context › Model › Entity › Data Item
+
+#### Types
+
+- **`ContextModelEntityDataItemConfig`** (extends `Omit<BaseConfig, 'description'>`)
+
+### Component › Context › Model › Entity › Event
+
+#### Types
+
+- **`ContextModelEntityEventConfig`**
+- **`ContextModelEntityEventsConfig`**
+
+### Component › Context › Model › Entity › Primary Measure
+
+#### Types
+
+- **`ContextModelEntityPrimaryMeasureConfig`** (extends `Omit<BaseConfig, 'description'>`)
+- **`ContextModelEntityPrimaryMeasuresConfig`**
+
+### Component › Context › Model › Secondary Measure
+
+#### Types
+
+- **`ContextModelSecondaryMeasureConfig`** (extends `ComponentInstanceConfig`)
+
+### Component › Data View
+
+#### Constants
 
 - **`ORDERED_VALUE_DELIMITER_IDS`**`: ValueDelimiterId[]`
 
-### Types
+#### Types
 
 - **`BooleanInferenceResult`**
 - **`ContentAuditConfig`**
@@ -63,90 +123,32 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`TemporalSubtypeId`**
 - **`ValueDelimiterId`**
 
-## @dpuse/dpuse-shared/component/eventQuery
+### Component › Event Query
 
-### Types
+#### Types
 
 - **`EventQueryConfig`** (extends `ComponentInstanceConfig`)
 
-## @dpuse/dpuse-shared/component/context
+### Component › Module
 
-### Types
-
-- **`ContextConfig`** (extends `ComponentInstanceConfig`)
-
-## @dpuse/dpuse-shared/component/context/model
-
-### Types
-
-- **`ContextModelConfig`** (extends `ComponentInstanceConfig`)
-
-## @dpuse/dpuse-shared/component/context/model/dimension
-
-### Types
-
-- **`ContextModelDimensionConfig`** (extends `ComponentInstanceConfig`)
-
-## @dpuse/dpuse-shared/component/context/model/dimension/hierarchy
-
-### Types
-
-- **`ContextModelDimensionHierarchyConfig`** (extends `ComponentInstanceConfig`)
-- **`ContextModelDimensionHierarchyLevelConfig`**
-- **`ContextModelDimensionHierarchyNodeConfig`**
-
-## @dpuse/dpuse-shared/component/context/model/entity
-
-### Types
-
-- **`ContextModelEntityConfig`** (extends `ComponentInstanceConfig`)
-
-## @dpuse/dpuse-shared/component/context/model/entity/dataItem
-
-### Types
-
-- **`ContextModelEntityDataItemConfig`** (extends `Omit<BaseConfig, 'description'>`)
-
-## @dpuse/dpuse-shared/component/context/model/entity/event
-
-### Types
-
-- **`ContextModelEntityEventConfig`**
-- **`ContextModelEntityEventsConfig`**
-
-## @dpuse/dpuse-shared/component/context/model/entity/primaryMeasure
-
-### Types
-
-- **`ContextModelEntityPrimaryMeasureConfig`** (extends `Omit<BaseConfig, 'description'>`)
-- **`ContextModelEntityPrimaryMeasuresConfig`**
-
-## @dpuse/dpuse-shared/component/context/model/secondaryMeasure
-
-### Types
-
-- **`ContextModelSecondaryMeasureConfig`** (extends `ComponentInstanceConfig`)
-
-## @dpuse/dpuse-shared/component/module
-
-### Types
+#### Types
 
 - **`ModuleConfig`** (inferred from `moduleConfigSchema`, extends `ComponentInstanceConfig`)
 
-## @dpuse/dpuse-shared/component/module/connector
+### Component › Module › Connector
 
-### Functions
+#### Functions
 
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
 
-### Schemas
+#### Schemas
 
 - **`connectorConfigSchema`**
 
-### Types
+#### Types
 
 - **`AuditObjectContentOptions`** (extends `EngineConnectorActionOptions`)
 - **`AuditObjectContentResult`**
@@ -176,9 +178,20 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`RetrieveRecordsSummary`**
 - **`UpsertRecordsOptions`** (extends `EngineConnectorActionOptions`)
 
-## @dpuse/dpuse-shared/component/module/engine
+### Component › Module › Cookbook
 
-### Types
+#### Schemas
+
+- **`cookbookConfigSchema`**
+
+#### Types
+
+- **`CookbookConfig`** (inferred from `cookbookConfigSchema`, extends `ModuleConfig`)
+- **`CookbookInterface`** (extends `Component`)
+
+### Component › Module › Engine
+
+#### Types
 
 - **`EngineAuthActionOptions`**
 - **`EngineCallbackData`**
@@ -189,42 +202,31 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`EngineRuntime`**
 - **`EngineWorker`**
 
-## @dpuse/dpuse-shared/component/module/presenter
+### Component › Module › Presenter
 
-### Schemas
+#### Schemas
 
 - **`presenterConfigSchema`**
 
-### Types
+#### Types
 
 - **`PresenterActionName`** (inferred from `presenterActionNameSchema`)
 - **`PresenterConfig`** (inferred from `presenterConfigSchema`, extends `ModuleConfig`)
 - **`PresenterInterface`** (extends `Component`)
 
-## @dpuse/dpuse-shared/component/module/cookbook
+### Component › Module › Tool
 
-### Schemas
-
-- **`cookbookConfigSchema`**
-
-### Types
-
-- **`CookbookConfig`** (inferred from `cookbookConfigSchema`, extends `ModuleConfig`)
-- **`CookbookInterface`** (extends `Component`)
-
-## @dpuse/dpuse-shared/component/module/tool
-
-### Functions
+#### Functions
 
 - **`loadTool`**`(toolConfigs: ToolConfig[], toolId: string)`
 
-### Types
+#### Types
 
 - **`ToolConfig`** (extends `ModuleConfig`)
 
-## @dpuse/dpuse-shared/component/presentation
+### Component › Presentation
 
-### Types
+#### Types
 
 - **`PresentationCartesianTypeId`**
 - **`PresentationCategoryId`**
@@ -240,28 +242,26 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`PresentationVisualRangeChartViewConfig`** (extends `PresentationVisualViewConfig`)
 - **`PresentationVisualViewConfig`**
 
-## @dpuse/dpuse-shared/component/recipe
+### Encoding
 
-## @dpuse/dpuse-shared/encoding
-
-### Functions
+#### Functions
 
 - **`getEncodingTypeConfigs`**`(localeId?: LocaleId)`
 - **`isEncodingTypeId`**`(value: string)`
 
-### Constants
+#### Constants
 
 - **`ENCODING_GROUP_CONFIG_MAP`**`: Record<EncodingGroupId, EncodingGroupConfig>`
 - **`ENCODING_TYPE_CONFIG_MAP`**`: Record<EncodingTypeId, EncodingTypeConfig>`
 
-### Types
+#### Types
 
 - **`EncodingDetectionConfig`**
 - **`EncodingTypeConfigLocalised`**
 
-## @dpuse/dpuse-shared/errors
+### Errors
 
-### Functions
+#### Functions
 
 - **`buildFetchError`**`(response: { status: number; statusText: string; text: () => Promise<string> }, message: string, locator: string)`
 - **`concatenateSerialisedErrorMessages`**`(serialisedErrors: SerialisedError[])`
@@ -270,7 +270,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`serialiseError`**`(error?: unknown)`
 - **`unserialiseError`**`(serialisedErrors: SerialisedError[])`
 
-### Classes
+#### Classes
 
 - **`APIError`** (extends `DPUseError`)
 - **`AppError`** (extends `DPUseError`)
@@ -278,13 +278,13 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`EngineError`** (extends `DPUseError`)
 - **`FetchError`** (extends `DPUseError`)
 
-### Types
+#### Types
 
 - **`SerialisedError`**
 
-## @dpuse/dpuse-shared/locale
+### Locale
 
-### Functions
+#### Functions
 
 - **`createLabelMap`**`(labels: Record<string, string>)`
 - **`localiseConfig`**`(config: T, localeId: LocaleId)`
@@ -292,12 +292,12 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`localiseReference`**`(reference: T, localeId: LocaleId)`
 - **`resolveLabel`**`(labels: LocaleLabelMap, localeId: string, fallbackLocaleId?: LocaleId)`
 
-### Constants
+#### Constants
 
 - **`DEFAULT_LOCALE_ID`**`: LocaleId`
 - **`SUPPORTED_LANGUAGES`**`: { id: LocaleId; flag: FlagId; label: string }[]`
 
-### Types
+#### Types
 
 - **`LocaleDescription`**
 - **`LocaleId`**
@@ -306,9 +306,9 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`LocalisedConfig`**
 - **`LocalisedReference`**
 
-## @dpuse/dpuse-shared/utilities
+### Utilities
 
-### Functions
+#### Functions
 
 - **`convertODataTypeIdToUsageTypeId`**`(oDataTypeId: string)`
 - **`extractExtensionFromPath`**`(itemPath: string)`
