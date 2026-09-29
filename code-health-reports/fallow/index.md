@@ -40,13 +40,13 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 66.6 | 24 | 297 | 0.36 | 3 | cooling |
+| `src/locale/index.ts` | 65.0 | 23 | 293 | 0.36 | 3 | cooling |
 | `src/utilities/index.ts` | 33.9 | 14 | 340 | 0.32 | 0 | cooling |
 | `src/errors/index.ts` | 29.7 | 8 | 231 | 0.30 | 1 | accelerating |
 | `src/component/module/connector/index.ts` | 16.7 | 29 | 958 | 0.06 | 1 | cooling |
-| `src/component/index.ts` | 16.3 | 19 | 237 | 0.09 | 15 | stable |
-| `src/component/dataView/index.ts` | 10.2 | 16 | 656 | 0.08 | 2 | cooling |
+| `src/component/index.ts` | 15.9 | 18 | 219 | 0.09 | 15 | stable |
 | `src/component/module/tool/index.ts` | 10.1 | 9 | 74 | 0.11 | 2 | accelerating |
+| `src/component/dataView/index.ts` | 9.9 | 15 | 616 | 0.08 | 2 | cooling |
 | `vite.config.ts` | 7.5 | 25 | 133 | 0.03 | 0 | cooling |
 | `src/schema.ts` | 5.4 | 5 | 24 | 0.18 | 5 | cooling |
 | `src/encoding/index.ts` | 5.1 | 6 | 213 | 0.07 | 1 | stable |

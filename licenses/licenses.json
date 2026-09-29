@@ -63,13 +63,6 @@
         "path": "node_modules/token-types",
         "licenseFile": "downloads/token-types@6.1.2-LICENSE.txt"
     },
-    "typescript@6.0.3": {
-        "licenses": "Apache-2.0",
-        "repository": "https://github.com/microsoft/TypeScript",
-        "publisher": "Microsoft Corp.",
-        "path": "node_modules/typescript",
-        "licenseFile": "downloads/typescript@6.0.3-LICENSE.txt"
-    },
     "uint8array-extras@1.5.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/uint8array-extras",
