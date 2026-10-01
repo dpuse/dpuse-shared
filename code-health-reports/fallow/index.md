@@ -52,7 +52,7 @@
 | `src/component/index.ts` | 15.9 | 18 | 219 | 0.09 | 16 | stable |
 | `src/component/module/tool/index.ts` | 10.1 | 9 | 74 | 0.11 | 3 | accelerating |
 | `src/component/dataView/index.ts` | 9.9 | 15 | 616 | 0.08 | 3 | cooling |
-| `vite.config.ts` | 7.5 | 25 | 133 | 0.03 | 0 | cooling |
+| `vite.config.ts` | 8.0 | 26 | 168 | 0.03 | 0 | cooling |
 | `src/schema.ts` | 5.4 | 5 | 24 | 0.18 | 5 | cooling |
 | `src/encoding/index.ts` | 5.1 | 6 | 213 | 0.07 | 2 | stable |
 
