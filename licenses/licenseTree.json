@@ -3,8 +3,8 @@
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "0.3.815",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-0.3.815.tgz",
+      "version": "0.3.816",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-0.3.816.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
@@ -1128,37 +1128,34 @@
               }
             },
             "spdx-satisfies": {
-              "version": "6.0.0",
-              "resolved": "https://registry.npmjs.org/spdx-satisfies/-/spdx-satisfies-6.0.0.tgz",
+              "version": "6.0.0"
+            },
+            "treeify": {
+              "version": "1.1.0",
+              "resolved": "https://registry.npmjs.org/treeify/-/treeify-1.1.0.tgz",
+              "overridden": false
+            }
+          }
+        },
+        "npm-check-updates": {
+          "version": "23.1.0",
+          "resolved": "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-23.1.0.tgz",
+          "overridden": false
+        },
+        "spdx-satisfies": {
+          "version": "6.0.0",
+          "resolved": "https://registry.npmjs.org/spdx-satisfies/-/spdx-satisfies-6.0.0.tgz",
+          "overridden": false,
+          "dependencies": {
+            "spdx-compare": {
+              "version": "1.0.0",
+              "resolved": "https://registry.npmjs.org/spdx-compare/-/spdx-compare-1.0.0.tgz",
               "overridden": false,
               "dependencies": {
-                "spdx-compare": {
-                  "version": "1.0.0",
-                  "resolved": "https://registry.npmjs.org/spdx-compare/-/spdx-compare-1.0.0.tgz",
-                  "overridden": false,
-                  "dependencies": {
-                    "array-find-index": {
-                      "version": "1.0.2",
-                      "resolved": "https://registry.npmjs.org/array-find-index/-/array-find-index-1.0.2.tgz",
-                      "overridden": false
-                    },
-                    "spdx-expression-parse": {
-                      "version": "3.0.1",
-                      "resolved": "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz",
-                      "overridden": false,
-                      "dependencies": {
-                        "spdx-exceptions": {
-                          "version": "2.5.0"
-                        },
-                        "spdx-license-ids": {
-                          "version": "3.0.24"
-                        }
-                      }
-                    },
-                    "spdx-ranges": {
-                      "version": "2.1.1"
-                    }
-                  }
+                "array-find-index": {
+                  "version": "1.0.2",
+                  "resolved": "https://registry.npmjs.org/array-find-index/-/array-find-index-1.0.2.tgz",
+                  "overridden": false
                 },
                 "spdx-expression-parse": {
                   "version": "3.0.1",
@@ -1174,23 +1171,29 @@
                   }
                 },
                 "spdx-ranges": {
-                  "version": "2.1.1",
-                  "resolved": "https://registry.npmjs.org/spdx-ranges/-/spdx-ranges-2.1.1.tgz",
-                  "overridden": false
+                  "version": "2.1.1"
                 }
               }
             },
-            "treeify": {
-              "version": "1.1.0",
-              "resolved": "https://registry.npmjs.org/treeify/-/treeify-1.1.0.tgz",
+            "spdx-expression-parse": {
+              "version": "3.0.1",
+              "resolved": "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz",
+              "overridden": false,
+              "dependencies": {
+                "spdx-exceptions": {
+                  "version": "2.5.0"
+                },
+                "spdx-license-ids": {
+                  "version": "3.0.24"
+                }
+              }
+            },
+            "spdx-ranges": {
+              "version": "2.1.1",
+              "resolved": "https://registry.npmjs.org/spdx-ranges/-/spdx-ranges-2.1.1.tgz",
               "overridden": false
             }
           }
-        },
-        "npm-check-updates": {
-          "version": "23.1.0",
-          "resolved": "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-23.1.0.tgz",
-          "overridden": false
         },
         "typescript": {
           "version": "6.0.3"

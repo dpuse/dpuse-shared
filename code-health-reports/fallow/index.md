@@ -47,7 +47,7 @@
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/locale/index.ts` | 63.1 | 23 | 293 | 0.36 | 4 | cooling |
 | `src/utilities/index.ts` | 32.9 | 14 | 340 | 0.32 | 1 | cooling |
-| `src/errors/index.ts` | 28.9 | 8 | 231 | 0.30 | 2 | accelerating |
+| `src/errors/index.ts` | 28.8 | 8 | 231 | 0.30 | 2 | accelerating |
 | `src/component/module/connector/index.ts` | 16.2 | 29 | 958 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 15.1 | 17 | 201 | 0.09 | 16 | stable |
 | `src/component/module/tool/index.ts` | 9.8 | 9 | 74 | 0.11 | 3 | accelerating |

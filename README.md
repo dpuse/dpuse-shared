@@ -76,7 +76,7 @@ try {
 
 `Component` is the foundational base type for all DPUse components. All component types extend `ComponentInstanceConfig` and are logically grouped in the following hierarchy. `Module` is a component type whose implementations are dynamically loaded by the host modules (App and API):
 
-![Schematic](./schematic.svg)
+![Schematic](./Project%20Schematic.svg)
 
 ### Encoding
 
