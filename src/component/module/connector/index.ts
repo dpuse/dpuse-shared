@@ -4,6 +4,7 @@ import type { InferOutput } from 'valibot';
 // ── DPUse Framework
 import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
+import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
 import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
@@ -15,7 +16,6 @@ import type {
 } from './connectorConfig.schema';
 import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
-import type { LocalisedConfig } from '@/locale';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
