@@ -81,6 +81,64 @@ try {
 
 Character encoding types with detection and decodability flags, a static catalogue of all supported encodings loaded from JSON, and an action to retrieve them in sorted order. |
 
+<!-- ENCODINGS_START -->
+
+The table below lists every supported encoding. Detectable means it can be identified from a file's contents; decodable means browsers can decode it.
+
+| Group               | Encoding       | Detectable | Decodable |
+| :------------------ | :------------- | :--------: | :-------: |
+| —                   | ascii          |     ❌     |    ✅     |
+| —                   | utf-8          |     ✅     |    ✅     |
+| Arabic              | iso-8859-6     |     ✅     |    ✅     |
+| Arabic              | windows-1256   |     ✅     |    ✅     |
+| Baltic              | iso-8859-13    |     ❌     |    ✅     |
+| Baltic              | iso-8859-4     |     ❌     |    ✅     |
+| Baltic              | windows-1257   |     ❌     |    ✅     |
+| Celtic              | iso-8859-14    |     ❌     |    ✅     |
+| Central European    | iso-8859-2     |     ✅     |    ✅     |
+| Central European    | windows-1250   |     ✅     |    ✅     |
+| Chinese Simplified  | gb18030        |     ✅     |    ✅     |
+| Chinese Simplified  | gbk            |     ❌     |    ✅     |
+| Chinese Simplified  | iso-2022-cn    |     ✅     |    ❌     |
+| Chinese Traditional | big5           |     ✅     |    ✅     |
+| Cyrillic            | ibm866         |     ❌     |    ✅     |
+| Cyrillic            | iso-8859-5     |     ✅     |    ✅     |
+| Cyrillic            | koi8-r         |     ✅     |    ✅     |
+| Cyrillic            | koi8-u         |     ❌     |    ✅     |
+| Cyrillic            | windows-1251   |     ✅     |    ✅     |
+| Cyrillic            | x-mac-cyrillic |     ❌     |    ✅     |
+| Greek               | iso-8859-7     |     ✅     |    ✅     |
+| Greek               | windows-1253   |     ✅     |    ✅     |
+| Hebrew              | iso-8859-8     |     ✅     |    ✅     |
+| Hebrew              | windows-1255   |     ✅     |    ✅     |
+| Japanese            | euc-jp         |     ✅     |    ✅     |
+| Japanese            | iso-2022-jp    |     ✅     |    ✅     |
+| Japanese            | shift_jis      |     ✅     |    ✅     |
+| Korean              | euc-kr         |     ✅     |    ✅     |
+| Korean              | iso-2022-kr    |     ✅     |    ❌     |
+| Nordic              | iso-8859-10    |     ❌     |    ✅     |
+| Other               | x-user-defined |     ❌     |    ✅     |
+| Romanian            | iso-8859-16    |     ❌     |    ✅     |
+| Southern European   | iso-8859-3     |     ❌     |    ✅     |
+| Thai                | iso-8859-11    |     ❌     |    ✅     |
+| Thai                | tis-620        |     ❌     |    ✅     |
+| Thai                | windows-874    |     ❌     |    ✅     |
+| Turkish             | iso-8859-9     |     ✅     |    ✅     |
+| Turkish             | windows-1254   |     ✅     |    ✅     |
+| Unicode 16          | utf-16         |     ❌     |    ✅     |
+| Unicode 16          | utf-16be       |     ✅     |    ✅     |
+| Unicode 16          | utf-16le       |     ✅     |    ✅     |
+| Unicode 32          | utf-32be       |     ✅     |    ❌     |
+| Unicode 32          | utf-32le       |     ✅     |    ❌     |
+| Vietnamese          | windows-1258   |     ❌     |    ✅     |
+| Western             | iso-8859-1     |     ✅     |    ✅     |
+| Western             | iso-8859-15    |     ❌     |    ✅     |
+| Western             | latin1         |     ❌     |    ✅     |
+| Western             | macintosh      |     ❌     |    ✅     |
+| Western             | windows-1252   |     ✅     |    ✅     |
+
+<!-- ENCODINGS_END -->
+
 ### Errors
 
 A typed error hierarchy (`DPUseError`, `AppError`, `APIError`, `EngineError`, `ConnectorError`, `FetchError`) with serialisation and deserialisation for transporting errors across API and worker boundaries, plus utilities for normalising unknown throwables, constructing errors from HTTP responses, and suppressing best-effort cleanup errors. |
