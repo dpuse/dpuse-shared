@@ -1,5 +1,4 @@
-// Checks that real browsers decode every encoding the way the table says: whether it is decodable, and under which
-// name. Run by hand on a Mac with 'npm run check:browsers', after the build. It is not part of CI, because browsers
+// Checks that real browsers accept every browser name the table decodes with, under that same name. Run by hand on a Mac with 'npm run check:browsers', after the build. It is not part of CI, because browsers
 // almost never change how they decode, so it only needs re-running now and then, or after an encoding is added.
 
 // ── External Dependencies & Registrations
@@ -51,10 +50,12 @@ const BROWSERS: Browser[] = [
     { appPath: '/Applications/Safari.app', launch: (url) => spawn('open', ['-a', 'Safari', url]), name: 'Safari' }
 ];
 
-// The page tries every encoding in the browser and posts back what happened.
+const DECODER_IDS = [...new Set(Object.values(ENCODING_TYPE_CONFIG_MAP).flatMap(({ decoderId }) => (decoderId == null ? [] : [decoderId])))];
+
+// The page tries every browser name in the browser and posts back what happened.
 const PAGE_HTML = `<!doctype html><meta charset="utf-8"><script>
 const results = {};
-for (const id of ${JSON.stringify(Object.keys(ENCODING_TYPE_CONFIG_MAP))}) {
+for (const id of ${JSON.stringify(DECODER_IDS)}) {
     try { results[id] = new TextDecoder(id).encoding; } catch { results[id] = null; }
 }
 fetch('/report' + location.search, { method: 'POST', body: JSON.stringify({ results }) });
@@ -98,7 +99,7 @@ for (const browser of BROWSERS) {
 
     try {
         const mismatches = findMismatches(await reportPromise);
-        if (mismatches.length === 0) console.log(`✅ ${browser.name} ${version}: all ${String(Object.keys(ENCODING_TYPE_CONFIG_MAP).length)} encodings match`);
+        if (mismatches.length === 0) console.log(`✅ ${browser.name} ${version}: all ${String(DECODER_IDS.length)} browser names match`);
         else {
             failedBrowserCount++;
             console.log(`❌ ${browser.name} ${version}: ${String(mismatches.length)} differ from the table`);
@@ -110,7 +111,7 @@ for (const browser of BROWSERS) {
     } finally {
         abortController.abort();
         browserProcess.kill();
-        await rm(profilePath, { force: true, recursive: true });
+        await rm(profilePath, { force: true, maxRetries: 10, recursive: true }); // Retries while the closing browser still writes to its profile.
     }
 }
 
@@ -119,18 +120,8 @@ if (failedBrowserCount > 0) process.exitCode = 1;
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-function describeOutcome(name: string | null): string {
-    return name ?? 'not decodable';
-}
-
 function findMismatches({ results }: BrowserReport): string[] {
-    const mismatches: string[] = [];
-    for (const { decoderId, id, isDecodable } of Object.values(ENCODING_TYPE_CONFIG_MAP)) {
-        const expectedName = isDecodable ? (decoderId ?? id) : null;
-        const actualName = results[id] ?? null;
-        if (actualName !== expectedName) mismatches.push(`${id}: table says ${describeOutcome(expectedName)}, browser gives ${describeOutcome(actualName)}`);
-    }
-    return mismatches;
+    return DECODER_IDS.filter((decoderId) => results[decoderId] !== decoderId).map((decoderId) => `${decoderId}: browser gives ${results[decoderId] ?? 'not decodable'}`);
 }
 
 async function readBody(request: IncomingMessage): Promise<string> {

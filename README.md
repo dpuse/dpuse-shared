@@ -83,65 +83,101 @@ Character encoding types with detection and decodability flags, a catalogue of e
 
 <!-- ENCODINGS_START -->
 
-The table below lists every supported encoding.
+The table below lists every encoding [jschardet](https://github.com/aadsm/jschardet) can identify from a file's contents, under the name it reports. A test checks the table against jschardet's own list of encodings, so it fails if a jschardet upgrade adds, drops, renames or remaps one.
 
-- **Detectable** — [chardet](https://github.com/runk/node-chardet) can identify the encoding from a file's contents. A test checks this column against chardet's detectors, so it fails if a chardet upgrade adds, drops or renames one.
-- **Decodable** — the browser's built-in `TextDecoder` can decode it. The four that cannot are refused by all the major browsers: `iso-2022-cn` and `iso-2022-kr` are blocked by the WHATWG Encoding Standard for security reasons, and UTF-32 is not part of the standard.
-- **Decoded As** — the encoding browsers actually use, where it differs from the name. The Encoding Standard treats some names as aliases, so for example `latin1` and `ascii` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, `ascii` never rejects bytes above 0x7F, and a big-endian UTF-16 file read as `utf-16` decodes as little-endian and comes out garbled.
+- **Decodable** — the browser's built-in `TextDecoder` can decode it. Those that cannot are refused by all the major browsers: `HZ-GB-2312` and `ISO-2022-KR` are blocked by the WHATWG Encoding Standard for security reasons, and the rest, such as UTF-32, UTF-7 and the DOS, Mac and mainframe code pages, are not part of the standard. A file in one can still be named, even though it cannot be read. `UTF-16` is marked not decodable because its byte-order mark decides which way round it is read, so it has no single browser name.
+- **Decoded As** — the name browsers decode it with, taken from jschardet's own map. Browsers treat some names as aliases, so for example `ascii` and `ISO-8859-1` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, and `ascii` never rejects bytes above 0x7F.
 
-The major browsers all follow the Encoding Standard, so the Decodable and Decoded As columns hold for each of them. A test checks both columns against Node's `TextDecoder`, which follows the same standard. They were also confirmed in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.
+The major browsers all follow the Encoding Standard, so these columns hold for each of them. A test checks that Node's `TextDecoder`, which follows the same standard, accepts every Decoded As name as its own. They were also confirmed in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.
 
-| Group               | Encoding       | Detectable | Decodable | Decoded As   |
-| :------------------ | :------------- | :--------: | :-------: | :----------- |
-| —                   | ascii          |     ✅     |    ✅     | windows-1252 |
-| —                   | utf-8          |     ✅     |    ✅     | —            |
-| Arabic              | iso-8859-6     |     ✅     |    ✅     | —            |
-| Arabic              | windows-1256   |     ✅     |    ✅     | —            |
-| Baltic              | iso-8859-13    |     ❌     |    ✅     | —            |
-| Baltic              | iso-8859-4     |     ❌     |    ✅     | —            |
-| Baltic              | windows-1257   |     ✅     |    ✅     | —            |
-| Celtic              | iso-8859-14    |     ❌     |    ✅     | —            |
-| Central European    | iso-8859-2     |     ✅     |    ✅     | —            |
-| Central European    | windows-1250   |     ✅     |    ✅     | —            |
-| Chinese Simplified  | gb18030        |     ✅     |    ✅     | —            |
-| Chinese Simplified  | gbk            |     ❌     |    ✅     | —            |
-| Chinese Simplified  | iso-2022-cn    |     ✅     |    ❌     | —            |
-| Chinese Traditional | big5           |     ✅     |    ✅     | —            |
-| Cyrillic            | ibm866         |     ❌     |    ✅     | —            |
-| Cyrillic            | iso-8859-5     |     ✅     |    ✅     | —            |
-| Cyrillic            | koi8-r         |     ✅     |    ✅     | —            |
-| Cyrillic            | koi8-u         |     ❌     |    ✅     | —            |
-| Cyrillic            | windows-1251   |     ✅     |    ✅     | —            |
-| Cyrillic            | x-mac-cyrillic |     ❌     |    ✅     | —            |
-| Greek               | iso-8859-7     |     ✅     |    ✅     | —            |
-| Greek               | windows-1253   |     ✅     |    ✅     | —            |
-| Hebrew              | iso-8859-8     |     ✅     |    ✅     | —            |
-| Hebrew              | windows-1255   |     ✅     |    ✅     | —            |
-| Japanese            | euc-jp         |     ✅     |    ✅     | —            |
-| Japanese            | iso-2022-jp    |     ✅     |    ✅     | —            |
-| Japanese            | shift_jis      |     ✅     |    ✅     | —            |
-| Korean              | euc-kr         |     ✅     |    ✅     | —            |
-| Korean              | iso-2022-kr    |     ✅     |    ❌     | —            |
-| Nordic              | iso-8859-10    |     ❌     |    ✅     | —            |
-| Other               | x-user-defined |     ❌     |    ✅     | —            |
-| Romanian            | iso-8859-16    |     ❌     |    ✅     | —            |
-| Southern European   | iso-8859-3     |     ❌     |    ✅     | —            |
-| Thai                | iso-8859-11    |     ❌     |    ✅     | windows-874  |
-| Thai                | tis-620        |     ❌     |    ✅     | windows-874  |
-| Thai                | windows-874    |     ✅     |    ✅     | —            |
-| Turkish             | iso-8859-9     |     ✅     |    ✅     | windows-1254 |
-| Turkish             | windows-1254   |     ✅     |    ✅     | —            |
-| Unicode 16          | utf-16         |     ❌     |    ✅     | utf-16le     |
-| Unicode 16          | utf-16be       |     ✅     |    ✅     | —            |
-| Unicode 16          | utf-16le       |     ✅     |    ✅     | —            |
-| Unicode 32          | utf-32be       |     ✅     |    ❌     | —            |
-| Unicode 32          | utf-32le       |     ✅     |    ❌     | —            |
-| Vietnamese          | windows-1258   |     ✅     |    ✅     | —            |
-| Western             | iso-8859-1     |     ✅     |    ✅     | windows-1252 |
-| Western             | iso-8859-15    |     ❌     |    ✅     | —            |
-| Western             | latin1         |     ❌     |    ✅     | windows-1252 |
-| Western             | macintosh      |     ❌     |    ✅     | —            |
-| Western             | windows-1252   |     ✅     |    ✅     | —            |
+| Group               | Encoding        | Decodable | Decoded As     |
+| :------------------ | :-------------- | :-------: | :------------- |
+| —                   | ascii           |    ✅     | windows-1252   |
+| —                   | utf-8           |    ✅     | utf-8          |
+| —                   | UTF-8-SIG       |    ✅     | utf-8          |
+| Arabic              | cp1006          |    ❌     | —              |
+| Arabic              | cp720           |    ❌     | —              |
+| Arabic              | cp864           |    ❌     | —              |
+| Arabic              | ISO-8859-6      |    ✅     | iso-8859-6     |
+| Arabic              | Windows-1256    |    ✅     | windows-1256   |
+| Baltic              | cp775           |    ❌     | —              |
+| Baltic              | ISO-8859-13     |    ✅     | iso-8859-13    |
+| Baltic              | iso8859-4       |    ✅     | iso-8859-4     |
+| Baltic              | Windows-1257    |    ✅     | windows-1257   |
+| Celtic              | iso8859-14      |    ✅     | iso-8859-14    |
+| Central European    | cp852           |    ❌     | —              |
+| Central European    | ISO-8859-2      |    ✅     | iso-8859-2     |
+| Central European    | MacLatin2       |    ❌     | —              |
+| Central European    | Windows-1250    |    ✅     | windows-1250   |
+| Chinese Simplified  | GB18030         |    ✅     | gb18030        |
+| Chinese Simplified  | HZ-GB-2312      |    ❌     | —              |
+| Chinese Traditional | Big5            |    ✅     | big5           |
+| Cyrillic            | cp1125          |    ❌     | —              |
+| Cyrillic            | IBM855          |    ❌     | —              |
+| Cyrillic            | IBM866          |    ✅     | ibm866         |
+| Cyrillic            | ISO-8859-5      |    ✅     | iso-8859-5     |
+| Cyrillic            | KOI8-R          |    ✅     | koi8-r         |
+| Cyrillic            | koi8-t          |    ❌     | —              |
+| Cyrillic            | koi8-u          |    ✅     | koi8-u         |
+| Cyrillic            | KZ1048          |    ❌     | —              |
+| Cyrillic            | MacCyrillic     |    ✅     | x-mac-cyrillic |
+| Cyrillic            | ptcp154         |    ❌     | —              |
+| Cyrillic            | Windows-1251    |    ✅     | windows-1251   |
+| Greek               | cp737           |    ❌     | —              |
+| Greek               | cp869           |    ❌     | —              |
+| Greek               | cp875           |    ❌     | —              |
+| Greek               | ISO-8859-7      |    ✅     | iso-8859-7     |
+| Greek               | MacGreek        |    ❌     | —              |
+| Greek               | Windows-1253    |    ✅     | windows-1253   |
+| Hebrew              | cp424           |    ❌     | —              |
+| Hebrew              | cp856           |    ❌     | —              |
+| Hebrew              | cp862           |    ❌     | —              |
+| Hebrew              | ISO-8859-8      |    ✅     | iso-8859-8-i   |
+| Hebrew              | Windows-1255    |    ✅     | windows-1255   |
+| Japanese            | CP932           |    ✅     | shift_jis      |
+| Japanese            | EUC-JP          |    ✅     | euc-jp         |
+| Japanese            | ISO-2022-JP     |    ✅     | iso-2022-jp    |
+| Japanese            | iso2022_jp_2004 |    ❌     | —              |
+| Japanese            | iso2022_jp_ext  |    ❌     | —              |
+| Japanese            | SHIFT_JIS       |    ✅     | shift_jis      |
+| Korean              | CP949           |    ✅     | euc-kr         |
+| Korean              | EUC-KR          |    ✅     | euc-kr         |
+| Korean              | ISO-2022-KR     |    ❌     | —              |
+| Korean              | Johab           |    ❌     | —              |
+| Nordic              | cp861           |    ❌     | —              |
+| Nordic              | cp865           |    ❌     | —              |
+| Nordic              | iso8859-10      |    ✅     | iso-8859-10    |
+| Nordic              | MacIceland      |    ❌     | —              |
+| Other               | utf-7           |    ❌     | —              |
+| Romanian            | iso8859-16      |    ✅     | iso-8859-16    |
+| Southern European   | iso8859-3       |    ✅     | iso-8859-3     |
+| Thai                | CP874           |    ✅     | windows-874    |
+| Thai                | TIS-620         |    ✅     | windows-874    |
+| Turkish             | cp1026          |    ❌     | —              |
+| Turkish             | cp857           |    ❌     | —              |
+| Turkish             | ISO-8859-9      |    ✅     | windows-1254   |
+| Turkish             | MacTurkish      |    ❌     | —              |
+| Turkish             | Windows-1254    |    ✅     | windows-1254   |
+| Unicode 16          | utf-16-be       |    ✅     | utf-16be       |
+| Unicode 16          | utf-16-le       |    ✅     | utf-16le       |
+| Unicode 16          | UTF-16          |    ❌     | —              |
+| Unicode 32          | utf-32-be       |    ❌     | —              |
+| Unicode 32          | utf-32-le       |    ❌     | —              |
+| Unicode 32          | UTF-32          |    ❌     | —              |
+| Vietnamese          | cp1258          |    ✅     | windows-1258   |
+| Western             | cp1140          |    ❌     | —              |
+| Western             | cp273           |    ❌     | —              |
+| Western             | cp437           |    ❌     | —              |
+| Western             | cp500           |    ❌     | —              |
+| Western             | cp850           |    ❌     | —              |
+| Western             | cp858           |    ❌     | —              |
+| Western             | cp860           |    ❌     | —              |
+| Western             | cp863           |    ❌     | —              |
+| Western             | hp-roman8       |    ❌     | —              |
+| Western             | ISO-8859-1      |    ✅     | windows-1252   |
+| Western             | iso8859-15      |    ✅     | iso-8859-15    |
+| Western             | MacRoman        |    ✅     | macintosh      |
+| Western             | Windows-1252    |    ✅     | windows-1252   |
 
 <!-- ENCODINGS_END -->
 

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.106",
+  "version": "1.0.107",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -2169,11 +2169,6 @@
         }
       }
     },
-    "chardet": {
-      "version": "2.2.0",
-      "resolved": "https://registry.npmjs.org/chardet/-/chardet-2.2.0.tgz",
-      "overridden": false
-    },
     "eslint": {
       "version": "10.12.0",
       "resolved": "https://registry.npmjs.org/eslint/-/eslint-10.12.0.tgz",
@@ -2849,6 +2844,11 @@
           "overridden": false
         }
       }
+    },
+    "jschardet": {
+      "version": "4.0.0",
+      "resolved": "https://registry.npmjs.org/jschardet/-/jschardet-4.0.0.tgz",
+      "overridden": false
     },
     "prettier": {
       "version": "3.9.9",

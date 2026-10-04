@@ -1,8 +1,9 @@
 import { createRequire } from 'node:module';
-import type { Context, Recogniser } from 'chardet/lib/encoding';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
-import { ENCODING_GROUP_CONFIG_MAP, ENCODING_TYPE_CONFIG_MAP, getEncodingTypeConfigs, isEncodingTypeId } from '@/encoding';
+import { ENCODING_GROUP_CONFIG_MAP, ENCODING_TYPE_CONFIG_MAP, getEncodingTypeConfigs, isEncodingTypeId, resolveDecoderId } from '@/encoding';
 
 describe('ENCODING_GROUP_CONFIG_MAP', () => {
     it('keys every group by its own id', () => {
@@ -15,36 +16,42 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
         for (const [key, encodingTypeConfig] of Object.entries(ENCODING_TYPE_CONFIG_MAP)) expect(key).toBe(encodingTypeConfig.id);
     });
 
-    // Node follows the same Encoding Standard as browsers, so this catches a wrong flag either way. Real browsers are
-    // checked by hand with 'npm run check:browsers'.
-    it('marks an encoding decodable exactly when TextDecoder accepts it', () => {
-        for (const { id, isDecodable } of Object.values(ENCODING_TYPE_CONFIG_MAP)) expect(isAcceptedByTextDecoder(id), id).toBe(isDecodable);
+    // Fails when a jschardet upgrade adds, drops, renames or remaps an encoding, so the table never drifts from it.
+    it("holds exactly the encodings jschardet's 'detect' can report, each decoded with the browser name jschardet gives it", async () => {
+        const jschardetEncodings = await listJschardetEncodings();
+
+        expect(Object.values(ENCODING_TYPE_CONFIG_MAP).map(({ decoderId, id }) => ({ decoderId, id }))).toEqual(
+            expect.arrayContaining(jschardetEncodings.map(({ browserName, name }) => ({ decoderId: browserName, id: name })))
+        );
+        expect(Object.keys(ENCODING_TYPE_CONFIG_MAP)).toHaveLength(jschardetEncodings.length);
     });
 
-    it('names the encoding TextDecoder actually uses, only where it differs from the id', () => {
-        for (const { decoderId, id, isDecodable } of Object.values(ENCODING_TYPE_CONFIG_MAP)) {
-            if (isDecodable) expect(new TextDecoder(id).encoding).toBe(decoderId ?? id);
-            else expect(decoderId).toBeNull();
-        }
+    // Node follows the same Encoding Standard as browsers. Real browsers are checked by hand with 'npm run check:browsers'.
+    it('decodes only with names TextDecoder takes as its own', () => {
+        for (const { decoderId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (decoderId != null) expect(new TextDecoder(decoderId).encoding).toBe(decoderId);
+    });
+});
+
+describe('resolveDecoderId', () => {
+    it('gives the browser name for an encoding browsers can decode', () => {
+        expect(resolveDecoderId('MacRoman')).toBe('macintosh');
+        expect(resolveDecoderId('CP932')).toBe('shift_jis');
+        expect(resolveDecoderId('utf-8')).toBe('utf-8');
     });
 
-    // Fails when a chardet upgrade adds, drops or renames a detector, so the detectable flags never drift from it.
-    it('marks an encoding detectable exactly when chardet can report it', () => {
-        const detectableIds = Object.values(ENCODING_TYPE_CONFIG_MAP)
-            .filter(({ isDetectable }) => isDetectable)
-            .map(({ id }) => id);
-
-        expect(listChardetEncodingNames().toSorted(compareText)).toEqual(detectableIds.toSorted(compareText));
+    it('passes through an id browsers cannot decode, or one the table does not know', () => {
+        expect(resolveDecoderId('cp437')).toBe('cp437');
+        expect(resolveDecoderId('toString')).toBe('toString');
     });
 });
 
 describe('isEncodingTypeId', () => {
     it('accepts a known encoding id', () => {
-        expect(isEncodingTypeId('windows-1252')).toBe(true);
+        expect(isEncodingTypeId('Windows-1252')).toBe(true);
     });
 
     it('rejects an unknown name, including an inherited object property', () => {
-        expect(isEncodingTypeId('utf16')).toBe(false);
+        expect(isEncodingTypeId('windows-1252')).toBe(false);
         expect(isEncodingTypeId('toString')).toBe(false);
     });
 });
@@ -57,10 +64,11 @@ describe('getEncodingTypeConfigs', () => {
     it('sorts by group label, then by label, leaving the ungrouped encodings first', () => {
         const encodingTypeConfigs = getEncodingTypeConfigs();
 
-        expect(encodingTypeConfigs.slice(0, 3).map((config) => [config.groupLabel, config.label])).toEqual([
+        expect(encodingTypeConfigs.slice(0, 4).map((config) => [config.groupLabel, config.label])).toEqual([
             ['', 'ascii'],
             ['', 'utf-8'],
-            ['Arabic', 'Arabic (iso-8859-6)']
+            ['', 'UTF-8-SIG'],
+            ['Arabic', 'Arabic (cp1006)']
         ]);
 
         for (const [index, config] of encodingTypeConfigs.slice(1).entries()) {
@@ -70,10 +78,14 @@ describe('getEncodingTypeConfigs', () => {
         }
     });
 
-    it('translates the group but never the encoding id', () => {
-        const koi8r = getEncodingTypeConfigs('es').find((config) => config.id === 'koi8-r');
+    it('marks an encoding decodable exactly when it has a browser name', () => {
+        for (const { decoderId, isDecodable } of getEncodingTypeConfigs()) expect(isDecodable).toBe(decoderId != null);
+    });
 
-        expect(koi8r).toMatchObject({ groupLabel: 'Cirílico', label: 'Cirílico (koi8-r)' });
+    it('translates the group but never the encoding id', () => {
+        const koi8r = getEncodingTypeConfigs('es').find((config) => config.id === 'KOI8-R');
+
+        expect(koi8r).toMatchObject({ groupLabel: 'Cirílico', label: 'Cirílico (KOI8-R)' });
     });
 
     it('labels an ungrouped encoding with its id alone', () => {
@@ -83,39 +95,14 @@ describe('getEncodingTypeConfigs', () => {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-function compareText(left: string, right: string): number {
-    return left.localeCompare(right);
+// jschardet does not export its encoding list, so it is read from its own files: every encoding it knows, under the
+// name 'detect' reports (which renames many, e.g. 'cp1252' to 'Windows-1252'), with the browser name it maps it to.
+async function listJschardetEncodings(): Promise<{ browserName: string | null; name: string }[]> {
+    const buildFolderPath = path.dirname(createRequire(import.meta.url).resolve('jschardet'));
+    const loadBuildFile = async <T>(fileName: string): Promise<T> => (await import(pathToFileURL(path.join(buildFolderPath, fileName)).href)) as T;
+    const { REGISTRY } = await loadBuildFile<{ REGISTRY: Record<string, unknown> }>('registry.js');
+    const { _COMPAT_NAMES } = await loadBuildFile<{ _COMPAT_NAMES: Record<string, string> }>('output_names.js');
+    const { ENCODING_WHATWG_MAP } = await loadBuildFile<{ ENCODING_WHATWG_MAP: Record<string, string> }>('encoding-whatwg-map.js');
+    // The one deliberate difference: jschardet's map leaves out 'utf-8-sig', which browsers decode as 'utf-8'.
+    return Object.keys(REGISTRY).map((name) => ({ browserName: name === 'utf-8-sig' ? 'utf-8' : (ENCODING_WHATWG_MAP[name] ?? null), name: _COMPAT_NAMES[name] ?? name }));
 }
-
-function isAcceptedByTextDecoder(id: string): boolean {
-    try {
-        new TextDecoder(id);
-        return true;
-    } catch {
-        return false;
-    }
-}
-
-// chardet does not export its detectors, so they are loaded from its six detector files. 'require' rather than
-// 'import', because Vitest unwraps a file's default export when it holds a single detector. Some detectors report one
-// of two names, depending on whether the bytes include the 0x80–0x9F range, so each is asked for both.
-function listChardetEncodingNames(): string[] {
-    const require = createRequire(import.meta.url);
-    const detectorFiles = [
-        require('chardet/lib/encoding/ascii'),
-        require('chardet/lib/encoding/iso2022'),
-        require('chardet/lib/encoding/mbcs'),
-        require('chardet/lib/encoding/sbcs'),
-        require('chardet/lib/encoding/unicode'),
-        require('chardet/lib/encoding/utf8')
-    ] as Record<string, new () => Recogniser>[];
-    const detectorClasses = detectorFiles.flatMap((detectorFile) => Object.values(detectorFile));
-    const names = new Set<string>();
-    for (const Detector of detectorClasses) {
-        const detector = new Detector();
-        for (const hasC1Bytes of [false, true]) names.add(detector.name({ ...EMPTY_CONTEXT, c1Bytes: hasC1Bytes }).toLowerCase());
-    }
-    return [...names];
-}
-
-const EMPTY_CONTEXT: Context = { byteStats: [], c1Bytes: false, inputBytes: new Uint8Array(), inputLen: 0, rawInput: new Uint8Array(), rawLen: 0 };

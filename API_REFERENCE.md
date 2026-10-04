@@ -248,6 +248,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`getEncodingTypeConfigs`**`(localeId?: LocaleId)`
 - **`isEncodingTypeId`**`(value: string)`
+- **`resolveDecoderId`**`(encodingId: string)`
 
 #### Constants
 
