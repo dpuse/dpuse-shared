@@ -1,15 +1,15 @@
 {
-  "version": "1.0.001",
+  "version": "1.0.104",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.3",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.3.tgz",
+      "version": "1.0.109",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.109.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.869",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.869.tgz",
+          "version": "1.0.2",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.2.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -562,8 +562,8 @@
                           "version": "20.0.4"
                         },
                         "http-cache-semantics": {
-                          "version": "4.2.0",
-                          "resolved": "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.2.0.tgz",
+                          "version": "4.3.0",
+                          "resolved": "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.3.0.tgz",
                           "overridden": false
                         },
                         "minipass-fetch": {
@@ -1204,8 +1204,8 @@
       }
     },
     "@dpuse/eslint-config-dpuse": {
-      "version": "1.0.131",
-      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.0.131.tgz",
+      "version": "1.0.132",
+      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.0.132.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": {
@@ -2168,6 +2168,11 @@
           "version": "5.0.3"
         }
       }
+    },
+    "chardet": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/chardet/-/chardet-2.2.0.tgz",
+      "overridden": false
     },
     "eslint": {
       "version": "10.12.0",

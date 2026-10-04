@@ -79,77 +79,83 @@ try {
 
 ### Encoding
 
-Character encoding types with detection and decodability flags, a static catalogue of all supported encodings loaded from JSON, and an action to retrieve them in sorted order. |
+Character encoding types with detection and decodability flags, a catalogue of every supported encoding with the name browsers decode it as, and actions to check an encoding id and list the encodings in sorted order.
 
 <!-- ENCODINGS_START -->
 
-The table below lists every supported encoding. Detectable means it can be identified from a file's contents; decodable means browsers can decode it.
+The table below lists every supported encoding.
 
-| Group               | Encoding       | Detectable | Decodable |
-| :------------------ | :------------- | :--------: | :-------: |
-| —                   | ascii          |     ❌     |    ✅     |
-| —                   | utf-8          |     ✅     |    ✅     |
-| Arabic              | iso-8859-6     |     ✅     |    ✅     |
-| Arabic              | windows-1256   |     ✅     |    ✅     |
-| Baltic              | iso-8859-13    |     ❌     |    ✅     |
-| Baltic              | iso-8859-4     |     ❌     |    ✅     |
-| Baltic              | windows-1257   |     ❌     |    ✅     |
-| Celtic              | iso-8859-14    |     ❌     |    ✅     |
-| Central European    | iso-8859-2     |     ✅     |    ✅     |
-| Central European    | windows-1250   |     ✅     |    ✅     |
-| Chinese Simplified  | gb18030        |     ✅     |    ✅     |
-| Chinese Simplified  | gbk            |     ❌     |    ✅     |
-| Chinese Simplified  | iso-2022-cn    |     ✅     |    ❌     |
-| Chinese Traditional | big5           |     ✅     |    ✅     |
-| Cyrillic            | ibm866         |     ❌     |    ✅     |
-| Cyrillic            | iso-8859-5     |     ✅     |    ✅     |
-| Cyrillic            | koi8-r         |     ✅     |    ✅     |
-| Cyrillic            | koi8-u         |     ❌     |    ✅     |
-| Cyrillic            | windows-1251   |     ✅     |    ✅     |
-| Cyrillic            | x-mac-cyrillic |     ❌     |    ✅     |
-| Greek               | iso-8859-7     |     ✅     |    ✅     |
-| Greek               | windows-1253   |     ✅     |    ✅     |
-| Hebrew              | iso-8859-8     |     ✅     |    ✅     |
-| Hebrew              | windows-1255   |     ✅     |    ✅     |
-| Japanese            | euc-jp         |     ✅     |    ✅     |
-| Japanese            | iso-2022-jp    |     ✅     |    ✅     |
-| Japanese            | shift_jis      |     ✅     |    ✅     |
-| Korean              | euc-kr         |     ✅     |    ✅     |
-| Korean              | iso-2022-kr    |     ✅     |    ❌     |
-| Nordic              | iso-8859-10    |     ❌     |    ✅     |
-| Other               | x-user-defined |     ❌     |    ✅     |
-| Romanian            | iso-8859-16    |     ❌     |    ✅     |
-| Southern European   | iso-8859-3     |     ❌     |    ✅     |
-| Thai                | iso-8859-11    |     ❌     |    ✅     |
-| Thai                | tis-620        |     ❌     |    ✅     |
-| Thai                | windows-874    |     ❌     |    ✅     |
-| Turkish             | iso-8859-9     |     ✅     |    ✅     |
-| Turkish             | windows-1254   |     ✅     |    ✅     |
-| Unicode 16          | utf-16         |     ❌     |    ✅     |
-| Unicode 16          | utf-16be       |     ✅     |    ✅     |
-| Unicode 16          | utf-16le       |     ✅     |    ✅     |
-| Unicode 32          | utf-32be       |     ✅     |    ❌     |
-| Unicode 32          | utf-32le       |     ✅     |    ❌     |
-| Vietnamese          | windows-1258   |     ❌     |    ✅     |
-| Western             | iso-8859-1     |     ✅     |    ✅     |
-| Western             | iso-8859-15    |     ❌     |    ✅     |
-| Western             | latin1         |     ❌     |    ✅     |
-| Western             | macintosh      |     ❌     |    ✅     |
-| Western             | windows-1252   |     ✅     |    ✅     |
+- **Detectable** — the encoding can be identified from a file's contents.
+- **Decodable** — the browser's built-in `TextDecoder` can decode it. The four that cannot are refused by all the major browsers: `iso-2022-cn` and `iso-2022-kr` are blocked by the WHATWG Encoding Standard for security reasons, and UTF-32 is not part of the standard.
+- **Decoded As** — the encoding browsers actually use, where it differs from the name. The Encoding Standard treats some names as aliases, so for example `latin1` and `ascii` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, `ascii` never rejects bytes above 0x7F, and a big-endian UTF-16 file read as `utf-16` decodes as little-endian and comes out garbled.
+
+The major browsers all follow the Encoding Standard, so these columns hold for each of them. This was confirmed by running `TextDecoder` against every encoding in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.
+
+| Group               | Encoding       | Detectable | Decodable | Decoded As   |
+| :------------------ | :------------- | :--------: | :-------: | :----------- |
+| —                   | ascii          |     ✅     |    ✅     | windows-1252 |
+| —                   | utf-8          |     ✅     |    ✅     | —            |
+| Arabic              | iso-8859-6     |     ✅     |    ✅     | —            |
+| Arabic              | windows-1256   |     ✅     |    ✅     | —            |
+| Baltic              | iso-8859-13    |     ❌     |    ✅     | —            |
+| Baltic              | iso-8859-4     |     ❌     |    ✅     | —            |
+| Baltic              | windows-1257   |     ✅     |    ✅     | —            |
+| Celtic              | iso-8859-14    |     ❌     |    ✅     | —            |
+| Central European    | iso-8859-2     |     ✅     |    ✅     | —            |
+| Central European    | windows-1250   |     ✅     |    ✅     | —            |
+| Chinese Simplified  | gb18030        |     ✅     |    ✅     | —            |
+| Chinese Simplified  | gbk            |     ❌     |    ✅     | —            |
+| Chinese Simplified  | iso-2022-cn    |     ✅     |    ❌     | —            |
+| Chinese Traditional | big5           |     ✅     |    ✅     | —            |
+| Cyrillic            | ibm866         |     ❌     |    ✅     | —            |
+| Cyrillic            | iso-8859-5     |     ✅     |    ✅     | —            |
+| Cyrillic            | koi8-r         |     ✅     |    ✅     | —            |
+| Cyrillic            | koi8-u         |     ❌     |    ✅     | —            |
+| Cyrillic            | windows-1251   |     ✅     |    ✅     | —            |
+| Cyrillic            | x-mac-cyrillic |     ❌     |    ✅     | —            |
+| Greek               | iso-8859-7     |     ✅     |    ✅     | —            |
+| Greek               | windows-1253   |     ✅     |    ✅     | —            |
+| Hebrew              | iso-8859-8     |     ✅     |    ✅     | —            |
+| Hebrew              | windows-1255   |     ✅     |    ✅     | —            |
+| Japanese            | euc-jp         |     ✅     |    ✅     | —            |
+| Japanese            | iso-2022-jp    |     ✅     |    ✅     | —            |
+| Japanese            | shift_jis      |     ✅     |    ✅     | —            |
+| Korean              | euc-kr         |     ✅     |    ✅     | —            |
+| Korean              | iso-2022-kr    |     ✅     |    ❌     | —            |
+| Nordic              | iso-8859-10    |     ❌     |    ✅     | —            |
+| Other               | x-user-defined |     ❌     |    ✅     | —            |
+| Romanian            | iso-8859-16    |     ❌     |    ✅     | —            |
+| Southern European   | iso-8859-3     |     ❌     |    ✅     | —            |
+| Thai                | iso-8859-11    |     ❌     |    ✅     | windows-874  |
+| Thai                | tis-620        |     ❌     |    ✅     | windows-874  |
+| Thai                | windows-874    |     ✅     |    ✅     | —            |
+| Turkish             | iso-8859-9     |     ✅     |    ✅     | windows-1254 |
+| Turkish             | windows-1254   |     ✅     |    ✅     | —            |
+| Unicode 16          | utf-16         |     ❌     |    ✅     | utf-16le     |
+| Unicode 16          | utf-16be       |     ✅     |    ✅     | —            |
+| Unicode 16          | utf-16le       |     ✅     |    ✅     | —            |
+| Unicode 32          | utf-32be       |     ✅     |    ❌     | —            |
+| Unicode 32          | utf-32le       |     ✅     |    ❌     | —            |
+| Vietnamese          | windows-1258   |     ✅     |    ✅     | —            |
+| Western             | iso-8859-1     |     ✅     |    ✅     | windows-1252 |
+| Western             | iso-8859-15    |     ❌     |    ✅     | —            |
+| Western             | latin1         |     ❌     |    ✅     | windows-1252 |
+| Western             | macintosh      |     ❌     |    ✅     | —            |
+| Western             | windows-1252   |     ✅     |    ✅     | —            |
 
 <!-- ENCODINGS_END -->
 
 ### Errors
 
-A typed error hierarchy (`DPUseError`, `AppError`, `APIError`, `EngineError`, `ConnectorError`, `FetchError`) with serialisation and deserialisation for transporting errors across API and worker boundaries, plus utilities for normalising unknown throwables, constructing errors from HTTP responses, and suppressing best-effort cleanup errors. |
+A typed error hierarchy (`DPUseError`, `AppError`, `APIError`, `EngineError`, `ConnectorError`, `FetchError`) with serialisation and deserialisation for transporting errors across API and worker boundaries, plus utilities for normalising unknown throwables, constructing errors from HTTP responses, and suppressing best-effort cleanup errors.
 
 ### Locale
 
-Locale and flag identifiers, localised label, description and verb types, Valibot schemas for locale fields, supported language constants, and actions for resolving and applying locale-specific values to configuration objects. |
+Locale and flag identifiers, localised label, description and verb types, Valibot schemas for locale fields, supported language constants, and actions for resolving and applying locale-specific values to configuration objects.
 
 ### Utilities
 
-OData-to-internal type conversion, file path name and extension extraction, number formatting as decimal, whole number, compact size, storage size and duration, and MIME type lookup by file extension. |
+OData-to-internal type conversion, file path name and extension extraction, number formatting as decimal, whole number, compact size, storage size and duration, and MIME type lookup by file extension.
 
 ## API Reference
 
@@ -183,14 +189,14 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 | Chunk/Module/File                                                           | Composition                                 |
 | :-------------------------------------------------------------------------- | :------------------------------------------ |
-| **dist/dpuse-shared.es.js**                                                 | 33.1 kB · gzip 8.6 kB · 100.0% of the build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                                 | `█████████████░░░░░░░` 64.3% · 21.3 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░` 53.7% · 17.8 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 3.6% · 1.2 kB        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 2.8% · 936 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░` 4.3% · 1.4 kB        |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░` 21.2% · 7.0 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░` 14.5% · 4.8 kB       |
+| **dist/dpuse-shared.es.js**                                                 | 34.1 kB · gzip 8.7 kB · 100.0% of the build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src                                                 | `█████████████░░░░░░░` 65.0% · 22.2 kB      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░` 54.8% · 18.7 kB      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 3.5% · 1.2 kB        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 2.7% · 936 B         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░` 4.1% · 1.4 kB        |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░` 20.6% · 7.0 kB       |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░` 14.4% · 4.9 kB       |
 
 Bars show each row's share of its output file. ↳ rows are part of the row above.
 
@@ -244,9 +250,6 @@ This section is updated each time `npm run document` is run. Settings come from 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-shared/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-shared)
 
 This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
-
-> [!NOTE]
-> Apart from the Best Practices badge above, the remaining Scorecard gaps need multi-person review or a pull-request workflow, which this solo-maintained project doesn't use.
 
 ### Reporting Vulnerabilities
 

@@ -16,6 +16,7 @@ interface EncodingTypeConfig {
     groupId: EncodingGroupId | null; // Null for encodings that belong to no group, e.g. 'ascii' and 'utf-8'.
     isDetectable: boolean;
     isDecodable: boolean;
+    decoderId: EncodingTypeId | null; // Browsers decode some names as another encoding, e.g. 'latin1' as 'windows-1252'. Null when the same.
 }
 export interface EncodingTypeConfigLocalised {
     id: EncodingTypeId;
@@ -23,6 +24,7 @@ export interface EncodingTypeConfigLocalised {
     label: string;
     isDetectable: boolean;
     isDecodable: boolean;
+    decoderId: EncodingTypeId | null;
 }
 
 export interface EncodingDetectionConfig {
@@ -57,56 +59,56 @@ const ENCODING_GROUP_CONFIG_DATA = {
 } as const satisfies Record<string, { id: string; label: LocaleLabel }>;
 
 const ENCODING_TYPE_CONFIG_DATA = {
-    ascii: { id: 'ascii', groupId: null, isDetectable: false, isDecodable: true },
-    big5: { id: 'big5', groupId: 'chineseTraditional', isDetectable: true, isDecodable: true },
-    'euc-jp': { id: 'euc-jp', groupId: 'japanese', isDetectable: true, isDecodable: true },
-    'euc-kr': { id: 'euc-kr', groupId: 'korean', isDetectable: true, isDecodable: true },
-    gb18030: { id: 'gb18030', groupId: 'chineseSimplified', isDetectable: true, isDecodable: true },
-    gbk: { id: 'gbk', groupId: 'chineseSimplified', isDetectable: false, isDecodable: true },
-    ibm866: { id: 'ibm866', groupId: 'cyrillic', isDetectable: false, isDecodable: true },
-    'iso-2022-cn': { id: 'iso-2022-cn', groupId: 'chineseSimplified', isDetectable: true, isDecodable: false },
-    'iso-2022-jp': { id: 'iso-2022-jp', groupId: 'japanese', isDetectable: true, isDecodable: true },
-    'iso-2022-kr': { id: 'iso-2022-kr', groupId: 'korean', isDetectable: true, isDecodable: false },
-    'iso-8859-1': { id: 'iso-8859-1', groupId: 'western', isDetectable: true, isDecodable: true },
-    'iso-8859-2': { id: 'iso-8859-2', groupId: 'centralEuropean', isDetectable: true, isDecodable: true },
-    'iso-8859-3': { id: 'iso-8859-3', groupId: 'southernEuropean', isDetectable: false, isDecodable: true },
-    'iso-8859-4': { id: 'iso-8859-4', groupId: 'baltic', isDetectable: false, isDecodable: true },
-    'iso-8859-5': { id: 'iso-8859-5', groupId: 'cyrillic', isDetectable: true, isDecodable: true },
-    'iso-8859-6': { id: 'iso-8859-6', groupId: 'arabic', isDetectable: true, isDecodable: true },
-    'iso-8859-7': { id: 'iso-8859-7', groupId: 'greek', isDetectable: true, isDecodable: true },
-    'iso-8859-8': { id: 'iso-8859-8', groupId: 'hebrew', isDetectable: true, isDecodable: true },
-    'iso-8859-9': { id: 'iso-8859-9', groupId: 'turkish', isDetectable: true, isDecodable: true },
-    'iso-8859-10': { id: 'iso-8859-10', groupId: 'nordic', isDetectable: false, isDecodable: true },
-    'iso-8859-11': { id: 'iso-8859-11', groupId: 'thai', isDetectable: false, isDecodable: true },
-    'iso-8859-13': { id: 'iso-8859-13', groupId: 'baltic', isDetectable: false, isDecodable: true },
-    'iso-8859-14': { id: 'iso-8859-14', groupId: 'celtic', isDetectable: false, isDecodable: true },
-    'iso-8859-15': { id: 'iso-8859-15', groupId: 'western', isDetectable: false, isDecodable: true },
-    'iso-8859-16': { id: 'iso-8859-16', groupId: 'romanian', isDetectable: false, isDecodable: true },
-    'koi8-r': { id: 'koi8-r', groupId: 'cyrillic', isDetectable: true, isDecodable: true },
-    'koi8-u': { id: 'koi8-u', groupId: 'cyrillic', isDetectable: false, isDecodable: true },
-    latin1: { id: 'latin1', groupId: 'western', isDetectable: false, isDecodable: true },
-    macintosh: { id: 'macintosh', groupId: 'western', isDetectable: false, isDecodable: true },
-    shift_jis: { id: 'shift_jis', groupId: 'japanese', isDetectable: true, isDecodable: true },
-    'tis-620': { id: 'tis-620', groupId: 'thai', isDetectable: false, isDecodable: true },
-    'utf-16': { id: 'utf-16', groupId: 'unicode16', isDetectable: false, isDecodable: true },
-    'utf-16be': { id: 'utf-16be', groupId: 'unicode16', isDetectable: true, isDecodable: true },
-    'utf-16le': { id: 'utf-16le', groupId: 'unicode16', isDetectable: true, isDecodable: true },
-    'utf-32be': { id: 'utf-32be', groupId: 'unicode32', isDetectable: true, isDecodable: false },
-    'utf-32le': { id: 'utf-32le', groupId: 'unicode32', isDetectable: true, isDecodable: false },
-    'utf-8': { id: 'utf-8', groupId: null, isDetectable: true, isDecodable: true },
-    'windows-1250': { id: 'windows-1250', groupId: 'centralEuropean', isDetectable: true, isDecodable: true },
-    'windows-1251': { id: 'windows-1251', groupId: 'cyrillic', isDetectable: true, isDecodable: true },
-    'windows-1252': { id: 'windows-1252', groupId: 'western', isDetectable: true, isDecodable: true },
-    'windows-1253': { id: 'windows-1253', groupId: 'greek', isDetectable: true, isDecodable: true },
-    'windows-1254': { id: 'windows-1254', groupId: 'turkish', isDetectable: true, isDecodable: true },
-    'windows-1255': { id: 'windows-1255', groupId: 'hebrew', isDetectable: true, isDecodable: true },
-    'windows-1256': { id: 'windows-1256', groupId: 'arabic', isDetectable: true, isDecodable: true },
-    'windows-1257': { id: 'windows-1257', groupId: 'baltic', isDetectable: false, isDecodable: true },
-    'windows-1258': { id: 'windows-1258', groupId: 'vietnamese', isDetectable: false, isDecodable: true },
-    'windows-874': { id: 'windows-874', groupId: 'thai', isDetectable: false, isDecodable: true },
-    'x-mac-cyrillic': { id: 'x-mac-cyrillic', groupId: 'cyrillic', isDetectable: false, isDecodable: true },
-    'x-user-defined': { id: 'x-user-defined', groupId: 'other', isDetectable: false, isDecodable: true }
-} as const satisfies Record<string, { id: string; groupId: keyof typeof ENCODING_GROUP_CONFIG_DATA | null; isDetectable: boolean; isDecodable: boolean }>;
+    ascii: { id: 'ascii', groupId: null, isDetectable: true, isDecodable: true, decoderId: 'windows-1252' },
+    big5: { id: 'big5', groupId: 'chineseTraditional', isDetectable: true, isDecodable: true, decoderId: null },
+    'euc-jp': { id: 'euc-jp', groupId: 'japanese', isDetectable: true, isDecodable: true, decoderId: null },
+    'euc-kr': { id: 'euc-kr', groupId: 'korean', isDetectable: true, isDecodable: true, decoderId: null },
+    gb18030: { id: 'gb18030', groupId: 'chineseSimplified', isDetectable: true, isDecodable: true, decoderId: null },
+    gbk: { id: 'gbk', groupId: 'chineseSimplified', isDetectable: false, isDecodable: true, decoderId: null },
+    ibm866: { id: 'ibm866', groupId: 'cyrillic', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-2022-cn': { id: 'iso-2022-cn', groupId: 'chineseSimplified', isDetectable: true, isDecodable: false, decoderId: null },
+    'iso-2022-jp': { id: 'iso-2022-jp', groupId: 'japanese', isDetectable: true, isDecodable: true, decoderId: null },
+    'iso-2022-kr': { id: 'iso-2022-kr', groupId: 'korean', isDetectable: true, isDecodable: false, decoderId: null },
+    'iso-8859-1': { id: 'iso-8859-1', groupId: 'western', isDetectable: true, isDecodable: true, decoderId: 'windows-1252' },
+    'iso-8859-2': { id: 'iso-8859-2', groupId: 'centralEuropean', isDetectable: true, isDecodable: true, decoderId: null },
+    'iso-8859-3': { id: 'iso-8859-3', groupId: 'southernEuropean', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-8859-4': { id: 'iso-8859-4', groupId: 'baltic', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-8859-5': { id: 'iso-8859-5', groupId: 'cyrillic', isDetectable: true, isDecodable: true, decoderId: null },
+    'iso-8859-6': { id: 'iso-8859-6', groupId: 'arabic', isDetectable: true, isDecodable: true, decoderId: null },
+    'iso-8859-7': { id: 'iso-8859-7', groupId: 'greek', isDetectable: true, isDecodable: true, decoderId: null },
+    'iso-8859-8': { id: 'iso-8859-8', groupId: 'hebrew', isDetectable: true, isDecodable: true, decoderId: null },
+    'iso-8859-9': { id: 'iso-8859-9', groupId: 'turkish', isDetectable: true, isDecodable: true, decoderId: 'windows-1254' },
+    'iso-8859-10': { id: 'iso-8859-10', groupId: 'nordic', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-8859-11': { id: 'iso-8859-11', groupId: 'thai', isDetectable: false, isDecodable: true, decoderId: 'windows-874' },
+    'iso-8859-13': { id: 'iso-8859-13', groupId: 'baltic', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-8859-14': { id: 'iso-8859-14', groupId: 'celtic', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-8859-15': { id: 'iso-8859-15', groupId: 'western', isDetectable: false, isDecodable: true, decoderId: null },
+    'iso-8859-16': { id: 'iso-8859-16', groupId: 'romanian', isDetectable: false, isDecodable: true, decoderId: null },
+    'koi8-r': { id: 'koi8-r', groupId: 'cyrillic', isDetectable: true, isDecodable: true, decoderId: null },
+    'koi8-u': { id: 'koi8-u', groupId: 'cyrillic', isDetectable: false, isDecodable: true, decoderId: null },
+    latin1: { id: 'latin1', groupId: 'western', isDetectable: false, isDecodable: true, decoderId: 'windows-1252' },
+    macintosh: { id: 'macintosh', groupId: 'western', isDetectable: false, isDecodable: true, decoderId: null },
+    shift_jis: { id: 'shift_jis', groupId: 'japanese', isDetectable: true, isDecodable: true, decoderId: null },
+    'tis-620': { id: 'tis-620', groupId: 'thai', isDetectable: false, isDecodable: true, decoderId: 'windows-874' },
+    'utf-16': { id: 'utf-16', groupId: 'unicode16', isDetectable: false, isDecodable: true, decoderId: 'utf-16le' },
+    'utf-16be': { id: 'utf-16be', groupId: 'unicode16', isDetectable: true, isDecodable: true, decoderId: null },
+    'utf-16le': { id: 'utf-16le', groupId: 'unicode16', isDetectable: true, isDecodable: true, decoderId: null },
+    'utf-32be': { id: 'utf-32be', groupId: 'unicode32', isDetectable: true, isDecodable: false, decoderId: null },
+    'utf-32le': { id: 'utf-32le', groupId: 'unicode32', isDetectable: true, isDecodable: false, decoderId: null },
+    'utf-8': { id: 'utf-8', groupId: null, isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1250': { id: 'windows-1250', groupId: 'centralEuropean', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1251': { id: 'windows-1251', groupId: 'cyrillic', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1252': { id: 'windows-1252', groupId: 'western', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1253': { id: 'windows-1253', groupId: 'greek', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1254': { id: 'windows-1254', groupId: 'turkish', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1255': { id: 'windows-1255', groupId: 'hebrew', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1256': { id: 'windows-1256', groupId: 'arabic', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1257': { id: 'windows-1257', groupId: 'baltic', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-1258': { id: 'windows-1258', groupId: 'vietnamese', isDetectable: true, isDecodable: true, decoderId: null },
+    'windows-874': { id: 'windows-874', groupId: 'thai', isDetectable: true, isDecodable: true, decoderId: null },
+    'x-mac-cyrillic': { id: 'x-mac-cyrillic', groupId: 'cyrillic', isDetectable: false, isDecodable: true, decoderId: null },
+    'x-user-defined': { id: 'x-user-defined', groupId: 'other', isDetectable: false, isDecodable: true, decoderId: null }
+} as const satisfies Record<string, { id: string; groupId: keyof typeof ENCODING_GROUP_CONFIG_DATA | null; isDetectable: boolean; isDecodable: boolean; decoderId: string | null }>;
 
 export const ENCODING_GROUP_CONFIG_MAP = ENCODING_GROUP_CONFIG_DATA as Record<EncodingGroupId, EncodingGroupConfig>;
 export const ENCODING_TYPE_CONFIG_MAP = ENCODING_TYPE_CONFIG_DATA as Record<EncodingTypeId, EncodingTypeConfig>;
@@ -120,9 +122,9 @@ export function isEncodingTypeId(value: string): value is EncodingTypeId {
 }
 
 export function getEncodingTypeConfigs(localeId: LocaleId = DEFAULT_LOCALE_ID): EncodingTypeConfigLocalised[] {
-    const encodingTypeConfigs: EncodingTypeConfigLocalised[] = Array.from(Object.values(ENCODING_TYPE_CONFIG_MAP), ({ groupId, id, isDecodable, isDetectable }) => {
+    const encodingTypeConfigs: EncodingTypeConfigLocalised[] = Array.from(Object.values(ENCODING_TYPE_CONFIG_MAP), ({ decoderId, groupId, id, isDecodable, isDetectable }) => {
         const groupLabel = groupId == null ? '' : resolveGroupLabel(groupId, localeId);
-        return { id, groupLabel, label: groupLabel ? `${groupLabel} (${id})` : id, isDetectable, isDecodable };
+        return { id, groupLabel, label: groupLabel ? `${groupLabel} (${id})` : id, isDetectable, isDecodable, decoderId };
     });
     return encodingTypeConfigs.toSorted((left, right) => left.groupLabel.localeCompare(right.groupLabel, localeId) || left.label.localeCompare(right.label, localeId));
 }
