@@ -58,7 +58,7 @@
 
 **Average maintainability index:** 93.3/100
 
-### Hotspots (10 files, since 6 months)
+### Hotspots (11 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
@@ -67,13 +67,14 @@
 | `src/errors/index.ts` | 27.1 | 8 | 231 | 0.30 | 2 | accelerating |
 | `src/component/module/connector/index.ts` | 16.2 | 30 | 960 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 14.1 | 17 | 201 | 0.09 | 16 | stable |
+| `scripts/documentEncodings.ts` | 10.4 | 3 | 52 | 0.20 | 0 | accelerating |
 | `src/component/module/tool/index.ts` | 9.2 | 9 | 74 | 0.11 | 3 | accelerating |
 | `src/component/dataView/index.ts` | 8.7 | 14 | 614 | 0.08 | 3 | cooling |
 | `src/encoding/index.ts` | 5.9 | 7 | 319 | 0.07 | 2 | stable |
 | `vite.config.ts` | 5.6 | 28 | 178 | 0.02 | 0 | stable |
 | `src/schema.ts` | 4.9 | 5 | 24 | 0.18 | 5 | cooling |
 
-*3 files excluded (< 3 commits)*
+*2 files excluded (< 3 commits)*
 
 ### Refactoring Targets (1)
 
