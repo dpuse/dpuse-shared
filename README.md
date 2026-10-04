@@ -85,11 +85,11 @@ Character encoding types with detection and decodability flags, a catalogue of e
 
 The table below lists every supported encoding.
 
-- **Detectable** — the encoding can be identified from a file's contents.
+- **Detectable** — [chardet](https://github.com/runk/node-chardet) can identify the encoding from a file's contents. A test checks this column against chardet's detectors, so it fails if a chardet upgrade adds, drops or renames one.
 - **Decodable** — the browser's built-in `TextDecoder` can decode it. The four that cannot are refused by all the major browsers: `iso-2022-cn` and `iso-2022-kr` are blocked by the WHATWG Encoding Standard for security reasons, and UTF-32 is not part of the standard.
 - **Decoded As** — the encoding browsers actually use, where it differs from the name. The Encoding Standard treats some names as aliases, so for example `latin1` and `ascii` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, `ascii` never rejects bytes above 0x7F, and a big-endian UTF-16 file read as `utf-16` decodes as little-endian and comes out garbled.
 
-The major browsers all follow the Encoding Standard, so these columns hold for each of them. This was confirmed by running `TextDecoder` against every encoding in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.
+The major browsers all follow the Encoding Standard, so the Decodable and Decoded As columns hold for each of them. A test checks both columns against Node's `TextDecoder`, which follows the same standard. They were also confirmed in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.
 
 | Group               | Encoding       | Detectable | Decodable | Decoded As   |
 | :------------------ | :------------- | :--------: | :-------: | :----------- |
@@ -250,6 +250,9 @@ This section is updated each time `npm run document` is run. Settings come from 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-shared/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-shared)
 
 This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
+
+> [!NOTE]
+> Apart from the Best Practices badge above, the remaining Scorecard gaps need multi-person review or a pull-request workflow, which this solo-maintained project doesn't use.
 
 ### Reporting Vulnerabilities
 
