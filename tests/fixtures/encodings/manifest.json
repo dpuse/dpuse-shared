@@ -1,0 +1,653 @@
+[
+    {
+        "file": "ascii.txt",
+        "encodingId": "ascii",
+        "language": "English",
+        "detectedId": "ascii",
+        "isSameText": true
+    },
+    {
+        "file": "utf-8.txt",
+        "encodingId": "utf-8",
+        "language": "French",
+        "detectedId": "utf-8",
+        "isSameText": true
+    },
+    {
+        "file": "UTF-8-SIG.txt",
+        "encodingId": "UTF-8-SIG",
+        "language": "Russian",
+        "detectedId": "UTF-8-SIG",
+        "isSameText": true
+    },
+    {
+        "file": "UTF-16.txt",
+        "encodingId": "UTF-16",
+        "language": "German",
+        "detectedId": "UTF-16",
+        "isSameText": true
+    },
+    {
+        "file": "utf-16-be.txt",
+        "encodingId": "utf-16-be",
+        "language": "Russian",
+        "detectedId": "utf-16-be",
+        "isSameText": true
+    },
+    {
+        "file": "utf-16-le.txt",
+        "encodingId": "utf-16-le",
+        "language": "Greek",
+        "detectedId": "utf-16-le",
+        "isSameText": true
+    },
+    {
+        "file": "UTF-32.txt",
+        "encodingId": "UTF-32",
+        "language": "English",
+        "detectedId": "UTF-32",
+        "isSameText": true
+    },
+    {
+        "file": "utf-32-be.txt",
+        "encodingId": "utf-32-be",
+        "language": "Japanese",
+        "detectedId": "utf-32-be",
+        "isSameText": true
+    },
+    {
+        "file": "utf-32-le.txt",
+        "encodingId": "utf-32-le",
+        "language": "Turkish",
+        "detectedId": "utf-32-le",
+        "isSameText": true
+    },
+    {
+        "file": "utf-7.txt",
+        "encodingId": "utf-7",
+        "language": "French",
+        "detectedId": "utf-7",
+        "isSameText": true
+    },
+    {
+        "file": "Big5.txt",
+        "encodingId": "Big5",
+        "language": "Chinese (Traditional)",
+        "detectedId": "Big5",
+        "isSameText": true
+    },
+    {
+        "file": "CP932.txt",
+        "encodingId": "CP932",
+        "language": "Japanese",
+        "detectedId": "CP932",
+        "isSameText": true
+    },
+    {
+        "file": "CP949.txt",
+        "encodingId": "CP949",
+        "language": "Korean",
+        "detectedId": "CP949",
+        "isSameText": true
+    },
+    {
+        "file": "EUC-JP.txt",
+        "encodingId": "EUC-JP",
+        "language": "Japanese",
+        "detectedId": "EUC-JP",
+        "isSameText": true
+    },
+    {
+        "file": "EUC-KR.txt",
+        "encodingId": "EUC-KR",
+        "language": "Korean",
+        "detectedId": "CP949",
+        "isSameText": true
+    },
+    {
+        "file": "GB18030.txt",
+        "encodingId": "GB18030",
+        "language": "Chinese (Simplified)",
+        "detectedId": "GB18030",
+        "isSameText": true
+    },
+    {
+        "file": "HZ-GB-2312.txt",
+        "encodingId": "HZ-GB-2312",
+        "language": "Chinese (Simplified)",
+        "detectedId": "HZ-GB-2312",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-2022-JP.txt",
+        "encodingId": "ISO-2022-JP",
+        "language": "Japanese",
+        "detectedId": "ISO-2022-JP",
+        "isSameText": true
+    },
+    {
+        "file": "iso2022_jp_2004.txt",
+        "encodingId": "iso2022_jp_2004",
+        "language": "Japanese",
+        "detectedId": "ISO-2022-JP",
+        "isSameText": true
+    },
+    {
+        "file": "iso2022_jp_ext.txt",
+        "encodingId": "iso2022_jp_ext",
+        "language": "Japanese",
+        "detectedId": "ISO-2022-JP",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-2022-KR.txt",
+        "encodingId": "ISO-2022-KR",
+        "language": "Korean",
+        "detectedId": "ISO-2022-KR",
+        "isSameText": true
+    },
+    {
+        "file": "SHIFT_JIS.txt",
+        "encodingId": "SHIFT_JIS",
+        "language": "Japanese",
+        "detectedId": "CP932",
+        "isSameText": true
+    },
+    {
+        "file": "CP874.txt",
+        "encodingId": "CP874",
+        "language": "Thai",
+        "detectedId": "CP874",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1250.txt",
+        "encodingId": "Windows-1250",
+        "language": "Polish",
+        "detectedId": "Windows-1250",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1251.txt",
+        "encodingId": "Windows-1251",
+        "language": "Russian",
+        "detectedId": "Windows-1251",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1252.txt",
+        "encodingId": "Windows-1252",
+        "language": "French",
+        "detectedId": "Windows-1252",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1253.txt",
+        "encodingId": "Windows-1253",
+        "language": "Greek",
+        "detectedId": "Windows-1253",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1254.txt",
+        "encodingId": "Windows-1254",
+        "language": "Turkish",
+        "detectedId": "Windows-1254",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1255.txt",
+        "encodingId": "Windows-1255",
+        "language": "Hebrew",
+        "detectedId": "Windows-1255",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1256.txt",
+        "encodingId": "Windows-1256",
+        "language": "Arabic",
+        "detectedId": "Windows-1256",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1257.txt",
+        "encodingId": "Windows-1257",
+        "language": "Lithuanian",
+        "detectedId": "Windows-1257",
+        "isSameText": true
+    },
+    {
+        "file": "cp1258.txt",
+        "encodingId": "cp1258",
+        "language": "Vietnamese",
+        "detectedId": "cp1258",
+        "isSameText": true
+    },
+    {
+        "file": "KOI8-R.txt",
+        "encodingId": "KOI8-R",
+        "language": "Russian",
+        "detectedId": "KOI8-R",
+        "isSameText": true
+    },
+    {
+        "file": "koi8-u.txt",
+        "encodingId": "koi8-u",
+        "language": "Ukrainian",
+        "detectedId": "koi8-u",
+        "isSameText": true
+    },
+    {
+        "file": "TIS-620.txt",
+        "encodingId": "TIS-620",
+        "language": "Thai",
+        "detectedId": "CP874",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-1.txt",
+        "encodingId": "ISO-8859-1",
+        "language": "German",
+        "detectedId": "Windows-1252",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-2.txt",
+        "encodingId": "ISO-8859-2",
+        "language": "Czech",
+        "detectedId": "ISO-8859-2",
+        "isSameText": true
+    },
+    {
+        "file": "iso8859-3.txt",
+        "encodingId": "iso8859-3",
+        "language": "Maltese",
+        "detectedId": "iso8859-3",
+        "isSameText": true
+    },
+    {
+        "file": "iso8859-4.txt",
+        "encodingId": "iso8859-4",
+        "language": "Latvian",
+        "detectedId": "iso8859-4",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-5.txt",
+        "encodingId": "ISO-8859-5",
+        "language": "Bulgarian",
+        "detectedId": "ISO-8859-5",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-6.txt",
+        "encodingId": "ISO-8859-6",
+        "language": "Arabic",
+        "detectedId": "ISO-8859-6",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-7.txt",
+        "encodingId": "ISO-8859-7",
+        "language": "Greek",
+        "detectedId": "Windows-1253",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-8.txt",
+        "encodingId": "ISO-8859-8",
+        "language": "Hebrew",
+        "detectedId": "Windows-1255",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-9.txt",
+        "encodingId": "ISO-8859-9",
+        "language": "Turkish",
+        "detectedId": "Windows-1254",
+        "isSameText": true
+    },
+    {
+        "file": "iso8859-10.txt",
+        "encodingId": "iso8859-10",
+        "language": "Icelandic",
+        "detectedId": "Windows-1252",
+        "isSameText": true
+    },
+    {
+        "file": "ISO-8859-13.txt",
+        "encodingId": "ISO-8859-13",
+        "language": "Latvian",
+        "detectedId": "Windows-1257",
+        "isSameText": true
+    },
+    {
+        "file": "iso8859-14.txt",
+        "encodingId": "iso8859-14",
+        "language": "Welsh",
+        "detectedId": "iso8859-14",
+        "isSameText": true
+    },
+    {
+        "file": "iso8859-15.txt",
+        "encodingId": "iso8859-15",
+        "language": "French",
+        "detectedId": "Windows-1252",
+        "isSameText": true
+    },
+    {
+        "file": "iso8859-16.txt",
+        "encodingId": "iso8859-16",
+        "language": "Romanian",
+        "detectedId": "Windows-1250",
+        "isSameText": false
+    },
+    {
+        "file": "Johab.txt",
+        "encodingId": "Johab",
+        "language": "Korean",
+        "detectedId": "Johab",
+        "isSameText": true
+    },
+    {
+        "file": "MacCyrillic.txt",
+        "encodingId": "MacCyrillic",
+        "language": "Russian",
+        "detectedId": "MacCyrillic",
+        "isSameText": true
+    },
+    {
+        "file": "MacGreek.txt",
+        "encodingId": "MacGreek",
+        "language": "Greek",
+        "detectedId": "MacGreek",
+        "isSameText": true
+    },
+    {
+        "file": "MacIceland.txt",
+        "encodingId": "MacIceland",
+        "language": "Icelandic",
+        "detectedId": "MacIceland",
+        "isSameText": true
+    },
+    {
+        "file": "MacLatin2.txt",
+        "encodingId": "MacLatin2",
+        "language": "Czech",
+        "detectedId": "MacLatin2",
+        "isSameText": true
+    },
+    {
+        "file": "MacRoman.txt",
+        "encodingId": "MacRoman",
+        "language": "French",
+        "detectedId": "MacRoman",
+        "isSameText": true
+    },
+    {
+        "file": "MacTurkish.txt",
+        "encodingId": "MacTurkish",
+        "language": "Turkish",
+        "detectedId": "MacTurkish",
+        "isSameText": true
+    },
+    {
+        "file": "cp720.txt",
+        "encodingId": "cp720",
+        "language": "Arabic",
+        "detectedId": "cp720",
+        "isSameText": true
+    },
+    {
+        "file": "cp1006.txt",
+        "encodingId": "cp1006",
+        "language": "Urdu",
+        "detectedId": "cp1006",
+        "isSameText": true
+    },
+    {
+        "file": "cp1125.txt",
+        "encodingId": "cp1125",
+        "language": "Ukrainian",
+        "detectedId": "cp1125",
+        "isSameText": true
+    },
+    {
+        "file": "koi8-t.txt",
+        "encodingId": "koi8-t",
+        "language": "Tajik",
+        "detectedId": "koi8-t",
+        "isSameText": true
+    },
+    {
+        "file": "KZ1048.txt",
+        "encodingId": "KZ1048",
+        "language": "Kazakh",
+        "detectedId": "KZ1048",
+        "isSameText": true
+    },
+    {
+        "file": "ptcp154.txt",
+        "encodingId": "ptcp154",
+        "language": "Kazakh",
+        "detectedId": "ptcp154",
+        "isSameText": true
+    },
+    {
+        "file": "hp-roman8.txt",
+        "encodingId": "hp-roman8",
+        "language": "French",
+        "detectedId": "hp-roman8",
+        "isSameText": true
+    },
+    {
+        "file": "cp437.txt",
+        "encodingId": "cp437",
+        "language": "French",
+        "detectedId": "cp437",
+        "isSameText": true
+    },
+    {
+        "file": "cp737.txt",
+        "encodingId": "cp737",
+        "language": "Greek",
+        "detectedId": "cp737",
+        "isSameText": true
+    },
+    {
+        "file": "cp775.txt",
+        "encodingId": "cp775",
+        "language": "Lithuanian",
+        "detectedId": "cp775",
+        "isSameText": true
+    },
+    {
+        "file": "cp850.txt",
+        "encodingId": "cp850",
+        "language": "German",
+        "detectedId": "cp437",
+        "isSameText": true
+    },
+    {
+        "file": "cp852.txt",
+        "encodingId": "cp852",
+        "language": "Polish",
+        "detectedId": "cp852",
+        "isSameText": true
+    },
+    {
+        "file": "IBM855.txt",
+        "encodingId": "IBM855",
+        "language": "Bulgarian",
+        "detectedId": "IBM855",
+        "isSameText": true
+    },
+    {
+        "file": "cp856.txt",
+        "encodingId": "cp856",
+        "language": "Hebrew",
+        "detectedId": "cp862",
+        "isSameText": true
+    },
+    {
+        "file": "cp857.txt",
+        "encodingId": "cp857",
+        "language": "Turkish",
+        "detectedId": "cp857",
+        "isSameText": true
+    },
+    {
+        "file": "cp858.txt",
+        "encodingId": "cp858",
+        "language": "French",
+        "detectedId": "cp437",
+        "isSameText": true
+    },
+    {
+        "file": "cp860.txt",
+        "encodingId": "cp860",
+        "language": "Portuguese",
+        "detectedId": "cp860",
+        "isSameText": true
+    },
+    {
+        "file": "cp861.txt",
+        "encodingId": "cp861",
+        "language": "Icelandic",
+        "detectedId": "cp861",
+        "isSameText": true
+    },
+    {
+        "file": "cp862.txt",
+        "encodingId": "cp862",
+        "language": "Hebrew",
+        "detectedId": "cp862",
+        "isSameText": true
+    },
+    {
+        "file": "cp863.txt",
+        "encodingId": "cp863",
+        "language": "French",
+        "detectedId": "cp437",
+        "isSameText": true
+    },
+    {
+        "file": "cp864.txt",
+        "encodingId": "cp864",
+        "language": "Arabic",
+        "detectedId": "Windows-1256",
+        "isSameText": false
+    },
+    {
+        "file": "cp865.txt",
+        "encodingId": "cp865",
+        "language": "Norwegian",
+        "detectedId": "cp865",
+        "isSameText": true
+    },
+    {
+        "file": "IBM866.txt",
+        "encodingId": "IBM866",
+        "language": "Russian",
+        "detectedId": "IBM866",
+        "isSameText": true
+    },
+    {
+        "file": "cp869.txt",
+        "encodingId": "cp869",
+        "language": "Greek",
+        "detectedId": "cp869",
+        "isSameText": true
+    },
+    {
+        "file": "cp1140.txt",
+        "encodingId": "cp1140",
+        "language": "English",
+        "detectedId": "cp500",
+        "isSameText": true
+    },
+    {
+        "file": "cp424.txt",
+        "encodingId": "cp424",
+        "language": "Hebrew",
+        "detectedId": "ascii",
+        "isSameText": false
+    },
+    {
+        "file": "cp500.txt",
+        "encodingId": "cp500",
+        "language": "French",
+        "detectedId": "cp500",
+        "isSameText": true
+    },
+    {
+        "file": "cp875.txt",
+        "encodingId": "cp875",
+        "language": "Greek",
+        "detectedId": "cp875",
+        "isSameText": true
+    },
+    {
+        "file": "cp1026.txt",
+        "encodingId": "cp1026",
+        "language": "Turkish",
+        "detectedId": "cp1026",
+        "isSameText": true
+    },
+    {
+        "file": "cp273.txt",
+        "encodingId": "cp273",
+        "language": "German",
+        "detectedId": "cp273",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1252.csv",
+        "encodingId": "Windows-1252",
+        "language": "English, French, German, Spanish, Danish",
+        "detectedId": "Windows-1252",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1250.csv",
+        "encodingId": "Windows-1250",
+        "language": "English, Polish, Czech, Hungarian",
+        "detectedId": "Windows-1250",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1251.csv",
+        "encodingId": "Windows-1251",
+        "language": "English, Russian",
+        "detectedId": "Windows-1251",
+        "isSameText": true
+    },
+    {
+        "file": "Windows-1254.csv",
+        "encodingId": "Windows-1254",
+        "language": "English, Turkish",
+        "detectedId": "Windows-1254",
+        "isSameText": true
+    },
+    {
+        "file": "CP932.csv",
+        "encodingId": "CP932",
+        "language": "English, Japanese",
+        "detectedId": "ISO-8859-1",
+        "isSameText": false
+    },
+    {
+        "file": "MacRoman.csv",
+        "encodingId": "MacRoman",
+        "language": "English, French, German, Portuguese",
+        "detectedId": "ISO-8859-1",
+        "isSameText": false
+    },
+    {
+        "file": "cp850.csv",
+        "encodingId": "cp850",
+        "language": "English, German, French, Swedish, Spanish",
+        "detectedId": "cp850",
+        "isSameText": true
+    }
+]

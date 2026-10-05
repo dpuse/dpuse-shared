@@ -57,10 +57,10 @@
 | `src/errors/index.ts` | 27.0 | 8 | 231 | 0.30 | 2 | accelerating |
 | `src/component/module/connector/index.ts` | 16.2 | 30 | 960 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 14.1 | 17 | 201 | 0.09 | 16 | stable |
-| `scripts/documentEncodings.ts` | 9.4 | 3 | 52 | 0.18 | 0 | accelerating |
+| `scripts/documentEncodings.ts` | 12.5 | 4 | 68 | 0.18 | 0 | cooling |
 | `src/component/module/tool/index.ts` | 9.2 | 9 | 74 | 0.11 | 3 | accelerating |
 | `src/component/dataView/index.ts` | 8.7 | 14 | 614 | 0.08 | 3 | cooling |
-| `src/encoding/index.ts` | 5.9 | 7 | 319 | 0.07 | 2 | stable |
+| `src/encoding/index.ts` | 7.1 | 8 | 474 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.6 | 28 | 178 | 0.02 | 0 | stable |
 | `src/schema.ts` | 4.9 | 5 | 24 | 0.18 | 5 | cooling |
 

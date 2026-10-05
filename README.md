@@ -197,6 +197,22 @@ OData-to-internal type conversion, file path name and extension extraction, numb
 
 See [API_REFERENCE.md](./API_REFERENCE.md) for the complete API reference, including all exported schemas, types, classes, constants, and actions, grouped by topic.
 
+## Test Data
+
+The encoding tests use sample files in [`tests/fixtures/encodings`](./tests/fixtures/encodings). They're used only to test and evaluate character encoding detection and decoding.
+
+- **Universal Declaration of Human Rights:** from NLTK's "Universal Declaration of Human Rights Corpus (Unicode Version)" ([udhr2.zip](https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/udhr2.zip)), which holds the declaration in 388 languages as UTF-8 text files named by language code, such as `rus.txt`.
+    - It's in the public domain, as recorded in [NLTK's data index](https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/index.xml) (the `udhr2` entry).
+    - NLTK's copy comes from the [Unicode UDHR project](https://unicode.org/udhr/). We use NLTK's copy because the Unicode project's own file links no longer work.
+    - We use excerpts of about 1,000 characters in 29 languages, re-encoded into each of the 86 encodings.
+    - Characters an encoding can't hold were removed.
+    - Arabic letters in `cp864` and `cp1006` are stored as presentation forms, as those encodings require.
+- **Written for these tests:** the seven CSV files, and two Welsh sentences added to `iso8859-14.txt`. They're under this project's licence.
+
+A second set of tests uses chardet's own test files, in [`tests/fixtures/encodings/chardet`](./tests/fixtures/encodings/chardet): its [unit-test files](https://github.com/runk/node-chardet/tree/master/src/test/data/encodings) and [corpus](https://github.com/runk/node-chardet/tree/master/corpus), copyright 2024 Dmitry Shirokov, under the MIT licence in that folder's `LICENSE` file.
+
+The October 2026 comparison of chardet and jschardet also used [chardet/test-data](https://github.com/chardet/test-data), which isn't included here, because each of its files is copyright its publisher.
+
 <!-- DEPENDENCY_LICENSES_START -->
 
 ## Dependency Licenses
@@ -225,14 +241,14 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 | Chunk/Module/File                                                           | Composition                                 |
 | :-------------------------------------------------------------------------- | :------------------------------------------ |
-| **dist/dpuse-shared.es.js**                                                 | 34.1 kB · gzip 8.7 kB · 100.0% of the build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                                 | `█████████████░░░░░░░` 65.0% · 22.2 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░` 54.8% · 18.7 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 3.5% · 1.2 kB        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 2.7% · 936 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░` 4.1% · 1.4 kB        |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░` 20.6% · 7.0 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░` 14.4% · 4.9 kB       |
+| **dist/dpuse-shared.es.js**                                                 | 35.1 kB · gzip 9.2 kB · 100.0% of the build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src                                                 | `█████████████░░░░░░░` 65.6% · 23.0 kB      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░` 55.7% · 19.5 kB      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 3.4% · 1.2 kB        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 2.6% · 936 B         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░` 4.0% · 1.4 kB        |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░` 20.0% · 7.0 kB       |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░` 14.3% · 5.0 kB       |
 
 Bars show each row's share of its output file. ↳ rows are part of the row above.
 
