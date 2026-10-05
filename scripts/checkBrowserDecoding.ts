@@ -47,7 +47,7 @@ const BROWSERS: Browser[] = [
         launch: (url, profilePath) => spawn('/Applications/Firefox.app/Contents/MacOS/firefox', ['--headless', '--no-remote', '--profile', profilePath, url]),
         name: 'Firefox'
     },
-    { appPath: '/Applications/Safari.app', launch: (url) => spawn('open', ['-a', 'Safari', url]), name: 'Safari' }
+    { appPath: '/Applications/Safari.app', launch: (url) => spawn('/usr/bin/open', ['-a', 'Safari', url]), name: 'Safari' }
 ];
 
 const DECODER_IDS = [...new Set(Object.values(ENCODING_TYPE_CONFIG_MAP).flatMap(({ decoderId }) => (decoderId == null ? [] : [decoderId])))];
@@ -87,7 +87,7 @@ for (const browser of BROWSERS) {
         continue;
     }
 
-    const version = execFileSync('plutil', ['-extract', 'CFBundleShortVersionString', 'raw', join(browser.appPath, 'Contents/Info.plist')], { encoding: 'utf-8' }).trim();
+    const version = execFileSync('/usr/bin/plutil', ['-extract', 'CFBundleShortVersionString', 'raw', join(browser.appPath, 'Contents/Info.plist')], { encoding: 'utf-8' }).trim();
     const profilePath = await mkdtemp(join(tmpdir(), 'dpuse-check-browsers-'));
     const abortController = new AbortController();
     const reportPromise = new Promise<BrowserReport>((resolve, reject) => {
