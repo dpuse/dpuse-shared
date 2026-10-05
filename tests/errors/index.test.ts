@@ -204,9 +204,22 @@ describe('serialiseError redaction', () => {
         error.stack = 'Error: at https://api.example.com/token?client_secret=xyz&code=1';
         const [serialised] = serialiseError(error);
 
-        expect(serialised?.message).toBe('Call for [REDACTED] failed with Authorization: Bearer [REDACTED]');
+        expect(serialised?.message).toBe('Call for [REDACTED] failed with Authorization: Bearer [REDACTED].');
         expect(serialised?.data).toEqual({ body: '{"access_token":"[REDACTED]","token_type":"bearer","uid":"42"}' });
         expect(serialised?.stack).toBe('Error: at https://api.example.com/token?client_secret=[REDACTED]&code=1');
+    });
+
+    // Redacting a value can swallow the full stop that ends the sentence, so the message is punctuated afterwards.
+    it('ends a message with punctuation even when a redacted value swallowed its full stop', () => {
+        const [serialised] = serialiseError(new AppError('Contact jo@example.com.', 'test'));
+
+        expect(serialised?.message).toBe('Contact [REDACTED].');
+
+        // The case fast-check found: serialising again must give the same message.
+        const serialisedOnce = serialiseError(new AppError('0@0.-', 'test'));
+        const serialisedAgain = serialiseError(unserialiseError(serialisedOnce));
+        expect(serialisedAgain).toEqual(serialisedOnce);
+        expect(serialisedAgain[0]?.message).toBe('[REDACTED].');
     });
 
     it('leaves ordinary text untouched', () => {

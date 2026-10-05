@@ -144,8 +144,10 @@ export function serialiseError(error?: unknown): SerialisedError[] {
     while (cause != null && !seenCauses.has(cause)) {
         seenCauses.add(cause);
         const [serialisedError, nextCause] = serialiseSingleError(cause);
-        if (!/(?:\.{3}|[.!?])$/.test(serialisedError.message)) serialisedError.message += '.';
-        serialisedErrors.push(redactSerialisedError(serialisedError));
+        // Redact before punctuating: a redacted email address swallows a full stop that follows it.
+        const redactedError = redactSerialisedError(serialisedError);
+        if (!/(?:\.{3}|[.!?])$/.test(redactedError.message)) redactedError.message += '.';
+        serialisedErrors.push(redactedError);
         cause = nextCause;
     }
     return serialisedErrors;
