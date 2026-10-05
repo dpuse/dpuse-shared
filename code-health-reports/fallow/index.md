@@ -48,23 +48,24 @@
 
 **Average maintainability index:** 93.4/100
 
-### Hotspots (11 files, since 6 months)
+### Hotspots (12 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/locale/index.ts` | 59.2 | 23 | 293 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 32.3 | 9 | 237 | 0.30 | 2 | accelerating |
 | `src/utilities/index.ts` | 30.9 | 14 | 340 | 0.32 | 1 | cooling |
-| `src/errors/index.ts` | 27.0 | 8 | 231 | 0.30 | 2 | accelerating |
 | `src/component/module/connector/index.ts` | 16.2 | 30 | 960 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 14.1 | 17 | 201 | 0.09 | 16 | stable |
 | `scripts/documentEncodings.ts` | 12.5 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 12.1 | 3 | 169 | 0.23 | 0 | cooling |
 | `src/component/module/tool/index.ts` | 9.2 | 9 | 74 | 0.11 | 3 | accelerating |
 | `src/component/dataView/index.ts` | 8.7 | 14 | 614 | 0.08 | 3 | cooling |
 | `src/encoding/index.ts` | 7.1 | 8 | 474 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.6 | 28 | 178 | 0.02 | 0 | stable |
 | `src/schema.ts` | 4.9 | 5 | 24 | 0.18 | 5 | cooling |
 
-*2 files excluded (< 3 commits)*
+*1 file excluded (< 3 commits)*
 
 ### Refactoring Targets (1)
 

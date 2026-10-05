@@ -1,15 +1,15 @@
 {
-  "version": "1.0.109",
+  "version": "1.0.112",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.110",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.110.tgz",
+      "version": "1.0.112",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.112.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.106",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.106.tgz",
+          "version": "1.0.110",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.110.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {

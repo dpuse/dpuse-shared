@@ -120,7 +120,7 @@ The tests in `tests/encoding/samples.test.ts` check every file against this tabl
 The `chardet` folder holds the test files from [chardet](https://github.com/runk/node-chardet), copyright 2024 Dmitry Shirokov, under the MIT licence in `chardet/LICENSE`:
 
 - `encodings/` — chardet's [unit-test files](https://github.com/runk/node-chardet/tree/master/src/test/data/encodings), 44 files.
-- `corpus/` — chardet's [corpus](https://github.com/runk/node-chardet/tree/master/corpus), copied whole: its README, manifests, source texts (`sources.json`, `test-sources.json`) and the generated files under `generated/<encoding>/<language>/<train|validation|test>/`. 138 of the generated files are a source document's title and text, encoded, so their decoding is checked against that text. The rest are copies of the unit-test files.
+- `corpus/` — chardet's [corpus](https://github.com/runk/node-chardet/tree/master/corpus), copied apart from `generated/ngrams.mjs`, a statistics file chardet builds its models from: its README, manifests, source texts (`sources.json`, `test-sources.json`) and the generated files under `generated/<encoding>/<language>/<train|validation|test>/`. 138 of the generated files are a source document's title and text, encoded, so their decoding is checked against that text. The rest are copies of the unit-test files.
 - `samples.json` — ours, not chardet's: each file's true encoding, its source document where it has one, and what jschardet detects.
 
 The tests run the same checks as for our own samples. With jschardet 4.0.0, of 216 files 144 are detected exactly, 61 as a sister encoding that gives the same text, and 11 wrong:
