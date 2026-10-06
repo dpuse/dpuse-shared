@@ -26,7 +26,8 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
         expect(Object.keys(ENCODING_TYPE_CONFIG_MAP)).toHaveLength(jschardetEncodings.length);
     });
 
-    // Node follows the same Encoding Standard as browsers. Real browsers are checked by hand with 'npm run check:browsers'.
+    // Node accepts the same encoding names as browsers, though it decodes a few characters differently (see
+    // 'samples.test.ts'). Real browsers are checked by hand with 'npm run check:browsers'.
     it('decodes only with names TextDecoder takes as its own', () => {
         for (const { decoderId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (decoderId != null) expect(new TextDecoder(decoderId).encoding).toBe(decoderId);
     });
@@ -97,6 +98,21 @@ describe('getEncodingTypeConfigs', () => {
 
 // jschardet does not export its encoding list, so it is read from its own files: every encoding it knows, under the
 // name 'detect' reports (which renames many, e.g. 'cp1252' to 'Windows-1252'), with the browser name it maps it to.
+//
+// TODO: Stop reading jschardet's internal files once it exports what this needs. In jschardet 4.0.0, this loads three
+// build files by absolute path, because the package's 'exports' only opens its main entry: 'registry.js'
+// ('REGISTRY', every encoding it knows), 'output_names.js' ('_COMPAT_NAMES', the names 'detect' reports) and
+// 'encoding-whatwg-map.js' ('ENCODING_WHATWG_MAP', the browser name for each). If an upgrade moves or renames any of
+// them, this test fails loudly at the import or the destructuring rather than passing quietly: update the file and
+// variable names here, or switch to a public export if jschardet has added one. Worth asking jschardet
+// (https://github.com/aadsm/jschardet) to export its encoding list and names.
+//
+// TODO: Report to jschardet that its 'detect' ignores the 'compatNames' option. In jschardet 4.0.0, 'DetectOptions'
+// declares 'compatNames', but the public 'detect' in 'build/index.js' passes only 'includeEncodings' and
+// 'excludeEncodings' to its internal 'detect', so it always returns the renamed display names, e.g. 'Windows-1252'
+// rather than 'cp1252'. Found in October 2026. The encoding table's ids are therefore those display names. If a fixed
+// version is used with 'compatNames: false', the table's ids, the sample manifests and the previewer would all need
+// the internal names instead, so keep relying on the display names unless that change is made everywhere.
 async function listJschardetEncodings(): Promise<{ browserName: string | null; name: string }[]> {
     const buildFolderPath = path.dirname(createRequire(import.meta.url).resolve('jschardet'));
     const loadBuildFile = async <T>(fileName: string): Promise<T> => (await import(pathToFileURL(path.join(buildFolderPath, fileName)).href)) as T;

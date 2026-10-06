@@ -6,8 +6,8 @@ import { describe, expect, it } from 'vitest';
 
 import { ENCODING_TYPE_CONFIG_MAP, isEncodingTypeId, resolveDecoderId } from '@/encoding';
 
-// Two sets of sample files, each with a manifest recording what jschardet detects for every file, so a jschardet upgrade
-// that detects any of them differently fails here. See 'tests/fixtures/encodings/README.md'.
+// Two sets of sample files, each with a manifest recording what jschardet detects for every file, so a jschardet
+// upgrade that detects any of them differently fails here. See 'tests/fixtures/encodings/README.md'.
 interface Sample {
     detectedId: string | null;
     encodingId: string; // The table's id, or chardet's name for an encoding the table does not have.
@@ -30,8 +30,13 @@ interface ChardetTestSources {
 
 const FIXTURES_URL = new URL('../fixtures/encodings/', import.meta.url);
 
-// Node's 'TextDecoder' lacks the Korean extension characters browsers decode as part of 'euc-kr' (CP949), e.g. '똠'.
-// Chrome decodes these files correctly; Node does not yet, so their decoding runs as an expected failure.
+// TODO: Remove a file from this list once Node decodes it correctly. Node's 'TextDecoder' lacks the Korean extension
+// characters (Unified Hangul Code, the CP949 additions) that browsers decode as part of 'euc-kr', so it misreads
+// them: the bytes 0x8C 0x63 0x94 0xEE, '똠뷁', come out as U+008C 'c' U+0094 U+FFFD instead. Chrome 154 decodes them
+// correctly; Node 24.16 (ICU 78.3) does not, as found in October 2026. Python's 'cp949' codec agrees with Chrome.
+// Until Node is fixed, each listed file's decoding runs as an expected failure, so the run starts failing (by
+// passing) when Node catches up, prompting its removal here. Only the app's browser decoding matters, so this gap
+// affects these tests alone.
 const NODE_DECODING_GAPS = new Set(['corpus/generated/CP949/ko/train/workshop.bin']);
 const CHARDET_URL = new URL('chardet/', FIXTURES_URL);
 
