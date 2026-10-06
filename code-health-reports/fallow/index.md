@@ -52,18 +52,18 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 59.2 | 23 | 293 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 32.3 | 9 | 237 | 0.30 | 2 | accelerating |
-| `src/utilities/index.ts` | 30.9 | 14 | 340 | 0.32 | 1 | cooling |
-| `src/component/module/connector/index.ts` | 16.2 | 30 | 960 | 0.06 | 2 | cooling |
-| `src/component/index.ts` | 14.1 | 17 | 201 | 0.09 | 16 | stable |
-| `scripts/documentEncodings.ts` | 12.5 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 12.1 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/module/tool/index.ts` | 9.2 | 9 | 74 | 0.11 | 3 | accelerating |
-| `src/component/dataView/index.ts` | 8.7 | 14 | 614 | 0.08 | 3 | cooling |
-| `src/encoding/index.ts` | 7.1 | 8 | 474 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 5.6 | 28 | 178 | 0.02 | 0 | stable |
-| `src/schema.ts` | 4.9 | 5 | 24 | 0.18 | 5 | cooling |
+| `src/locale/index.ts` | 55.7 | 23 | 293 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 30.4 | 9 | 237 | 0.30 | 2 | accelerating |
+| `src/utilities/index.ts` | 29.0 | 14 | 340 | 0.32 | 1 | cooling |
+| `src/component/module/connector/index.ts` | 15.2 | 30 | 960 | 0.06 | 2 | cooling |
+| `src/component/index.ts` | 13.3 | 17 | 201 | 0.09 | 16 | stable |
+| `scripts/documentEncodings.ts` | 11.8 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 11.3 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/module/tool/index.ts` | 8.6 | 9 | 74 | 0.11 | 3 | accelerating |
+| `src/component/dataView/index.ts` | 8.1 | 14 | 614 | 0.08 | 3 | cooling |
+| `src/encoding/index.ts` | 6.7 | 8 | 474 | 0.07 | 2 | accelerating |
+| `vite.config.ts` | 5.6 | 29 | 180 | 0.02 | 0 | stable |
+| `src/schema.ts` | 4.6 | 5 | 24 | 0.18 | 5 | cooling |
 
 *1 file excluded (< 3 commits)*
 
@@ -71,7 +71,7 @@
 
 | Efficiency | Category | Effort / Confidence | File | Recommendation |
 |:-----------|:---------|:--------------------|:-----|:---------------|
-| 15.3 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 4 dependents amplify every change |
+| 14.9 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 4 dependents amplify every change |
 
 ---
 

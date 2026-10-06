@@ -1,15 +1,15 @@
 {
-  "version": "1.0.112",
+  "version": "1.0.115",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.112",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.112.tgz",
+      "version": "1.0.113",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.113.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.110",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.110.tgz",
+          "version": "1.0.113",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.113.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -1692,7 +1692,7 @@
                   "overridden": false
                 },
                 "source-map-js": {
-                  "version": "1.2.1"
+                  "version": "1.2.2"
                 }
               }
             },
@@ -2143,8 +2143,8 @@
               }
             },
             "source-map-js": {
-              "version": "1.2.1",
-              "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz",
+              "version": "1.2.2",
+              "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz",
               "overridden": false
             }
           }
@@ -3096,19 +3096,19 @@
               }
             },
             "vite": {
-              "version": "8.3.2"
+              "version": "8.3.3"
             },
             "webpack": {}
           }
         },
         "vite": {
-          "version": "8.3.2"
+          "version": "8.3.3"
         }
       }
     },
     "vite": {
-      "version": "8.3.2",
-      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.2.tgz",
+      "version": "8.3.3",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.3.tgz",
       "overridden": false,
       "dependencies": {
         "@types/node": {
@@ -3169,7 +3169,7 @@
               "overridden": false
             },
             "source-map-js": {
-              "version": "1.2.1"
+              "version": "1.2.2"
             }
           }
         },
@@ -3311,7 +3311,7 @@
             },
             "msw": {},
             "vite": {
-              "version": "8.3.2"
+              "version": "8.3.3"
             }
           }
         },
@@ -3368,7 +3368,7 @@
           "version": "0.2.17"
         },
         "vite": {
-          "version": "8.3.2"
+          "version": "8.3.3"
         },
         "why-is-node-running": {
           "version": "3.2.1",
