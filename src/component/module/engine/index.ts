@@ -28,6 +28,7 @@ export interface EngineWorker {
 
 export interface EngineInitialiseOptions {
     connectorStorageURLPrefix: string;
+    isLogged: boolean; // Informational console messages. The engine is prebuilt, so it cannot tell a dev app from a prod one.
     toolConfigs: ToolConfig[];
 }
 

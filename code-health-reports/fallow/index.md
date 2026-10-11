@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2534 |
+| Total LOC | 2535 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 100, module scopes: 2, templates: 0 |
@@ -52,7 +52,7 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 55.7 | 23 | 293 | 0.36 | 4 | cooling |
+| `src/locale/index.ts` | 55.6 | 23 | 293 | 0.36 | 4 | cooling |
 | `src/errors/index.ts` | 30.4 | 9 | 237 | 0.30 | 2 | accelerating |
 | `src/utilities/index.ts` | 29.0 | 14 | 340 | 0.32 | 1 | cooling |
 | `src/component/module/connector/index.ts` | 15.2 | 30 | 960 | 0.06 | 2 | cooling |
@@ -93,7 +93,7 @@
 - **Effort**: estimated effort (low / medium / high) based on file size, function count, and fan-in
 - **Confidence**: recommendation reliability (high = deterministic analysis, medium = heuristic, low = git-dependent)
 
-[Full metric reference](https://docs.fallow.tools/explanations/metrics)
+[Full metric reference](https://fallow.tools/docs/explanations/health/)
 
 </details>
 

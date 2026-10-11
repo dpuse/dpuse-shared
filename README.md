@@ -3,7 +3,7 @@
 <!-- OPENING_START -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared?color=cb3837&label=npm)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
+[![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-shared?label=npm)](https://www.npmjs.com/package/@dpuse/dpuse-shared)
 [![CI](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml)
 
 Common constants, types and utilities used across DPUse projects.
@@ -227,7 +227,7 @@ License data is updated each time `npm run document` is run, using [license-chec
 
 The dependency tree below shows how each package in the table above is reached — direct and transitive — along with its installed version, release date, and update status. A package that does not ship itself, such as one whose parts are bundled separately, is left out and what ships beneath it is shown in its place. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
-- **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — this month: 2026-09-09
+- **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — 1 mth ago: 2026-09-09
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -239,18 +239,20 @@ This report is updated with each release, from the bundle the release builds, us
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                                           | Composition                                 |
-| :-------------------------------------------------------------------------- | :------------------------------------------ |
-| **dist/dpuse-shared.es.js**                                                 | 35.1 kB · gzip 9.2 kB · 100.0% of the build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                                 | `█████████████░░░░░░░` 65.6% · 23.0 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░` 55.7% · 19.5 kB      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 3.4% · 1.2 kB        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░` 2.6% · 936 B         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░` 4.0% · 1.4 kB        |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░` 20.0% · 7.0 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░` 14.3% · 5.0 kB       |
+| Chunk/Module/File                                                           | Composition                                                                                   |
+| :-------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **dist/dpuse-shared.es.js**                                                 | 35.1&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;9.2&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 9 more                             | `█████████████░░░░░░░`&nbsp;65.6%&nbsp;·&nbsp;23.0&nbsp;kB                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░`&nbsp;55.7%&nbsp;·&nbsp;19.5&nbsp;kB                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;3.4%&nbsp;·&nbsp;1.2&nbsp;kB                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;2.6%&nbsp;·&nbsp;936&nbsp;B                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;4.0%&nbsp;·&nbsp;1.4&nbsp;kB                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░`&nbsp;20.0%&nbsp;·&nbsp;7.0&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░`&nbsp;14.3%&nbsp;·&nbsp;5.0&nbsp;kB                                     |
 
 Bars show each row's share of its output file. ↳ rows are part of the row above.
+
+- n more = the row also holds n more files from the same package or folder, each no larger than the one named. A package can appear under several output files, each holding different files, never the same file twice.
 
 (bundler output, whitespace & JSON) = bytes Sonda can't trace to a source file: whitespace (indentation and line breaks), code the bundler generates (region comments, the combined import/export lines, its small runtime helper and wrappers), and imported JSON such as `config.json`, which the bundler doesn't map. The JSON and the generated code are real bytes that ship; the whitespace mostly disappears once compressed.
 
