@@ -313,10 +313,15 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`convertODataTypeIdToUsageTypeId`**`(oDataTypeId: string)`
 - **`extractExtensionFromPath`**`(itemPath: string)`
-- **`extractNameFromPath`**`(itemPath: string)`
+- **`extractPathWithoutExtension`**`(itemPath: string)`
 - **`formatNumberAsDecimalNumber`**`(number?: number, decimalPlaces?: number, minimumFractionDigits?: number, locale?: string)`
-- **`formatNumberAsDuration`**`(number?: number, stopAt?: DurationLevel)`
-- **`formatNumberAsSize`**`(number?: number, decimalPlaces?: number)`
-- **`formatNumberAsStorageSize`**`(number?: number, decimalPlaces?: number)`
+- **`formatNumberAsDuration`**`(number?: number, stopAt?: DurationUnit, locale?: string)`
+- **`formatNumberAsSize`**`(number?: number, decimalPlaces?: number, locale?: string)`
+- **`formatNumberAsStorageSize`**`(number?: number, decimalPlaces?: number, locale?: string)`
 - **`formatNumberAsWholeNumber`**`(number?: number, locale?: string)`
 - **`lookupMimeTypeForExtension`**`(extension?: string)`
+
+#### Types
+
+- **`DurationUnit`**
+- **`UsageTypeId`**

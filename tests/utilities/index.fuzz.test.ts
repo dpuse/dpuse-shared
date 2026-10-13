@@ -1,7 +1,7 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 
-import { extractExtensionFromPath, extractNameFromPath } from '@/utilities';
+import { extractExtensionFromPath, extractPathWithoutExtension } from '@/utilities';
 
 // Property-based tests: fast-check generates many random paths per property, including dotfiles, trailing dots and
 // dots in parent folders.
@@ -12,7 +12,7 @@ describe('path extraction (property-based)', () => {
     it('rebuilds the original path from its name and extension', () => {
         fc.assert(
             fc.property(pathArbitrary, (itemPath) => {
-                const name = extractNameFromPath(itemPath);
+                const name = extractPathWithoutExtension(itemPath);
                 const extension = extractExtensionFromPath(itemPath);
 
                 expect(extension === undefined ? name : `${String(name)}.${extension}`).toBe(itemPath === '' ? undefined : itemPath);

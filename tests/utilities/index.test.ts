@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
     convertODataTypeIdToUsageTypeId,
     extractExtensionFromPath,
-    extractNameFromPath,
+    extractPathWithoutExtension,
     formatNumberAsDecimalNumber,
     formatNumberAsDuration,
     formatNumberAsSize,
@@ -41,35 +41,48 @@ describe('convertODataTypeIdToUsageTypeId', () => {
         expect(convertODataTypeIdToUsageTypeId(oDataTypeId)).toBe(usageTypeId);
     });
 
+    it.each([
+        ['Edm.Date', 'moment'],
+        ['Edm.TimeOfDay', 'momentTime'],
+        ['Edm.Duration', 'unknown']
+    ])('maps OData v4 type %s to %s', (oDataTypeId, usageTypeId) => {
+        expect(convertODataTypeIdToUsageTypeId(oDataTypeId)).toBe(usageTypeId);
+    });
+
     it('falls back to unknown for unsupported odata types', () => {
         expect(convertODataTypeIdToUsageTypeId('Edm.Stream')).toBe('unknown');
     });
 });
 
-describe('extractNameFromPath', () => {
+describe('extractPathWithoutExtension', () => {
     it('keeps dots in parent directories when extracting the basename without extension', () => {
-        expect(extractNameFromPath('dir.with.dot/file.txt')).toBe('dir.with.dot/file');
+        expect(extractPathWithoutExtension('dir.with.dot/file.txt')).toBe('dir.with.dot/file');
     });
 
     it('treats a leading basename dot as part of a dotfile name', () => {
-        expect(extractNameFromPath('.gitignore')).toBe('.gitignore');
-        expect(extractNameFromPath('dir/.env')).toBe('dir/.env');
+        expect(extractPathWithoutExtension('.gitignore')).toBe('.gitignore');
+        expect(extractPathWithoutExtension('dir/.env')).toBe('dir/.env');
     });
 
     it('returns the full path when the basename has no extension', () => {
-        expect(extractNameFromPath('dir.with.dot/file')).toBe('dir.with.dot/file');
+        expect(extractPathWithoutExtension('dir.with.dot/file')).toBe('dir.with.dot/file');
     });
 
     it('removes the extension from a simple filename', () => {
-        expect(extractNameFromPath('file.txt')).toBe('file');
+        expect(extractPathWithoutExtension('file.txt')).toBe('file');
     });
 
     it('still extracts an extension from a dotfile with an extra suffix', () => {
-        expect(extractNameFromPath('.config.json')).toBe('.config');
+        expect(extractPathWithoutExtension('.config.json')).toBe('.config');
     });
 });
 
 describe('extractExtensionFromPath', () => {
+    it('does not treat a trailing dot as an empty extension', () => {
+        expect(extractExtensionFromPath('dir/file.')).toBeUndefined();
+        expect(extractPathWithoutExtension('dir/file.')).toBe('dir/file.');
+    });
+
     it('ignores dots in parent directories when extracting the extension', () => {
         expect(extractExtensionFromPath('dir.with.dot/file.txt')).toBe('txt');
     });
@@ -104,6 +117,10 @@ describe('formatNumberAsDecimalNumber', () => {
     it('honors custom minimum and maximum fraction digits', () => {
         expect(formatNumberAsDecimalNumber(1234.5, 3, 3)).toBe('1,234.500');
     });
+
+    it('lowers a minimum fraction digits above the decimal places instead of throwing', () => {
+        expect(formatNumberAsDecimalNumber(1.25, 1, 2)).toBe('1.3');
+    });
 });
 
 describe('formatNumberAsWholeNumber', () => {
@@ -129,8 +146,19 @@ describe('formatNumberAsSize', () => {
         expect(formatNumberAsSize(1_000_000_000_000)).toBe('1T');
     });
 
-    it('returns an empty string for nullish values', () => {
+    it('rounds before choosing the unit', () => {
+        expect(formatNumberAsSize(999_999)).toBe('1M');
+    });
+
+    it('formats negative values and follows the locale', () => {
+        expect(formatNumberAsSize(-5000)).toBe('-5K');
+        expect(formatNumberAsSize(1_500_000, 1, 'es')).toBe('1,5\u{A0}M');
+    });
+
+    it('returns an empty string for nullish and non-finite values', () => {
         expect(formatNumberAsSize()).toBe('');
+        expect(formatNumberAsSize(NaN)).toBe('');
+        expect(formatNumberAsSize(Infinity)).toBe('');
     });
 });
 
@@ -141,33 +169,55 @@ describe('formatNumberAsStorageSize', () => {
     });
 
     it('switches to storage units at binary thresholds', () => {
-        expect(formatNumberAsStorageSize(1024)).toBe('1 KB');
-        expect(formatNumberAsStorageSize(1536)).toBe('1.5 KB');
+        expect(formatNumberAsStorageSize(1024)).toBe('1 kB');
+        expect(formatNumberAsStorageSize(1536)).toBe('1.5 kB');
         expect(formatNumberAsStorageSize(1_048_576)).toBe('1 MB');
         expect(formatNumberAsStorageSize(1_073_741_824)).toBe('1 GB');
         expect(formatNumberAsStorageSize(1_099_511_627_776)).toBe('1 TB');
     });
 
-    it('returns an empty string for nullish values', () => {
+    it('rounds before choosing the unit', () => {
+        expect(formatNumberAsStorageSize(1023.9)).toBe('1 kB');
+        expect(formatNumberAsStorageSize(1_048_575)).toBe('1 MB');
+    });
+
+    it('returns an empty string for nullish and non-finite values', () => {
         expect(formatNumberAsStorageSize()).toBe('');
+        expect(formatNumberAsStorageSize(NaN)).toBe('');
     });
 });
 
 describe('formatNumberAsDuration', () => {
-    it('returns an empty string for nullish values', () => {
+    it('returns an empty string for nullish and non-finite values', () => {
         expect(formatNumberAsDuration()).toBe('');
+        expect(formatNumberAsDuration(NaN)).toBe('');
+        expect(formatNumberAsDuration(Infinity)).toBe('');
+    });
+
+    it('rounds to whole milliseconds before splitting into units', () => {
+        expect(formatNumberAsDuration(999.6)).toBe('1 sec');
+        expect(formatNumberAsDuration(59_999.6)).toBe('1 min');
+        expect(formatNumberAsDuration(0.4)).toBe('0 ms');
+    });
+
+    it('puts the sign of a negative duration on the first part only', () => {
+        expect(formatNumberAsDuration(-90_000)).toBe('-1 min 30 sec');
+    });
+
+    it('follows the locale', () => {
+        expect(formatNumberAsDuration(5_400_000, 'millisecond', 'es')).toBe('1 h 30 min');
     });
 
     it('stops at the requested level, dropping the finer units', () => {
-        expect(formatNumberAsDuration(90_500, 'secs')).toBe('1 min 30 secs'); // Default would add '500 ms'.
-        expect(formatNumberAsDuration(5_400_000, 'mins')).toBe('1 hr 30 mins');
-        expect(formatNumberAsDuration(108_000_000, 'hrs')).toBe('1 day 6 hrs');
-        expect(formatNumberAsDuration(108_000_000, 'days')).toBe('1 day');
+        expect(formatNumberAsDuration(90_500, 'second')).toBe('1 min 30 sec'); // Default would add '500 ms'.
+        expect(formatNumberAsDuration(5_400_000, 'minute')).toBe('1 hr 30 min');
+        expect(formatNumberAsDuration(108_000_000, 'hour')).toBe('1 day 6 hr');
+        expect(formatNumberAsDuration(108_000_000, 'day')).toBe('1 day');
     });
 
     it('still picks a sensible single unit for values below the requested level', () => {
-        expect(formatNumberAsDuration(5000, 'days')).toBe('5 secs');
-        expect(formatNumberAsDuration(500, 'days')).toBe('500 ms');
+        expect(formatNumberAsDuration(5000, 'day')).toBe('5 sec');
+        expect(formatNumberAsDuration(500, 'day')).toBe('500 ms');
     });
 
     it('formats durations across unit boundaries', () => {
@@ -175,11 +225,11 @@ describe('formatNumberAsDuration', () => {
         expect(formatNumberAsDuration(1000)).toBe('1 sec');
         expect(formatNumberAsDuration(1500)).toBe('1 sec 500 ms');
         expect(formatNumberAsDuration(60_000)).toBe('1 min');
-        expect(formatNumberAsDuration(90_000)).toBe('1 min 30 secs');
+        expect(formatNumberAsDuration(90_000)).toBe('1 min 30 sec');
         expect(formatNumberAsDuration(3_600_000)).toBe('1 hr');
-        expect(formatNumberAsDuration(5_400_000)).toBe('1 hr 30 mins');
+        expect(formatNumberAsDuration(5_400_000)).toBe('1 hr 30 min');
         expect(formatNumberAsDuration(86_400_000)).toBe('1 day');
-        expect(formatNumberAsDuration(108_000_000)).toBe('1 day 6 hrs');
+        expect(formatNumberAsDuration(108_000_000)).toBe('1 day 6 hr');
     });
 });
 

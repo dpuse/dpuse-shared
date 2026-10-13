@@ -15,8 +15,8 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2535 |
-| Avg Cyclomatic | 2.7 |
+| Total LOC | 2544 |
+| Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 100, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
@@ -33,7 +33,7 @@
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
 | `scripts/documentEncodings.ts` | 95.8 | 0 | 0 | 0% | 0.18 | 20.0 |
-| `src/utilities/index.ts` | 90.4 | 1 | 0 | 0% | 0.32 | 16.0 |
+| `src/utilities/index.ts` | 91.6 | 1 | 0 | 0% | 0.28 | 17.0 |
 | `src/errors/index.ts` | 91.0 | 2 | 0 | 0% | 0.30 | 13.8 |
 | `src/component/dataView/index.ts` | 92.1 | 3 | 3 | 0% | 0.08 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
@@ -54,7 +54,7 @@
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/locale/index.ts` | 55.6 | 23 | 293 | 0.36 | 4 | cooling |
 | `src/errors/index.ts` | 30.4 | 9 | 237 | 0.30 | 2 | accelerating |
-| `src/utilities/index.ts` | 29.0 | 14 | 340 | 0.32 | 1 | cooling |
+| `src/utilities/index.ts` | 25.4 | 14 | 340 | 0.28 | 1 | cooling |
 | `src/component/module/connector/index.ts` | 15.2 | 30 | 960 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 13.3 | 17 | 201 | 0.09 | 16 | stable |
 | `scripts/documentEncodings.ts` | 11.8 | 4 | 68 | 0.18 | 0 | cooling |
