@@ -15,55 +15,57 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2544 |
+| Total LOC | 2567 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 100, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 101, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.5% |
 | Dead Exports | 0.0% |
-| Maintainability (avg) | 93.4 |
+| Maintainability (avg) | 93.3 |
 | Hotspots (since 6 months) | 1 |
 | Circular Deps | 0 |
 | Unused Deps | 1 |
 
 
-### File Health Scores (13 files)
+### File Health Scores (14 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
 | `scripts/documentEncodings.ts` | 95.8 | 0 | 0 | 0% | 0.18 | 20.0 |
 | `src/utilities/index.ts` | 91.6 | 1 | 0 | 0% | 0.28 | 17.0 |
-| `src/errors/index.ts` | 91.0 | 2 | 0 | 0% | 0.30 | 13.8 |
+| `src/errors/index.ts` | 91.0 | 3 | 0 | 0% | 0.30 | 13.8 |
 | `src/component/dataView/index.ts` | 92.1 | 3 | 3 | 0% | 0.08 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
 | `src/component/module/connector/index.ts` | 89.4 | 2 | 8 | 0% | 0.06 | 8.0 |
 | `src/locale/index.ts` | 86.4 | 4 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/index.ts` | 92.9 | 16 | 2 | 0% | 0.09 | 4.0 |
-| `src/component/module/tool/index.ts` | 91.5 | 3 | 3 | 0% | 0.11 | 3.0 |
+| `src/component/module/tool/index.ts` | 91.5 | 4 | 3 | 0% | 0.11 | 3.0 |
 | `src/encoding/index.ts` | 95.1 | 2 | 1 | 0% | 0.07 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 12 | 0 | 0% | 0.12 | 3.0 |
+| `src/component/module/presenter/index.ts` | 91.6 | 1 | 5 | 0% | 0.04 | 2.0 |
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 5 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 93.4/100
+**Average maintainability index:** 93.3/100
 
-### Hotspots (12 files, since 6 months)
+### Hotspots (13 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/locale/index.ts` | 55.6 | 23 | 293 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 30.4 | 9 | 237 | 0.30 | 2 | accelerating |
-| `src/utilities/index.ts` | 25.4 | 14 | 340 | 0.28 | 1 | cooling |
+| `src/errors/index.ts` | 30.4 | 9 | 237 | 0.30 | 3 | accelerating |
+| `src/utilities/index.ts` | 30.3 | 15 | 627 | 0.28 | 1 | cooling |
 | `src/component/module/connector/index.ts` | 15.2 | 30 | 960 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 13.3 | 17 | 201 | 0.09 | 16 | stable |
 | `scripts/documentEncodings.ts` | 11.8 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 11.3 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/module/tool/index.ts` | 8.6 | 9 | 74 | 0.11 | 3 | accelerating |
+| `src/component/module/tool/index.ts` | 8.6 | 9 | 74 | 0.11 | 4 | accelerating |
 | `src/component/dataView/index.ts` | 8.1 | 14 | 614 | 0.08 | 3 | cooling |
 | `src/encoding/index.ts` | 6.7 | 8 | 474 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.6 | 29 | 180 | 0.02 | 0 | stable |
 | `src/schema.ts` | 4.6 | 5 | 24 | 0.18 | 5 | cooling |
+| `src/component/module/presenter/index.ts` | 4.2 | 14 | 125 | 0.04 | 1 | stable |
 
 *1 file excluded (< 3 commits)*
 

@@ -204,6 +204,10 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 ### Component › Module › Presenter
 
+#### Functions
+
+- **`loadPresenter`**`(presenterConfig: PresenterConfig, toolConfigs: ToolConfig[], colorModeId: string)`
+
 #### Schemas
 
 - **`presenterConfigSchema`**

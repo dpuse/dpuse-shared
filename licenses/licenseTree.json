@@ -1,15 +1,15 @@
 {
-  "version": "1.0.118",
+  "version": "1.0.119",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.123",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.123.tgz",
+      "version": "1.0.124",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.124.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.116",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.116.tgz",
+          "version": "1.0.119",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.119.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -1138,8 +1138,8 @@
           }
         },
         "npm-check-updates": {
-          "version": "23.1.0",
-          "resolved": "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-23.1.0.tgz",
+          "version": "23.1.1",
+          "resolved": "https://registry.npmjs.org/npm-check-updates/-/npm-check-updates-23.1.1.tgz",
           "overridden": false
         },
         "spdx-satisfies": {

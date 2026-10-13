@@ -2,7 +2,9 @@
 import type { InferOutput } from 'valibot';
 
 // ── DPUse Framework
+import { AppError } from '@/errors';
 import { LocalisedReference } from '@/locale';
+import type { ToolConfig } from '@/component/module/tool';
 import type { Component, ComponentReferenceConfig } from '@/component';
 import type { presenterActionNameSchema, presenterConfigSchema } from './presenterConfig.schema';
 
@@ -25,3 +27,24 @@ export type PresenterActionName = InferOutput<typeof presenterActionNameSchema>;
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
 export type PresenterConfig = InferOutput<typeof presenterConfigSchema>;
+
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/presenters';
+
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// The upload folder is the presenter's id without its 'dpuse-presenter-' prefix, as dpuse-development publishes it.
+export async function loadPresenter(presenterConfig: PresenterConfig, toolConfigs: ToolConfig[], colorModeId: string): Promise<PresenterInterface> {
+    const presenterName = presenterConfig.id;
+    const presenterId = presenterName.split('-').slice(2).join('-');
+    const url = `${LOAD_URL_PREFIX}/${presenterId}_v${presenterConfig.version}/${presenterName}.es.js`;
+    try {
+        const presenterModule = (await import(/* @vite-ignore */ url)) as { Presenter: new (toolConfigs: ToolConfig[], colorModeId: string) => PresenterInterface };
+        return new presenterModule.Presenter(toolConfigs, colorModeId);
+    } catch (error) {
+        // A bare import rejection names neither the presenter nor the version, so they are attached here.
+        const data = { presenterName, url, version: presenterConfig.version };
+        throw new AppError(`Failed to load presenter '${presenterName}' v${presenterConfig.version}.`, 'dpuse-shared.component.module.presenter.loadPresenter', data, { cause: error });
+    }
+}
