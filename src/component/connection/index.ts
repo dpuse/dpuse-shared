@@ -18,6 +18,14 @@ export interface ConnectionConfig extends ComponentInstanceConfig {
     notation: string | undefined;
 }
 
+// One connection saved in a user's account by signing in to a connector. A connector can have several, one per account
+// at the provider, up to its implementation's 'maxConnectionCount'.
+export interface AccountConnectionConfig {
+    connectorId: string;
+    externalAccountId: string | undefined; // The account at the provider, e.g. Dropbox's 'account_id'.
+    id: string;
+}
+
 // ── Types - Configuration - Authorisation ────────────────────────────────────────────────────────────────────────────
 
 // TODO: Proof of concept for testing, not fully implemented. Tokens must not live in a connection config, which is saved,

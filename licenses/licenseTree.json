@@ -1,6 +1,9 @@
 {
-  "version": "1.0.119",
+  "version": "1.0.120",
   "name": "@dpuse/dpuse-shared",
+  "problems": [
+    "invalid: katex@0.18.11 /Users/jonathanterrell/DPUse/GitHub/dpuse-shared/node_modules/katex"
+  ],
   "dependencies": {
     "@dpuse/dpuse-development": {
       "version": "1.0.124",
@@ -2106,13 +2109,17 @@
                   "version": "1.1.0"
                 },
                 "katex": {
-                  "version": "0.16.47",
-                  "resolved": "https://registry.npmjs.org/katex/-/katex-0.16.47.tgz",
+                  "version": "0.18.11",
+                  "resolved": "https://registry.npmjs.org/katex/-/katex-0.18.11.tgz",
                   "overridden": false,
+                  "invalid": "\"^0.16.0\" from node_modules/micromark-extension-math",
+                  "problems": [
+                    "invalid: katex@0.18.11 /Users/jonathanterrell/DPUse/GitHub/dpuse-shared/node_modules/katex"
+                  ],
                   "dependencies": {
                     "commander": {
-                      "version": "8.3.0",
-                      "resolved": "https://registry.npmjs.org/commander/-/commander-8.3.0.tgz",
+                      "version": "15.0.0",
+                      "resolved": "https://registry.npmjs.org/commander/-/commander-15.0.0.tgz",
                       "overridden": false
                     }
                   }
@@ -4422,5 +4429,10 @@
         }
       }
     }
+  },
+  "error": {
+    "code": "ELSPROBLEMS",
+    "summary": "invalid: katex@0.18.11 /Users/jonathanterrell/DPUse/GitHub/dpuse-shared/node_modules/katex",
+    "detail": ""
   }
 }
