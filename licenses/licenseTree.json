@@ -1,19 +1,19 @@
 {
-  "version": "1.0.121",
+  "version": "1.0.124",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.124",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.124.tgz",
+      "version": "1.0.125",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.125.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.119",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.119.tgz",
+          "version": "1.0.122",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.122.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
-              "version": "22.1.1"
+              "version": "22.2.0"
             },
             "valibot": {
               "version": "1.5.0"
@@ -3834,13 +3834,13 @@
       }
     },
     "file-type": {
-      "version": "22.1.1",
-      "resolved": "https://registry.npmjs.org/file-type/-/file-type-22.1.1.tgz",
+      "version": "22.2.0",
+      "resolved": "https://registry.npmjs.org/file-type/-/file-type-22.2.0.tgz",
       "overridden": false,
       "dependencies": {
         "@tokenizer/inflate": {
-          "version": "0.4.1",
-          "resolved": "https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.4.1.tgz",
+          "version": "0.5.1",
+          "resolved": "https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.5.1.tgz",
           "overridden": false,
           "dependencies": {
             "debug": {
@@ -3852,8 +3852,8 @@
           }
         },
         "strtok3": {
-          "version": "10.3.5",
-          "resolved": "https://registry.npmjs.org/strtok3/-/strtok3-10.3.5.tgz",
+          "version": "10.5.0",
+          "resolved": "https://registry.npmjs.org/strtok3/-/strtok3-10.5.0.tgz",
           "overridden": false,
           "dependencies": {
             "@tokenizer/token": {
@@ -3884,8 +3884,8 @@
           }
         },
         "uint8array-extras": {
-          "version": "1.5.0",
-          "resolved": "https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.5.0.tgz",
+          "version": "1.6.0",
+          "resolved": "https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.6.0.tgz",
           "overridden": false
         }
       }

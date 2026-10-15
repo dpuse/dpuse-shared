@@ -29,7 +29,7 @@ describe('loadPresenter', () => {
     it('names the presenter, version and upload folder when the module cannot be imported', async () => {
         const presenterConfig = buildPresenterConfig('dpuse-presenter-broken-samples', '9.9.9');
 
-        await expect(loadPresenter(presenterConfig, [], 'light')).rejects.toMatchObject({
+        await expect(loadPresenter(presenterConfig, [], 'light', (html) => html)).rejects.toMatchObject({
             data: {
                 presenterName: 'dpuse-presenter-broken-samples',
                 url: 'https://engine-eu.dpuse.app/presenters/broken-samples_v9.9.9/dpuse-presenter-broken-samples.es.js',

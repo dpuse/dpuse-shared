@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2575 |
+| Total LOC | 2584 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 101, module scopes: 2, templates: 0 |
@@ -43,7 +43,7 @@
 | `src/component/module/tool/index.ts` | 91.5 | 4 | 3 | 0% | 0.11 | 3.0 |
 | `src/encoding/index.ts` | 95.1 | 2 | 1 | 0% | 0.07 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 12 | 0 | 0% | 0.12 | 3.0 |
-| `src/component/module/presenter/index.ts` | 91.6 | 1 | 5 | 0% | 0.04 | 2.0 |
+| `src/component/module/presenter/index.ts` | 91.9 | 1 | 5 | 0% | 0.03 | 2.0 |
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 5 | 0 | 0% | 0.18 | 1.0 |
 
@@ -53,9 +53,9 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 55.7 | 23 | 293 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 30.4 | 9 | 237 | 0.30 | 3 | accelerating |
+| `src/locale/index.ts` | 55.6 | 23 | 293 | 0.36 | 4 | cooling |
 | `src/utilities/index.ts` | 30.3 | 15 | 627 | 0.28 | 1 | cooling |
+| `src/errors/index.ts` | 30.3 | 9 | 237 | 0.30 | 3 | accelerating |
 | `src/component/module/connector/index.ts` | 15.2 | 30 | 960 | 0.06 | 2 | cooling |
 | `src/component/index.ts` | 13.3 | 17 | 201 | 0.09 | 16 | stable |
 | `scripts/documentEncodings.ts` | 11.8 | 4 | 68 | 0.18 | 0 | cooling |
@@ -64,8 +64,8 @@
 | `src/component/dataView/index.ts` | 8.1 | 14 | 614 | 0.08 | 3 | cooling |
 | `src/encoding/index.ts` | 6.7 | 8 | 474 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.6 | 29 | 180 | 0.02 | 0 | stable |
-| `src/component/module/presenter/index.ts` | 4.9 | 15 | 148 | 0.04 | 1 | stable |
 | `src/schema.ts` | 4.6 | 5 | 24 | 0.18 | 5 | cooling |
+| `src/component/module/presenter/index.ts` | 3.7 | 15 | 148 | 0.03 | 1 | stable |
 
 *1 file excluded (< 3 commits)*
 

@@ -35,13 +35,22 @@ const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/presenters';
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // The upload folder is the presenter's id without its 'dpuse-presenter-' prefix, as dpuse-development publishes it.
-export async function loadPresenter(presenterConfig: PresenterConfig, toolConfigs: ToolConfig[], colorModeId: string): Promise<PresenterInterface> {
+// The app passes its own HTML sanitiser, so a presenter does not bundle a second copy of DOMPurify, which would create a
+// second 'dompurify' Trusted Types policy.
+export async function loadPresenter(
+    presenterConfig: PresenterConfig,
+    toolConfigs: ToolConfig[],
+    colorModeId: string,
+    sanitizeHTML: (html: string) => string
+): Promise<PresenterInterface> {
     const presenterName = presenterConfig.id;
     const presenterId = presenterName.split('-').slice(2).join('-');
     const url = `${LOAD_URL_PREFIX}/${presenterId}_v${presenterConfig.version}/${presenterName}.es.js`;
     try {
-        const presenterModule = (await import(/* @vite-ignore */ url)) as { Presenter: new (toolConfigs: ToolConfig[], colorModeId: string) => PresenterInterface };
-        return new presenterModule.Presenter(toolConfigs, colorModeId);
+        const presenterModule = (await import(/* @vite-ignore */ url)) as {
+            Presenter: new (toolConfigs: ToolConfig[], colorModeId: string, sanitizeHTML: (html: string) => string) => PresenterInterface;
+        };
+        return new presenterModule.Presenter(toolConfigs, colorModeId, sanitizeHTML);
     } catch (error) {
         // A bare import rejection names neither the presenter nor the version, so they are attached here.
         const data = { presenterName, url, version: presenterConfig.version };

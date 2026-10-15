@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "1.0.124",
+    "version": "1.0.125",
     "private": false,
     "description": "Common constants, types and utilities used across DPUse projects.",
     "license": "MIT",
@@ -60,7 +60,7 @@
         "check:browsers": "node scripts/checkBrowserDecoding.ts"
     },
     "dependencies": {
-        "file-type": "^22.1.1",
+        "file-type": "^22.2.0",
         "valibot": "^1.5.0"
     },
     "devDependencies": {
