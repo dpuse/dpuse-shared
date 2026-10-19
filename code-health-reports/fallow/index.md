@@ -15,10 +15,10 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2584 |
+| Total LOC | 2616 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 101, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 103, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.5% |
 | Dead Exports | 0.0% |
@@ -37,7 +37,7 @@
 | `src/errors/index.ts` | 91.0 | 3 | 0 | 0% | 0.30 | 13.8 |
 | `src/component/dataView/index.ts` | 92.1 | 3 | 3 | 0% | 0.08 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
-| `src/component/module/connector/index.ts` | 89.4 | 2 | 8 | 0% | 0.06 | 8.0 |
+| `src/component/module/connector/index.ts` | 89.1 | 2 | 8 | 0% | 0.07 | 8.0 |
 | `src/locale/index.ts` | 86.4 | 4 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/index.ts` | 92.9 | 16 | 2 | 0% | 0.09 | 4.0 |
 | `src/component/module/tool/index.ts` | 91.5 | 4 | 3 | 0% | 0.11 | 3.0 |
@@ -56,7 +56,7 @@
 | `src/locale/index.ts` | 55.6 | 23 | 293 | 0.36 | 4 | cooling |
 | `src/utilities/index.ts` | 30.3 | 15 | 627 | 0.28 | 1 | cooling |
 | `src/errors/index.ts` | 30.3 | 9 | 237 | 0.30 | 3 | accelerating |
-| `src/component/module/connector/index.ts` | 15.2 | 30 | 960 | 0.06 | 2 | cooling |
+| `src/component/module/connector/index.ts` | 17.8 | 30 | 960 | 0.07 | 2 | cooling |
 | `src/component/index.ts` | 13.3 | 17 | 201 | 0.09 | 16 | stable |
 | `scripts/documentEncodings.ts` | 11.8 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 11.3 | 3 | 169 | 0.23 | 0 | cooling |
@@ -65,9 +65,24 @@
 | `src/encoding/index.ts` | 6.7 | 8 | 474 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.6 | 29 | 180 | 0.02 | 0 | stable |
 | `src/schema.ts` | 4.6 | 5 | 24 | 0.18 | 5 | cooling |
-| `src/component/module/presenter/index.ts` | 3.7 | 15 | 148 | 0.03 | 1 | stable |
+| `src/component/module/presenter/index.ts` | 4.2 | 16 | 163 | 0.03 | 1 | stable |
 
 *1 file excluded (< 3 commits)*
+
+### Hidden Change Coupling (8 pairs, since 12 months)
+
+| File A | File B | Degree | Shared | Commits A | Commits B | Strong |
+|:-------|:-------|:-------|:-------|:----------|:----------|:-------|
+| `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 7 | 11 | **strong** |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 53% | 8 | 19 | 11 | **strong** |
+| `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 43% | 5 | 7 | 16 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 38% | 7 | 30 | 7 |  |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 38% | 5 | 19 | 7 |  |
+| `src/component/connection/index.ts` | `src/component/module/tool/index.ts` | 36% | 5 | 19 | 9 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/presenter/index.ts` | 35% | 8 | 30 | 16 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 34% | 7 | 30 | 11 |  |
+
+*Files that change together in the commit history with no import between them.*
 
 ### Refactoring Targets (1)
 

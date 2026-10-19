@@ -11,6 +11,8 @@ import type {
     connectorActionNameSchema,
     connectorCategoryConfigSchema,
     connectorConfigSchema,
+    connectorItemTypeConfigSchema,
+    connectorItemTypeIdSchema,
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
@@ -63,6 +65,10 @@ export interface ConnectorUtilities {
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
+
+type ConnectorItemTypeConfig = InferOutput<typeof connectorItemTypeConfigSchema>;
+
+export type ConnectorItemTypeId = InferOutput<typeof connectorItemTypeIdSchema>;
 
 type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 
@@ -222,6 +228,12 @@ const CONNECTOR_CATEGORY_CONFIGS: { id: string; label: LocaleLabel }[] = [
     { id: 'fileStore', label: { en: 'File Store', es: 'Almacén de Archivos' } }
 ];
 
+const CONNECTOR_ITEM_TYPE_CONFIGS: { id: string; label: LocaleLabel }[] = [
+    { id: 'apiEndpoint', label: { en: 'API Endpoint', es: 'Endpoint de API' } },
+    { id: 'file', label: { en: 'File', es: 'Archivo' } },
+    { id: 'table', label: { en: 'Table', es: 'Tabla' } }
+];
+
 const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     abortOperation: 'Abort Operation',
     auditObjectContent: 'Audit Object Content',
@@ -285,6 +297,16 @@ export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_
         const labelMap = createLabelMap(connectorCategory.label);
         const localizedLabel = resolveLabel(labelMap, localeId);
         return { label: localizedLabel ?? connectorCategory.id, description: '' };
+    }
+    return { label: id, description: '' };
+};
+
+export const constructConnectorItemTypeConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorItemTypeConfig> => {
+    const connectorItemType = CONNECTOR_ITEM_TYPE_CONFIGS.find((connectorItemType) => connectorItemType.id === id);
+    if (connectorItemType) {
+        const labelMap = createLabelMap(connectorItemType.label);
+        const localizedLabel = resolveLabel(labelMap, localeId);
+        return { label: localizedLabel ?? connectorItemType.id, description: '' };
     }
     return { label: id, description: '' };
 };

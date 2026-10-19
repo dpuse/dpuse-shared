@@ -2,7 +2,7 @@ import { safeParse } from 'valibot';
 import { describe, expect, it } from 'vitest';
 
 import { connectorUsageIdSchema } from '@/component/module/connector/connectorConfig.schema';
-import { constructConnectorCategoryConfig, constructConnectorUsageConfig, determineConnectorUsageId, getConnectorActionsTable } from '@/component/module/connector';
+import { constructConnectorCategoryConfig, constructConnectorItemTypeConfig, constructConnectorUsageConfig, determineConnectorUsageId, getConnectorActionsTable } from '@/component/module/connector';
 
 describe('determineConnectorUsageId', () => {
     it('returns source when only source actions are implemented', () => {
@@ -40,6 +40,17 @@ describe('constructConnectorCategoryConfig', () => {
 
     it('uses the id as the label for an unknown category', () => {
         expect(constructConnectorCategoryConfig('nonsense')).toEqual({ label: 'nonsense', description: '' });
+    });
+});
+
+describe('constructConnectorItemTypeConfig', () => {
+    it('localizes a known item type', () => {
+        expect(constructConnectorItemTypeConfig('apiEndpoint')).toEqual({ label: 'API Endpoint', description: '' });
+        expect(constructConnectorItemTypeConfig('table', 'es')).toEqual({ label: 'Tabla', description: '' });
+    });
+
+    it('uses the id as the label for an unknown item type', () => {
+        expect(constructConnectorItemTypeConfig('nonsense')).toEqual({ label: 'nonsense', description: '' });
     });
 });
 

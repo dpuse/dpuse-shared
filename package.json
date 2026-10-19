@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "1.0.125",
+    "version": "1.0.126",
     "private": false,
     "description": "Common constants, types and utilities used across DPUse projects.",
     "license": "MIT",
@@ -65,11 +65,11 @@
     },
     "devDependencies": {
         "@dpuse/dpuse-development": "^1.0.125",
-        "@dpuse/eslint-config-dpuse": "^1.0.139",
+        "@dpuse/eslint-config-dpuse": "^1.0.141",
         "@types/node": "^26.6.5",
-        "@vitest/coverage-v8": "^5.0.4",
-        "eslint": "^10.12.0",
-        "fallow": "^3.33.1",
+        "@vitest/coverage-v8": "^5.0.5",
+        "eslint": "^10.13.0",
+        "fallow": "^3.34.1",
         "fast-check": "^4.10.2",
         "jschardet": "^4.0.0",
         "prettier": "^3.9.10",
@@ -77,6 +77,6 @@
         "typescript": "^6.0.3",
         "vite": "^8.3.4",
         "vite-plugin-dts": "^5.1.2",
-        "vitest": "^5.0.4"
+        "vitest": "^5.0.5"
     }
 }

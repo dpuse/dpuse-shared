@@ -40,6 +40,15 @@ export const connectorCategoryConfigSchema = strictObject({
     label: localeLabelSchema
 });
 
+// ── Schemas - Item Type ──────────────────────────────────────────────────────────────────────────────────────────────
+
+// The kind of item a connector's connections hold, which names the item a data view is built from.
+export const connectorItemTypeIdSchema = literalUnion(['apiEndpoint', 'file', 'table']);
+
+export const connectorItemTypeConfigSchema = strictObject({
+    label: localeLabelSchema
+});
+
 // ── Schemas - Usage ──────────────────────────────────────────────────────────────────────────────────────────────────
 
 export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']); // Connector data pipeline usage identifiers.
@@ -74,6 +83,7 @@ export const connectorConfigSchema = strictObject({
     category: nullable(connectorCategoryConfigSchema),
     categoryId: connectorCategoryIdSchema,
     implementations: record(string(), connectorImplementationSchema),
+    itemTypeId: connectorItemTypeIdSchema,
     usage: nullable(connectorUsageConfigSchema),
     usageId: nullable(connectorUsageIdSchema)
 });

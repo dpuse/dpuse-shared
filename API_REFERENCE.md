@@ -141,6 +141,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 #### Functions
 
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
+- **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
@@ -157,6 +158,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ConnectorConfig`** (inferred from `connectorConfigSchema`, extends `ModuleConfig`)
 - **`ConnectorConstructor`**
 - **`ConnectorInterface`** (extends `Component`)
+- **`ConnectorItemTypeId`** (inferred from `connectorItemTypeIdSchema`)
 - **`ConnectorUsageId`** (inferred from `connectorUsageIdSchema`)
 - **`ConnectorUtilities`**
 - **`CreateObjectOptions`** (extends `EngineConnectorActionOptions`)
