@@ -14,7 +14,7 @@ type DataViewInterface = Component;
 
 export interface DataViewConfig extends ComponentInstanceConfig {
     typeId: 'dataView';
-    connectionId: string | undefined;
+    connectionId: string; // Always set, because a data view is only saved once its connection is chosen.
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     previewConfig: PreviewConfig | undefined;
     contentAuditConfig: ContentAuditConfig | undefined;

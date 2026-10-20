@@ -56,7 +56,7 @@
 | `src/locale/index.ts` | 53.4 | 20 | 230 | 0.36 | 4 | cooling |
 | `src/utilities/index.ts` | 31.9 | 15 | 627 | 0.28 | 1 | cooling |
 | `src/errors/index.ts` | 31.9 | 9 | 237 | 0.30 | 3 | accelerating |
-| `src/component/module/connector/index.ts` | 19.1 | 28 | 377 | 0.07 | 2 | cooling |
+| `src/component/module/connector/index.ts` | 19.0 | 28 | 377 | 0.07 | 2 | cooling |
 | `scripts/documentEncodings.ts` | 12.4 | 4 | 68 | 0.18 | 0 | cooling |
 | `src/component/index.ts` | 12.3 | 13 | 114 | 0.09 | 16 | accelerating |
 | `scripts/checkBrowserDecoding.ts` | 11.9 | 3 | 169 | 0.23 | 0 | cooling |
