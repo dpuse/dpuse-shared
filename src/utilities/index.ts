@@ -6,6 +6,21 @@ type StorageUnit = 'byte' | 'kilobyte' | 'megabyte' | 'gigabyte' | 'terabyte';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── File Extensions ─ Files that cannot be read as data, or whose format is not read yet. A file picker shows them
+// but does not offer them. An extension missing from the list is not a promise that the file can be read: only a
+// preview of its content can tell.
+const UNSUPPORTED_FILE_EXTENSIONS = new Set(
+    Object.values({
+        archives: ['7z', 'bz2', 'gz', 'rar', 'tar', 'tgz', 'xz', 'zip'],
+        audio: ['aac', 'flac', 'm4a', 'mp3', 'ogg', 'wav'],
+        documents: ['doc', 'docx', 'key', 'numbers', 'odp', 'odt', 'pages', 'pdf', 'ppt', 'pptx', 'rtf'],
+        images: ['bmp', 'gif', 'heic', 'ico', 'jpeg', 'jpg', 'png', 'psd', 'svg', 'tif', 'tiff', 'webp'],
+        programs: ['app', 'bin', 'dll', 'dmg', 'exe', 'iso', 'msi', 'so'],
+        unreadDataFormats: ['arrow', 'avro', 'db', 'ods', 'parquet', 'por', 'sav', 'sqlite', 'xls', 'xlsm', 'xlsx', 'xltm', 'xltx'], // Data formats not read yet.
+        video: ['avi', 'm4v', 'mkv', 'mov', 'mp4', 'webm', 'wmv']
+    }).flat()
+);
+
 // ── Locale
 const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en';
 
@@ -110,6 +125,11 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
 }
 
 // ── Lookup
+// Extensions arrive from file names as typed, so 'REPORT.PDF' must resolve the same as 'report.pdf'.
+export function isUnsupportedFileExtension(extension?: string): boolean {
+    return extension != null && UNSUPPORTED_FILE_EXTENSIONS.has(extension.toLowerCase());
+}
+
 export function lookupMimeTypeForExtension(extension?: string): string {
     // Extensions arrive from file names as typed, so 'REPORT.CSV' must resolve the same as 'report.csv'.
     switch (extension?.toLowerCase()) {

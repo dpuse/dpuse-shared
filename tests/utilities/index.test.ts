@@ -9,6 +9,7 @@ import {
     formatNumberAsSize,
     formatNumberAsStorageSize,
     formatNumberAsWholeNumber,
+    isUnsupportedFileExtension,
     lookupMimeTypeForExtension
 } from '@/utilities';
 
@@ -230,6 +231,25 @@ describe('formatNumberAsDuration', () => {
         expect(formatNumberAsDuration(5_400_000)).toBe('1 hr 30 min');
         expect(formatNumberAsDuration(86_400_000)).toBe('1 day');
         expect(formatNumberAsDuration(108_000_000)).toBe('1 day 6 hr');
+    });
+});
+
+describe('isUnsupportedFileExtension', () => {
+    it('reports extensions that cannot be read as data', () => {
+        expect(isUnsupportedFileExtension('pdf')).toBe(true);
+        expect(isUnsupportedFileExtension('png')).toBe(true);
+        expect(isUnsupportedFileExtension('xlsx')).toBe(true);
+    });
+
+    it('leaves readable and unknown extensions open to a preview', () => {
+        expect(isUnsupportedFileExtension('csv')).toBe(false);
+        expect(isUnsupportedFileExtension('md')).toBe(false);
+        expect(isUnsupportedFileExtension('dat')).toBe(false);
+        expect(isUnsupportedFileExtension()).toBe(false);
+    });
+
+    it('ignores the case of the extension', () => {
+        expect(isUnsupportedFileExtension('PDF')).toBe(true);
     });
 });
 
