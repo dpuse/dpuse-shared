@@ -326,6 +326,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`formatNumberAsSize`**`(number?: number, decimalPlaces?: number, locale?: string)`
 - **`formatNumberAsStorageSize`**`(number?: number, decimalPlaces?: number, locale?: string)`
 - **`formatNumberAsWholeNumber`**`(number?: number, locale?: string)`
+- **`hasMimeTypeForExtension`**`(extension?: string)`
 - **`isUnsupportedFileExtension`**`(extension?: string)`
 - **`lookupMimeTypeForExtension`**`(extension?: string)`
 

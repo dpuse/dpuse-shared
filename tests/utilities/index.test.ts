@@ -9,6 +9,7 @@ import {
     formatNumberAsSize,
     formatNumberAsStorageSize,
     formatNumberAsWholeNumber,
+    hasMimeTypeForExtension,
     isUnsupportedFileExtension,
     lookupMimeTypeForExtension
 } from '@/utilities';
@@ -260,6 +261,10 @@ describe('lookupMimeTypeForExtension', () => {
         expect(lookupMimeTypeForExtension('csv')).toBe('text/csv');
         expect(lookupMimeTypeForExtension('tsv')).toBe('text/tab-separated-values');
         expect(lookupMimeTypeForExtension('xlsx')).toBe('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        expect(lookupMimeTypeForExtension('json')).toBe('application/json');
+        expect(lookupMimeTypeForExtension('md')).toBe('text/markdown');
+        expect(lookupMimeTypeForExtension('txt')).toBe('text/plain');
+        expect(lookupMimeTypeForExtension('xml')).toBe('application/xml');
     });
 
     it('ignores the case of the extension', () => {
@@ -268,7 +273,17 @@ describe('lookupMimeTypeForExtension', () => {
     });
 
     it('falls back to octet-stream for unsupported and missing extensions', () => {
-        expect(lookupMimeTypeForExtension('json')).toBe('application/octet-stream');
+        expect(lookupMimeTypeForExtension('pdf')).toBe('application/octet-stream');
         expect(lookupMimeTypeForExtension()).toBe('application/octet-stream');
+    });
+});
+
+describe('hasMimeTypeForExtension', () => {
+    it('tells a listed extension, in any case, from one that falls back to octet-stream', () => {
+        expect(hasMimeTypeForExtension('CSV')).toBe(true);
+        expect(hasMimeTypeForExtension('bin')).toBe(true);
+        expect(hasMimeTypeForExtension('pdf')).toBe(false);
+        expect(hasMimeTypeForExtension('constructor')).toBe(false);
+        expect(hasMimeTypeForExtension()).toBe(false);
     });
 });

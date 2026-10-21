@@ -21,6 +21,23 @@ const UNSUPPORTED_FILE_EXTENSIONS = new Set(
     }).flat()
 );
 
+// ── MIME Types ─ Content types by file extension, for the connectors and the sample data upload alike, so a file is
+// described the same way everywhere. Never with a charset: many sample files are deliberately not UTF-8, and a charset
+// would tell browsers how to decode them. An extension missing here is 'application/octet-stream'.
+const MIME_TYPES_BY_EXTENSION = new Map([
+    ['bin', 'application/octet-stream'],
+    ['csv', 'text/csv'],
+    ['json', 'application/json'],
+    ['md', 'text/markdown'],
+    ['spss', 'application/octet-stream'],
+    ['tab', 'text/tab-separated-values'],
+    ['tsv', 'text/tab-separated-values'],
+    ['txt', 'text/plain'],
+    ['xls', 'application/vnd.ms-excel'],
+    ['xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+    ['xml', 'application/xml']
+]);
+
 // ── Locale
 const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en';
 
@@ -130,21 +147,12 @@ export function isUnsupportedFileExtension(extension?: string): boolean {
     return extension != null && UNSUPPORTED_FILE_EXTENSIONS.has(extension.toLowerCase());
 }
 
+export function hasMimeTypeForExtension(extension?: string): boolean {
+    return extension != null && MIME_TYPES_BY_EXTENSION.has(extension.toLowerCase());
+}
+
 export function lookupMimeTypeForExtension(extension?: string): string {
-    // Extensions arrive from file names as typed, so 'REPORT.CSV' must resolve the same as 'report.csv'.
-    switch (extension?.toLowerCase()) {
-        case 'csv':
-            return 'text/csv';
-        case 'tab':
-        case 'tsv':
-            return 'text/tab-separated-values';
-        case 'xls':
-            return 'application/vnd.ms-excel';
-        case 'xlsx':
-            return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-        default:
-            return 'application/octet-stream';
-    }
+    return (extension == null ? undefined : MIME_TYPES_BY_EXTENSION.get(extension.toLowerCase())) ?? 'application/octet-stream';
 }
 
 // ── Data Type Conversion ─ Covers the primitive types of OData v2 and v4.
