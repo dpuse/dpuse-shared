@@ -10,7 +10,6 @@ import {
     formatNumberAsStorageSize,
     formatNumberAsWholeNumber,
     hasMimeTypeForExtension,
-    isUnsupportedFileExtension,
     lookupMimeTypeForExtension
 } from '@/utilities';
 
@@ -235,25 +234,6 @@ describe('formatNumberAsDuration', () => {
     });
 });
 
-describe('isUnsupportedFileExtension', () => {
-    it('reports extensions that cannot be read as data', () => {
-        expect(isUnsupportedFileExtension('pdf')).toBe(true);
-        expect(isUnsupportedFileExtension('png')).toBe(true);
-        expect(isUnsupportedFileExtension('xlsx')).toBe(true);
-    });
-
-    it('leaves readable and unknown extensions open to a preview', () => {
-        expect(isUnsupportedFileExtension('csv')).toBe(false);
-        expect(isUnsupportedFileExtension('md')).toBe(false);
-        expect(isUnsupportedFileExtension('dat')).toBe(false);
-        expect(isUnsupportedFileExtension()).toBe(false);
-    });
-
-    it('ignores the case of the extension', () => {
-        expect(isUnsupportedFileExtension('PDF')).toBe(true);
-    });
-});
-
 describe('lookupMimeTypeForExtension', () => {
     it('returns known mime types for supported extensions', () => {
         expect(lookupMimeTypeForExtension('tab')).toBe('text/tab-separated-values');
@@ -265,6 +245,15 @@ describe('lookupMimeTypeForExtension', () => {
         expect(lookupMimeTypeForExtension('md')).toBe('text/markdown');
         expect(lookupMimeTypeForExtension('txt')).toBe('text/plain');
         expect(lookupMimeTypeForExtension('xml')).toBe('application/xml');
+    });
+
+    it('returns mime types for data formats not read yet', () => {
+        expect(lookupMimeTypeForExtension('arrow')).toBe('application/vnd.apache.arrow.file');
+        expect(lookupMimeTypeForExtension('jsonl')).toBe('application/jsonl');
+        expect(lookupMimeTypeForExtension('ods')).toBe('application/vnd.oasis.opendocument.spreadsheet');
+        expect(lookupMimeTypeForExtension('parquet')).toBe('application/vnd.apache.parquet');
+        expect(lookupMimeTypeForExtension('sqlite')).toBe('application/vnd.sqlite3');
+        expect(lookupMimeTypeForExtension('xlsm')).toBe('application/vnd.ms-excel.sheet.macroEnabled.12');
     });
 
     it('ignores the case of the extension', () => {

@@ -15,15 +15,15 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2647 |
+| Total LOC | 2639 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 105, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 104, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.5% |
 | Dead Exports | 0.0% |
 | Maintainability (avg) | 93.4 |
-| Hotspots (since 6 months) | 1 |
+| Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 1 |
 
@@ -53,18 +53,18 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 52.9 | 18 | 221 | 0.36 | 4 | cooling |
-| `src/utilities/index.ts` | 37.9 | 15 | 642 | 0.25 | 1 | cooling |
-| `src/errors/index.ts` | 33.7 | 9 | 237 | 0.30 | 3 | accelerating |
-| `src/component/module/connector/index.ts` | 19.4 | 26 | 371 | 0.07 | 2 | cooling |
-| `scripts/documentEncodings.ts` | 13.1 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 12.6 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 12.5 | 12 | 110 | 0.09 | 16 | accelerating |
-| `src/component/dataView/index.ts` | 10.7 | 12 | 492 | 0.08 | 3 | stable |
-| `src/component/module/tool/index.ts` | 9.0 | 8 | 54 | 0.11 | 4 | accelerating |
-| `src/encoding/index.ts` | 7.1 | 7 | 439 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 5.4 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 4.1 | 12 | 101 | 0.03 | 1 | accelerating |
+| `src/locale/index.ts` | 46.1 | 13 | 174 | 0.36 | 4 | cooling |
+| `src/utilities/index.ts` | 37.3 | 13 | 619 | 0.25 | 1 | cooling |
+| `src/errors/index.ts` | 34.0 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/connector/index.ts` | 19.4 | 23 | 353 | 0.07 | 2 | stable |
+| `scripts/documentEncodings.ts` | 13.8 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 13.3 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 12.2 | 10 | 103 | 0.09 | 16 | accelerating |
+| `src/component/dataView/index.ts` | 11.8 | 10 | 433 | 0.08 | 3 | stable |
+| `src/component/module/tool/index.ts` | 8.9 | 7 | 46 | 0.11 | 4 | stable |
+| `src/encoding/index.ts` | 7.1 | 6 | 437 | 0.07 | 2 | accelerating |
+| `vite.config.ts` | 5.6 | 20 | 137 | 0.02 | 0 | stable |
+| `src/component/module/presenter/index.ts` | 4.0 | 10 | 94 | 0.03 | 1 | stable |
 
 *2 files excluded (< 3 commits)*
 
@@ -87,7 +87,7 @@
 
 | Efficiency | Category | Effort / Confidence | File | Recommendation |
 |:-----------|:---------|:--------------------|:-----|:---------------|
-| 14.5 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 4 dependents amplify every change |
+| 13.7 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 4 dependents amplify every change |
 
 ---
 

@@ -6,34 +6,29 @@ type StorageUnit = 'byte' | 'kilobyte' | 'megabyte' | 'gigabyte' | 'terabyte';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// ── File Extensions ─ Files that cannot be read as data, or whose format is not read yet. A file picker shows them
-// but does not offer them. An extension missing from the list is not a promise that the file can be read: only a
-// preview of its content can tell.
-const UNSUPPORTED_FILE_EXTENSIONS = new Set(
-    Object.values({
-        archives: ['7z', 'bz2', 'gz', 'rar', 'tar', 'tgz', 'xz', 'zip'],
-        audio: ['aac', 'flac', 'm4a', 'mp3', 'ogg', 'wav'],
-        documents: ['doc', 'docx', 'key', 'numbers', 'odp', 'odt', 'pages', 'pdf', 'ppt', 'pptx', 'rtf'],
-        images: ['bmp', 'gif', 'heic', 'ico', 'jpeg', 'jpg', 'png', 'psd', 'svg', 'tif', 'tiff', 'webp'],
-        programs: ['app', 'bin', 'dll', 'dmg', 'exe', 'iso', 'msi', 'so'],
-        unreadDataFormats: ['arrow', 'avro', 'db', 'ods', 'parquet', 'por', 'sav', 'sqlite', 'xls', 'xlsm', 'xlsx', 'xltm', 'xltx'], // Data formats not read yet.
-        video: ['avi', 'm4v', 'mkv', 'mov', 'mp4', 'webm', 'wmv']
-    }).flat()
-);
-
 // ── MIME Types ─ Content types by file extension, for the connectors and the sample data upload alike, so a file is
 // described the same way everywhere. Never with a charset: many sample files are deliberately not UTF-8, and a charset
 // would tell browsers how to decode them. An extension missing here is 'application/octet-stream'.
 const MIME_TYPES_BY_EXTENSION = new Map([
+    ['arrow', 'application/vnd.apache.arrow.file'],
+    ['avro', 'application/vnd.apache.avro'], // Not registered with IANA. Named as Apache's registered formats are.
     ['bin', 'application/octet-stream'],
+    ['cfb', 'application/x-cfb'], // As 'file-type' reports a Compound File Binary container.
     ['csv', 'text/csv'],
+    ['dat', 'application/octet-stream'], // The extension says nothing about the content.
     ['json', 'application/json'],
+    ['jsonl', 'application/jsonl'], // Not registered with IANA. The type the JSON Lines site and OpenAPI use.
     ['md', 'text/markdown'],
+    ['ods', 'application/vnd.oasis.opendocument.spreadsheet'],
+    ['parquet', 'application/vnd.apache.parquet'],
+    ['sav', 'application/x-spss-sav'], // Not registered with IANA. The type Apache Tika uses.
     ['spss', 'application/octet-stream'],
+    ['sqlite', 'application/vnd.sqlite3'],
     ['tab', 'text/tab-separated-values'],
     ['tsv', 'text/tab-separated-values'],
     ['txt', 'text/plain'],
     ['xls', 'application/vnd.ms-excel'],
+    ['xlsm', 'application/vnd.ms-excel.sheet.macroEnabled.12'],
     ['xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
     ['xml', 'application/xml']
 ]);
@@ -143,10 +138,6 @@ export function extractExtensionFromPath(itemPath: string): string | undefined {
 
 // ── Lookup
 // Extensions arrive from file names as typed, so 'REPORT.PDF' must resolve the same as 'report.pdf'.
-export function isUnsupportedFileExtension(extension?: string): boolean {
-    return extension != null && UNSUPPORTED_FILE_EXTENSIONS.has(extension.toLowerCase());
-}
-
 export function hasMimeTypeForExtension(extension?: string): boolean {
     return extension != null && MIME_TYPES_BY_EXTENSION.has(extension.toLowerCase());
 }

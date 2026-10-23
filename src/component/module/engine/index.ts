@@ -11,6 +11,7 @@ import type { ToolConfig } from '@/component/module/tool';
 // TODO: Should this be interface?
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: LocaleId) => EncodingTypeConfigLocalised[];
+    // eslint-disable-next-line n/no-unsupported-features/node-builtins -- The browser's 'ErrorEvent', not Node's.
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;
 }
 
