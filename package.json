@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "1.0.130",
+    "version": "1.0.131",
     "private": false,
     "description": "Common constants, types and utilities used across DPUse projects.",
     "license": "MIT",

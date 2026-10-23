@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2646 |
+| Total LOC | 2647 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 105, module scopes: 2, templates: 0 |
@@ -54,8 +54,8 @@
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/locale/index.ts` | 52.9 | 18 | 221 | 0.36 | 4 | cooling |
+| `src/utilities/index.ts` | 37.9 | 15 | 642 | 0.25 | 1 | cooling |
 | `src/errors/index.ts` | 33.7 | 9 | 237 | 0.30 | 3 | accelerating |
-| `src/utilities/index.ts` | 32.7 | 14 | 606 | 0.25 | 1 | cooling |
 | `src/component/module/connector/index.ts` | 19.4 | 26 | 371 | 0.07 | 2 | cooling |
 | `scripts/documentEncodings.ts` | 13.1 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 12.6 | 3 | 169 | 0.23 | 0 | cooling |
@@ -64,7 +64,7 @@
 | `src/component/module/tool/index.ts` | 9.0 | 8 | 54 | 0.11 | 4 | accelerating |
 | `src/encoding/index.ts` | 7.1 | 7 | 439 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.4 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 4.2 | 13 | 110 | 0.03 | 1 | accelerating |
+| `src/component/module/presenter/index.ts` | 4.1 | 12 | 101 | 0.03 | 1 | accelerating |
 
 *2 files excluded (< 3 commits)*
 

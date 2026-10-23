@@ -53,7 +53,7 @@ export interface PreviewConfig {
     valueTrimMethodId?: ValueTrimMethodId | undefined; // TODO: under review.
 }
 
-export type DataFormatId = 'dpe' | 'dtv' | 'json' | 'markdown' | 'spss' | 'text' | 'xlsx' | 'xml' | 'unknown';
+export type DataFormatId = 'dpe' | 'dtv' | 'json' | 'jsonl' | 'markdown' | 'spss' | 'text' | 'xlsx' | 'xml' | 'unknown';
 
 export type ParsingRecord = ParsingResult[];
 
@@ -183,6 +183,7 @@ const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
     { id: 'dpe', labels: createLabelMap({ en: 'Data Positioning Events' }) },
     { id: 'dtv', labels: createLabelMap({ en: 'Delimited Text' }) },
     { id: 'json', labels: createLabelMap({ en: 'JSON' }) },
+    { id: 'jsonl', labels: createLabelMap({ en: 'JSON Lines' }) },
     { id: 'markdown', labels: createLabelMap({ en: 'Markdown' }) },
     { id: 'spss', labels: createLabelMap({ en: 'SPSS' }) },
     { id: 'text', labels: createLabelMap({ en: 'Plain Text' }) },
