@@ -174,6 +174,7 @@ export interface ListNodesResult {
 export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     extension: string | undefined;
+    mimeType: string | undefined; // The type the connection's listing gave the item, if any.
     path: string;
 }
 
