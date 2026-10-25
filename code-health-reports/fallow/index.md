@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2745 |
+| Total LOC | 2747 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 104, module scopes: 2, templates: 0 |
