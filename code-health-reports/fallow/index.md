@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2640 |
+| Total LOC | 2662 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 104, module scopes: 2, templates: 0 |
@@ -53,10 +53,10 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 42.6 | 13 | 174 | 0.36 | 4 | cooling |
+| `src/locale/index.ts` | 42.7 | 13 | 174 | 0.36 | 4 | cooling |
 | `src/utilities/index.ts` | 39.6 | 14 | 648 | 0.25 | 1 | cooling |
 | `src/errors/index.ts` | 31.4 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/connector/index.ts` | 17.9 | 23 | 353 | 0.07 | 2 | stable |
+| `src/component/module/connector/index.ts` | 19.4 | 24 | 354 | 0.07 | 2 | stable |
 | `scripts/documentEncodings.ts` | 12.8 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 12.3 | 3 | 169 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 11.3 | 10 | 103 | 0.09 | 16 | accelerating |
@@ -75,11 +75,11 @@
 | `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 7 | 11 | **strong** |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 52% | 8 | 20 | 11 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 43% | 5 | 7 | 16 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 37% | 7 | 31 | 7 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 37% | 5 | 20 | 7 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 36% | 7 | 32 | 7 |  |
 | `src/component/connection/index.ts` | `src/component/module/tool/index.ts` | 36% | 5 | 19 | 9 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/presenter/index.ts` | 34% | 8 | 31 | 16 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 33% | 7 | 31 | 11 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/presenter/index.ts` | 33% | 8 | 32 | 16 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 33% | 7 | 32 | 11 |  |
 
 *Files that change together in the commit history with no import between them.*
 
