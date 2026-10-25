@@ -99,12 +99,14 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Constants
 
+- **`DATA_FORMAT_ICON_CONFIGS`**`: Record<Exclude<DataFormatId, 'unknown'>, DataFormatIconConfig>`
 - **`ORDERED_VALUE_DELIMITER_IDS`**`: ValueDelimiterId[]`
 
 #### Types
 
 - **`BooleanInferenceResult`**
 - **`ContentAuditConfig`**
+- **`DataFormatIconConfig`**
 - **`DataFormatId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**

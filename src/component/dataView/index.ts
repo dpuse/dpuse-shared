@@ -56,7 +56,6 @@ export interface PreviewConfig {
 export type DataFormatId =
     | 'arrow'
     | 'avro'
-    | 'dpe'
     | 'dtv'
     | 'json'
     | 'jsonl'
@@ -65,8 +64,6 @@ export type DataFormatId =
     | 'parquet'
     | 'sav'
     | 'sqlite'
-    | 'text'
-    | 'xlsm'
     | 'xlsx'
     | 'xml'
     | 'unknown';
@@ -195,21 +192,20 @@ interface UnknownInferenceResult {
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+export { DATA_FORMAT_ICON_CONFIGS, type DataFormatIconConfig } from './dataFormatIcons';
+
 const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
-    { id: 'arrow', labels: createLabelMap({ en: 'Apache Arrow' }) },
-    { id: 'avro', labels: createLabelMap({ en: 'Apache Avro' }) },
-    { id: 'dpe', labels: createLabelMap({ en: 'Data Positioning Events' }) },
-    { id: 'dtv', labels: createLabelMap({ en: 'Delimited Text' }) },
+    { id: 'arrow', labels: createLabelMap({ en: 'Arrow' }) },
+    { id: 'avro', labels: createLabelMap({ en: 'Avro' }) },
+    { id: 'dtv', labels: createLabelMap({ en: 'Delimited text' }) },
     { id: 'json', labels: createLabelMap({ en: 'JSON' }) },
-    { id: 'jsonl', labels: createLabelMap({ en: 'JSON Lines' }) },
-    { id: 'markdown', labels: createLabelMap({ en: 'Markdown' }) },
-    { id: 'ods', labels: createLabelMap({ en: 'OpenDocument Spreadsheet' }) },
-    { id: 'parquet', labels: createLabelMap({ en: 'Apache Parquet' }) },
-    { id: 'sav', labels: createLabelMap({ en: 'SPSS' }) },
+    { id: 'jsonl', labels: createLabelMap({ en: 'JSON Lines (JSONL)' }) },
+    { id: 'markdown', labels: createLabelMap({ en: 'Markdown (MD)' }) },
+    { id: 'ods', labels: createLabelMap({ en: 'OpenDocument spreadsheet (ODS)' }) },
+    { id: 'parquet', labels: createLabelMap({ en: 'Parquet' }) },
+    { id: 'sav', labels: createLabelMap({ en: 'SPSS (SAV)' }) },
     { id: 'sqlite', labels: createLabelMap({ en: 'SQLite' }) },
-    { id: 'text', labels: createLabelMap({ en: 'Plain Text' }) },
-    { id: 'xlsm', labels: createLabelMap({ en: 'XLSM' }) },
-    { id: 'xlsx', labels: createLabelMap({ en: 'XLSX' }) },
+    { id: 'xlsx', labels: createLabelMap({ en: 'Excel (XLSX, XLSM)' }) },
     { id: 'xml', labels: createLabelMap({ en: 'XML' }) }
 ];
 

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.135",
+  "version": "1.0.136",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -3237,13 +3237,13 @@
       }
     },
     "fallow": {
-      "version": "3.35.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.35.0.tgz",
+      "version": "3.36.0",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.36.0.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.35.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.35.0.tgz",
+          "version": "3.36.0",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.36.0.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
@@ -3259,10 +3259,11 @@
           "overridden": false
         },
         "fallow-type-aware": {
-          "version": "3.35.0",
-          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.35.0.tgz",
+          "version": "3.36.0",
+          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.36.0.tgz",
           "overridden": false,
           "dependencies": {
+            "tsrs": {},
             "typescript": {
               "version": "7.0.2",
               "resolved": "https://registry.npmjs.org/typescript/-/typescript-7.0.2.tgz",

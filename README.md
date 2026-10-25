@@ -239,16 +239,16 @@ This report is updated with each release, from the bundle the release builds, us
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                                           | Composition                                                                                   |
-| :-------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| **dist/dpuse-shared.es.js**                                                 | 37.0&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;9.7&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 9 more                             | `█████████████░░░░░░░`&nbsp;66.7%&nbsp;·&nbsp;24.7&nbsp;kB                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░`&nbsp;57.0%&nbsp;·&nbsp;21.1&nbsp;kB                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;3.3%&nbsp;·&nbsp;1.2&nbsp;kB                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.5%&nbsp;·&nbsp;936&nbsp;B                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 7 smaller files           | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;3.8%&nbsp;·&nbsp;1.4&nbsp;kB                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `████░░░░░░░░░░░░░░░░`&nbsp;19.0%&nbsp;·&nbsp;7.0&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░`&nbsp;14.4%&nbsp;·&nbsp;5.3&nbsp;kB                                     |
+| Chunk/Module/File                                                           | Composition                                                                                    |
+| :-------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| **dist/dpuse-shared.es.js**                                                 | 54.3&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;15.6&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 10 more                            | `███████████████░░░░░`&nbsp;77.0%&nbsp;·&nbsp;41.8&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒░░░░░░░░░░░░`&nbsp;38.7%&nbsp;·&nbsp;21.0&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ dataFormatIcons.ts        | `▒▒▒▒▒▒░░░░░░░░░░░░░░`&nbsp;31.7%&nbsp;·&nbsp;17.2&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.3%&nbsp;·&nbsp;1.2&nbsp;kB                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 8 smaller files           | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;4.3%&nbsp;·&nbsp;2.3&nbsp;kB                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `███░░░░░░░░░░░░░░░░░`&nbsp;12.9%&nbsp;·&nbsp;7.0&nbsp;kB                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `██░░░░░░░░░░░░░░░░░░`&nbsp;10.1%&nbsp;·&nbsp;5.5&nbsp;kB                                      |
 
 Bars show each row's share of its output file. ↳ rows are part of the row above.
 
