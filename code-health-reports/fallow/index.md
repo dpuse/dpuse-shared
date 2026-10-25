@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2662 |
+| Total LOC | 2663 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 104, module scopes: 2, templates: 0 |
@@ -53,18 +53,18 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/locale/index.ts` | 42.7 | 13 | 174 | 0.36 | 4 | cooling |
-| `src/utilities/index.ts` | 39.6 | 14 | 648 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 42.6 | 13 | 174 | 0.36 | 4 | cooling |
+| `src/utilities/index.ts` | 39.7 | 14 | 648 | 0.25 | 1 | cooling |
 | `src/errors/index.ts` | 31.4 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/connector/index.ts` | 19.4 | 24 | 354 | 0.07 | 2 | stable |
+| `src/component/module/connector/index.ts` | 19.0 | 23 | 352 | 0.07 | 2 | stable |
 | `scripts/documentEncodings.ts` | 12.8 | 4 | 68 | 0.18 | 0 | cooling |
+| `src/component/dataView/index.ts` | 12.6 | 11 | 459 | 0.08 | 3 | accelerating |
 | `scripts/checkBrowserDecoding.ts` | 12.3 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 11.3 | 10 | 103 | 0.09 | 16 | accelerating |
-| `src/component/dataView/index.ts` | 10.9 | 10 | 433 | 0.08 | 3 | stable |
+| `src/component/index.ts` | 10.9 | 9 | 101 | 0.09 | 16 | stable |
 | `src/component/module/tool/index.ts` | 8.3 | 7 | 46 | 0.11 | 4 | stable |
 | `src/encoding/index.ts` | 6.5 | 6 | 437 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 5.6 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 3.7 | 10 | 94 | 0.03 | 1 | stable |
+| `src/component/module/presenter/index.ts` | 3.5 | 9 | 92 | 0.03 | 1 | cooling |
 
 *2 files excluded (< 3 commits)*
 

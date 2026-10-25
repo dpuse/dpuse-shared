@@ -22,7 +22,6 @@ const MIME_TYPES_BY_EXTENSION = new Map([
     ['ods', 'application/vnd.oasis.opendocument.spreadsheet'],
     ['parquet', 'application/vnd.apache.parquet'],
     ['sav', 'application/x-spss-sav'], // Not registered with IANA. The type Apache Tika uses.
-    ['spss', 'application/octet-stream'],
     ['sqlite', 'application/vnd.sqlite3'],
     ['tab', 'text/tab-separated-values'],
     ['tsv', 'text/tab-separated-values'],

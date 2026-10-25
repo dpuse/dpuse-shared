@@ -16,7 +16,7 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -173,6 +173,8 @@ export interface ListNodesResult {
 
 export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
+    dataFormatId: DataFormatId | undefined; // A format the user chose, read in place of the one detected.
+    encodingId: string | undefined; // An encoding the user chose, decoded in place of the one detected.
     extension: string | undefined;
     mimeType: string | undefined; // The type the connection's listing gave the item, if any.
     path: string;
