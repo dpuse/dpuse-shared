@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2746 |
+| Total LOC | 2745 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 104, module scopes: 2, templates: 0 |
@@ -57,7 +57,7 @@
 | `src/locale/index.ts` | 40.5 | 13 | 174 | 0.36 | 4 | cooling |
 | `src/errors/index.ts` | 29.9 | 8 | 226 | 0.30 | 3 | stable |
 | `src/component/module/connector/index.ts` | 19.4 | 24 | 356 | 0.07 | 2 | stable |
-| `src/component/dataView/index.ts` | 13.5 | 12 | 485 | 0.08 | 4 | accelerating |
+| `src/component/dataView/index.ts` | 15.1 | 13 | 487 | 0.08 | 4 | accelerating |
 | `scripts/documentEncodings.ts` | 12.1 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 11.7 | 3 | 169 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 10.3 | 9 | 101 | 0.09 | 16 | stable |
