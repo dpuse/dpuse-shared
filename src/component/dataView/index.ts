@@ -57,10 +57,14 @@ export interface PreviewConfig {
 // One thing found while previewing an item. Not a failure: the preview still holds whatever was read, so the item can be
 // shown and read another way.
 export interface PreviewIssue {
+    endLineNumber?: number | undefined; // The last line it covers, when it runs over several, e.g. a quote never closed runs to where the parser gave up.
+    fieldNumber?: number | undefined; // The value within the record, counting from 1.
     id: string; // The parser's own code, e.g. 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
-    lineNumber: number | undefined; // The line of the text where it was found, counting from 1, when the parser says.
+    lineNumber: number | undefined; // The line of the text where it starts, counting from 1, when the parser says.
     message: string; // In English, as the parser gives it. The app shows its own wording for the ids it knows.
+    recordNumber?: number | undefined; // The record it is in, counting from 1, a header record included.
     severityId: PreviewIssueSeverityId;
+    value?: string | undefined; // The value or character at fault, cut short when long.
 }
 
 export type PreviewIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
