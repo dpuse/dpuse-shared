@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-10-26T12:56:40.288Z",
+    "generatedAt": "2026-10-26T14:21:24.403Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -30,8 +30,8 @@
       "kind": "asset",
       "name": "dist/dpuse-shared.es.js",
       "type": "script",
-      "uncompressed": 53743,
-      "gzip": 15639,
+      "uncompressed": 53738,
+      "gzip": 15635,
       "brotli": 0
     },
     {
@@ -177,15 +177,15 @@
       "name": "src/component/dataView/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 4372
+      "uncompressed": 4367
     },
     {
       "kind": "chunk",
       "name": "src/component/dataView/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 735,
-      "gzip": 303,
+      "uncompressed": 730,
+      "gzip": 300,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },

@@ -213,7 +213,7 @@ export { DATA_FORMAT_ICON_CONFIGS, type DataFormatIconConfig } from './dataForma
 const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
     { id: 'arrow', labels: createLabelMap({ en: 'Arrow' }) },
     { id: 'avro', labels: createLabelMap({ en: 'Avro' }) },
-    { id: 'dtv', labels: createLabelMap({ en: 'Delimited text (CSV, TAB, TSV…)' }) },
+    { id: 'dtv', labels: createLabelMap({ en: 'Delimited text (CSV, TSV…)' }) },
     { id: 'json', labels: createLabelMap({ en: 'JSON' }) },
     { id: 'jsonl', labels: createLabelMap({ en: 'JSON Lines (JSONL)' }) },
     { id: 'markdown', labels: createLabelMap({ en: 'Markdown (MD)' }) },
