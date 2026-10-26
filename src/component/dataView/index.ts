@@ -36,6 +36,7 @@ export interface PreviewConfig {
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
     inferenceRecords: InferenceRecord[];
+    issues?: PreviewIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
     linesToSkipAtStart?: number | undefined; // TODO: under review.
     parsedRecords: ParsingRecord[];
     quoteEscapeChar?: string | undefined; // TODO: under review.
@@ -52,6 +53,17 @@ export interface PreviewConfig {
     valueDelimiterOtherCharSeq?: string | undefined; // TODO: under review.
     valueTrimMethodId?: ValueTrimMethodId | undefined; // TODO: under review.
 }
+
+// One thing found while previewing an item. Not a failure: the preview still holds whatever was read, so the item can be
+// shown and read another way.
+export interface PreviewIssue {
+    id: string; // The parser's own code, e.g. 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
+    lineNumber: number | undefined; // The line of the text where it was found, counting from 1, when the parser says.
+    message: string; // In English, as the parser gives it. The app shows its own wording for the ids it knows.
+    severityId: PreviewIssueSeverityId;
+}
+
+export type PreviewIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
 
 export type DataFormatId =
     | 'arrow'

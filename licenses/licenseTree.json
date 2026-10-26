@@ -1,5 +1,5 @@
 {
-  "version": "1.0.141",
+  "version": "1.0.142",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -3369,8 +3369,8 @@
       }
     },
     "jschardet": {
-      "version": "4.0.0",
-      "resolved": "https://registry.npmjs.org/jschardet/-/jschardet-4.0.0.tgz",
+      "version": "4.1.0",
+      "resolved": "https://registry.npmjs.org/jschardet/-/jschardet-4.1.0.tgz",
       "overridden": false
     },
     "prettier": {
