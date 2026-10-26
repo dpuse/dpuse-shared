@@ -17,11 +17,11 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
     });
 
     // Fails when a jschardet upgrade adds, drops, renames or remaps an encoding, so the table never drifts from it.
-    it("holds exactly the encodings jschardet's 'detect' can report, each decoded with the browser name jschardet gives it", async () => {
+    it("holds exactly the encodings jschardet's 'detect' can report, in lower case, each decoded with the browser name jschardet gives it", async () => {
         const jschardetEncodings = await listJschardetEncodings();
 
         expect(Object.values(ENCODING_TYPE_CONFIG_MAP).map(({ decoderId, id }) => ({ decoderId, id }))).toEqual(
-            expect.arrayContaining(jschardetEncodings.map(({ browserName, name }) => ({ decoderId: browserName, id: name })))
+            expect.arrayContaining(jschardetEncodings.map(({ browserName, name }) => ({ decoderId: browserName, id: name.toLowerCase() })))
         );
         expect(Object.keys(ENCODING_TYPE_CONFIG_MAP)).toHaveLength(jschardetEncodings.length);
     });
@@ -35,8 +35,8 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
 
 describe('resolveDecoderId', () => {
     it('gives the browser name for an encoding browsers can decode', () => {
-        expect(resolveDecoderId('MacRoman')).toBe('macintosh');
-        expect(resolveDecoderId('CP932')).toBe('shift_jis');
+        expect(resolveDecoderId('macroman')).toBe('macintosh');
+        expect(resolveDecoderId('cp932')).toBe('shift_jis');
         expect(resolveDecoderId('utf-8')).toBe('utf-8');
     });
 
@@ -48,11 +48,11 @@ describe('resolveDecoderId', () => {
 
 describe('isEncodingTypeId', () => {
     it('accepts a known encoding id', () => {
-        expect(isEncodingTypeId('Windows-1252')).toBe(true);
+        expect(isEncodingTypeId('windows-1252')).toBe(true);
     });
 
-    it('rejects an unknown name, including an inherited object property', () => {
-        expect(isEncodingTypeId('windows-1252')).toBe(false);
+    it('rejects an unknown name, a name not in lower case, and an inherited object property', () => {
+        expect(isEncodingTypeId('Windows-1252')).toBe(false);
         expect(isEncodingTypeId('toString')).toBe(false);
     });
 });
@@ -68,7 +68,7 @@ describe('getEncodingTypeConfigs', () => {
         expect(encodingTypeConfigs.slice(0, 4).map((config) => [config.groupLabel, config.label])).toEqual([
             ['', 'ascii'],
             ['', 'utf-8'],
-            ['', 'UTF-8-SIG'],
+            ['', 'utf-8-sig'],
             ['Arabic', 'Arabic (cp1006)']
         ]);
 
@@ -84,9 +84,9 @@ describe('getEncodingTypeConfigs', () => {
     });
 
     it('translates the group but never the encoding id', () => {
-        const koi8r = getEncodingTypeConfigs('es').find((config) => config.id === 'KOI8-R');
+        const koi8r = getEncodingTypeConfigs('es').find((config) => config.id === 'koi8-r');
 
-        expect(koi8r).toMatchObject({ groupLabel: 'Cirílico', label: 'Cirílico (KOI8-R)' });
+        expect(koi8r).toMatchObject({ groupLabel: 'Cirílico', label: 'Cirílico (koi8-r)' });
     });
 
     it('labels an ungrouped encoding with its id alone', () => {
@@ -110,9 +110,10 @@ describe('getEncodingTypeConfigs', () => {
 // TODO: Report to jschardet that its 'detect' ignores the 'compatNames' option. In jschardet 4.0.0, 'DetectOptions'
 // declares 'compatNames', but the public 'detect' in 'build/index.js' passes only 'includeEncodings' and
 // 'excludeEncodings' to its internal 'detect', so it always returns the renamed display names, e.g. 'Windows-1252'
-// rather than 'cp1252'. Found in October 2026. The encoding table's ids are therefore those display names. If a fixed
-// version is used with 'compatNames: false', the table's ids, the sample manifests and the previewer would all need
-// the internal names instead, so keep relying on the display names unless that change is made everywhere.
+// rather than 'cp1252'. Found in October 2026. The encoding table's ids are therefore those display names, in lower
+// case. If a fixed version is used with 'compatNames: false', the table's ids, the sample manifests and the previewer
+// would all need the internal names instead, so keep relying on the display names unless that change is made
+// everywhere.
 async function listJschardetEncodings(): Promise<{ browserName: string | null; name: string }[]> {
     const buildFolderPath = path.dirname(createRequire(import.meta.url).resolve('jschardet'));
     const loadBuildFile = async <T>(fileName: string): Promise<T> => (await import(pathToFileURL(path.join(buildFolderPath, fileName)).href)) as T;

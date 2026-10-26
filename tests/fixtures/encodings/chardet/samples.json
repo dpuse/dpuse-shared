@@ -9,39 +9,39 @@
     },
     {
         "file": "encodings/big5",
-        "encodingId": "Big5",
+        "encodingId": "big5",
         "language": null,
         "document": null,
-        "detectedId": "Big5",
+        "detectedId": "big5",
         "isSameText": true
     },
     {
         "file": "encodings/euc_jp",
-        "encodingId": "EUC-JP",
+        "encodingId": "euc-jp",
         "language": null,
         "document": null,
-        "detectedId": "EUC-JP",
+        "detectedId": "euc-jp",
         "isSameText": true
     },
     {
         "file": "encodings/euc_kr",
-        "encodingId": "EUC-KR",
+        "encodingId": "euc-kr",
         "language": null,
         "document": null,
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "encodings/gb18030",
-        "encodingId": "GB18030",
+        "encodingId": "gb18030",
         "language": null,
         "document": null,
-        "detectedId": "GB18030",
+        "detectedId": "gb18030",
         "isSameText": true
     },
     {
         "file": "encodings/iso2022cn",
-        "encodingId": "ISO-2022-CN",
+        "encodingId": "iso-2022-cn",
         "language": null,
         "document": null,
         "detectedId": null,
@@ -49,23 +49,23 @@
     },
     {
         "file": "encodings/iso2022jp",
-        "encodingId": "ISO-2022-JP",
+        "encodingId": "iso-2022-jp",
         "language": null,
         "document": null,
-        "detectedId": "ISO-2022-JP",
+        "detectedId": "iso-2022-jp",
         "isSameText": true
     },
     {
         "file": "encodings/iso2022kr",
-        "encodingId": "ISO-2022-KR",
+        "encodingId": "iso-2022-kr",
         "language": null,
         "document": null,
-        "detectedId": "ISO-2022-KR",
+        "detectedId": "iso-2022-kr",
         "isSameText": true
     },
     {
         "file": "encodings/iso88591_en",
-        "encodingId": "ISO-8859-1",
+        "encodingId": "iso-8859-1",
         "language": null,
         "document": null,
         "detectedId": "ascii",
@@ -73,66 +73,66 @@
     },
     {
         "file": "encodings/iso88592_cs",
-        "encodingId": "ISO-8859-2",
+        "encodingId": "iso-8859-2",
         "language": null,
         "document": null,
-        "detectedId": "ISO-8859-2",
+        "detectedId": "iso-8859-2",
         "isSameText": true
     },
     {
         "file": "encodings/iso88595_ru",
-        "encodingId": "ISO-8859-5",
+        "encodingId": "iso-8859-5",
         "language": null,
         "document": null,
-        "detectedId": "ISO-8859-5",
+        "detectedId": "iso-8859-5",
         "isSameText": true
     },
     {
         "file": "encodings/iso88596_ar",
-        "encodingId": "ISO-8859-6",
+        "encodingId": "iso-8859-6",
         "language": null,
         "document": null,
-        "detectedId": "ISO-8859-6",
+        "detectedId": "iso-8859-6",
         "isSameText": true
     },
     {
         "file": "encodings/iso88597_el",
-        "encodingId": "ISO-8859-7",
+        "encodingId": "iso-8859-7",
         "language": null,
         "document": null,
-        "detectedId": "ISO-8859-7",
+        "detectedId": "iso-8859-7",
         "isSameText": true
     },
     {
         "file": "encodings/iso88598",
-        "encodingId": "ISO-8859-8",
+        "encodingId": "iso-8859-8",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1255",
+        "detectedId": "windows-1255",
         "isSameText": true
     },
     {
         "file": "encodings/iso88598_he",
-        "encodingId": "ISO-8859-8",
+        "encodingId": "iso-8859-8",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1255",
+        "detectedId": "windows-1255",
         "isSameText": true
     },
     {
         "file": "encodings/iso88599_tr",
-        "encodingId": "ISO-8859-9",
+        "encodingId": "iso-8859-9",
         "language": null,
         "document": null,
-        "detectedId": "ISO-8859-9",
+        "detectedId": "iso-8859-9",
         "isSameText": true
     },
     {
         "file": "encodings/koi8r",
-        "encodingId": "KOI8-R",
+        "encodingId": "koi8-r",
         "language": null,
         "document": null,
-        "detectedId": "KOI8-R",
+        "detectedId": "koi8-r",
         "isSameText": true
     },
     {
@@ -209,10 +209,10 @@
     },
     {
         "file": "encodings/shiftjis",
-        "encodingId": "SHIFT_JIS",
+        "encodingId": "shift_jis",
         "language": null,
         "document": null,
-        "detectedId": "CP932",
+        "detectedId": "cp932",
         "isSameText": true
     },
     {
@@ -220,7 +220,7 @@
         "encodingId": "utf-16-be",
         "language": null,
         "document": null,
-        "detectedId": "UTF-16",
+        "detectedId": "utf-16",
         "isSameText": false
     },
     {
@@ -228,7 +228,7 @@
         "encodingId": "utf-16-le",
         "language": null,
         "document": null,
-        "detectedId": "UTF-16",
+        "detectedId": "utf-16",
         "isSameText": true
     },
     {
@@ -257,82 +257,82 @@
     },
     {
         "file": "encodings/windows_1250",
-        "encodingId": "Windows-1250",
+        "encodingId": "windows-1250",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1251",
-        "encodingId": "Windows-1251",
+        "encodingId": "windows-1251",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1251",
+        "detectedId": "windows-1251",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1252",
-        "encodingId": "Windows-1252",
+        "encodingId": "windows-1252",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1253",
-        "encodingId": "Windows-1253",
+        "encodingId": "windows-1253",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1253",
+        "detectedId": "windows-1253",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1254",
-        "encodingId": "Windows-1254",
+        "encodingId": "windows-1254",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1254",
+        "detectedId": "windows-1254",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1255",
-        "encodingId": "Windows-1255",
+        "encodingId": "windows-1255",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1255",
+        "detectedId": "windows-1255",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1256",
-        "encodingId": "Windows-1256",
+        "encodingId": "windows-1256",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1256",
+        "detectedId": "windows-1256",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1257_et",
-        "encodingId": "Windows-1257",
+        "encodingId": "windows-1257",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1257_lt",
-        "encodingId": "Windows-1257",
+        "encodingId": "windows-1257",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "encodings/windows_1257_lv",
-        "encodingId": "Windows-1257",
+        "encodingId": "windows-1257",
         "language": null,
         "document": null,
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
@@ -345,10 +345,10 @@
     },
     {
         "file": "encodings/windows_874",
-        "encodingId": "CP874",
+        "encodingId": "cp874",
         "language": null,
         "document": null,
-        "detectedId": "CP874",
+        "detectedId": "cp874",
         "isSameText": true
     },
     {
@@ -361,10 +361,10 @@
     },
     {
         "file": "corpus/generated/Big5/zh/validation/big5.bin",
-        "encodingId": "Big5",
+        "encodingId": "big5",
         "language": "zh",
         "document": null,
-        "detectedId": "Big5",
+        "detectedId": "big5",
         "isSameText": true
     },
     {
@@ -561,223 +561,223 @@
     },
     {
         "file": "corpus/generated/CP949/ko/test/community-garden.bin",
-        "encodingId": "CP949",
+        "encodingId": "cp949",
         "language": "ko",
         "document": "community-garden",
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "corpus/generated/CP949/ko/train/city-morning.bin",
-        "encodingId": "CP949",
+        "encodingId": "cp949",
         "language": "ko",
         "document": "city-morning",
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "corpus/generated/CP949/ko/train/library.bin",
-        "encodingId": "CP949",
+        "encodingId": "cp949",
         "language": "ko",
         "document": "library",
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "corpus/generated/CP949/ko/train/market.bin",
-        "encodingId": "CP949",
+        "encodingId": "cp949",
         "language": "ko",
         "document": "market",
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "corpus/generated/CP949/ko/train/workshop.bin",
-        "encodingId": "CP949",
+        "encodingId": "cp949",
         "language": "ko",
         "document": "workshop",
-        "detectedId": "GB18030",
+        "detectedId": "gb18030",
         "isSameText": false
     },
     {
         "file": "corpus/generated/CP949/ko/validation/river-trip.bin",
-        "encodingId": "CP949",
+        "encodingId": "cp949",
         "language": "ko",
         "document": "river-trip",
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "corpus/generated/EUC-JP/ja/validation/euc-jp.bin",
-        "encodingId": "EUC-JP",
+        "encodingId": "euc-jp",
         "language": "ja",
         "document": null,
-        "detectedId": "EUC-JP",
+        "detectedId": "euc-jp",
         "isSameText": true
     },
     {
         "file": "corpus/generated/EUC-KR/ko/validation/euc-kr.bin",
-        "encodingId": "EUC-KR",
+        "encodingId": "euc-kr",
         "language": "ko",
         "document": null,
-        "detectedId": "CP949",
+        "detectedId": "cp949",
         "isSameText": true
     },
     {
         "file": "corpus/generated/GB18030/zh/validation/gb18030.bin",
-        "encodingId": "GB18030",
+        "encodingId": "gb18030",
         "language": "zh",
         "document": null,
-        "detectedId": "GB18030",
+        "detectedId": "gb18030",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/ru/test/community-garden.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "ru",
         "document": "community-garden",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/ru/train/city-morning.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "ru",
         "document": "city-morning",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/ru/train/library.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "ru",
         "document": "library",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/ru/train/market.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "ru",
         "document": "market",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/ru/train/workshop.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "ru",
         "document": "workshop",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/ru/validation/river-trip.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "ru",
         "document": "river-trip",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/sr/test/community-garden.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "sr",
         "document": "community-garden",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/sr/train/city-morning.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "sr",
         "document": "city-morning",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/sr/train/library.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "sr",
         "document": "library",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/sr/train/market.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "sr",
         "document": "market",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/sr/train/workshop.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "sr",
         "document": "workshop",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM855/sr/validation/river-trip.bin",
-        "encodingId": "IBM855",
+        "encodingId": "ibm855",
         "language": "sr",
         "document": "river-trip",
-        "detectedId": "IBM855",
+        "detectedId": "ibm855",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM866/ru/test/community-garden.bin",
-        "encodingId": "IBM866",
+        "encodingId": "ibm866",
         "language": "ru",
         "document": "community-garden",
-        "detectedId": "IBM866",
+        "detectedId": "ibm866",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM866/ru/train/city-morning.bin",
-        "encodingId": "IBM866",
+        "encodingId": "ibm866",
         "language": "ru",
         "document": "city-morning",
-        "detectedId": "IBM866",
+        "detectedId": "ibm866",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM866/ru/train/library.bin",
-        "encodingId": "IBM866",
+        "encodingId": "ibm866",
         "language": "ru",
         "document": "library",
-        "detectedId": "IBM866",
+        "detectedId": "ibm866",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM866/ru/train/market.bin",
-        "encodingId": "IBM866",
+        "encodingId": "ibm866",
         "language": "ru",
         "document": "market",
-        "detectedId": "IBM866",
+        "detectedId": "ibm866",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM866/ru/train/workshop.bin",
-        "encodingId": "IBM866",
+        "encodingId": "ibm866",
         "language": "ru",
         "document": "workshop",
-        "detectedId": "IBM866",
+        "detectedId": "ibm866",
         "isSameText": true
     },
     {
         "file": "corpus/generated/IBM866/ru/validation/river-trip.bin",
-        "encodingId": "IBM866",
+        "encodingId": "ibm866",
         "language": "ru",
         "document": "river-trip",
-        "detectedId": "IBM866",
+        "detectedId": "ibm866",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-2022-CN/zh/validation/iso2022cn.bin",
-        "encodingId": "ISO-2022-CN",
+        "encodingId": "iso-2022-cn",
         "language": "zh",
         "document": null,
         "detectedId": null,
@@ -785,23 +785,23 @@
     },
     {
         "file": "corpus/generated/ISO-2022-JP/ja/validation/iso2022jp.bin",
-        "encodingId": "ISO-2022-JP",
+        "encodingId": "iso-2022-jp",
         "language": "ja",
         "document": null,
-        "detectedId": "ISO-2022-JP",
+        "detectedId": "iso-2022-jp",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-2022-KR/ko/validation/iso2022kr.bin",
-        "encodingId": "ISO-2022-KR",
+        "encodingId": "iso-2022-kr",
         "language": "ko",
         "document": null,
-        "detectedId": "ISO-2022-KR",
+        "detectedId": "iso-2022-kr",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-1/en/validation/iso88591-en.bin",
-        "encodingId": "ISO-8859-1",
+        "encodingId": "iso-8859-1",
         "language": "en",
         "document": null,
         "detectedId": "ascii",
@@ -812,7 +812,7 @@
         "encodingId": "iso8859-10",
         "language": "is",
         "document": "community-garden",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -820,7 +820,7 @@
         "encodingId": "iso8859-10",
         "language": "is",
         "document": "city-morning",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -828,7 +828,7 @@
         "encodingId": "iso8859-10",
         "language": "is",
         "document": "library",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -836,7 +836,7 @@
         "encodingId": "iso8859-10",
         "language": "is",
         "document": "market",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -844,7 +844,7 @@
         "encodingId": "iso8859-10",
         "language": "is",
         "document": "workshop",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -852,55 +852,55 @@
         "encodingId": "iso8859-10",
         "language": "is",
         "document": "river-trip",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-13/lt/test/community-garden.bin",
-        "encodingId": "ISO-8859-13",
+        "encodingId": "iso-8859-13",
         "language": "lt",
         "document": "community-garden",
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-13/lt/train/city-morning.bin",
-        "encodingId": "ISO-8859-13",
+        "encodingId": "iso-8859-13",
         "language": "lt",
         "document": "city-morning",
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-13/lt/train/library.bin",
-        "encodingId": "ISO-8859-13",
+        "encodingId": "iso-8859-13",
         "language": "lt",
         "document": "library",
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-13/lt/train/market.bin",
-        "encodingId": "ISO-8859-13",
+        "encodingId": "iso-8859-13",
         "language": "lt",
         "document": "market",
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-13/lt/train/workshop.bin",
-        "encodingId": "ISO-8859-13",
+        "encodingId": "iso-8859-13",
         "language": "lt",
         "document": "workshop",
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-13/lt/validation/river-trip.bin",
-        "encodingId": "ISO-8859-13",
+        "encodingId": "iso-8859-13",
         "language": "lt",
         "document": "river-trip",
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
@@ -932,7 +932,7 @@
         "encodingId": "iso8859-14",
         "language": "cy",
         "document": "market",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -940,7 +940,7 @@
         "encodingId": "iso8859-14",
         "language": "cy",
         "document": "workshop",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -948,7 +948,7 @@
         "encodingId": "iso8859-14",
         "language": "cy",
         "document": "river-trip",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -956,7 +956,7 @@
         "encodingId": "iso8859-15",
         "language": "de",
         "document": "community-garden",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -964,7 +964,7 @@
         "encodingId": "iso8859-15",
         "language": "de",
         "document": "city-morning",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -972,7 +972,7 @@
         "encodingId": "iso8859-15",
         "language": "de",
         "document": "library",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -980,7 +980,7 @@
         "encodingId": "iso8859-15",
         "language": "de",
         "document": "market",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -988,7 +988,7 @@
         "encodingId": "iso8859-15",
         "language": "de",
         "document": "workshop",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -996,7 +996,7 @@
         "encodingId": "iso8859-15",
         "language": "de",
         "document": "river-trip",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1004,7 +1004,7 @@
         "encodingId": "iso8859-15",
         "language": "es",
         "document": "community-garden",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1012,7 +1012,7 @@
         "encodingId": "iso8859-15",
         "language": "es",
         "document": "city-morning",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1020,7 +1020,7 @@
         "encodingId": "iso8859-15",
         "language": "es",
         "document": "library",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1028,7 +1028,7 @@
         "encodingId": "iso8859-15",
         "language": "es",
         "document": "market",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1036,7 +1036,7 @@
         "encodingId": "iso8859-15",
         "language": "es",
         "document": "workshop",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1044,7 +1044,7 @@
         "encodingId": "iso8859-15",
         "language": "es",
         "document": "river-trip",
-        "detectedId": "ISO-8859-1",
+        "detectedId": "iso-8859-1",
         "isSameText": true
     },
     {
@@ -1052,7 +1052,7 @@
         "encodingId": "iso8859-15",
         "language": "fr",
         "document": "community-garden",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1060,7 +1060,7 @@
         "encodingId": "iso8859-15",
         "language": "fr",
         "document": "city-morning",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1076,7 +1076,7 @@
         "encodingId": "iso8859-15",
         "language": "fr",
         "document": "market",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1084,7 +1084,7 @@
         "encodingId": "iso8859-15",
         "language": "fr",
         "document": "workshop",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1092,7 +1092,7 @@
         "encodingId": "iso8859-15",
         "language": "fr",
         "document": "river-trip",
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
@@ -1100,7 +1100,7 @@
         "encodingId": "iso8859-16",
         "language": "ro",
         "document": "community-garden",
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": false
     },
     {
@@ -1108,7 +1108,7 @@
         "encodingId": "iso8859-16",
         "language": "ro",
         "document": "city-morning",
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": false
     },
     {
@@ -1116,7 +1116,7 @@
         "encodingId": "iso8859-16",
         "language": "ro",
         "document": "library",
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": false
     },
     {
@@ -1124,7 +1124,7 @@
         "encodingId": "iso8859-16",
         "language": "ro",
         "document": "market",
-        "detectedId": "ISO-8859-2",
+        "detectedId": "iso-8859-2",
         "isSameText": false
     },
     {
@@ -1132,7 +1132,7 @@
         "encodingId": "iso8859-16",
         "language": "ro",
         "document": "workshop",
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": false
     },
     {
@@ -1140,15 +1140,15 @@
         "encodingId": "iso8859-16",
         "language": "ro",
         "document": "river-trip",
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": false
     },
     {
         "file": "corpus/generated/ISO-8859-2/cs/validation/iso88592-cs.bin",
-        "encodingId": "ISO-8859-2",
+        "encodingId": "iso-8859-2",
         "language": "cs",
         "document": null,
-        "detectedId": "ISO-8859-2",
+        "detectedId": "iso-8859-2",
         "isSameText": true
     },
     {
@@ -1249,50 +1249,50 @@
     },
     {
         "file": "corpus/generated/ISO-8859-5/ru/validation/iso88595-ru.bin",
-        "encodingId": "ISO-8859-5",
+        "encodingId": "iso-8859-5",
         "language": "ru",
         "document": null,
-        "detectedId": "ISO-8859-5",
+        "detectedId": "iso-8859-5",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-6/ar/validation/iso88596-ar.bin",
-        "encodingId": "ISO-8859-6",
+        "encodingId": "iso-8859-6",
         "language": "ar",
         "document": null,
-        "detectedId": "ISO-8859-6",
+        "detectedId": "iso-8859-6",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-7/el/validation/iso88597-el.bin",
-        "encodingId": "ISO-8859-7",
+        "encodingId": "iso-8859-7",
         "language": "el",
         "document": null,
-        "detectedId": "ISO-8859-7",
+        "detectedId": "iso-8859-7",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-8/he/validation/iso88598-he.bin",
-        "encodingId": "ISO-8859-8",
+        "encodingId": "iso-8859-8",
         "language": "he",
         "document": null,
-        "detectedId": "Windows-1255",
+        "detectedId": "windows-1255",
         "isSameText": true
     },
     {
         "file": "corpus/generated/ISO-8859-9/tr/validation/iso88599-tr.bin",
-        "encodingId": "ISO-8859-9",
+        "encodingId": "iso-8859-9",
         "language": "tr",
         "document": null,
-        "detectedId": "ISO-8859-9",
+        "detectedId": "iso-8859-9",
         "isSameText": true
     },
     {
         "file": "corpus/generated/KOI8-R/ru/validation/koi8r.bin",
-        "encodingId": "KOI8-R",
+        "encodingId": "koi8-r",
         "language": "ru",
         "document": null,
-        "detectedId": "KOI8-R",
+        "detectedId": "koi8-r",
         "isSameText": true
     },
     {
@@ -1345,154 +1345,154 @@
     },
     {
         "file": "corpus/generated/macintosh/de/test/community-garden.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "de",
         "document": "community-garden",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/de/train/city-morning.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "de",
         "document": "city-morning",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/de/train/library.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "de",
         "document": "library",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/de/train/market.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "de",
         "document": "market",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/de/train/workshop.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "de",
         "document": "workshop",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/de/validation/river-trip.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "de",
         "document": "river-trip",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/es/test/community-garden.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "es",
         "document": "community-garden",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/es/train/city-morning.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "es",
         "document": "city-morning",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/es/train/library.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "es",
         "document": "library",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/es/train/market.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "es",
         "document": "market",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/es/train/workshop.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "es",
         "document": "workshop",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/es/validation/river-trip.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "es",
         "document": "river-trip",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/fr/test/community-garden.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "fr",
         "document": "community-garden",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/fr/train/city-morning.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "fr",
         "document": "city-morning",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/fr/train/library.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "fr",
         "document": "library",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/fr/train/market.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "fr",
         "document": "market",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/fr/train/workshop.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "fr",
         "document": "workshop",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/macintosh/fr/validation/river-trip.bin",
-        "encodingId": "MacRoman",
+        "encodingId": "macroman",
         "language": "fr",
         "document": "river-trip",
-        "detectedId": "MacRoman",
+        "detectedId": "macroman",
         "isSameText": true
     },
     {
         "file": "corpus/generated/Shift_JIS/ja/validation/shiftjis.bin",
-        "encodingId": "SHIFT_JIS",
+        "encodingId": "shift_jis",
         "language": "ja",
         "document": null,
-        "detectedId": "CP932",
+        "detectedId": "cp932",
         "isSameText": true
     },
     {
@@ -1500,7 +1500,7 @@
         "encodingId": "utf-16-be",
         "language": "en",
         "document": null,
-        "detectedId": "UTF-16",
+        "detectedId": "utf-16",
         "isSameText": false
     },
     {
@@ -1508,7 +1508,7 @@
         "encodingId": "utf-16-le",
         "language": "en",
         "document": null,
-        "detectedId": "UTF-16",
+        "detectedId": "utf-16",
         "isSameText": true
     },
     {
@@ -1537,82 +1537,82 @@
     },
     {
         "file": "corpus/generated/windows-1250/cs/validation/windows-1250.bin",
-        "encodingId": "Windows-1250",
+        "encodingId": "windows-1250",
         "language": "cs",
         "document": null,
-        "detectedId": "Windows-1250",
+        "detectedId": "windows-1250",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1251/ru/validation/windows-1251.bin",
-        "encodingId": "Windows-1251",
+        "encodingId": "windows-1251",
         "language": "ru",
         "document": null,
-        "detectedId": "Windows-1251",
+        "detectedId": "windows-1251",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1252/en/validation/windows-1252.bin",
-        "encodingId": "Windows-1252",
+        "encodingId": "windows-1252",
         "language": "en",
         "document": null,
-        "detectedId": "Windows-1252",
+        "detectedId": "windows-1252",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1253/el/validation/windows-1253.bin",
-        "encodingId": "Windows-1253",
+        "encodingId": "windows-1253",
         "language": "el",
         "document": null,
-        "detectedId": "Windows-1253",
+        "detectedId": "windows-1253",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1254/tr/validation/windows-1254.bin",
-        "encodingId": "Windows-1254",
+        "encodingId": "windows-1254",
         "language": "tr",
         "document": null,
-        "detectedId": "Windows-1254",
+        "detectedId": "windows-1254",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1255/he/validation/windows-1255.bin",
-        "encodingId": "Windows-1255",
+        "encodingId": "windows-1255",
         "language": "he",
         "document": null,
-        "detectedId": "Windows-1255",
+        "detectedId": "windows-1255",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1256/ar/validation/windows-1256.bin",
-        "encodingId": "Windows-1256",
+        "encodingId": "windows-1256",
         "language": "ar",
         "document": null,
-        "detectedId": "Windows-1256",
+        "detectedId": "windows-1256",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1257/et/validation/windows-1257-et.bin",
-        "encodingId": "Windows-1257",
+        "encodingId": "windows-1257",
         "language": "et",
         "document": null,
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1257/lt/validation/windows-1257-lt.bin",
-        "encodingId": "Windows-1257",
+        "encodingId": "windows-1257",
         "language": "lt",
         "document": null,
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
         "file": "corpus/generated/windows-1257/lv/validation/windows-1257-lv.bin",
-        "encodingId": "Windows-1257",
+        "encodingId": "windows-1257",
         "language": "lv",
         "document": null,
-        "detectedId": "Windows-1257",
+        "detectedId": "windows-1257",
         "isSameText": true
     },
     {
@@ -1625,106 +1625,106 @@
     },
     {
         "file": "corpus/generated/windows-874/th/validation/windows-874.bin",
-        "encodingId": "CP874",
+        "encodingId": "cp874",
         "language": "th",
         "document": null,
-        "detectedId": "CP874",
+        "detectedId": "cp874",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/ru/test/community-garden.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "ru",
         "document": "community-garden",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/ru/train/city-morning.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "ru",
         "document": "city-morning",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/ru/train/library.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "ru",
         "document": "library",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/ru/train/market.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "ru",
         "document": "market",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/ru/train/workshop.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "ru",
         "document": "workshop",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/ru/validation/river-trip.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "ru",
         "document": "river-trip",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/uk/test/community-garden.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "uk",
         "document": "community-garden",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/uk/train/city-morning.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "uk",
         "document": "city-morning",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/uk/train/library.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "uk",
         "document": "library",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/uk/train/market.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "uk",
         "document": "market",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/uk/train/workshop.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "uk",
         "document": "workshop",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     },
     {
         "file": "corpus/generated/x-mac-cyrillic/uk/validation/river-trip.bin",
-        "encodingId": "MacCyrillic",
+        "encodingId": "maccyrillic",
         "language": "uk",
         "document": "river-trip",
-        "detectedId": "MacCyrillic",
+        "detectedId": "maccyrillic",
         "isSameText": true
     }
 ]

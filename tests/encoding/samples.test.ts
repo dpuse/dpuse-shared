@@ -9,10 +9,10 @@ import { ENCODING_TYPE_CONFIG_MAP, isEncodingTypeId, resolveDecoderId } from '@/
 // Two sets of sample files, each with a manifest recording what jschardet detects for every file, so a jschardet
 // upgrade that detects any of them differently fails here. See 'tests/fixtures/encodings/README.md'.
 interface Sample {
-    detectedId: string | null;
-    encodingId: string; // The table's id, or chardet's name for an encoding the table does not have.
+    detectedId: string | null; // jschardet's name in lower case, which is the table's id.
+    encodingId: string; // The table's id, or chardet's name in lower case for an encoding the table does not have.
     file: string;
-    isSameText: boolean; // Decoding as the detected encoding gives the original text, e.g. 'ISO-8859-1' for 'Windows-1252'.
+    isSameText: boolean; // Decoding as the detected encoding gives the original text, e.g. 'iso-8859-1' for 'windows-1252'.
 }
 
 interface ChardetSample extends Sample {
@@ -93,13 +93,13 @@ function decodeAs(encodingId: string | null, bytes: Uint8Array): string | undefi
 function describeSampleSet<T extends Sample>(samples: T[], readSample: (file: string) => Uint8Array, readOriginalText: (sample: T) => string | undefined): void {
     // Correct means its own encoding, or a sister encoding that decodes it to the same text.
     it.each(samples.filter(({ isSameText }) => isSameText))('detects $file correctly, as $detectedId', ({ detectedId, file }) => {
-        expect(detect(readSample(file)).encoding).toBe(detectedId);
+        expect(detect(readSample(file)).encoding?.toLowerCase() ?? null).toBe(detectedId);
     });
 
     // Known failures, listed as expected failures in every run. One starts failing the run when jschardet gets it
     // right, so it can move to the list above.
     it.fails.each(samples.filter(({ isSameText }) => !isSameText))('detects $file correctly (known failure: jschardet says $detectedId)', ({ encodingId, file }) => {
-        expect(detect(readSample(file)).encoding).toBe(encodingId);
+        expect(detect(readSample(file)).encoding?.toLowerCase() ?? null).toBe(encodingId);
     });
 
     // Only checkable where browsers can decode the encoding and the original text is known.
