@@ -4,6 +4,7 @@ import type { InferOutput } from 'valibot';
 // ── DPUse Framework
 import { AppError } from '@/errors';
 import type { Component } from '@/component';
+import type { DataFormatId } from '@/component/dataView';
 import type { parserConfigSchema, toolConfigSchema } from './toolConfig.schema';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -29,6 +30,25 @@ export type { ParserInterface, ParseStreamOptions, ParseTextOptions, ParseTextRe
 const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// The tools that read the data format, sorted by id. The sort means the first is the same wherever the list came from.
+export function listParserToolConfigs(toolConfigs: ToolConfig[], dataFormatId: DataFormatId): ToolConfig[] {
+    return toolConfigs
+        .filter((config) => config.parser?.dataFormatIds.some((id) => id === dataFormatId) === true)
+        .toSorted((first, second) => first.id.localeCompare(second.id, 'en'));
+}
+
+// The tool that reads the data format: the one the user chose, or the first of those that read it when none is chosen or
+// the chosen one no longer reads it. 'parserId' is the tool's config id, e.g. 'dpuse-tool-adaltas-csv-parser'.
+export function resolveParserToolConfig(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId?: string): ToolConfig {
+    const parserToolConfigs = listParserToolConfigs(toolConfigs, dataFormatId);
+    const [firstParserToolConfig] = parserToolConfigs;
+    if (firstParserToolConfig === undefined) {
+        const data = { availableToolIds: toolConfigs.map((config) => config.id), dataFormatId };
+        throw new AppError(`No tool reads the '${dataFormatId}' data format.`, 'dpuse-shared.component.module.tool.resolveParserToolConfig', data);
+    }
+    return parserToolConfigs.find((config) => config.id === parserId) ?? firstParserToolConfig;
+}
 
 // Dynamically load tool.
 export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Promise<T> {

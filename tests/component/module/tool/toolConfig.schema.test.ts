@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { DATA_FORMAT_ICON_CONFIGS } from '@/component/dataView';
 import { parserConfigSchema, parserDataFormatIdSchema, toolConfigSchema } from '@/component/module/tool/toolConfig.schema';
 
+// Every field the schema requires. The tools' own configurations omit several of them, so the build checks only their 'parser' block.
 const TOOL_CONFIG = {
     description: {},
     firstCreatedAt: null,
@@ -22,7 +23,7 @@ const TOOL_CONFIG = {
 };
 
 describe('toolConfigSchema', () => {
-    it('accepts a tool with no parser or action names, as every existing tool is', () => {
+    it('accepts a tool with no parser or action names', () => {
         expect(safeParse(toolConfigSchema, TOOL_CONFIG).success).toBe(true);
     });
 

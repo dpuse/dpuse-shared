@@ -230,7 +230,9 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
+- **`listParserToolConfigs`**`(toolConfigs: ToolConfig[], dataFormatId: DataFormatId)`
 - **`loadTool`**`(toolConfigs: ToolConfig[], toolId: string)`
+- **`resolveParserToolConfig`**`(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId?: string)`
 
 #### Schemas
 
