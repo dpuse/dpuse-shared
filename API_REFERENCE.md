@@ -158,6 +158,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`AuditObjectContentOptions`** (extends `EngineConnectorActionOptions`)
 - **`AuditObjectContentResult`**
+- **`ColumnAuditor`**
 - **`ConnectorActionName`** (inferred from `connectorActionNameSchema`)
 - **`ConnectorConfig`** (inferred from `connectorConfigSchema`, extends `ModuleConfig`)
 - **`ConnectorConstructor`**

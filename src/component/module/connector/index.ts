@@ -55,9 +55,16 @@ export type ConnectorActionName = InferOutput<typeof connectorActionNameSchema>;
 export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 
 export interface ConnectorUtilities {
+    constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
     inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
     inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+}
+
+// Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
+export interface ColumnAuditor {
+    auditRecords: (parsedRecords: ParsingRecord[]) => void;
+    completeAudit: () => ObjectColumnConfig[];
 }
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
@@ -74,27 +81,17 @@ type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 
 // ── Types - Action - Audit Object Content ────────────────────────────────────────────────────────────────────────────
 
-interface AuditObjectContentOptions1 extends EngineConnectorActionOptions {
-    chunkSize: number | undefined;
-    encodingId: string;
-    path: string;
-    valueDelimiterId: ValueDelimiterId;
-}
-interface AuditObjectContentResult1 {
-    contentAuditConfig: ContentAuditConfig;
-}
-
 export interface AuditObjectContentOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
+    hasHeaders: boolean; // From the preview. A header record names the columns and is not audited as data.
     parsingToolName: string | undefined;
     path: string;
     supportsTransferableStreams: boolean;
     valueDelimiterId: ValueDelimiterId;
 }
 export interface AuditObjectContentResult {
-    processedRowCount: number;
-    durationMs: number;
+    contentAuditConfig: ContentAuditConfig;
 }
 
 // ── Types - Action - Create Object ───────────────────────────────────────────────────────────────────────────────────

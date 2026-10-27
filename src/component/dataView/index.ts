@@ -99,15 +99,16 @@ type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 
 // ── Types - Content Audit Configuration ──────────────────────────────────────────────────────────────────────────────
 
+// A parser that only counts records, such as the Rust CSV parser, leaves the columns empty and the other counts undefined.
 export interface ContentAuditConfig {
     asAt: number;
     columns: ObjectColumnConfig[];
-    commentLineCount: number;
-    emptyLineCount: number;
-    invalidFieldLengthCount: number;
+    commentLineCount: number | undefined;
+    emptyLineCount: number | undefined;
+    invalidFieldLengthCount: number | undefined; // Records whose number of values differs from the first record's.
     duration: number;
-    lineCount: number;
-    recordCount: number;
+    lineCount: number | undefined;
+    recordCount: number; // Data records only. A header record is not counted.
 }
 
 // ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────
