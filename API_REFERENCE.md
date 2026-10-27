@@ -144,11 +144,14 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
+- **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor; onProgress: (recordCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`buildPreviewConfig`**`(input: { asAt: number; filePreview: ObjectFilePreview; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; })`
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
+- **`retrieveRecordsWithParser`**`(input: { chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void; options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 
 #### Schemas
 
@@ -178,6 +181,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`GetRecordResult`**
 - **`ListNodesOptions`** (extends `EngineConnectorActionOptions`)
 - **`ListNodesResult`**
+- **`ObjectFilePreview`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`RecordRetrievalTypeId`**
 - **`RemoveRecordsOptions`** (extends `EngineConnectorActionOptions`)
@@ -232,7 +236,13 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`listParserToolConfigs`**`(toolConfigs: ToolConfig[], dataFormatId: DataFormatId)`
 - **`loadTool`**`(toolConfigs: ToolConfig[], toolId: string)`
+- **`parseDelimitedText`**`(text: string, options: ParseTextOptions, parseTextWithDelimiter: ParseTextWithDelimiter)`
+    > Reads delimited text for a preview: detects its record delimiter, and which of the candidate value delimiters splits it best. The value delimiter is undefined when the text is not delimited: the best one found does not split most records into the same number of values, more than one, as a table's rows would be. The records parsed with it are still returned, so the text can be shown as a table if the user chooses. A delimiter whose parse has issues is only used when every delimiter's does, because a wrong delimiter can itself cause a quote error. Then the one with the fewest issues is used, the first on a tie, and its issues are returned, so the user learns why the text cannot be read.
 - **`resolveParserToolConfig`**`(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId?: string)`
+
+#### Constants
+
+- **`TOOL_NAME_PREFIX`**`: string`
 
 #### Schemas
 
@@ -245,6 +255,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ParseStreamOptions`**
 - **`ParseTextOptions`**
 - **`ParseTextResult`**
+- **`ParseTextWithDelimiter`**
 - **`ToolConfig`** (inferred from `toolConfigSchema`, extends `ModuleConfig`)
 
 ### Component › Presentation

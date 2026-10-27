@@ -23,6 +23,10 @@ import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } fro
 
 export { connectorConfigSchema } from './connectorConfig.schema';
 
+// ── Actions - Object Parsing ─────────────────────────────────────────────────────────────────────────────────────────
+
+export { auditObjectContentWithParser, buildPreviewConfig, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
+
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectorInterface extends Component {
@@ -83,9 +87,10 @@ type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 
 export interface AuditObjectContentOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
+    dataFormatId: DataFormatId; // From the preview.
     encodingId: string;
     hasHeaders: boolean; // From the preview. A header record names the columns and is not audited as data.
-    parsingToolName: string | undefined;
+    parserId: string | undefined; // From the preview. The tool that read it, so the audit reads the item the same way.
     path: string;
     supportsTransferableStreams: boolean;
     valueDelimiterId: ValueDelimiterId;
@@ -174,6 +179,7 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     encodingId: string | undefined; // An encoding the user chose, decoded in place of the one detected.
     extension: string | undefined;
     mimeType: string | undefined; // The type the connection's listing gave the item, if any.
+    parserId: string | undefined; // A tool the user chose to read the item, used in place of the first that reads its format.
     path: string;
 }
 
@@ -197,7 +203,9 @@ export interface RetrieveChunksOptions extends EngineConnectorActionOptions {
 
 export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
+    dataFormatId: DataFormatId; // From the preview.
     encodingId: string;
+    parserId: string | undefined; // From the preview. The tool that read it, so the records are read the same way.
     path: string;
     valueDelimiterId: ValueDelimiterId;
 }

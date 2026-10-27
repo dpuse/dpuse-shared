@@ -24,10 +24,13 @@ export type ParserConfig = InferOutput<typeof parserConfigSchema>;
 // ── Types - Parser ───────────────────────────────────────────────────────────────────────────────────────────────────
 
 export type { ParserInterface, ParseStreamOptions, ParseTextOptions, ParseTextResult } from './parser';
+export { parseDelimitedText, type ParseTextWithDelimiter } from './delimitedText';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
+
+export const TOOL_NAME_PREFIX = 'dpuse-tool-'; // A tool's config id is this followed by the id 'loadTool' takes.
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -52,7 +55,7 @@ export function resolveParserToolConfig(toolConfigs: ToolConfig[], dataFormatId:
 
 // Dynamically load tool.
 export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Promise<T> {
-    const toolName = `dpuse-tool-${toolId}`;
+    const toolName = `${TOOL_NAME_PREFIX}${toolId}`;
     const toolModuleConfig = toolConfigs.find((config) => config.id === toolName);
     // Carries a locator and the ids that were available for the same reason the import failure below does: this is
     // thrown out of a shared module into a caller that can only report what the error itself says.

@@ -39,6 +39,7 @@ export interface PreviewConfig {
     issues?: PreviewIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
     linesToSkipAtStart?: number | undefined; // TODO: under review.
     parsedRecords: ParsingRecord[];
+    parserId?: string | undefined; // The config id of the tool that parsed the preview. Absent where no tool did, e.g. an empty file or a format no tool reads yet.
     quoteEscapeChar?: string | undefined; // TODO: under review.
     quoteMarkId?: string | undefined; // TODO: under review.
     quoteMarkOtherCharSeq?: string | undefined; // TODO: under review.
