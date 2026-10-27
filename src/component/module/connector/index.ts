@@ -222,7 +222,12 @@ export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     encodingId: string;
     parserId: string | undefined; // From the preview. The tool that read it, so the records are read the same way.
     path: string;
+    range?: RecordRange | undefined; // Which records to return, by position. Every record without it. Only store connectors read it.
     valueDelimiterId: ValueDelimiterId;
+}
+export interface RecordRange {
+    limit: number; // How many records to return at most.
+    offset: number; // The position of the first, counting from 0.
 }
 export interface RetrieveRecordsSummary {
     byteCount: number; // Number of processed bytes.
@@ -231,6 +236,7 @@ export interface RetrieveRecordsSummary {
     lineCount: number; // Number of lines encountered in the source dataset, start at 1 for the first line.
     nonUniformRecordCount: number; // Number of non uniform records when relax_column_count is true.
     recordCount: number; // Count the number of processed records.
+    totalCount?: number | undefined; // How many records the object holds in all. Given when a range was asked for, so a table can size itself.
 }
 
 export type RecordRetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
