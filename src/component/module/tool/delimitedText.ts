@@ -48,6 +48,12 @@ async function determineValueDelimiter(
     let fewestIssuesParse: { delimiter: ValueDelimiterId; issues: PreviewIssue[]; records: ParsingRecord[] } | undefined;
     let hasParsedWithoutIssues = false;
 
+    /* TODO: Could improve performance by limiting the number of delimiters
+       processed by exiting if column count is the same for each line and
+       by ordering delimiters in most common usage. Could also consider
+       parallel parsing. Maybe group by most common delimiters and then by
+       less common? */
+
     for (const delimiter of delimiters) {
         const { issues, records } = await parseTextWithDelimiter(text, delimiter, isComplete);
         if (issues.length > 0) {
