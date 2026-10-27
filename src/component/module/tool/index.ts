@@ -1,7 +1,14 @@
+// ── External Dependencies & Registrations
+import type { InferOutput } from 'valibot';
+
 // ── DPUse Framework
 import { AppError } from '@/errors';
 import type { Component } from '@/component';
-import type { ModuleConfig } from '@/component/module';
+import type { parserConfigSchema, toolConfigSchema } from './toolConfig.schema';
+
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export { toolConfigSchema } from './toolConfig.schema';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -9,9 +16,9 @@ type ToolInterface = Component;
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ToolConfig extends ModuleConfig {
-    typeId: 'tool';
-}
+export type ToolConfig = InferOutput<typeof toolConfigSchema>;
+
+export type ParserConfig = InferOutput<typeof parserConfigSchema>;
 
 // ── Types - Parser ───────────────────────────────────────────────────────────────────────────────────────────────────
 

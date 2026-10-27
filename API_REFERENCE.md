@@ -232,13 +232,18 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`loadTool`**`(toolConfigs: ToolConfig[], toolId: string)`
 
+#### Schemas
+
+- **`toolConfigSchema`**
+
 #### Types
 
+- **`ParserConfig`** (inferred from `parserConfigSchema`)
 - **`ParserInterface`**
 - **`ParseStreamOptions`**
 - **`ParseTextOptions`**
 - **`ParseTextResult`**
-- **`ToolConfig`** (extends `ModuleConfig`)
+- **`ToolConfig`** (inferred from `toolConfigSchema`, extends `ModuleConfig`)
 
 ### Component › Presentation
 
