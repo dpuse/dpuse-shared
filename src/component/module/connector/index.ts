@@ -6,7 +6,7 @@ import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
-import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
+import type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
     connectorActionNameSchema,
     connectorCategoryConfigSchema,
@@ -34,7 +34,13 @@ export interface ConnectorInterface extends Component {
     readonly config: ConnectorConfig;
     readonly toolConfigs: ToolConfig[];
     abortOperation?(): void; // Abort the active long running action.
-    auditObjectContent?(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
+    // 'records' receives each chunk's data records, with every value typed as it was inferred, so they can be stored while
+    // the audit runs. The audit waits for it before it reads further.
+    auditObjectContent?(
+        options: AuditObjectContentOptions,
+        chunk: (rowCount: number) => void,
+        records?: (inferenceRecords: InferenceRecord[]) => Promise<void>
+    ): Promise<AuditObjectContentResult>;
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
     dropObject?(options: DropObjectOptions): Promise<void>; // Drop (delete) an object for a specified connection.
@@ -67,7 +73,7 @@ export interface ConnectorUtilities {
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
 export interface ColumnAuditor {
-    auditRecords: (parsedRecords: ParsingRecord[]) => void;
+    auditRecords: (parsedRecords: ParsingRecord[]) => InferenceRecord[]; // The chunk's data records, each value typed by itself. A header record is left out.
     completeAudit: () => ObjectColumnConfig[];
 }
 
@@ -92,11 +98,20 @@ export interface AuditObjectContentOptions extends EngineConnectorActionOptions 
     hasHeaders: boolean; // From the preview. A header record names the columns and is not audited as data.
     parserId: string | undefined; // From the preview. The tool that read it, so the audit reads the item the same way.
     path: string;
+    recordStore?: RecordStoreConfig | undefined; // Where the engine stores the records as the audit reads them. None are stored without it.
     supportsTransferableStreams: boolean;
     valueDelimiterId: ValueDelimiterId;
 }
 export interface AuditObjectContentResult {
     contentAuditConfig: ContentAuditConfig;
+}
+
+// A table in a store the engine writes to through that store's own connector. The table is created when it is missing,
+// and emptied before each audit fills it again.
+export interface RecordStoreConfig {
+    connectionConfig: ConnectionConfig;
+    nodeId: string;
+    storeId: string;
 }
 
 // ── Types - Action - Create Object ───────────────────────────────────────────────────────────────────────────────────

@@ -8,10 +8,12 @@ import type { RecordRetrievalTypeId, RetrieveRecordsSummary } from '@/component/
 // tool that reads both JSON and JSON Lines needs no second class. A parser that cannot read a format leaves it out of
 // its config, so these methods are never called with one it does not list.
 export interface ParserInterface {
+    // A promise returned by 'chunk' is awaited before the parser reads further, so a slow receiver, such as a store being
+    // written to, holds the read back rather than letting records pile up in memory.
     parseStream: (
         stream: ReadableStream<Uint8Array>,
         options: ParseStreamOptions,
-        chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void
+        chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void | Promise<void>
     ) => Promise<RetrieveRecordsSummary>;
     parseText: (text: string, options: ParseTextOptions) => Promise<ParseTextResult>;
 }

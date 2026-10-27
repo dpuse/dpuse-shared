@@ -11,7 +11,7 @@ import type {
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@/component/module/connector';
-import type { ContentAuditConfig, DataFormatId, ParsingRecord, PreviewConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, InferenceRecord, ParsingRecord, PreviewConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ParserInterface, ToolConfig } from '@/component/module/tool';
 
@@ -149,15 +149,17 @@ export async function retrieveRecordsWithParser(input: {
 
 // Reads every record of an item, to count them and describe their columns. Records are audited one chunk at a time, so
 // the item is never held in memory. 'onProgress' receives the number of records in each chunk as it is audited.
+// 'onRecords', when given, receives each chunk's typed data records, and the read waits for it before going on.
 export async function auditObjectContentWithParser(input: {
     constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor;
     onProgress: (recordCount: number) => void;
+    onRecords?: ((inferenceRecords: InferenceRecord[]) => Promise<void>) | undefined;
     options: AuditObjectContentOptions;
     signal: AbortSignal;
     stream: ReadableStream<Uint8Array>;
     toolConfigs: ToolConfig[];
 }): Promise<ContentAuditConfig> {
-    const { constructColumnAuditor, onProgress, options, signal, stream, toolConfigs } = input;
+    const { constructColumnAuditor, onProgress, onRecords, options, signal, stream, toolConfigs } = input;
     const asAt = Date.now();
     const startedAt = performance.now();
     const columnAuditor = constructColumnAuditor(options.hasHeaders);
@@ -166,8 +168,9 @@ export async function auditObjectContentWithParser(input: {
         stream,
         { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId },
         (_typeId, records) => {
-            columnAuditor.auditRecords(records);
+            const inferenceRecords = columnAuditor.auditRecords(records);
             onProgress(records.length);
+            return onRecords?.(inferenceRecords);
         }
     );
     return {

@@ -232,6 +232,33 @@ describe('objectParsing', () => {
             expect(onProgress.mock.calls).toEqual([[1], [2]]);
         });
 
+        it("passes each chunk's typed records on, and hands the parser the wait for them, so the read waits", async () => {
+            const typedRecords = [[{ dataTypeId: 'string', inferredValue: 'a' }]];
+            const columnAuditor = { auditRecords: vi.fn().mockReturnValue(typedRecords), completeAudit: vi.fn().mockReturnValue([]) };
+            const chunkResults: unknown[] = [];
+            tools.byName['adaltas-csv-parser'] = {
+                parseStream: vi.fn((_stream: unknown, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => unknown) => {
+                    chunkResults.push(chunk('parsingRecordArray', RECORDS));
+                    return Promise.resolve(SUMMARY);
+                })
+            };
+            const stored = Promise.resolve();
+            const onRecords = vi.fn().mockReturnValue(stored);
+
+            await auditObjectContentWithParser({
+                constructColumnAuditor: vi.fn().mockReturnValue(columnAuditor),
+                onProgress: vi.fn(),
+                onRecords,
+                options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: false, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                signal: new AbortController().signal,
+                stream: new ReadableStream<Uint8Array>(),
+                toolConfigs: TOOL_CONFIGS
+            });
+
+            expect(onRecords).toHaveBeenCalledWith(typedRecords);
+            expect(chunkResults).toEqual([stored]);
+        });
+
         it('counts a header record as data only when the item has none', async () => {
             const auditConfig = await runAudit(false).audit;
 
