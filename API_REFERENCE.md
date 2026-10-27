@@ -234,6 +234,10 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`ParserInterface`**
+- **`ParseStreamOptions`**
+- **`ParseTextOptions`**
+- **`ParseTextResult`**
 - **`ToolConfig`** (extends `ModuleConfig`)
 
 ### Component › Presentation

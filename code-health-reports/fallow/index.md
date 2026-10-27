@@ -15,7 +15,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 2761 |
+| Total LOC | 2806 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 104, module scopes: 2, templates: 0 |
@@ -35,12 +35,12 @@
 | `scripts/documentEncodings.ts` | 95.8 | 0 | 0 | 0% | 0.18 | 20.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/errors/index.ts` | 91.0 | 3 | 0 | 0% | 0.30 | 13.8 |
-| `src/component/dataView/index.ts` | 91.5 | 4 | 4 | 0% | 0.07 | 12.0 |
+| `src/component/dataView/index.ts` | 91.5 | 5 | 4 | 0% | 0.07 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
-| `src/component/module/connector/index.ts` | 89.1 | 2 | 8 | 0% | 0.07 | 8.0 |
+| `src/component/module/connector/index.ts` | 89.1 | 3 | 8 | 0% | 0.07 | 8.0 |
 | `src/locale/index.ts` | 86.4 | 4 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/index.ts` | 92.9 | 16 | 2 | 0% | 0.09 | 4.0 |
-| `src/component/module/tool/index.ts` | 91.5 | 4 | 3 | 0% | 0.11 | 3.0 |
+| `src/component/module/tool/index.ts` | 90.6 | 4 | 4 | 0% | 0.10 | 3.0 |
 | `src/encoding/index.ts` | 95.1 | 2 | 1 | 0% | 0.07 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 12 | 0 | 0% | 0.12 | 3.0 |
 | `src/component/module/presenter/index.ts` | 91.9 | 1 | 5 | 0% | 0.03 | 2.0 |
@@ -53,18 +53,18 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/utilities/index.ts` | 42.6 | 15 | 649 | 0.25 | 1 | cooling |
-| `src/locale/index.ts` | 40.5 | 13 | 174 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 29.9 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/connector/index.ts` | 19.4 | 24 | 356 | 0.07 | 2 | stable |
-| `src/component/dataView/index.ts` | 17.4 | 16 | 507 | 0.07 | 4 | accelerating |
-| `scripts/documentEncodings.ts` | 12.1 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 11.7 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 10.3 | 9 | 101 | 0.09 | 16 | stable |
-| `src/component/module/tool/index.ts` | 7.9 | 7 | 46 | 0.11 | 4 | stable |
-| `src/encoding/index.ts` | 7.6 | 7 | 527 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 5.3 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 3.4 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/utilities/index.ts` | 39.7 | 15 | 649 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 37.7 | 13 | 174 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 27.9 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/connector/index.ts` | 19.4 | 25 | 377 | 0.07 | 3 | stable |
+| `src/component/dataView/index.ts` | 17.6 | 17 | 518 | 0.07 | 5 | accelerating |
+| `scripts/documentEncodings.ts` | 11.3 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 10.9 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 9.6 | 9 | 101 | 0.09 | 16 | stable |
+| `src/encoding/index.ts` | 7.1 | 7 | 527 | 0.07 | 2 | accelerating |
+| `src/component/module/tool/index.ts` | 6.7 | 7 | 46 | 0.10 | 4 | stable |
+| `vite.config.ts` | 4.9 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/presenter/index.ts` | 3.1 | 9 | 92 | 0.03 | 1 | cooling |
 
 *2 files excluded (< 3 commits)*
 
@@ -77,17 +77,11 @@
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 43% | 5 | 7 | 16 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 37% | 5 | 20 | 7 |  |
 | `src/component/connection/index.ts` | `src/component/module/tool/index.ts` | 36% | 5 | 19 | 9 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 35% | 7 | 33 | 7 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/presenter/index.ts` | 33% | 8 | 33 | 16 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 32% | 7 | 33 | 11 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 34% | 7 | 34 | 7 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/presenter/index.ts` | 32% | 8 | 34 | 16 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 31% | 7 | 34 | 11 |  |
 
 *Files that change together in the commit history with no import between them.*
-
-### Refactoring Targets (1)
-
-| Efficiency | Category | Effort / Confidence | File | Recommendation |
-|:-----------|:---------|:--------------------|:-----|:---------------|
-| 13.0 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 4 dependents amplify every change |
 
 ---
 
@@ -104,10 +98,6 @@
 - **Commits**: commits in the analysis window
 - **Churn**: total lines added + deleted
 - **Trend**: accelerating / stable / cooling
-- **Efficiency**: priority / effort (higher = better quick-win value, default sort)
-- **Category**: recommendation type (churn+complexity, high impact, dead code, complexity, coupling, circular dep)
-- **Effort**: estimated effort (low / medium / high) based on file size, function count, and fan-in
-- **Confidence**: recommendation reliability (high = deterministic analysis, medium = heuristic, low = git-dependent)
 
 [Full metric reference](https://fallow.tools/docs/explanations/health/)
 

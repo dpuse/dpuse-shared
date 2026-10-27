@@ -13,6 +13,10 @@ export interface ToolConfig extends ModuleConfig {
     typeId: 'tool';
 }
 
+// ── Types - Parser ───────────────────────────────────────────────────────────────────────────────────────────────────
+
+export type { ParserInterface, ParseStreamOptions, ParseTextOptions, ParseTextResult } from './parser';
+
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
