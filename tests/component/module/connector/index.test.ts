@@ -21,6 +21,14 @@ describe('determineConnectorUsageId', () => {
         expect(determineConnectorUsageId(['abortOperation', 'describeConnection'])).toBe('unknown');
     });
 
+    it('returns bidirectional for a store connector, which loads and queries records', () => {
+        expect(determineConnectorUsageId(['closeStore', 'dropObject', 'loadObjectRecords', 'openStore', 'queryRecords'])).toBe('bidirectional');
+    });
+
+    it('returns unknown when the connector only opens and closes a store', () => {
+        expect(determineConnectorUsageId(['closeStore', 'openStore'])).toBe('unknown');
+    });
+
     it('returns unknown when no actions are implemented', () => {
         expect(determineConnectorUsageId([])).toBe('unknown');
     });
@@ -77,9 +85,10 @@ describe('getConnectorActionsTable', () => {
 
         expect(rows[0]).toBe('|Action|Supported|');
         expect(rows[1]).toBe('|:----|:-------:|');
-        expect(rows).toHaveLength(17); // Two header rows, then one row per action.
+        expect(rows).toHaveLength(21); // Two header rows, then one row per action.
         expect(table).toContain('| Get Record | ✓ |');
         expect(table).toContain('| Upsert Records | ✓ |');
         expect(table).toContain('| Abort Operation |  |');
+        expect(table).toContain('| Query Records |  |');
     });
 });

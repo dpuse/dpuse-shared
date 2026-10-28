@@ -17,6 +17,7 @@ import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 export const connectorActionNameSchema = literalUnion([
     'abortOperation',
     'auditObjectContent',
+    'closeStore',
     'createObject',
     'describeConnection',
     'dropObject',
@@ -25,7 +26,10 @@ export const connectorActionNameSchema = literalUnion([
     'getReadableStream',
     'getRecord',
     'listNodes',
+    'loadObjectRecords',
+    'openStore',
     'previewObject',
+    'queryRecords',
     'removeRecords',
     'retrieveChunks',
     'retrieveRecords',

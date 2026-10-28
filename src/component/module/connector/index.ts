@@ -35,6 +35,7 @@ export interface ConnectorInterface extends Component {
     readonly toolConfigs: ToolConfig[];
     abortOperation?(): void; // Abort the active long running action.
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
+    closeStore?(options: CloseStoreOptions): Promise<void>; // Close a store connector's database and release its hold on it, so another tab can open it.
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
     dropObject?(options: DropObjectOptions): Promise<void>; // Drop (delete) an object for a specified connection.
@@ -43,7 +44,10 @@ export interface ConnectorInterface extends Component {
     getReadableStream?(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>; // Get a reader that can retrieve all records from an object for a specified connection.
     getRecord?(options: GetRecordOptions): Promise<GetRecordResult>; // Get a record for an object for a specified connection.
     listNodes?(options: ListNodesOptions): Promise<ListNodesResult>; // List nodes in a folder for a specified connection.
+    loadObjectRecords?(options: LoadObjectRecordsOptions, chunks: AsyncIterable<StoreRecord[]>): Promise<LoadObjectRecordsResult>; // Replace an object in a store connector with the records given.
+    openStore?(options: OpenStoreOptions): Promise<OpenStoreResult>; // Open a store connector's database, unless another tab holds it.
     previewObject?(options: PreviewObjectOptions): Promise<PreviewConfig>; // Preview an object for a specified connection.
+    queryRecords?(options: QueryRecordsOptions): Promise<QueryRecordsResult>; // Query one page of an object in a store connector.
     removeRecords?(options: RemoveRecordsOptions): Promise<void>; // Remove one or more records from an object for a specified connection.
     retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>; // Retrieve all chunks from an object for a specified connection.
     retrieveRecords?(
@@ -98,6 +102,10 @@ export interface AuditObjectContentOptions extends EngineConnectorActionOptions 
 export interface AuditObjectContentResult {
     contentAuditConfig: ContentAuditConfig;
 }
+
+// ── Types - Action - Close Store ─────────────────────────────────────────────────────────────────────────────────────
+
+export type CloseStoreOptions = EngineConnectorActionOptions;
 
 // ── Types - Action - Create Object ───────────────────────────────────────────────────────────────────────────────────
 
@@ -171,6 +179,32 @@ export interface ListNodesResult {
     totalCount: number;
 }
 
+// ── Types - Action - Load Object Records ─────────────────────────────────────────────────────────────────────────────
+
+export interface LoadObjectRecordsOptions extends EngineConnectorActionOptions {
+    columnConfigs: ObjectColumnConfig[]; // From the audit. The store creates the object's columns from these, in this order.
+    path: string;
+}
+export interface LoadObjectRecordsResult {
+    recordCount: number;
+}
+
+// A record's values in the order of the audit's columns. A value that is void, or does not fit its column's audited
+// type, is null.
+export type StoreRecord = StoreValue[];
+export type StoreValue = bigint | boolean | Date | number | string | null;
+
+// ── Types - Action - Open Store ──────────────────────────────────────────────────────────────────────────────────────
+
+export type OpenStoreOptions = EngineConnectorActionOptions;
+export interface OpenStoreResult {
+    storeStateId: StoreStateId;
+}
+
+// 'heldElsewhere' means another tab has the store open, as only one tab can open a database saved in the browser.
+// 'unavailable' means the browser gives no storage to keep it in, e.g. in some private windows.
+export type StoreStateId = 'heldElsewhere' | 'ready' | 'unavailable';
+
 // ── Types - Action - Preview Object ──────────────────────────────────────────────────────────────────────────────────
 
 export interface PreviewObjectOptions extends EngineConnectorActionOptions {
@@ -181,6 +215,50 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     mimeType: string | undefined; // The type the connection's listing gave the item, if any.
     parserId: string | undefined; // A tool the user chose to read the item, used in place of the first that reads its format.
     path: string;
+}
+
+// ── Types - Action - Query Records ───────────────────────────────────────────────────────────────────────────────────
+
+// Columns are named by their position in the audit's columns, because an audited column has a label but no id. With
+// 'groupColumnIndexes', each result record holds the group's values, then one value for each aggregate.
+export interface QueryRecordsOptions extends EngineConnectorActionOptions {
+    aggregates: QueryAggregate[]; // Only read with 'groupColumnIndexes'.
+    filters: QueryFilter[]; // A record must pass them all.
+    groupColumnIndexes: number[]; // No grouping when empty.
+    limit: number;
+    offset: number;
+    path: string;
+    sorts: QuerySort[]; // Applied in order.
+}
+export interface QueryAggregate {
+    columnIndex: number | undefined; // Not given for 'count', which counts records.
+    functionId: QueryAggregateFunctionId;
+}
+export type QueryAggregateFunctionId = 'average' | 'count' | 'countDistinct' | 'maximum' | 'minimum' | 'sum';
+export interface QueryFilter {
+    columnIndex: number;
+    operatorId: QueryFilterOperatorId;
+    value: StoreValue; // Not read by 'isEmpty' and 'isNotEmpty'.
+}
+export type QueryFilterOperatorId =
+    | 'contains'
+    | 'endsWith'
+    | 'equals'
+    | 'greaterThan'
+    | 'greaterThanOrEquals'
+    | 'isEmpty'
+    | 'isNotEmpty'
+    | 'lessThan'
+    | 'lessThanOrEquals'
+    | 'notEquals'
+    | 'startsWith';
+export interface QuerySort {
+    columnIndex: number; // A position in the result record, which differs from the audit's columns when grouped.
+    directionId: 'ascending' | 'descending';
+}
+export interface QueryRecordsResult {
+    records: StoreRecord[];
+    totalCount: number; // How many records, or groups, pass the filters in all, so a table can size itself.
 }
 
 // ── Types - Action - Remove Records ──────────────────────────────────────────────────────────────────────────────────
@@ -251,6 +329,7 @@ const CONNECTOR_ITEM_TYPE_CONFIGS: { id: string; label: LocaleLabel }[] = [
 const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     abortOperation: 'Abort Operation',
     auditObjectContent: 'Audit Object Content',
+    closeStore: 'Close Store',
     createObject: 'Create Object',
     describeConnection: 'Describe Connection',
     dropObject: 'Drop Object',
@@ -259,7 +338,10 @@ const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     getReadableStream: 'Get Readable Stream',
     getRecord: 'Get Record',
     listNodes: 'List Nodes',
+    loadObjectRecords: 'Load Object Records',
+    openStore: 'Open Store',
     previewObject: 'Preview Object',
+    queryRecords: 'Query Records',
     removeRecords: 'Remove Records',
     retrieveChunks: 'Retrieve Chunks',
     retrieveRecords: 'Retrieve Records',
@@ -273,7 +355,7 @@ const CONNECTOR_USAGE_CONFIGS: { id: string; label: LocaleLabel }[] = [
     { id: 'unknown', label: { en: 'Unknown', es: 'Desconocido' } }
 ];
 
-const CONNECTOR_DESTINATION_OPERATIONS = new Set<ConnectorActionName>(['createObject', 'dropObject', 'removeRecords', 'upsertRecords']);
+const CONNECTOR_DESTINATION_OPERATIONS = new Set<ConnectorActionName>(['createObject', 'dropObject', 'loadObjectRecords', 'removeRecords', 'upsertRecords']);
 const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'auditObjectContent',
     'findObject',
@@ -282,6 +364,7 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'getRecord',
     'listNodes',
     'previewObject',
+    'queryRecords',
     'retrieveChunks',
     'retrieveRecords'
 ]);
