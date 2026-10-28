@@ -1,5 +1,5 @@
 {
-  "version": "1.0.158",
+  "version": "1.0.159",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -1725,7 +1725,7 @@
                   "version": "1.0.9"
                 },
                 "@types/node": {
-                  "version": "26.6.5"
+                  "version": "26.6.6"
                 }
               }
             },
@@ -2558,8 +2558,8 @@
       }
     },
     "@types/node": {
-      "version": "26.6.5",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-26.6.5.tgz",
+      "version": "26.6.6",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-26.6.6.tgz",
       "overridden": false,
       "dependencies": {
         "undici-types": {
@@ -3635,7 +3635,7 @@
       "overridden": false,
       "dependencies": {
         "@types/node": {
-          "version": "26.6.5"
+          "version": "26.6.6"
         },
         "@vitejs/devtools": {},
         "esbuild": {},
@@ -3790,7 +3790,7 @@
           }
         },
         "@types/node": {
-          "version": "26.6.5"
+          "version": "26.6.6"
         },
         "@vitest/browser-playwright": {},
         "@vitest/browser-preview": {},

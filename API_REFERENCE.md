@@ -173,6 +173,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`CreateObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`DescribeConnectionOptions`**
 - **`DropObjectOptions`** (extends `EngineConnectorActionOptions`)
+- **`EngineLoadObjectRecordsOptions`** (extends `LoadObjectRecordsOptions`)
 - **`FindObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`FindObjectResult`**
 - **`GetInfoOptions`** (extends `EngineConnectorActionOptions`)

@@ -20,7 +20,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3270 |
+| Total LOC | 3278 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 123, module scopes: 2, templates: 0 |
@@ -69,23 +69,23 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/utilities/index.ts` | 29.7 | 15 | 649 | 0.25 | 1 | cooling |
-| `src/locale/index.ts` | 25.7 | 11 | 153 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 20.8 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/tool/index.ts` | 19.0 | 11 | 90 | 0.18 | 6 | stable |
-| `src/component/dataView/index.ts` | 14.1 | 18 | 519 | 0.07 | 8 | accelerating |
-| `src/component/module/connector/index.ts` | 13.9 | 30 | 518 | 0.05 | 4 | stable |
-| `scripts/documentEncodings.ts` | 8.4 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 8.1 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 7.2 | 9 | 101 | 0.09 | 16 | stable |
-| `src/encoding/index.ts` | 5.3 | 7 | 527 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 3.7 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/connector/objectParsing.ts` | 3.4 | 3 | 210 | 0.08 | 1 | cooling |
-| `src/component/module/presenter/index.ts` | 2.3 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/utilities/index.ts` | 26.9 | 15 | 649 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 23.3 | 11 | 153 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 18.9 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/tool/index.ts` | 17.3 | 11 | 90 | 0.18 | 6 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 32 | 530 | 0.05 | 4 | stable |
+| `src/component/dataView/index.ts` | 12.8 | 18 | 519 | 0.07 | 8 | accelerating |
+| `scripts/documentEncodings.ts` | 7.7 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 7.4 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 6.5 | 9 | 101 | 0.09 | 16 | stable |
+| `src/encoding/index.ts` | 4.8 | 7 | 527 | 0.07 | 2 | accelerating |
+| `vite.config.ts` | 3.3 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 3.1 | 3 | 210 | 0.08 | 1 | cooling |
+| `src/component/module/presenter/index.ts` | 2.1 | 9 | 92 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 
-### Hidden Change Coupling (6 pairs, since 12 months)
+### Hidden Change Coupling (5 pairs, since 12 months)
 
 | File A | File B | Degree | Shared | Commits A | Commits B | Strong |
 |:-------|:-------|:-------|:-------|:----------|:----------|:-------|
@@ -94,7 +94,6 @@
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 43% | 5 | 7 | 16 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 36% | 5 | 21 | 7 |  |
 | `src/component/connection/index.ts` | `src/component/module/tool/index.ts` | 31% | 5 | 19 | 13 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 30% | 7 | 39 | 7 |  |
 
 *Files that change together in the commit history with no import between them.*
 
