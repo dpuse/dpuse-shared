@@ -193,7 +193,7 @@ export interface LoadObjectRecordsResult {
 // never travel through the app.
 export interface EngineLoadObjectRecordsOptions extends LoadObjectRecordsOptions {
     hasHeaders: boolean; // From the preview. A header record names the columns and is not loaded.
-    sourceConnectionConfig: ConnectionConfig;
+    sourceConnectionConfig: ConnectionConfig | LocalisedConfig<ConnectionConfig>; // The app passes the localised one it holds.
     sourceOptions: RetrieveRecordsOptions; // Read the item the same way the audit did.
 }
 
