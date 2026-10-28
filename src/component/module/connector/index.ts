@@ -6,7 +6,7 @@ import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
-import type { ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
+import type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
     connectorActionNameSchema,
     connectorCategoryConfigSchema,
@@ -187,6 +187,14 @@ export interface LoadObjectRecordsOptions extends EngineConnectorActionOptions {
 }
 export interface LoadObjectRecordsResult {
     recordCount: number;
+}
+
+// The engine's load reads the records from the source connection and passes them to the store connection, so they
+// never travel through the app.
+export interface EngineLoadObjectRecordsOptions extends LoadObjectRecordsOptions {
+    hasHeaders: boolean; // From the preview. A header record names the columns and is not loaded.
+    sourceConnectionConfig: ConnectionConfig;
+    sourceOptions: RetrieveRecordsOptions; // Read the item the same way the audit did.
 }
 
 // A record's values in the order of the audit's columns. A value that is void, or does not fit its column's audited
