@@ -241,13 +241,13 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 | Chunk/Module/File                                                           | Composition                                                                                    |
 | :-------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| **dist/dpuse-shared.es.js**                                                 | 59.1&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.1&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 13 more                            | `███████████████░░░░░`&nbsp;76.6%&nbsp;·&nbsp;45.3&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒░░░░░░░░░░░░░`&nbsp;36.4%&nbsp;·&nbsp;21.5&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ dataFormatIcons.ts        | `▒▒▒▒▒░░░░░░░░░░░░░░░`&nbsp;26.0%&nbsp;·&nbsp;15.4&nbsp;kB                                     |
+| **dist/dpuse-shared.es.js**                                                 | 59.4&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.1&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 13 more                            | `███████████████░░░░░`&nbsp;76.7%&nbsp;·&nbsp;45.5&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒░░░░░░░░░░░░░`&nbsp;36.5%&nbsp;·&nbsp;21.7&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ dataFormatIcons.ts        | `▒▒▒▒▒░░░░░░░░░░░░░░░`&nbsp;25.9%&nbsp;·&nbsp;15.4&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;4.9%&nbsp;·&nbsp;2.9&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ delimitedText.ts          | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;2.6%&nbsp;·&nbsp;1.6&nbsp;kB                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.1%&nbsp;·&nbsp;1.2&nbsp;kB                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.2%&nbsp;·&nbsp;1.3&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 9 smaller files           | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;4.6%&nbsp;·&nbsp;2.7&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `███░░░░░░░░░░░░░░░░░`&nbsp;12.8%&nbsp;·&nbsp;7.6&nbsp;kB                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `██░░░░░░░░░░░░░░░░░░`&nbsp;10.5%&nbsp;·&nbsp;6.2&nbsp;kB                                      |

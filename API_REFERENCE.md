@@ -161,6 +161,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`AuditObjectContentOptions`** (extends `EngineConnectorActionOptions`)
 - **`AuditObjectContentResult`**
+- **`CloseStoreOptions`**
 - **`ColumnAuditor`**
 - **`ConnectorActionName`** (inferred from `connectorActionNameSchema`)
 - **`ConnectorConfig`** (inferred from `connectorConfigSchema`, extends `ModuleConfig`)
@@ -181,14 +182,28 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`GetRecordResult`**
 - **`ListNodesOptions`** (extends `EngineConnectorActionOptions`)
 - **`ListNodesResult`**
+- **`LoadObjectRecordsOptions`** (extends `EngineConnectorActionOptions`)
+- **`LoadObjectRecordsResult`**
 - **`ObjectFilePreview`**
+- **`OpenStoreOptions`**
+- **`OpenStoreResult`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
+- **`QueryAggregate`**
+- **`QueryAggregateFunctionId`**
+- **`QueryFilter`**
+- **`QueryFilterOperatorId`**
+- **`QueryRecordsOptions`** (extends `EngineConnectorActionOptions`)
+- **`QueryRecordsResult`**
+- **`QuerySort`**
 - **`RecordRange`**
 - **`RecordRetrievalTypeId`**
 - **`RemoveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveChunksOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsSummary`**
+- **`StoreRecord`**
+- **`StoreStateId`**
+- **`StoreValue`**
 - **`UpsertRecordsOptions`** (extends `EngineConnectorActionOptions`)
 
 ### Component › Module › Cookbook

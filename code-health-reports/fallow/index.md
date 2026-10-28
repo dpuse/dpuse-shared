@@ -20,14 +20,14 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3183 |
+| Total LOC | 3270 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 123, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.2% |
-| Dead Exports | 0.5% |
-| Maintainability (avg) | 92.4 |
+| Dead Exports | 0.4% |
+| Maintainability (avg) | 92.5 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 1 |
@@ -53,7 +53,7 @@
 | `src/component/dataView/index.ts` | 91.5 | 8 | 4 | 0% | 0.07 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
 | `src/component/module/connector/objectParsing.ts` | 92.1 | 1 | 3 | 0% | 0.08 | 10.0 |
-| `src/component/module/connector/index.ts` | 88.7 | 4 | 9 | 0% | 0.07 | 8.0 |
+| `src/component/module/connector/index.ts` | 89.3 | 4 | 9 | 0% | 0.05 | 8.0 |
 | `src/locale/index.ts` | 86.4 | 4 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/tool/index.ts` | 86.8 | 6 | 6 | 0% | 0.18 | 3.0 |
 | `src/component/index.ts` | 92.9 | 16 | 2 | 0% | 0.09 | 4.0 |
@@ -63,25 +63,25 @@
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.4/100
+**Average maintainability index:** 92.5/100
 
 ### Hotspots (13 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/utilities/index.ts` | 31.2 | 15 | 649 | 0.25 | 1 | cooling |
-| `src/locale/index.ts` | 27.0 | 11 | 153 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 21.9 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/tool/index.ts` | 20.1 | 11 | 90 | 0.18 | 6 | stable |
-| `src/component/module/connector/index.ts` | 19.4 | 29 | 433 | 0.07 | 4 | stable |
-| `src/component/dataView/index.ts` | 14.9 | 18 | 519 | 0.07 | 8 | accelerating |
-| `scripts/documentEncodings.ts` | 8.9 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 8.6 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 7.6 | 9 | 101 | 0.09 | 16 | stable |
-| `src/encoding/index.ts` | 5.6 | 7 | 527 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 3.9 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/connector/objectParsing.ts` | 3.6 | 3 | 210 | 0.08 | 1 | cooling |
-| `src/component/module/presenter/index.ts` | 2.5 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/utilities/index.ts` | 29.7 | 15 | 649 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 25.7 | 11 | 153 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 20.8 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/tool/index.ts` | 19.0 | 11 | 90 | 0.18 | 6 | stable |
+| `src/component/dataView/index.ts` | 14.1 | 18 | 519 | 0.07 | 8 | accelerating |
+| `src/component/module/connector/index.ts` | 13.9 | 30 | 518 | 0.05 | 4 | stable |
+| `scripts/documentEncodings.ts` | 8.4 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 8.1 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 7.2 | 9 | 101 | 0.09 | 16 | stable |
+| `src/encoding/index.ts` | 5.3 | 7 | 527 | 0.07 | 2 | accelerating |
+| `vite.config.ts` | 3.7 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 3.4 | 3 | 210 | 0.08 | 1 | cooling |
+| `src/component/module/presenter/index.ts` | 2.3 | 9 | 92 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 
@@ -90,11 +90,11 @@
 | File A | File B | Degree | Shared | Commits A | Commits B | Strong |
 |:-------|:-------|:-------|:-------|:----------|:----------|:-------|
 | `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 7 | 11 | **strong** |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 52% | 8 | 20 | 11 | **strong** |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 50% | 8 | 21 | 11 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 43% | 5 | 7 | 16 |  |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 37% | 5 | 20 | 7 |  |
-| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 31% | 7 | 38 | 7 |  |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 36% | 5 | 21 | 7 |  |
 | `src/component/connection/index.ts` | `src/component/module/tool/index.ts` | 31% | 5 | 19 | 13 |  |
+| `src/component/module/connector/index.ts` | `src/component/module/index.ts` | 30% | 7 | 39 | 7 |  |
 
 *Files that change together in the commit history with no import between them.*
 
