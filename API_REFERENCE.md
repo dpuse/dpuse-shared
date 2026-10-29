@@ -151,7 +151,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
-- **`retrieveRecordsWithParser`**`(input: { chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void; options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`retrieveRecordsWithParser`**`(input: { chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void | Promise<void>; // A returned promise holds the read back until it settles. options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 
 #### Schemas
 

@@ -132,7 +132,7 @@ export async function buildPreviewConfig(input: {
 // Reads every record of an item, with the tool that read its preview. The caller supplies the stream and owns the abort
 // signal, because only the connector knows how to reach its items.
 export async function retrieveRecordsWithParser(input: {
-    chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void;
+    chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void | Promise<void>; // A returned promise holds the read back until it settles.
     options: RetrieveRecordsOptions;
     signal: AbortSignal;
     stream: ReadableStream<Uint8Array>;

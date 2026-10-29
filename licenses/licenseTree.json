@@ -1,19 +1,19 @@
 {
-  "version": "1.0.159",
+  "version": "1.0.160",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.140",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.140.tgz",
+      "version": "1.0.141",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.141.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.157",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.157.tgz",
+          "version": "1.0.160",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.160.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
-              "version": "22.2.0"
+              "version": "22.3.0"
             },
             "valibot": {
               "version": "1.5.0"
@@ -3312,17 +3312,20 @@
       }
     },
     "file-type": {
-      "version": "22.2.0",
-      "resolved": "https://registry.npmjs.org/file-type/-/file-type-22.2.0.tgz",
+      "version": "22.3.0",
+      "resolved": "https://registry.npmjs.org/file-type/-/file-type-22.3.0.tgz",
       "overridden": false,
       "dependencies": {
         "@tokenizer/inflate": {
-          "version": "0.5.1",
-          "resolved": "https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.5.1.tgz",
+          "version": "0.6.0",
+          "resolved": "https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.6.0.tgz",
           "overridden": false,
           "dependencies": {
             "debug": {
               "version": "4.4.3"
+            },
+            "strtok3": {
+              "version": "10.6.3"
             },
             "token-types": {
               "version": "6.1.2"
@@ -3330,8 +3333,8 @@
           }
         },
         "strtok3": {
-          "version": "10.5.0",
-          "resolved": "https://registry.npmjs.org/strtok3/-/strtok3-10.5.0.tgz",
+          "version": "10.6.3",
+          "resolved": "https://registry.npmjs.org/strtok3/-/strtok3-10.6.3.tgz",
           "overridden": false,
           "dependencies": {
             "@tokenizer/token": {
@@ -3347,8 +3350,8 @@
           "overridden": false,
           "dependencies": {
             "@borewit/text-codec": {
-              "version": "0.2.2",
-              "resolved": "https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.2.tgz",
+              "version": "0.2.3",
+              "resolved": "https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.3.tgz",
               "overridden": false
             },
             "@tokenizer/token": {

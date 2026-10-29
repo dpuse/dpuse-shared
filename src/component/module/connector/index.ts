@@ -52,7 +52,7 @@ export interface ConnectorInterface extends Component {
     retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>; // Retrieve all chunks from an object for a specified connection.
     retrieveRecords?(
         options: RetrieveRecordsOptions,
-        chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void,
+        chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void | Promise<void>, // A returned promise holds the read back until it settles.
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void>; // Retrieve all records from an object for a specified connection.
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>; // Upsert one or more records into an object for a specified connection.
