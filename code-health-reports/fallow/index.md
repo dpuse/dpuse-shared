@@ -20,7 +20,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3305 |
+| Total LOC | 3307 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 127, module scopes: 2, templates: 0 |
@@ -74,12 +74,12 @@
 | `src/errors/index.ts` | 18.0 | 8 | 226 | 0.30 | 3 | stable |
 | `src/component/module/tool/index.ts` | 16.5 | 11 | 90 | 0.18 | 6 | stable |
 | `src/component/module/connector/index.ts` | 13.9 | 33 | 532 | 0.05 | 4 | accelerating |
-| `src/component/dataView/index.ts` | 12.2 | 18 | 519 | 0.07 | 8 | accelerating |
+| `src/component/dataView/index.ts` | 13.1 | 19 | 520 | 0.07 | 8 | accelerating |
 | `scripts/documentEncodings.ts` | 7.3 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 7.0 | 3 | 169 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 6.2 | 9 | 101 | 0.09 | 16 | stable |
+| `src/component/module/connector/objectParsing.ts` | 5.5 | 5 | 242 | 0.09 | 1 | cooling |
 | `src/encoding/index.ts` | 4.6 | 7 | 527 | 0.07 | 2 | accelerating |
-| `src/component/module/connector/objectParsing.ts` | 4.4 | 4 | 212 | 0.09 | 1 | cooling |
 | `vite.config.ts` | 3.2 | 21 | 139 | 0.02 | 0 | accelerating |
 | `src/component/module/presenter/index.ts` | 2.0 | 9 | 92 | 0.03 | 1 | cooling |
 
