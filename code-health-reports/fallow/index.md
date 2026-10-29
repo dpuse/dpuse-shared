@@ -20,10 +20,10 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3278 |
-| Avg Cyclomatic | 2.7 |
+| Total LOC | 3305 |
+| Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 123, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 127, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.2% |
 | Dead Exports | 0.4% |
@@ -40,7 +40,7 @@
 
 **!** marks the dimension that breached.
 
-**45** files, **123** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**45** files, **127** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (16 files)
 
@@ -52,7 +52,7 @@
 | `src/component/module/tool/delimitedText.ts` | 85.4 | 1 | 2 | 0% | 0.34 | 13.0 |
 | `src/component/dataView/index.ts` | 91.5 | 8 | 4 | 0% | 0.07 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
-| `src/component/module/connector/objectParsing.ts` | 92.1 | 1 | 3 | 0% | 0.08 | 10.0 |
+| `src/component/module/connector/objectParsing.ts` | 91.8 | 1 | 3 | 0% | 0.09 | 10.0 |
 | `src/component/module/connector/index.ts` | 89.3 | 4 | 9 | 0% | 0.05 | 8.0 |
 | `src/locale/index.ts` | 86.4 | 4 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/tool/index.ts` | 86.8 | 6 | 6 | 0% | 0.18 | 3.0 |
@@ -69,19 +69,19 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/utilities/index.ts` | 26.9 | 15 | 649 | 0.25 | 1 | cooling |
-| `src/locale/index.ts` | 23.3 | 11 | 153 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 18.9 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/tool/index.ts` | 17.3 | 11 | 90 | 0.18 | 6 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 32 | 530 | 0.05 | 4 | stable |
-| `src/component/dataView/index.ts` | 12.8 | 18 | 519 | 0.07 | 8 | accelerating |
-| `scripts/documentEncodings.ts` | 7.7 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 7.4 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 6.5 | 9 | 101 | 0.09 | 16 | stable |
-| `src/encoding/index.ts` | 4.8 | 7 | 527 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 3.3 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/connector/objectParsing.ts` | 3.1 | 3 | 210 | 0.08 | 1 | cooling |
-| `src/component/module/presenter/index.ts` | 2.1 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/utilities/index.ts` | 25.7 | 15 | 649 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 22.3 | 11 | 153 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 18.0 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/tool/index.ts` | 16.5 | 11 | 90 | 0.18 | 6 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 33 | 532 | 0.05 | 4 | accelerating |
+| `src/component/dataView/index.ts` | 12.2 | 18 | 519 | 0.07 | 8 | accelerating |
+| `scripts/documentEncodings.ts` | 7.3 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 7.0 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 6.2 | 9 | 101 | 0.09 | 16 | stable |
+| `src/encoding/index.ts` | 4.6 | 7 | 527 | 0.07 | 2 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 4.4 | 4 | 212 | 0.09 | 1 | cooling |
+| `vite.config.ts` | 3.2 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/presenter/index.ts` | 2.0 | 9 | 92 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 

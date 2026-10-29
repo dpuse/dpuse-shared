@@ -195,12 +195,22 @@ describe('objectParsing', () => {
     describe('auditObjectContentWithParser', () => {
         const SUMMARY = { byteCount: 9, commentLineCount: 1, emptyLineCount: 2, lineCount: 5, nonUniformRecordCount: 3, recordCount: 4 };
 
-        function runAudit(hasHeaders: boolean) {
+        function runAudit(
+            hasHeaders: boolean,
+            stream = new ReadableStream<Uint8Array>({
+                start: (controller) => {
+                    controller.close();
+                }
+            })
+        ) {
             const columnAuditor = { auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue([{ id: 'a' }]) };
-            const parseStream = vi.fn((_stream: unknown, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
+            const parseStream = vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
+                const reader = sourceStream.getReader();
+                let result = await reader.read();
+                while (!result.done) result = await reader.read(); // Reads the stream through, as a parser does.
                 chunk('parsingRecordArray', RECORDS);
                 chunk('parsingRecordArray', [...RECORDS, ...RECORDS]);
-                return Promise.resolve(SUMMARY);
+                return SUMMARY;
             });
             tools.byName['adaltas-csv-parser'] = { parseStream };
             const onProgress = vi.fn();
@@ -209,7 +219,7 @@ describe('objectParsing', () => {
                 onProgress,
                 options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
                 signal: new AbortController().signal,
-                stream: new ReadableStream<Uint8Array>(),
+                stream,
                 toolConfigs: TOOL_CONFIGS
             });
             return { audit, columnAuditor, onProgress };
@@ -236,6 +246,24 @@ describe('objectParsing', () => {
             const auditConfig = await runAudit(false).audit;
 
             expect(auditConfig.recordCount).toBe(4);
+        });
+
+        it('adds up how long the parser waited for the item to arrive', async () => {
+            vi.useFakeTimers();
+            const stream = new ReadableStream<Uint8Array>({
+                async pull(controller): Promise<void> {
+                    await new Promise((resolve) => setTimeout(resolve, 100)); // Each chunk takes 100 ms to arrive.
+                    controller.enqueue(new Uint8Array([1]));
+                    controller.close();
+                }
+            });
+            const { audit } = runAudit(true, stream);
+
+            await vi.advanceTimersByTimeAsync(100);
+            const auditConfig = await audit;
+            vi.useRealTimers();
+
+            expect(auditConfig.sourceWaitDuration).toBeGreaterThanOrEqual(100);
         });
     });
 });

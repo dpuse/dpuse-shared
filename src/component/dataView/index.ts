@@ -110,6 +110,7 @@ export interface ContentAuditConfig {
     duration: number;
     lineCount: number | undefined;
     recordCount: number; // Data records only. A header record is not counted.
+    sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined in audits saved before it was measured.
 }
 
 // ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────

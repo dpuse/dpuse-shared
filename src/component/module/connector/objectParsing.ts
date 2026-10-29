@@ -162,8 +162,9 @@ export async function auditObjectContentWithParser(input: {
     const startedAt = performance.now();
     const columnAuditor = constructColumnAuditor(options.hasHeaders);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
+    const timedSource = timeSourceWaits(stream);
     const summary = await parser.parseStream(
-        stream,
+        timedSource.stream,
         { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId },
         (_typeId, records) => {
             columnAuditor.auditRecords(records);
@@ -178,11 +179,36 @@ export async function auditObjectContentWithParser(input: {
         emptyLineCount: summary.emptyLineCount,
         invalidFieldLengthCount: summary.nonUniformRecordCount,
         lineCount: summary.lineCount,
-        recordCount: Math.max(0, summary.recordCount - (options.hasHeaders ? 1 : 0)) // A header record names the columns and is not data.
+        recordCount: Math.max(0, summary.recordCount - (options.hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
+        sourceWaitDuration: timedSource.waitDuration()
     };
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// Passes the stream through, adding up how long the parser waits for each chunk, so an audit can show how much of its
+// time went on fetching the item rather than reading it. A chunk is only asked for when the parser wants one, so the
+// wait is time the parser sat idle. The browser keeps receiving the item meanwhile, so this does not slow the fetch.
+function timeSourceWaits(stream: ReadableStream<Uint8Array>): { stream: ReadableStream<Uint8Array>; waitDuration: () => number } {
+    const reader = stream.getReader();
+    let waitDuration = 0;
+    const timedStream = new ReadableStream<Uint8Array>(
+        {
+            async pull(controller): Promise<void> {
+                const startedAt = performance.now();
+                const result = await reader.read();
+                waitDuration += performance.now() - startedAt;
+                if (result.done) controller.close();
+                else controller.enqueue(result.value);
+            },
+            cancel(reason): Promise<void> {
+                return reader.cancel(reason);
+            }
+        },
+        { highWaterMark: 0 }
+    );
+    return { stream: timedStream, waitDuration: () => waitDuration };
+}
 
 // Loads the tool the user chose for the format, or the first that reads it. Returns the id of the tool actually used.
 async function loadParser(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId: string | undefined): Promise<{ parser: ParserInterface; parserId: string }> {
