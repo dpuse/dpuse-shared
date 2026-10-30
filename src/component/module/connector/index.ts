@@ -71,7 +71,7 @@ export interface ConnectorUtilities {
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
 export interface ColumnAuditor {
-    auditRecords: (parsedRecords: ParsingRecord[]) => InferenceRecord[]; // The chunk's data records, each value typed by itself. A header record is left out.
+    auditRecords: (parsedRecords: ParsingRecord[]) => void;
     completeAudit: () => ObjectColumnConfig[];
 }
 

@@ -35,6 +35,8 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ConnectionConfig`** (extends `ComponentInstanceConfig`)
 - **`ConnectionDescriptionConfig`**
 - **`ConnectionNodeConfig`**
+- **`DateOrderId`**
+- **`DecimalSeparatorId`**
 - **`ObjectColumnConfig`**
 
 ### Component › Context

@@ -58,7 +58,7 @@ function buildFilePreview(overrides: Partial<ObjectFilePreview> = {}): ObjectFil
     };
 }
 
-const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaderRow: true, typedRecords: [['typed']] };
+const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaderRow: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
 function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string): Parameters<typeof buildPreviewConfig>[0] {
@@ -85,7 +85,6 @@ describe('objectParsing', () => {
                 columnConfigs: INFERENCE_SUMMARY.columnConfigs,
                 dataFormatId: 'dtv',
                 hasHeaders: true,
-                inferenceRecords: INFERENCE_SUMMARY.typedRecords,
                 parsedRecords: RECORDS,
                 parserId: 'dpuse-tool-adaltas-csv-parser',
                 recordDelimiterId: '\n',

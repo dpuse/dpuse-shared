@@ -67,7 +67,6 @@ export async function buildPreviewConfig(input: {
             hasHeaders: false,
             recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
             parsedRecords: [],
-            inferenceRecords: [],
             issues: [{ id: 'empty', lineNumber: undefined, message: 'The file is empty.', severityId: 'info' }],
             size: 0,
             text: undefined,
@@ -87,7 +86,6 @@ export async function buildPreviewConfig(input: {
             hasHeaders: undefined,
             recordDelimiterId: undefined,
             parsedRecords: [],
-            inferenceRecords: [],
             issues: [],
             size,
             text,
@@ -121,7 +119,6 @@ export async function buildPreviewConfig(input: {
         recordDelimiterId: parseTextResult.recordDelimiterId,
         parsedRecords: parseTextResult.parsedRecords,
         parserId: usedParserId,
-        inferenceRecords: inferenceSummary.typedRecords,
         issues: parseTextResult.issues, // Records the parser could not read. The text is still returned, so the user can see them.
         size,
         text,

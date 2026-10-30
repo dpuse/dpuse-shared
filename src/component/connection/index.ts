@@ -86,9 +86,12 @@ type NodeTypeId = 'folder' | 'object';
 export interface ObjectColumnConfig {
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
+    dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
+    decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
     inferenceCounts: Record<string, number>;
-    invalidValueCount: number | undefined;
+    invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
     invalidValues: Record<string, string>;
+    isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId'. Either the browser's locale decided, or they disagree and the majority did.
     isIgnored: boolean | undefined;
     isRequired: boolean | undefined;
     isUnique: boolean | undefined;
@@ -100,12 +103,16 @@ export interface ObjectColumnConfig {
     minDecimals: number | undefined;
     minSize: number | undefined;
     minValue: string | undefined;
-    formats: Record<string, string>;
+    formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '1,234.5' or 'Yes/No'.
     storageTypeId: StorageTypeId | undefined;
     validValueCount: number | undefined;
     validValues: Record<string, string>;
     voidValueCount: number | undefined;
 }
+
+export type DateOrderId = 'dayFirst' | 'monthFirst';
+
+export type DecimalSeparatorId = ',' | '.';
 
 type StorageTypeId =
     | 'binary'

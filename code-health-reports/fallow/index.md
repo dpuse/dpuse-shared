@@ -20,7 +20,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3307 |
+| Total LOC | 3309 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 127, module scopes: 2, templates: 0 |
@@ -69,19 +69,19 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/utilities/index.ts` | 25.7 | 15 | 649 | 0.25 | 1 | cooling |
-| `src/locale/index.ts` | 22.3 | 11 | 153 | 0.36 | 4 | cooling |
-| `src/errors/index.ts` | 18.0 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/tool/index.ts` | 16.5 | 11 | 90 | 0.18 | 6 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 33 | 532 | 0.05 | 4 | accelerating |
-| `src/component/dataView/index.ts` | 13.1 | 19 | 520 | 0.07 | 8 | accelerating |
-| `scripts/documentEncodings.ts` | 7.3 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 7.0 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 6.2 | 9 | 101 | 0.09 | 16 | stable |
-| `src/component/module/connector/objectParsing.ts` | 5.5 | 5 | 242 | 0.09 | 1 | cooling |
+| `src/utilities/index.ts` | 26.0 | 15 | 649 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 22.5 | 11 | 153 | 0.36 | 4 | cooling |
+| `src/errors/index.ts` | 18.2 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/tool/index.ts` | 16.7 | 11 | 90 | 0.18 | 6 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 32 | 516 | 0.05 | 4 | stable |
+| `src/component/dataView/index.ts` | 13.2 | 19 | 520 | 0.07 | 8 | accelerating |
+| `scripts/documentEncodings.ts` | 7.4 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 7.1 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 6.3 | 9 | 101 | 0.09 | 16 | stable |
+| `src/component/module/connector/objectParsing.ts` | 5.6 | 5 | 242 | 0.09 | 1 | cooling |
 | `src/encoding/index.ts` | 4.6 | 7 | 527 | 0.07 | 2 | accelerating |
 | `vite.config.ts` | 3.2 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 2.0 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/component/module/presenter/index.ts` | 2.1 | 9 | 92 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 

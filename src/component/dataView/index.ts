@@ -35,7 +35,6 @@ export interface PreviewConfig {
     errorMessage?: string | undefined; // TODO: under review.
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
-    inferenceRecords: InferenceRecord[];
     issues?: PreviewIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
     linesToSkipAtStart?: number | undefined; // TODO: under review.
     parsedRecords: ParsingRecord[];
@@ -136,7 +135,6 @@ export type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
 export interface InferenceSummary {
     columnConfigs: ObjectColumnConfig[];
     hasHeaderRow: boolean;
-    typedRecords: InferenceRecord[];
 }
 
 export type InferenceRecord = InferenceResult[];
