@@ -30,6 +30,8 @@ export { parseDelimitedText, type ParseTextWithDelimiter } from './delimitedText
 
 const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
 
+const DEFAULT_PARSER_TOOL_IDS: Partial<Record<DataFormatId, string>> = { dtv: 'dpuse-tool-rust-csv-core-parser' }; // The tool used for a format with several, when the user has not chosen one.
+
 export const TOOL_NAME_PREFIX = 'dpuse-tool-'; // A tool's config id is this followed by the id 'loadTool' takes.
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -41,8 +43,9 @@ export function listParserToolConfigs(toolConfigs: ToolConfig[], dataFormatId: D
         .toSorted((first, second) => first.id.localeCompare(second.id, 'en'));
 }
 
-// The tool that reads the data format: the one the user chose, or the first of those that read it when none is chosen or
-// the chosen one no longer reads it. 'parserId' is the tool's config id, e.g. 'dpuse-tool-adaltas-csv-parser'.
+// The tool that reads the data format: the one the user chose, or the format's default when none is chosen or the chosen
+// one no longer reads it, or else the first that reads it. 'parserId' is the tool's config id, e.g.
+// 'dpuse-tool-adaltas-csv-parser'.
 export function resolveParserToolConfig(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId?: string): ToolConfig {
     const parserToolConfigs = listParserToolConfigs(toolConfigs, dataFormatId);
     const [firstParserToolConfig] = parserToolConfigs;
@@ -50,7 +53,8 @@ export function resolveParserToolConfig(toolConfigs: ToolConfig[], dataFormatId:
         const data = { availableToolIds: toolConfigs.map((config) => config.id), dataFormatId };
         throw new AppError(`No tool reads the '${dataFormatId}' data format.`, 'dpuse-shared.component.module.tool.resolveParserToolConfig', data);
     }
-    return parserToolConfigs.find((config) => config.id === parserId) ?? firstParserToolConfig;
+    const defaultParserId = DEFAULT_PARSER_TOOL_IDS[dataFormatId];
+    return parserToolConfigs.find((config) => config.id === parserId) ?? parserToolConfigs.find((config) => config.id === defaultParserId) ?? firstParserToolConfig;
 }
 
 // Dynamically load tool.

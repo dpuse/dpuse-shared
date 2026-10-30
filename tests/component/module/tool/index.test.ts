@@ -75,20 +75,31 @@ describe('resolveParserToolConfig', () => {
     const rust = buildToolConfig('dpuse-tool-rust-csv-core-parser', '1.0.0', ['dtv']);
     const jsonTool = buildToolConfig('dpuse-tool-json-parser', '1.0.0', ['json']);
 
-    it('takes the first tool by id when none is chosen', () => {
-        expect(resolveParserToolConfig([rust, adaltas], 'dtv')).toBe(adaltas);
+    it('takes the format’s default tool when none is chosen', () => {
+        expect(resolveParserToolConfig([adaltas, rust], 'dtv')).toBe(rust);
+    });
+
+    it('takes the first tool by id when the format has no default, or its default is not configured', () => {
+        const otherJsonTool = buildToolConfig('dpuse-tool-another-json-parser', '1.0.0', ['json']);
+
+        expect(resolveParserToolConfig([jsonTool, otherJsonTool], 'json')).toBe(otherJsonTool);
+        expect(resolveParserToolConfig([adaltas, jsonTool], 'dtv')).toBe(adaltas);
     });
 
     it('takes the chosen tool, even when it is not the first', () => {
         expect(resolveParserToolConfig([adaltas, rust], 'dtv', 'dpuse-tool-rust-csv-core-parser')).toBe(rust);
     });
 
-    it('falls back to the first tool when the chosen one is no longer configured', () => {
-        expect(resolveParserToolConfig([adaltas, rust], 'dtv', 'dpuse-tool-removed')).toBe(adaltas);
+    it('takes the chosen tool over the default', () => {
+        expect(resolveParserToolConfig([adaltas, rust], 'dtv', 'dpuse-tool-adaltas-csv-parser')).toBe(adaltas);
     });
 
-    it('falls back to the first tool when the chosen one no longer reads the format', () => {
-        expect(resolveParserToolConfig([adaltas, rust, jsonTool], 'dtv', 'dpuse-tool-json-parser')).toBe(adaltas);
+    it('falls back to the default when the chosen one is no longer configured', () => {
+        expect(resolveParserToolConfig([adaltas, rust], 'dtv', 'dpuse-tool-removed')).toBe(rust);
+    });
+
+    it('falls back to the default when the chosen one no longer reads the format', () => {
+        expect(resolveParserToolConfig([adaltas, rust, jsonTool], 'dtv', 'dpuse-tool-json-parser')).toBe(rust);
     });
 
     it('fails, naming the format and the tools available, when no tool reads the format', () => {

@@ -72,9 +72,9 @@ describe('objectParsing', () => {
     });
 
     describe('buildPreviewConfig', () => {
-        it('parses the text with the first tool that reads the format, and infers its types', async () => {
+        it('parses the text with the format’s default tool, and infers its types', async () => {
             const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ';' });
-            tools.byName['adaltas-csv-parser'] = { parseText };
+            tools.byName['rust-csv-core-parser'] = { parseText };
 
             const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview()));
 
@@ -86,7 +86,7 @@ describe('objectParsing', () => {
                 dataFormatId: 'dtv',
                 hasHeaders: true,
                 parsedRecords: RECORDS,
-                parserId: 'dpuse-tool-adaltas-csv-parser',
+                parserId: 'dpuse-tool-rust-csv-core-parser',
                 recordDelimiterId: '\n',
                 size: 10,
                 text: 'a,b\n1,2\n',
@@ -111,7 +111,7 @@ describe('objectParsing', () => {
                 .fn()
                 .mockResolvedValueOnce({ issues: [], parsedRecords: [], recordDelimiterId: '\n', valueDelimiterId: undefined })
                 .mockResolvedValueOnce({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
-            tools.byName['adaltas-csv-parser'] = { parseText };
+            tools.byName['rust-csv-core-parser'] = { parseText };
 
             const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview({ text: 'Ada\nGrace\n' })));
 
@@ -132,7 +132,7 @@ describe('objectParsing', () => {
 
         it('passes on whether the preview holds the whole item', async () => {
             const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
-            tools.byName['adaltas-csv-parser'] = { parseText };
+            tools.byName['rust-csv-core-parser'] = { parseText };
 
             await buildPreviewConfig(buildPreviewInput(buildFilePreview({ isComplete: false })));
 
@@ -211,7 +211,7 @@ describe('objectParsing', () => {
                 chunk('parsingRecordArray', [...RECORDS, ...RECORDS]);
                 return SUMMARY;
             });
-            tools.byName['adaltas-csv-parser'] = { parseStream };
+            tools.byName['rust-csv-core-parser'] = { parseStream };
             const onProgress = vi.fn();
             const audit = auditObjectContentWithParser({
                 constructColumnAuditor: vi.fn().mockReturnValue(columnAuditor),

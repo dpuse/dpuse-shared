@@ -39,7 +39,7 @@ const DEFAULT_VALUE_DELIMITER_ID: ValueDelimiterId = ',';
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds the preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
-// first that reads its format. An item that is empty, or of a format no tool reads yet, comes back as itself with no
+// format's default. An item that is empty, or of a format no tool reads yet, comes back as itself with no
 // records rather than as an error, and its text is kept so the picker can still show it.
 export async function buildPreviewConfig(input: {
     asAt: number;
@@ -207,7 +207,7 @@ function timeSourceWaits(stream: ReadableStream<Uint8Array>): { stream: Readable
     return { stream: timedStream, waitDuration: () => waitDuration };
 }
 
-// Loads the tool the user chose for the format, or the first that reads it. Returns the id of the tool actually used.
+// Loads the tool the user chose for the format, or the format's default. Returns the id of the tool actually used.
 async function loadParser(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId: string | undefined): Promise<{ parser: ParserInterface; parserId: string }> {
     const parserToolConfig = resolveParserToolConfig(toolConfigs, dataFormatId, parserId);
     const parser = await loadTool<ParserInterface>(toolConfigs, parserToolConfig.id.slice(TOOL_NAME_PREFIX.length));
