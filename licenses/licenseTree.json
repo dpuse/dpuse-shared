@@ -1,5 +1,5 @@
 {
-  "version": "1.0.165",
+  "version": "1.0.166",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -3237,13 +3237,13 @@
       }
     },
     "fallow": {
-      "version": "3.38.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.38.0.tgz",
+      "version": "3.38.1",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.38.1.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.38.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.38.0.tgz",
+          "version": "3.38.1",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.38.1.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
@@ -3259,8 +3259,8 @@
           "overridden": false
         },
         "fallow-type-aware": {
-          "version": "3.38.0",
-          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.38.0.tgz",
+          "version": "3.38.1",
+          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.38.1.tgz",
           "overridden": false,
           "dependencies": {
             "tsrs": {},
