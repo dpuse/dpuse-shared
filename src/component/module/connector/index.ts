@@ -66,7 +66,7 @@ export interface ConnectorUtilities {
     constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
     inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
-    inferDataTypes: (parsedRecords: ParsingRecord[]) => InferenceSummary;
+    inferDataTypes: (parsedRecords: ParsingRecord[], hasHeaders?: boolean) => InferenceSummary;
 }
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
@@ -268,6 +268,14 @@ export interface QuerySort {
 export interface QueryRecordsResult {
     records: StoreRecord[];
     totalCount: number; // How many records, or groups, pass the filters in all, so a table can size itself.
+}
+
+// ── Types - Action - Recount Preview Columns ─────────────────────────────────────────────────────────────────────────
+
+// Counts a preview's columns again when the user says whether its first record is a header, so the item is not read again.
+export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptions {
+    hasHeaders: boolean;
+    parsedRecords: ParsingRecord[];
 }
 
 // ── Types - Action - Remove Records ──────────────────────────────────────────────────────────────────────────────────

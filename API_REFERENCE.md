@@ -201,6 +201,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`QuerySort`**
 - **`RecordRange`**
 - **`RecordRetrievalTypeId`**
+- **`RecountPreviewColumnsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RemoveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveChunksOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsOptions`** (extends `EngineConnectorActionOptions`)
