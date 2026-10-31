@@ -3,9 +3,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
 import type { ObjectFilePreview } from '@/component/module/connector';
-import type { ParsingRecord } from '@/component/dataView';
 import type { ToolConfig } from '@/component/module/tool';
 import { auditObjectContentWithParser, buildPreviewConfig, retrieveRecordsWithParser } from '@/component/module/connector';
+import type { ParsingRecord, ValueDelimiterId } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -61,8 +61,8 @@ function buildFilePreview(overrides: Partial<ObjectFilePreview> = {}): ObjectFil
 const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaderRow: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
-function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string): Parameters<typeof buildPreviewConfig>[0] {
-    return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, parserId, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS };
+function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewConfig>[0] {
+    return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, parserId, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS, valueDelimiterId };
 }
 
 describe('objectParsing', () => {
@@ -118,6 +118,17 @@ describe('objectParsing', () => {
             expect(parseText).toHaveBeenCalledTimes(2);
             expect(parseText.mock.calls[1]?.[1]).toMatchObject({ valueDelimiterIds: [','] });
             expect(preview).toMatchObject({ parsedRecords: RECORDS, valueDelimiterId: ',' });
+        });
+
+        it('parses only with the value delimiter the user chose, and reports it even when it does not split the text', async () => {
+            const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+            tools.byName['rust-csv-core-parser'] = { parseText };
+
+            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview(), undefined, '|'));
+
+            expect(parseText).toHaveBeenCalledTimes(1);
+            expect(parseText.mock.calls[0]?.[1]).toMatchObject({ valueDelimiterIds: ['|'] });
+            expect(preview).toMatchObject({ parsedRecords: RECORDS, valueDelimiterId: '|' });
         });
 
         it('leaves the value delimiter undefined for a format that is not delimited, and parses it once', async () => {

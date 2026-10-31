@@ -1,5 +1,5 @@
 {
-  "version": "1.0.164",
+  "version": "1.0.165",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -103,7 +103,7 @@
                       "version": "5.0.0"
                     },
                     "pacote": {
-                      "version": "21.5.1"
+                      "version": "21.5.2"
                     },
                     "proc-log": {
                       "version": "6.1.0"
@@ -655,8 +655,8 @@
                   }
                 },
                 "pacote": {
-                  "version": "21.5.1",
-                  "resolved": "https://registry.npmjs.org/pacote/-/pacote-21.5.1.tgz",
+                  "version": "21.5.2",
+                  "resolved": "https://registry.npmjs.org/pacote/-/pacote-21.5.2.tgz",
                   "overridden": false,
                   "dependencies": {
                     "@gar/promise-retry": {
@@ -1217,7 +1217,7 @@
               "version": "4.0.0"
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "ignore": {
               "version": "7.0.9",
@@ -1232,7 +1232,7 @@
           "overridden": false,
           "dependencies": {
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             }
           }
         },
@@ -1242,7 +1242,7 @@
           "overridden": false,
           "dependencies": {
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             }
           }
         },
@@ -1275,7 +1275,7 @@
             },
             "eslint-plugin-import": {},
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "get-tsconfig": {
               "version": "4.14.0",
@@ -1353,39 +1353,39 @@
           "overridden": false,
           "dependencies": {
             "@typescript-eslint/types": {
-              "version": "8.72.0",
-              "resolved": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.72.0.tgz",
+              "version": "8.72.1",
+              "resolved": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.72.1.tgz",
               "overridden": false
             },
             "@typescript-eslint/utils": {
-              "version": "8.72.0",
-              "resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.72.0.tgz",
+              "version": "8.72.1",
+              "resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.72.1.tgz",
               "overridden": false,
               "dependencies": {
                 "@eslint-community/eslint-utils": {
                   "version": "4.10.1"
                 },
                 "@typescript-eslint/scope-manager": {
-                  "version": "8.72.0",
-                  "resolved": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.72.0.tgz",
+                  "version": "8.72.1",
+                  "resolved": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.72.1.tgz",
                   "overridden": false,
                   "dependencies": {
                     "@typescript-eslint/types": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "@typescript-eslint/visitor-keys": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     }
                   }
                 },
                 "@typescript-eslint/types": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/typescript-estree": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "eslint": {
-                  "version": "10.13.0"
+                  "version": "10.14.0"
                 },
                 "typescript": {
                   "version": "6.0.3"
@@ -1405,7 +1405,7 @@
             },
             "eslint-import-resolver-node": {},
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "is-glob": {
               "version": "4.0.3"
@@ -1448,7 +1448,7 @@
                       "version": "1.0.9"
                     },
                     "@typescript-eslint/types": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "comment-parser": {
                       "version": "1.4.1",
@@ -1492,7 +1492,7 @@
                   "version": "1.0.9"
                 },
                 "@typescript-eslint/types": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "comment-parser": {
                   "version": "1.4.9"
@@ -1518,7 +1518,7 @@
               "overridden": false
             },
             "@typescript-eslint/utils": {
-              "version": "8.72.0"
+              "version": "8.72.1"
             },
             "are-docs-informative": {
               "version": "0.1.1",
@@ -1537,7 +1537,7 @@
               "overridden": false
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "espree": {
               "version": "11.2.0"
@@ -1645,7 +1645,7 @@
                   "overridden": false,
                   "dependencies": {
                     "eslint": {
-                      "version": "10.13.0"
+                      "version": "10.14.0"
                     },
                     "semver": {
                       "version": "7.8.5"
@@ -1653,12 +1653,12 @@
                   }
                 },
                 "eslint": {
-                  "version": "10.13.0"
+                  "version": "10.14.0"
                 }
               }
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "get-tsconfig": {
               "version": "4.14.0"
@@ -1700,8 +1700,8 @@
           }
         },
         "eslint-plugin-regexp": {
-          "version": "3.3.1",
-          "resolved": "https://registry.npmjs.org/eslint-plugin-regexp/-/eslint-plugin-regexp-3.3.1.tgz",
+          "version": "3.3.2",
+          "resolved": "https://registry.npmjs.org/eslint-plugin-regexp/-/eslint-plugin-regexp-3.3.2.tgz",
           "overridden": false,
           "dependencies": {
             "@eslint-community/eslint-utils": {
@@ -1714,7 +1714,7 @@
               "version": "1.4.9"
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "jsdoc-type-pratt-parser": {
               "version": "9.2.2",
@@ -1813,7 +1813,7 @@
               "overridden": false
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "functional-red-black-tree": {
               "version": "1.0.1",
@@ -1959,7 +1959,7 @@
               "overridden": false
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "find-up-simple": {
               "version": "1.0.1",
@@ -2369,7 +2369,7 @@
           }
         },
         "eslint": {
-          "version": "10.13.0"
+          "version": "10.14.0"
         },
         "globals": {
           "version": "17.13.0",
@@ -2377,43 +2377,43 @@
           "overridden": false
         },
         "typescript-eslint": {
-          "version": "8.72.0",
-          "resolved": "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.72.0.tgz",
+          "version": "8.72.1",
+          "resolved": "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.72.1.tgz",
           "overridden": false,
           "dependencies": {
             "@typescript-eslint/eslint-plugin": {
-              "version": "8.72.0",
-              "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.72.0.tgz",
+              "version": "8.72.1",
+              "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.72.1.tgz",
               "overridden": false,
               "dependencies": {
                 "@eslint-community/regexpp": {
                   "version": "4.12.2"
                 },
                 "@typescript-eslint/parser": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/scope-manager": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/type-utils": {
-                  "version": "8.72.0",
-                  "resolved": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.72.0.tgz",
+                  "version": "8.72.1",
+                  "resolved": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.72.1.tgz",
                   "overridden": false,
                   "dependencies": {
                     "@typescript-eslint/types": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "@typescript-eslint/typescript-estree": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "@typescript-eslint/utils": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "debug": {
                       "version": "4.4.3"
                     },
                     "eslint": {
-                      "version": "10.13.0"
+                      "version": "10.14.0"
                     },
                     "ts-api-utils": {
                       "version": "2.5.0"
@@ -2424,15 +2424,15 @@
                   }
                 },
                 "@typescript-eslint/utils": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/visitor-keys": {
-                  "version": "8.72.0",
-                  "resolved": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.72.0.tgz",
+                  "version": "8.72.1",
+                  "resolved": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.72.1.tgz",
                   "overridden": false,
                   "dependencies": {
                     "@typescript-eslint/types": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "eslint-visitor-keys": {
                       "version": "5.0.1"
@@ -2440,7 +2440,7 @@
                   }
                 },
                 "eslint": {
-                  "version": "10.13.0"
+                  "version": "10.14.0"
                 },
                 "ignore": {
                   "version": "7.0.9"
@@ -2457,27 +2457,27 @@
               }
             },
             "@typescript-eslint/parser": {
-              "version": "8.72.0",
-              "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.72.0.tgz",
+              "version": "8.72.1",
+              "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.72.1.tgz",
               "overridden": false,
               "dependencies": {
                 "@typescript-eslint/scope-manager": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/types": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/typescript-estree": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/visitor-keys": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "debug": {
                   "version": "4.4.3"
                 },
                 "eslint": {
-                  "version": "10.13.0"
+                  "version": "10.14.0"
                 },
                 "typescript": {
                   "version": "6.0.3"
@@ -2485,20 +2485,20 @@
               }
             },
             "@typescript-eslint/typescript-estree": {
-              "version": "8.72.0",
-              "resolved": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.72.0.tgz",
+              "version": "8.72.1",
+              "resolved": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.72.1.tgz",
               "overridden": false,
               "dependencies": {
                 "@typescript-eslint/project-service": {
-                  "version": "8.72.0",
-                  "resolved": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.72.0.tgz",
+                  "version": "8.72.1",
+                  "resolved": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.72.1.tgz",
                   "overridden": false,
                   "dependencies": {
                     "@typescript-eslint/tsconfig-utils": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "@typescript-eslint/types": {
-                      "version": "8.72.0"
+                      "version": "8.72.1"
                     },
                     "debug": {
                       "version": "4.4.3"
@@ -2509,8 +2509,8 @@
                   }
                 },
                 "@typescript-eslint/tsconfig-utils": {
-                  "version": "8.72.0",
-                  "resolved": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.72.0.tgz",
+                  "version": "8.72.1",
+                  "resolved": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.72.1.tgz",
                   "overridden": false,
                   "dependencies": {
                     "typescript": {
@@ -2519,10 +2519,10 @@
                   }
                 },
                 "@typescript-eslint/types": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "@typescript-eslint/visitor-keys": {
-                  "version": "8.72.0"
+                  "version": "8.72.1"
                 },
                 "debug": {
                   "version": "4.4.3"
@@ -2545,10 +2545,10 @@
               }
             },
             "@typescript-eslint/utils": {
-              "version": "8.72.0"
+              "version": "8.72.1"
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             },
             "typescript": {
               "version": "6.0.3"
@@ -2692,8 +2692,8 @@
       }
     },
     "eslint": {
-      "version": "10.13.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-10.13.0.tgz",
+      "version": "10.14.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-10.14.0.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-utils": {
@@ -2707,7 +2707,7 @@
               "overridden": false
             },
             "eslint": {
-              "version": "10.13.0"
+              "version": "10.14.0"
             }
           }
         },
@@ -3237,13 +3237,13 @@
       }
     },
     "fallow": {
-      "version": "3.37.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.37.0.tgz",
+      "version": "3.38.0",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.38.0.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.37.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.37.0.tgz",
+          "version": "3.38.0",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.38.0.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
@@ -3259,8 +3259,8 @@
           "overridden": false
         },
         "fallow-type-aware": {
-          "version": "3.37.0",
-          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.37.0.tgz",
+          "version": "3.38.0",
+          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.38.0.tgz",
           "overridden": false,
           "dependencies": {
             "tsrs": {},

@@ -223,6 +223,7 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     mimeType: string | undefined; // The type the connection's listing gave the item, if any.
     parserId: string | undefined; // A tool the user chose to read the item, used in place of the first that reads its format.
     path: string;
+    valueDelimiterId: ValueDelimiterId | undefined; // A value delimiter the user chose, used in place of the one detected.
 }
 
 // ── Types - Action - Query Records ───────────────────────────────────────────────────────────────────────────────────

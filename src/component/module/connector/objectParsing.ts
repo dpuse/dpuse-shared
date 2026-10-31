@@ -39,7 +39,7 @@ const DEFAULT_VALUE_DELIMITER_ID: ValueDelimiterId = ',';
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds the preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
-// format's default. An item that is empty, or of a format no tool reads yet, comes back as itself with no
+// format's default, and delimited text with the value delimiter the user chose or the one detected. An item that is empty, or of a format no tool reads yet, comes back as itself with no
 // records rather than as an error, and its text is kept so the picker can still show it.
 export async function buildPreviewConfig(input: {
     asAt: number;
@@ -48,8 +48,9 @@ export async function buildPreviewConfig(input: {
     parserId: string | undefined;
     startedAt: number; // From 'performance.now()', before the item was fetched.
     toolConfigs: ToolConfig[];
+    valueDelimiterId: ValueDelimiterId | undefined;
 }): Promise<PreviewConfig> {
-    const { asAt, filePreview, inferDataTypes, parserId, startedAt, toolConfigs } = input;
+    const { asAt, filePreview, inferDataTypes, parserId, startedAt, toolConfigs, valueDelimiterId } = input;
     const { dataFormatId, text } = filePreview;
     const size = filePreview.bytes.length;
 
@@ -94,13 +95,15 @@ export async function buildPreviewConfig(input: {
     }
 
     // Parse the text and, for delimited text, identify its delimiters. With no delimiter found, the text is parsed again
-    // with the default, so the records match the delimiter reported. Whether the preview holds the whole item decides if a
+    // with the default, so the records match the delimiter reported. A delimiter the user chose is the only one tried, and
+    // is reported even when it does not split the text into a table, so the user sees the result of their choice. Whether the preview holds the whole item decides if a
     // quote left open at its end is an error, or a value the preview cut off.
     const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
-    const detectedParseTextResult = await parser.parseText(text, { dataFormatId, isComplete: filePreview.isComplete, valueDelimiterIds: ORDERED_VALUE_DELIMITER_IDS });
+    const valueDelimiterIds = valueDelimiterId == null ? ORDERED_VALUE_DELIMITER_IDS : [valueDelimiterId];
+    const detectedParseTextResult = await parser.parseText(text, { dataFormatId, isComplete: filePreview.isComplete, valueDelimiterIds });
     const isDelimitedText = dataFormatId === 'dtv';
     const parseTextResult =
-        isDelimitedText && detectedParseTextResult.valueDelimiterId == null
+        isDelimitedText && valueDelimiterId == null && detectedParseTextResult.valueDelimiterId == null
             ? await parser.parseText(text, { dataFormatId, isComplete: filePreview.isComplete, valueDelimiterIds: [DEFAULT_VALUE_DELIMITER_ID] })
             : detectedParseTextResult;
 
@@ -122,7 +125,7 @@ export async function buildPreviewConfig(input: {
         issues: parseTextResult.issues, // Records the parser could not read. The text is still returned, so the user can see them.
         size,
         text,
-        valueDelimiterId: isDelimitedText ? (parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId
+        valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId
     };
 }
 
