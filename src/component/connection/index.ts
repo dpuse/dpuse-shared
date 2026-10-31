@@ -84,6 +84,7 @@ type NodeTypeId = 'folder' | 'object';
 // ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
 
 export interface ObjectColumnConfig {
+    blankValueCount: number | undefined; // Values written as an empty quoted value, or as only spaces.
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
     dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
@@ -107,13 +108,14 @@ export interface ObjectColumnConfig {
     minSize: number | undefined;
     minValue: string | undefined;
     minWholeDigits: number | undefined;
-    formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '1,234.5' or 'Yes/No'.
+    missingValueCount: number | undefined; // Nothing between the delimiters, a record too short to reach the column, or a null word such as 'NULL'.
+    formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
     quotedValueCount: number | undefined;
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
-    voidValueCount: number | undefined;
+    voidValueCount: number | undefined; // Blank and missing values together.
 }
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
