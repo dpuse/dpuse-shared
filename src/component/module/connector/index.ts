@@ -281,6 +281,14 @@ export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptio
     parsedRecords: ParsingRecord[];
 }
 
+// Says what each value of the records shown is, so the table can mark the ones that do not fit their column.
+export interface ClassifyPreviewValuesOptions extends EngineConnectorActionOptions {
+    columnConfigs: ObjectColumnConfig[]; // Each column as the user wants it read.
+    parsedRecords: ParsingRecord[]; // Data records only, with no header record.
+}
+
+export type PreviewValueStateId = 'blank' | 'invalid' | 'missing' | 'valid';
+
 // ── Types - Action - Remove Records ──────────────────────────────────────────────────────────────────────────────────
 
 export interface RemoveRecordsOptions extends EngineConnectorActionOptions {

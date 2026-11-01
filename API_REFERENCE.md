@@ -168,6 +168,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`AuditObjectContentOptions`** (extends `EngineConnectorActionOptions`)
 - **`AuditObjectContentResult`**
+- **`ClassifyPreviewValuesOptions`** (extends `EngineConnectorActionOptions`)
 - **`CloseStoreOptions`**
 - **`ColumnAuditor`**
 - **`ConnectorActionName`** (inferred from `connectorActionNameSchema`)
@@ -198,6 +199,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`OpenStoreResult`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`PreviewObjectResult`**
+- **`PreviewValueStateId`**
 - **`QueryAggregate`**
 - **`QueryAggregateFunctionId`**
 - **`QueryFilter`**
