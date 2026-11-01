@@ -107,12 +107,16 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`AuditSummaryConfig`**
 - **`BooleanInferenceResult`**
+- **`ColumnSetConfig`**
+- **`ColumnSetSourceId`**
 - **`ContentAuditConfig`**
 - **`DataFormatIconConfig`**
 - **`DataFormatId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**
+- **`DataViewColumnConfig`** (extends `ObjectColumnConfig`)
 - **`DataViewConfig`** (extends `ComponentInstanceConfig`)
 - **`InferenceRecord`**
 - **`InferenceResult`**
@@ -126,6 +130,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`PreviewIssue`**
 - **`PreviewIssueSeverityId`**
 - **`RecordDelimiterId`**
+- **`StoredPreviewConfig`**
 - **`StringInferenceResult`**
 - **`TemporalInferenceResult`**
 - **`TemporalSubtypeId`**
@@ -177,6 +182,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`DescribeConnectionOptions`**
 - **`DropObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`EngineLoadObjectRecordsOptions`** (extends `LoadObjectRecordsOptions`)
+- **`EngineLoadObjectRecordsResult`** (extends `LoadObjectRecordsResult`)
 - **`FindObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`FindObjectResult`**
 - **`GetInfoOptions`** (extends `EngineConnectorActionOptions`)

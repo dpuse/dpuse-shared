@@ -182,7 +182,7 @@ export interface ListNodesResult {
 // ── Types - Action - Load Object Records ─────────────────────────────────────────────────────────────────────────────
 
 export interface LoadObjectRecordsOptions extends EngineConnectorActionOptions {
-    columnConfigs: ObjectColumnConfig[]; // From the audit. The store creates the object's columns from these, in this order.
+    columnConfigs: ObjectColumnConfig[]; // The data view's columns, each with the type to load it as. The store creates the object's columns from these, in this order.
     path: string;
 }
 export interface LoadObjectRecordsResult {
@@ -193,12 +193,18 @@ export interface LoadObjectRecordsResult {
 // never travel through the app.
 export interface EngineLoadObjectRecordsOptions extends LoadObjectRecordsOptions {
     hasHeaders: boolean; // From the preview. A header record names the columns and is not loaded.
+    headerValues: (string | null)[] | undefined; // The preview's header record as it was read. A different header record means the columns have moved, so nothing is loaded.
     sourceConnectionConfig: ConnectionConfig | LocalisedConfig<ConnectionConfig>; // The app passes the localised one it holds.
     sourceOptions: RetrieveRecordsOptions; // Read the item the same way the audit did.
 }
 
-// A record's values in the order of the audit's columns. A value that is void, or does not fit its column's audited
-// type, is null.
+export interface EngineLoadObjectRecordsResult extends LoadObjectRecordsResult {
+    columnsHaveChanged: boolean; // The item's header record no longer matches 'headerValues'. Nothing was loaded, and any earlier load is kept.
+    invalidValueCounts: number[]; // Per column, in the order of 'columnConfigs', the values that did not fit its type and so loaded as null.
+}
+
+// A record's values in the order of the data view's columns. A value that is void, or does not fit its column's type, is
+// null.
 export type StoreRecord = StoreValue[];
 export type StoreValue = bigint | boolean | Date | number | string | null;
 

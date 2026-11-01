@@ -16,9 +16,27 @@ export interface DataViewConfig extends ComponentInstanceConfig {
     typeId: 'dataView';
     connectionId: string; // Always set, because a data view is only saved once its connection is chosen.
     connectionNodeConfig: ConnectionNodeConfig | undefined;
-    previewConfig: PreviewConfig | undefined;
-    contentAuditConfig: ContentAuditConfig | undefined;
+    previewConfig: StoredPreviewConfig | undefined;
+    columnSetConfig: ColumnSetConfig | undefined;
+    auditSummaryConfig: AuditSummaryConfig | undefined; // Undefined until the whole item is audited.
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
+}
+
+// ── Types - Column Set Configuration ─────────────────────────────────────────────────────────────────────────────────
+
+// The data view's one list of columns, from its preview until the whole item is audited, and from the audit after that.
+export interface ColumnSetConfig {
+    asAt: number; // When the columns were read.
+    columnConfigs: DataViewColumnConfig[];
+    sourceId: ColumnSetSourceId;
+}
+
+export type ColumnSetSourceId = 'audit' | 'preview';
+
+// A column's 'dataTypeId' is always the detected type. A type the user chose is held apart, so a new audit updates what
+// was detected and the choice survives.
+export interface DataViewColumnConfig extends ObjectColumnConfig {
+    chosenDataTypeId?: DataTypeId | undefined;
 }
 
 // ── Types - Preview Configuration ────────────────────────────────────────────────────────────────────────────────────
@@ -53,6 +71,9 @@ export interface PreviewConfig {
     valueDelimiterOtherCharSeq?: string | undefined; // TODO: under review.
     valueTrimMethodId?: ValueTrimMethodId | undefined; // TODO: under review.
 }
+
+// A preview as a data view saves it. Its columns are saved in the data view's column set.
+export type StoredPreviewConfig = Omit<PreviewConfig, 'columnConfigs'>;
 
 // One thing found while previewing an item. Not a failure: the preview still holds whatever was read, so the item can be
 // shown and read another way.
@@ -111,6 +132,9 @@ export interface ContentAuditConfig {
     recordCount: number; // Data records only. A header record is not counted.
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined in audits saved before it was measured.
 }
+
+// An audit as a data view saves it. Its columns are saved in the data view's column set.
+export type AuditSummaryConfig = Omit<ContentAuditConfig, 'columns'>;
 
 // ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────
 

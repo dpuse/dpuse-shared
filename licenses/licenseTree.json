@@ -1,5 +1,5 @@
 {
-  "version": "1.0.168",
+  "version": "1.0.169",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -1700,8 +1700,8 @@
           }
         },
         "eslint-plugin-regexp": {
-          "version": "3.3.2",
-          "resolved": "https://registry.npmjs.org/eslint-plugin-regexp/-/eslint-plugin-regexp-3.3.2.tgz",
+          "version": "3.3.3",
+          "resolved": "https://registry.npmjs.org/eslint-plugin-regexp/-/eslint-plugin-regexp-3.3.3.tgz",
           "overridden": false,
           "dependencies": {
             "@eslint-community/eslint-utils": {

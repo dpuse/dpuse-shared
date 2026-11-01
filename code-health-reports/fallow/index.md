@@ -20,7 +20,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3333 |
+| Total LOC | 3363 |
 | Avg Cyclomatic | 2.6 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 128, module scopes: 2, templates: 0 |
@@ -69,19 +69,19 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/utilities/index.ts` | 23.8 | 15 | 649 | 0.25 | 1 | cooling |
-| `src/locale/index.ts` | 20.7 | 11 | 153 | 0.36 | 4 | cooling |
-| `src/component/module/tool/index.ts` | 18.4 | 12 | 100 | 0.19 | 6 | stable |
-| `src/errors/index.ts` | 16.7 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 34 | 519 | 0.05 | 4 | stable |
-| `src/component/dataView/index.ts` | 12.9 | 20 | 522 | 0.07 | 8 | accelerating |
-| `src/component/module/connector/objectParsing.ts` | 10.1 | 8 | 264 | 0.11 | 1 | accelerating |
-| `scripts/documentEncodings.ts` | 6.8 | 4 | 68 | 0.18 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 6.5 | 3 | 169 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 5.8 | 9 | 101 | 0.09 | 16 | stable |
-| `src/encoding/index.ts` | 4.3 | 7 | 527 | 0.07 | 2 | accelerating |
-| `vite.config.ts` | 3.0 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 1.9 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/utilities/index.ts` | 22.9 | 15 | 649 | 0.25 | 1 | cooling |
+| `src/locale/index.ts` | 19.8 | 11 | 153 | 0.36 | 4 | cooling |
+| `src/component/module/tool/index.ts` | 17.6 | 12 | 100 | 0.19 | 6 | stable |
+| `src/errors/index.ts` | 16.0 | 8 | 226 | 0.30 | 3 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 35 | 529 | 0.05 | 4 | stable |
+| `src/component/dataView/index.ts` | 12.4 | 20 | 522 | 0.07 | 8 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 9.7 | 8 | 264 | 0.11 | 1 | accelerating |
+| `scripts/documentEncodings.ts` | 6.5 | 4 | 68 | 0.18 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 6.3 | 3 | 169 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 5.5 | 9 | 101 | 0.09 | 16 | stable |
+| `src/encoding/index.ts` | 4.1 | 7 | 527 | 0.07 | 2 | accelerating |
+| `vite.config.ts` | 2.8 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/presenter/index.ts` | 1.8 | 9 | 92 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 
