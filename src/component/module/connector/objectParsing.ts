@@ -7,11 +7,13 @@ import type {
     AuditObjectContentOptions,
     ColumnAuditor,
     ConnectorUtilities,
+    PreviewObjectResult,
     RecordRetrievalTypeId,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@/component/module/connector';
-import type { ContentAuditConfig, DataFormatId, ParsingRecord, PreviewConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, ParsingRecord, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import { resolveDecoderId } from '@/encoding';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ParserInterface, ToolConfig } from '@/component/module/tool';
 
@@ -36,12 +38,16 @@ export interface ObjectFilePreview {
 const DEFAULT_RECORD_DELIMITER_ID: RecordDelimiterId = '\n';
 const DEFAULT_VALUE_DELIMITER_ID: ValueDelimiterId = ',';
 
+const CARRIAGE_RETURN_BYTE = 0x0d;
+const LINE_FEED_BYTE = 0x0a;
+const QUOTE_BYTE = 0x22;
+
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Builds the preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
+// Builds the first audit and preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
 // format's default, and delimited text with the value delimiter the user chose or the one detected. An item that is empty, or of a format no tool reads yet, comes back as itself with no
 // records rather than as an error, and its text is kept so the picker can still show it.
-export async function buildPreviewConfig(input: {
+export async function buildPreviewObjectResult(input: {
     asAt: number;
     filePreview: ObjectFilePreview;
     inferDataTypes: ConnectorUtilities['inferDataTypes'];
@@ -49,7 +55,7 @@ export async function buildPreviewConfig(input: {
     startedAt: number; // From 'performance.now()', before the item was fetched.
     toolConfigs: ToolConfig[];
     valueDelimiterId: ValueDelimiterId | undefined;
-}): Promise<PreviewConfig> {
+}): Promise<PreviewObjectResult> {
     const { asAt, filePreview, inferDataTypes, parserId, startedAt, toolConfigs, valueDelimiterId } = input;
     const { dataFormatId, text } = filePreview;
     const size = filePreview.bytes.length;
@@ -58,39 +64,38 @@ export async function buildPreviewConfig(input: {
     // there is nothing to show.
     if (size === 0) {
         return {
-            asAt,
-            columnConfigs: [],
-            dataFormatId: 'dtv',
-            duration: performance.now() - startedAt,
-            encodingId: undefined,
-            encodingConfidenceLevel: undefined,
-            fileType: undefined,
-            hasHeaders: false,
-            recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
-            parsedRecords: [],
-            issues: [{ id: 'empty', lineNumber: undefined, message: 'The file is empty.', severityId: 'info' }],
-            size: 0,
-            text: undefined,
-            valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
+            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: true, recordCount: 0, size, startedAt }),
+            previewConfig: {
+                issues: [{ id: 'empty', lineNumber: undefined, message: 'The file is empty.', severityId: 'info' }],
+                parsedRecords: [],
+                size: 0,
+                text: undefined
+            },
+            readConfig: {
+                dataFormatId: 'dtv',
+                encodingConfidenceLevel: undefined,
+                encodingId: undefined,
+                fileType: undefined,
+                hasHeaders: false,
+                recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
+                valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
+            }
         };
     }
 
     if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) {
         return {
-            asAt,
-            columnConfigs: [],
-            dataFormatId: dataFormatId ?? 'unknown',
-            duration: performance.now() - startedAt,
-            encodingId: filePreview.encodingId,
-            encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
-            fileType: filePreview.fileTypeConfig,
-            hasHeaders: undefined,
-            recordDelimiterId: undefined,
-            parsedRecords: [],
-            issues: [],
-            size,
-            text,
-            valueDelimiterId: undefined
+            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: filePreview.isComplete, recordCount: 0, size, startedAt }),
+            previewConfig: { issues: [], parsedRecords: [], size, text },
+            readConfig: {
+                dataFormatId: dataFormatId ?? 'unknown',
+                encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
+                encodingId: filePreview.encodingId,
+                fileType: filePreview.fileTypeConfig,
+                hasHeaders: undefined,
+                recordDelimiterId: undefined,
+                valueDelimiterId: undefined
+            }
         };
     }
 
@@ -111,21 +116,30 @@ export async function buildPreviewConfig(input: {
     const inferenceSummary = inferDataTypes(parseTextResult.parsedRecords);
 
     return {
-        asAt,
-        columnConfigs: inferenceSummary.columnConfigs,
-        dataFormatId,
-        duration: performance.now() - startedAt,
-        encodingId: filePreview.encodingId,
-        encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
-        fileType: filePreview.fileTypeConfig,
-        hasHeaders: inferenceSummary.hasHeaderRow,
-        recordDelimiterId: parseTextResult.recordDelimiterId,
-        parsedRecords: parseTextResult.parsedRecords,
-        parserId: usedParserId,
-        issues: parseTextResult.issues, // Records the parser could not read. The text is still returned, so the user can see them.
-        size,
-        text,
-        valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId
+        contentAuditConfig: constructFirstAuditConfig({
+            asAt,
+            columns: inferenceSummary.columnConfigs,
+            isComplete: filePreview.isComplete,
+            recordCount: Math.max(0, parseTextResult.parsedRecords.length - (inferenceSummary.hasHeaderRow ? 1 : 0)), // A header record names the columns and is not data.
+            size,
+            startedAt
+        }),
+        previewConfig: {
+            issues: parseTextResult.issues, // Records the parser could not read. The text is still returned, so the user can see them.
+            parsedRecords: parseTextResult.parsedRecords,
+            size,
+            text
+        },
+        readConfig: {
+            dataFormatId,
+            encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
+            encodingId: filePreview.encodingId,
+            fileType: filePreview.fileTypeConfig,
+            hasHeaders: inferenceSummary.hasHeaderRow,
+            parserId: usedParserId,
+            recordDelimiterId: parseTextResult.recordDelimiterId,
+            valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId
+        }
     };
 }
 
@@ -147,11 +161,12 @@ export async function retrieveRecordsWithParser(input: {
     );
 }
 
-// Reads every record of an item, to count them and describe their columns. Records are audited one chunk at a time, so
-// the item is never held in memory. 'onProgress' receives the number of records in each chunk as it is audited.
+// Reads an item's records from its start, to count them and describe their columns, up to 'options.byteLimit' or until
+// 'options.stopSignal' fires. Records are audited one chunk at a time, so the item is never held in memory. 'onProgress'
+// receives the number of records in each chunk as it is audited, and the bytes read so far.
 export async function auditObjectContentWithParser(input: {
     constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor;
-    onProgress: (recordCount: number) => void;
+    onProgress: (recordCount: number, byteCount: number) => void;
     options: AuditObjectContentOptions;
     signal: AbortSignal;
     stream: ReadableStream<Uint8Array>;
@@ -163,21 +178,24 @@ export async function auditObjectContentWithParser(input: {
     const columnAuditor = constructColumnAuditor(options.hasHeaders);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
     const timedSource = timeSourceWaits(stream);
+    const auditSource = endAtRecordBoundary(timedSource.stream, options);
     const summary = await parser.parseStream(
-        timedSource.stream,
+        auditSource.stream,
         { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId },
         (_typeId, records) => {
             columnAuditor.auditRecords(records);
-            onProgress(records.length);
+            onProgress(records.length, auditSource.byteCount());
         }
     );
     return {
         asAt,
+        byteCount: auditSource.byteCount(),
         columns: columnAuditor.completeAudit(),
         commentLineCount: summary.commentLineCount,
         duration: performance.now() - startedAt,
         emptyLineCount: summary.emptyLineCount,
         invalidFieldLengthCount: summary.nonUniformRecordCount,
+        isComplete: auditSource.isComplete(),
         lineCount: summary.lineCount,
         recordCount: Math.max(0, summary.recordCount - (options.hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
         sourceWaitDuration: timedSource.waitDuration()
@@ -185,6 +203,96 @@ export async function auditObjectContentWithParser(input: {
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// The first audit of an item, from the records its preview parsed. The bytes were fetched before it started, so it has no
+// wait to report, and the parser's text mode does not count lines.
+function constructFirstAuditConfig(input: {
+    asAt: number;
+    columns: ContentAuditConfig['columns'];
+    isComplete: boolean;
+    recordCount: number;
+    size: number;
+    startedAt: number;
+}): ContentAuditConfig {
+    const { asAt, columns, isComplete, recordCount, size, startedAt } = input;
+    return {
+        asAt,
+        byteCount: size,
+        columns,
+        commentLineCount: undefined,
+        duration: performance.now() - startedAt,
+        emptyLineCount: undefined,
+        invalidFieldLengthCount: undefined,
+        isComplete,
+        lineCount: undefined,
+        recordCount,
+        sourceWaitDuration: undefined
+    };
+}
+
+// Passes the stream through until the limit is reached or the stop signal fires, then ends it just after the next record.
+// Ending the stream, rather than aborting, lets the parser finish normally, so its counts are kept and no record is cut
+// in two. The limit is a minimum, because a record that runs past it is read to its end. Line breaks inside quotes do not
+// end a record, so every byte is checked for quotes, even while no limit is near.
+function endAtRecordBoundary(
+    stream: ReadableStream<Uint8Array>,
+    options: Pick<AuditObjectContentOptions, 'byteLimit' | 'encodingId' | 'stopSignal'>
+): { byteCount: () => number; isComplete: () => boolean; stream: ReadableStream<Uint8Array> } {
+    const reader = stream.getReader();
+    const recordEndFinder = constructRecordEndFinder(options.encodingId);
+    let byteCount = 0;
+    let isComplete = false;
+    const boundedStream = new ReadableStream<Uint8Array>(
+        {
+            async pull(controller): Promise<void> {
+                const result = await reader.read();
+                if (result.done) {
+                    isComplete = true;
+                    controller.close();
+                    return;
+                }
+                const limit = options.stopSignal?.aborted === true ? byteCount : (options.byteLimit ?? Infinity);
+                const recordEnd = recordEndFinder(result.value, byteCount, limit - byteCount);
+                if (recordEnd == null) {
+                    byteCount += result.value.length;
+                    controller.enqueue(result.value);
+                    return;
+                }
+                byteCount += recordEnd;
+                controller.enqueue(result.value.subarray(0, recordEnd));
+                controller.close();
+                await reader.cancel();
+            },
+            cancel(reason): Promise<void> {
+                return reader.cancel(reason);
+            }
+        },
+        { highWaterMark: 0 }
+    );
+    return { byteCount: () => byteCount, isComplete: () => isComplete, stream: boundedStream };
+}
+
+// Finds where the first record to end at or after 'searchFrom' ends in a piece of the item, remembering across pieces
+// whether a quote is open. Doubled quotes inside a value close and reopen it, which leaves the answer right. UTF-8 never
+// uses these byte values inside a longer character. UTF-16 can, so it is read as two-byte units.
+function constructRecordEndFinder(encodingId: string): (bytes: Uint8Array, position: number, searchFrom: number) => number | undefined {
+    const decoderId = resolveDecoderId(encodingId);
+    const isUtf16 = decoderId.startsWith('utf-16');
+    const unitByteCount = isUtf16 ? 2 : 1;
+    const lowByteOffset = decoderId === 'utf-16be' ? 1 : 0;
+    let quoteIsOpen = false;
+
+    return (bytes, position, searchFrom): number | undefined => {
+        for (let index = 0; index < bytes.length; index++) {
+            const byte = bytes[index];
+            if (byte !== QUOTE_BYTE && byte !== LINE_FEED_BYTE && byte !== CARRIAGE_RETURN_BYTE) continue;
+            if (isUtf16 && ((position + index) % 2 !== lowByteOffset || bytes[index + 1 - 2 * lowByteOffset] !== 0)) continue;
+            if (byte === QUOTE_BYTE) quoteIsOpen = !quoteIsOpen;
+            else if (!quoteIsOpen && index >= searchFrom && (byte === LINE_FEED_BYTE || bytes[index + unitByteCount] !== LINE_FEED_BYTE))
+                return index + unitByteCount - lowByteOffset;
+        }
+    };
+}
 
 // Passes the stream through, adding up how long the parser waits for each chunk, so an audit can show how much of its
 // time went on fetching the item rather than reading it. A chunk is only asked for when the parser wants one, so the

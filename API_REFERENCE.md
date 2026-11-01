@@ -107,10 +107,8 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
-- **`AuditSummaryConfig`**
 - **`BooleanInferenceResult`**
 - **`ColumnSetConfig`**
-- **`ColumnSetSourceId`**
 - **`ContentAuditConfig`**
 - **`DataFormatIconConfig`**
 - **`DataFormatId`**
@@ -129,8 +127,9 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`PreviewConfig`**
 - **`PreviewIssue`**
 - **`PreviewIssueSeverityId`**
+- **`ReadConfig`**
 - **`RecordDelimiterId`**
-- **`StoredPreviewConfig`**
+- **`StoredContentAuditConfig`**
 - **`StringInferenceResult`**
 - **`TemporalInferenceResult`**
 - **`TemporalSubtypeId`**
@@ -152,8 +151,8 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
-- **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor; onProgress: (recordCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
-- **`buildPreviewConfig`**`(input: { asAt: number; filePreview: ObjectFilePreview; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; valueDelimiterId: ValueDelimiterId | undefined; })`
+- **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor; onProgress: (recordCount: number, byteCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`buildPreviewObjectResult`**`(input: { asAt: number; filePreview: ObjectFilePreview; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; valueDelimiterId: ValueDelimiterId | undefined; })`
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
@@ -198,6 +197,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`OpenStoreOptions`**
 - **`OpenStoreResult`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
+- **`PreviewObjectResult`**
 - **`QueryAggregate`**
 - **`QueryAggregateFunctionId`**
 - **`QueryFilter`**

@@ -1,15 +1,15 @@
 {
-  "version": "1.0.169",
+  "version": "1.0.170",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.141",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.141.tgz",
+      "version": "1.0.144",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.144.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.160",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.160.tgz",
+          "version": "1.0.170",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.170.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -1204,8 +1204,8 @@
       }
     },
     "@dpuse/eslint-config-dpuse": {
-      "version": "1.0.145",
-      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.0.145.tgz",
+      "version": "1.0.148",
+      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.0.148.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": {
@@ -1771,8 +1771,8 @@
           }
         },
         "eslint-plugin-security": {
-          "version": "4.2.0",
-          "resolved": "https://registry.npmjs.org/eslint-plugin-security/-/eslint-plugin-security-4.2.0.tgz",
+          "version": "4.2.1",
+          "resolved": "https://registry.npmjs.org/eslint-plugin-security/-/eslint-plugin-security-4.2.1.tgz",
           "overridden": false,
           "dependencies": {
             "safe-regex": {
@@ -1821,7 +1821,7 @@
               "overridden": false
             },
             "globals": {
-              "version": "17.13.0"
+              "version": "17.14.0"
             },
             "jsx-ast-utils-x": {
               "version": "0.1.0",
@@ -1967,7 +1967,7 @@
               "overridden": false
             },
             "globals": {
-              "version": "17.13.0"
+              "version": "17.14.0"
             },
             "identifier-regex": {
               "version": "1.1.0",
@@ -2372,8 +2372,8 @@
           "version": "10.14.0"
         },
         "globals": {
-          "version": "17.13.0",
-          "resolved": "https://registry.npmjs.org/globals/-/globals-17.13.0.tgz",
+          "version": "17.14.0",
+          "resolved": "https://registry.npmjs.org/globals/-/globals-17.14.0.tgz",
           "overridden": false
         },
         "typescript-eslint": {

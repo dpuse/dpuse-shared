@@ -16,7 +16,7 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ReadConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -25,7 +25,7 @@ export { connectorConfigSchema } from './connectorConfig.schema';
 
 // ── Actions - Object Parsing ─────────────────────────────────────────────────────────────────────────────────────────
 
-export { auditObjectContentWithParser, buildPreviewConfig, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
+export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -34,7 +34,7 @@ export interface ConnectorInterface extends Component {
     readonly config: ConnectorConfig;
     readonly toolConfigs: ToolConfig[];
     abortOperation?(): void; // Abort the active long running action.
-    auditObjectContent?(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
+    auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number) => void): Promise<AuditObjectContentResult>;
     closeStore?(options: CloseStoreOptions): Promise<void>; // Close a store connector's database and release its hold on it, so another tab can open it.
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
@@ -46,7 +46,7 @@ export interface ConnectorInterface extends Component {
     listNodes?(options: ListNodesOptions): Promise<ListNodesResult>; // List nodes in a folder for a specified connection.
     loadObjectRecords?(options: LoadObjectRecordsOptions, chunks: AsyncIterable<StoreRecord[]>): Promise<LoadObjectRecordsResult>; // Replace an object in a store connector with the records given.
     openStore?(options: OpenStoreOptions): Promise<OpenStoreResult>; // Open a store connector's database, unless another tab holds it.
-    previewObject?(options: PreviewObjectOptions): Promise<PreviewConfig>; // Preview an object for a specified connection.
+    previewObject?(options: PreviewObjectOptions): Promise<PreviewObjectResult>; // Preview an object for a specified connection.
     queryRecords?(options: QueryRecordsOptions): Promise<QueryRecordsResult>; // Query one page of an object in a store connector.
     removeRecords?(options: RemoveRecordsOptions): Promise<void>; // Remove one or more records from an object for a specified connection.
     retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>; // Retrieve all chunks from an object for a specified connection.
@@ -90,12 +90,14 @@ type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 // ── Types - Action - Audit Object Content ────────────────────────────────────────────────────────────────────────────
 
 export interface AuditObjectContentOptions extends EngineConnectorActionOptions {
+    byteLimit: number | undefined; // Stops at the first record to end after this many bytes. Reads the whole item when undefined.
     chunkSize: number | undefined;
     dataFormatId: DataFormatId; // From the preview.
     encodingId: string;
     hasHeaders: boolean; // From the preview. A header record names the columns and is not audited as data.
     parserId: string | undefined; // From the preview. The tool that read it, so the audit reads the item the same way.
     path: string;
+    stopSignal: AbortSignal | undefined; // Stops at the end of the next record and keeps the result, unlike an abort. The engine adds it, because a signal cannot cross into the worker.
     supportsTransferableStreams: boolean;
     valueDelimiterId: ValueDelimiterId;
 }
@@ -231,6 +233,11 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     path: string;
     valueDelimiterId: ValueDelimiterId | undefined; // A value delimiter the user chose, used in place of the one detected.
 }
+export interface PreviewObjectResult {
+    contentAuditConfig: ContentAuditConfig;
+    previewConfig: PreviewConfig;
+    readConfig: ReadConfig;
+}
 
 // ── Types - Action - Query Records ───────────────────────────────────────────────────────────────────────────────────
 
@@ -256,17 +263,7 @@ export interface QueryFilter {
     value: StoreValue; // Not read by 'isEmpty' and 'isNotEmpty'.
 }
 export type QueryFilterOperatorId =
-    | 'contains'
-    | 'endsWith'
-    | 'equals'
-    | 'greaterThan'
-    | 'greaterThanOrEquals'
-    | 'isEmpty'
-    | 'isNotEmpty'
-    | 'lessThan'
-    | 'lessThanOrEquals'
-    | 'notEquals'
-    | 'startsWith';
+    'contains' | 'endsWith' | 'equals' | 'greaterThan' | 'greaterThanOrEquals' | 'isEmpty' | 'isNotEmpty' | 'lessThan' | 'lessThanOrEquals' | 'notEquals' | 'startsWith';
 export interface QuerySort {
     columnIndex: number; // A position in the result record, which differs from the audit's columns when grouped.
     directionId: 'ascending' | 'descending';

@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // ── DPUse Framework
 import type { ObjectFilePreview } from '@/component/module/connector';
 import type { ToolConfig } from '@/component/module/tool';
-import { auditObjectContentWithParser, buildPreviewConfig, retrieveRecordsWithParser } from '@/component/module/connector';
+import { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from '@/component/module/connector';
 import type { ParsingRecord, ValueDelimiterId } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -58,10 +58,27 @@ function buildFilePreview(overrides: Partial<ObjectFilePreview> = {}): ObjectFil
     };
 }
 
+function buildStream(...pieces: string[]): { cancel: ReturnType<typeof vi.fn>; stream: ReadableStream<Uint8Array> } {
+    const cancel = vi.fn();
+    const encodedPieces = pieces.map((piece) => new TextEncoder().encode(piece));
+    const stream = new ReadableStream<Uint8Array>(
+        {
+            cancel,
+            pull(controller): void {
+                const piece = encodedPieces.shift();
+                if (piece == null) controller.close();
+                else controller.enqueue(piece);
+            }
+        },
+        { highWaterMark: 0 }
+    );
+    return { cancel, stream };
+}
+
 const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaderRow: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
-function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewConfig>[0] {
+function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewObjectResult>[0] {
     return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, parserId, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS, valueDelimiterId };
 }
 
@@ -71,26 +88,19 @@ describe('objectParsing', () => {
         inferDataTypes.mockClear();
     });
 
-    describe('buildPreviewConfig', () => {
+    describe('buildPreviewObjectResult', () => {
         it('parses the text with the format’s default tool, and infers its types', async () => {
             const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ';' });
             tools.byName['rust-csv-core-parser'] = { parseText };
 
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview()));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview()));
 
             expect(parseText).toHaveBeenCalledOnce();
             expect(parseText).toHaveBeenCalledWith('a,b\n1,2\n', expect.objectContaining({ dataFormatId: 'dtv', isComplete: true }));
-            expect(preview).toMatchObject({
-                asAt: 1000,
-                columnConfigs: INFERENCE_SUMMARY.columnConfigs,
-                dataFormatId: 'dtv',
-                hasHeaders: true,
-                parsedRecords: RECORDS,
-                parserId: 'dpuse-tool-rust-csv-core-parser',
-                recordDelimiterId: '\n',
-                size: 10,
-                text: 'a,b\n1,2\n',
-                valueDelimiterId: ';'
+            expect(result).toMatchObject({
+                contentAuditConfig: { asAt: 1000, byteCount: 10, columns: INFERENCE_SUMMARY.columnConfigs, isComplete: true, recordCount: 0 },
+                previewConfig: { parsedRecords: RECORDS, size: 10, text: 'a,b\n1,2\n' },
+                readConfig: { dataFormatId: 'dtv', hasHeaders: true, parserId: 'dpuse-tool-rust-csv-core-parser', recordDelimiterId: '\n', valueDelimiterId: ';' }
             });
         });
 
@@ -100,10 +110,10 @@ describe('objectParsing', () => {
             tools.byName['adaltas-csv-parser'] = { parseText: adaltasParseText };
             tools.byName['rust-csv-core-parser'] = { parseText: rustParseText };
 
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview(), 'dpuse-tool-rust-csv-core-parser'));
+            const { readConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), 'dpuse-tool-rust-csv-core-parser'));
 
             expect(adaltasParseText).not.toHaveBeenCalled();
-            expect(preview.parserId).toBe('dpuse-tool-rust-csv-core-parser');
+            expect(readConfig.parserId).toBe('dpuse-tool-rust-csv-core-parser');
         });
 
         it('reads delimited text with no delimiter found as comma-delimited, parsing it again with the comma', async () => {
@@ -113,70 +123,67 @@ describe('objectParsing', () => {
                 .mockResolvedValueOnce({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
             tools.byName['rust-csv-core-parser'] = { parseText };
 
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview({ text: 'Ada\nGrace\n' })));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ text: 'Ada\nGrace\n' })));
 
             expect(parseText).toHaveBeenCalledTimes(2);
             expect(parseText.mock.calls[1]?.[1]).toMatchObject({ valueDelimiterIds: [','] });
-            expect(preview).toMatchObject({ parsedRecords: RECORDS, valueDelimiterId: ',' });
+            expect(result).toMatchObject({ previewConfig: { parsedRecords: RECORDS }, readConfig: { valueDelimiterId: ',' } });
         });
 
         it('parses only with the value delimiter the user chose, and reports it even when it does not split the text', async () => {
             const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
             tools.byName['rust-csv-core-parser'] = { parseText };
 
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview(), undefined, '|'));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), undefined, '|'));
 
             expect(parseText).toHaveBeenCalledTimes(1);
             expect(parseText.mock.calls[0]?.[1]).toMatchObject({ valueDelimiterIds: ['|'] });
-            expect(preview).toMatchObject({ parsedRecords: RECORDS, valueDelimiterId: '|' });
+            expect(result).toMatchObject({ previewConfig: { parsedRecords: RECORDS }, readConfig: { valueDelimiterId: '|' } });
         });
 
         it('leaves the value delimiter undefined for a format that is not delimited, and parses it once', async () => {
             const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
             tools.byName['json-parser'] = { parseText };
 
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '[1]' })));
+            const { readConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '[1]' })));
 
             expect(parseText).toHaveBeenCalledOnce();
-            expect(preview).toMatchObject({ dataFormatId: 'json', parserId: 'dpuse-tool-json-parser', valueDelimiterId: undefined });
+            expect(readConfig).toMatchObject({ dataFormatId: 'json', parserId: 'dpuse-tool-json-parser', valueDelimiterId: undefined });
         });
 
         it('passes on whether the preview holds the whole item', async () => {
             const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
             tools.byName['rust-csv-core-parser'] = { parseText };
 
-            await buildPreviewConfig(buildPreviewInput(buildFilePreview({ isComplete: false })));
+            const { contentAuditConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ isComplete: false })));
 
             expect(parseText).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ isComplete: false }));
+            expect(contentAuditConfig.isComplete).toBe(false);
         });
 
         it('reports an empty file as delimited text with no rows, read with the defaults', async () => {
             const filePreview = buildFilePreview({ bytes: new Uint8Array(0), dataFormatId: undefined, text: undefined });
-            const preview = await buildPreviewConfig(buildPreviewInput(filePreview));
+            const result = await buildPreviewObjectResult(buildPreviewInput(filePreview));
 
-            expect(preview).toMatchObject({
-                dataFormatId: 'dtv',
-                hasHeaders: false,
-                issues: [{ id: 'empty', severityId: 'info' }],
-                parsedRecords: [],
-                recordDelimiterId: '\n',
-                size: 0,
-                valueDelimiterId: ','
+            expect(result).toMatchObject({
+                contentAuditConfig: { byteCount: 0, isComplete: true, recordCount: 0 },
+                previewConfig: { issues: [{ id: 'empty', severityId: 'info' }], parsedRecords: [], size: 0 },
+                readConfig: { dataFormatId: 'dtv', hasHeaders: false, recordDelimiterId: '\n', valueDelimiterId: ',' }
             });
-            expect(preview).not.toHaveProperty('parserId');
+            expect(result.readConfig).not.toHaveProperty('parserId');
         });
 
         it('keeps the text of a format no tool reads yet, without parsing it', async () => {
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview({ dataFormatId: 'xml', text: '<a/>' })));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'xml', text: '<a/>' })));
 
-            expect(preview).toMatchObject({ dataFormatId: 'xml', parsedRecords: [], text: '<a/>', valueDelimiterId: undefined });
-            expect(preview).not.toHaveProperty('parserId');
+            expect(result).toMatchObject({ previewConfig: { parsedRecords: [], text: '<a/>' }, readConfig: { dataFormatId: 'xml', valueDelimiterId: undefined } });
+            expect(result.readConfig).not.toHaveProperty('parserId');
         });
 
         it("reports a type the app cannot read as 'unknown'", async () => {
-            const preview = await buildPreviewConfig(buildPreviewInput(buildFilePreview({ dataFormatId: undefined, text: undefined })));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: undefined, text: undefined })));
 
-            expect(preview).toMatchObject({ dataFormatId: 'unknown', text: undefined });
+            expect(result).toMatchObject({ previewConfig: { text: undefined }, readConfig: { dataFormatId: 'unknown' } });
         });
     });
 
@@ -211,13 +218,18 @@ describe('objectParsing', () => {
                 start: (controller) => {
                     controller.close();
                 }
-            })
+            }),
+            auditOptions: { byteLimit?: number; encodingId?: string; stopSignal?: AbortSignal } = {}
         ) {
             const columnAuditor = { auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue([{ id: 'a' }]) };
+            const parsedBytes: number[] = [];
             const parseStream = vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
                 const reader = sourceStream.getReader();
                 let result = await reader.read();
-                while (!result.done) result = await reader.read(); // Reads the stream through, as a parser does.
+                while (!result.done) {
+                    parsedBytes.push(...result.value); // Reads the stream through, as a parser does.
+                    result = await reader.read();
+                }
                 chunk('parsingRecordArray', RECORDS);
                 chunk('parsingRecordArray', [...RECORDS, ...RECORDS]);
                 return SUMMARY;
@@ -227,12 +239,21 @@ describe('objectParsing', () => {
             const audit = auditObjectContentWithParser({
                 constructColumnAuditor: vi.fn().mockReturnValue(columnAuditor),
                 onProgress,
-                options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                options: {
+                    chunkSize: undefined,
+                    dataFormatId: 'dtv',
+                    encodingId: 'utf-8',
+                    hasHeaders,
+                    parserId: undefined,
+                    path: '/a.csv',
+                    valueDelimiterId: ',',
+                    ...auditOptions
+                } as never,
                 signal: new AbortController().signal,
                 stream,
                 toolConfigs: TOOL_CONFIGS
             });
-            return { audit, columnAuditor, onProgress };
+            return { audit, columnAuditor, onProgress, parsedText: (): string => new TextDecoder().decode(new Uint8Array(parsedBytes)) };
         }
 
         it("audits each chunk's records, reports progress, and describes the columns and counts", async () => {
@@ -241,21 +262,111 @@ describe('objectParsing', () => {
             const auditConfig = await audit;
 
             expect(auditConfig).toMatchObject({
+                byteCount: 0,
                 columns: [{ id: 'a' }],
                 commentLineCount: 1,
                 emptyLineCount: 2,
                 invalidFieldLengthCount: 3,
+                isComplete: true,
                 lineCount: 5,
                 recordCount: 3
             });
             expect(columnAuditor.auditRecords).toHaveBeenCalledTimes(2);
-            expect(onProgress.mock.calls).toEqual([[1], [2]]);
+            expect(onProgress.mock.calls).toEqual([
+                [1, 0],
+                [2, 0]
+            ]);
         });
 
         it('counts a header record as data only when the item has none', async () => {
             const auditConfig = await runAudit(false).audit;
 
             expect(auditConfig.recordCount).toBe(4);
+        });
+
+        it('ends at the first record to finish past the byte limit, and stops reading the item', async () => {
+            const { cancel, stream } = buildStream('a,b\n1,2\n', '3,4\n5,6\n');
+            const { audit, parsedText } = runAudit(true, stream, { byteLimit: 5 });
+
+            const auditConfig = await audit;
+
+            expect(parsedText()).toBe('a,b\n1,2\n');
+            expect(auditConfig).toMatchObject({ byteCount: 8, isComplete: false });
+            expect(cancel).toHaveBeenCalledOnce();
+        });
+
+        it('reads on into the next piece when no record ends in the one that reached the limit', async () => {
+            const { stream } = buildStream('a,b', 'c,d\n1,2\n');
+            const { audit, parsedText } = runAudit(true, stream, { byteLimit: 2 });
+
+            await audit;
+
+            expect(parsedText()).toBe('a,bc,d\n');
+        });
+
+        it('does not take a line break inside quotes for the end of a record', async () => {
+            const { stream } = buildStream('"a\nb",c\n1,2\n');
+            const { audit, parsedText } = runAudit(true, stream, { byteLimit: 1 });
+
+            await audit;
+
+            expect(parsedText()).toBe('"a\nb",c\n');
+        });
+
+        it('keeps a Windows line break whole', async () => {
+            const { stream } = buildStream('a\r\nb\r\n');
+            const { audit, parsedText } = runAudit(true, stream, { byteLimit: 1 });
+
+            await audit;
+
+            expect(parsedText()).toBe('a\r\n');
+        });
+
+        it('finds the end of a record in UTF-16', async () => {
+            const bytes = new Uint8Array([0x61, 0, 0x0a, 0x61, 0x0a, 0, 0x62, 0, 0x0a, 0]); // A 'ਊ' character holds a line feed byte, which ends nothing.
+            const stream = new ReadableStream<Uint8Array>({
+                start: (controller) => {
+                    controller.enqueue(bytes);
+                    controller.close();
+                }
+            });
+            const { audit } = runAudit(true, stream, { byteLimit: 1, encodingId: 'utf-16le' });
+
+            const auditConfig = await audit;
+
+            expect(auditConfig.byteCount).toBe(6);
+        });
+
+        it('reaches the end of the item when the limit is past it', async () => {
+            const { stream } = buildStream('a,b\n1,2');
+            const { audit } = runAudit(true, stream, { byteLimit: 100 });
+
+            const auditConfig = await audit;
+
+            expect(auditConfig).toMatchObject({ byteCount: 7, isComplete: true });
+        });
+
+        it('keeps what was read when stopped, ending at the next record', async () => {
+            const stopController = new AbortController();
+            const encoder = new TextEncoder();
+            const pieces = [encoder.encode('a,b\n1,'), encoder.encode('2\n3,4\n')];
+            const stream = new ReadableStream<Uint8Array>(
+                {
+                    pull(controller): void {
+                        if (pieces.length === 1) stopController.abort(); // The stop arrives between the two pieces.
+                        const piece = pieces.shift();
+                        if (piece == null) controller.close();
+                        else controller.enqueue(piece);
+                    }
+                },
+                { highWaterMark: 0 }
+            );
+            const { audit, parsedText } = runAudit(true, stream, { stopSignal: stopController.signal });
+
+            const auditConfig = await audit;
+
+            expect(parsedText()).toBe('a,b\n1,2\n');
+            expect(auditConfig).toMatchObject({ byteCount: 8, isComplete: false });
         });
 
         it('adds up how long the parser waited for the item to arrive', async () => {
