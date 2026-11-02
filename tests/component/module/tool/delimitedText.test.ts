@@ -56,6 +56,21 @@ describe('parseDelimitedText', () => {
         expect(result.issues).toEqual([]);
     });
 
+    it('keeps a delimiter that splits evenly when a later one gives more values', async () => {
+        const evenResult = await parse('id,name\n1,big red fox\n2,big red dog\n3,big red cat\n4,big red hen\n', [',', ' ']);
+        const unevenResult = await parse('id,notes\n1,a b c d e f\n2,a b\n3,one two three four\n4,x\n', [',', ' ']);
+
+        expect(evenResult.valueDelimiterId).toBe(',');
+        expect(unevenResult.valueDelimiterId).toBe(',');
+        expect(readValues(unevenResult.parsedRecords)[1]).toEqual(['1', 'a b c d e f']);
+    });
+
+    it('prefers a delimiter that splits unevenly to one that splits nothing', async () => {
+        const result = await parse('name;age;city\nAda;36;London\nGrace;85\nKatherine;101;Hampton\n');
+
+        expect(result.valueDelimiterId).toBe(';');
+    });
+
     it('allows a few ragged rows', async () => {
         const result = await parse('name,age,city\nAda,36,London\nGrace,85\nKatherine,101,Hampton\n');
 

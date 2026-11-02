@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-11-02T09:39:55.690Z",
+    "generatedAt": "2026-11-02T15:06:57.146Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -30,8 +30,8 @@
       "kind": "asset",
       "name": "dist/dpuse-shared.es.js",
       "type": "script",
-      "uncompressed": 64671,
-      "gzip": 18457,
+      "uncompressed": 64708,
+      "gzip": 18467,
       "brotli": 0
     },
     {
@@ -260,7 +260,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 4996,
-      "gzip": 1530,
+      "gzip": 1531,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -358,15 +358,15 @@
       "name": "src/component/module/tool/delimitedText.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3922
+      "uncompressed": 4015
     },
     {
       "kind": "chunk",
       "name": "src/component/module/tool/delimitedText.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1603,
-      "gzip": 644,
+      "uncompressed": 1640,
+      "gzip": 652,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },

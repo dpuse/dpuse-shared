@@ -63,7 +63,9 @@ async function determineValueDelimiter(
         hasParsedWithoutIssues = true;
         if (records.length === 0) continue; // Nothing to compare, and the average below would be 0 / 0.
         const { averageValueCount, sumOfValueCountDiffs } = measureValueCounts(records);
-        const isBetterFit = (!priorSumCountDiffs || sumOfValueCountDiffs <= priorSumCountDiffs) && (!priorAverageCount || averageValueCount > priorAverageCount);
+        // A delimiter that split nothing has even records only because each holds one value, so any split beats it.
+        const isEvenEnough = priorAverageCount === undefined || priorAverageCount <= 1 || sumOfValueCountDiffs <= (priorSumCountDiffs ?? 0);
+        const isBetterFit = isEvenEnough && (priorAverageCount === undefined || averageValueCount > priorAverageCount);
         if (!isBetterFit) continue;
         valueDelimiterId = delimiter;
         priorAverageCount = averageValueCount;
