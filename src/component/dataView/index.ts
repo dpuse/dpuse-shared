@@ -31,9 +31,10 @@ export interface ColumnSetConfig {
     columnConfigs: DataViewColumnConfig[];
 }
 
-// A column's 'dataTypeId' is always the detected type. A type the user chose is held apart, so a new audit updates what
-// was detected and the choice survives.
+// A column's 'dataTypeId' and 'dataSubtypeId' are always what was detected. A type the user chose is held apart, so a new
+// audit updates what was detected and the choice survives. A record saved before subtypes could be chosen has none.
 export interface DataViewColumnConfig extends ObjectColumnConfig {
+    chosenDataSubtypeId?: DataSubtypeId | undefined;
     chosenDataTypeId?: DataTypeId | undefined;
 }
 
