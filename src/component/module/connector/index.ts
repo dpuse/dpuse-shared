@@ -63,7 +63,7 @@ export type ConnectorActionName = InferOutput<typeof connectorActionNameSchema>;
 export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 
 export interface ConnectorUtilities {
-    constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor;
+    constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
     inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
     inferDataTypes: (parsedRecords: ParsingRecord[], hasHeaders?: boolean) => InferenceSummary;
@@ -72,7 +72,7 @@ export interface ConnectorUtilities {
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
 export interface ColumnAuditor {
     auditRecords: (parsedRecords: ParsingRecord[]) => void;
-    completeAudit: () => ObjectColumnConfig[];
+    completeAudit: () => { columnConfigs: ObjectColumnConfig[]; hasHeaders: boolean };
 }
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
@@ -94,7 +94,7 @@ export interface AuditObjectContentOptions extends EngineConnectorActionOptions 
     chunkSize: number | undefined;
     dataFormatId: DataFormatId; // From the preview.
     encodingId: string;
-    hasHeaders: boolean; // From the preview. A header record names the columns and is not audited as data.
+    hasHeaders: boolean | undefined; // From the preview. A header record names the columns and is not audited as data. Undefined when it was detected as absent, so the audit checks again with more records.
     parserId: string | undefined; // From the preview. The tool that read it, so the audit reads the item the same way.
     path: string;
     stopSignal: AbortSignal | undefined; // Stops at the end of the next record and keeps the result, unlike an abort. The engine adds it, because a signal cannot cross into the worker.

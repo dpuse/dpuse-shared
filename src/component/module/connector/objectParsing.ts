@@ -64,7 +64,7 @@ export async function buildPreviewObjectResult(input: {
     // there is nothing to show.
     if (size === 0) {
         return {
-            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: true, recordCount: 0, size, startedAt }),
+            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], hasHeaders: false, isComplete: true, recordCount: 0, size, startedAt }),
             previewConfig: {
                 issues: [{ id: 'empty', lineNumber: undefined, message: 'The file is empty.', severityId: 'info' }],
                 parsedRecords: [],
@@ -85,7 +85,7 @@ export async function buildPreviewObjectResult(input: {
 
     if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) {
         return {
-            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: filePreview.isComplete, recordCount: 0, size, startedAt }),
+            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], hasHeaders: false, isComplete: filePreview.isComplete, recordCount: 0, size, startedAt }),
             previewConfig: { issues: [], parsedRecords: [], size, text },
             readConfig: {
                 dataFormatId: dataFormatId ?? 'unknown',
@@ -119,6 +119,7 @@ export async function buildPreviewObjectResult(input: {
         contentAuditConfig: constructFirstAuditConfig({
             asAt,
             columns: inferenceSummary.columnConfigs,
+            hasHeaders: inferenceSummary.hasHeaderRow,
             isComplete: filePreview.isComplete,
             recordCount: Math.max(0, parseTextResult.parsedRecords.length - (inferenceSummary.hasHeaderRow ? 1 : 0)), // A header record names the columns and is not data.
             size,
@@ -165,7 +166,7 @@ export async function retrieveRecordsWithParser(input: {
 // 'options.stopSignal' fires. Records are audited one chunk at a time, so the item is never held in memory. 'onProgress'
 // receives the number of records in each chunk as it is audited, and the bytes read so far.
 export async function auditObjectContentWithParser(input: {
-    constructColumnAuditor: (hasHeaders: boolean) => ColumnAuditor;
+    constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor;
     onProgress: (recordCount: number, byteCount: number) => void;
     options: AuditObjectContentOptions;
     signal: AbortSignal;
@@ -187,17 +188,19 @@ export async function auditObjectContentWithParser(input: {
             onProgress(records.length, auditSource.byteCount());
         }
     );
+    const { columnConfigs, hasHeaders } = columnAuditor.completeAudit();
     return {
         asAt,
         byteCount: auditSource.byteCount(),
-        columns: columnAuditor.completeAudit(),
+        columns: columnConfigs,
         commentLineCount: summary.commentLineCount,
         duration: performance.now() - startedAt,
         emptyLineCount: summary.emptyLineCount,
+        hasHeaders,
         invalidFieldLengthCount: summary.nonUniformRecordCount,
         isComplete: auditSource.isComplete(),
         lineCount: summary.lineCount,
-        recordCount: Math.max(0, summary.recordCount - (options.hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
+        recordCount: Math.max(0, summary.recordCount - (hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
         sourceWaitDuration: timedSource.waitDuration()
     };
 }
@@ -209,12 +212,13 @@ export async function auditObjectContentWithParser(input: {
 function constructFirstAuditConfig(input: {
     asAt: number;
     columns: ContentAuditConfig['columns'];
+    hasHeaders: boolean;
     isComplete: boolean;
     recordCount: number;
     size: number;
     startedAt: number;
 }): ContentAuditConfig {
-    const { asAt, columns, isComplete, recordCount, size, startedAt } = input;
+    const { asAt, columns, hasHeaders, isComplete, recordCount, size, startedAt } = input;
     return {
         asAt,
         byteCount: size,
@@ -222,6 +226,7 @@ function constructFirstAuditConfig(input: {
         commentLineCount: undefined,
         duration: performance.now() - startedAt,
         emptyLineCount: undefined,
+        hasHeaders,
         invalidFieldLengthCount: undefined,
         isComplete,
         lineCount: undefined,

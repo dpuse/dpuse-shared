@@ -121,14 +121,16 @@ export interface ContentAuditConfig {
     emptyLineCount: number | undefined;
     invalidFieldLengthCount: number | undefined; // Records whose number of values differs from the first record's.
     duration: number;
+    hasHeaders: boolean; // Whether the first record is a header. An audit can find one the preview missed, because it reads more records.
     isComplete: boolean; // Whether the audit reached the end of the item.
     lineCount: number | undefined;
     recordCount: number; // Data records only. A header record is not counted.
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined where the bytes were fetched before the audit started.
 }
 
-// An audit as a data view saves it. Its columns are saved in the data view's column set.
-export type StoredContentAuditConfig = Omit<ContentAuditConfig, 'columns'>;
+// An audit as a data view saves it. Its columns are saved in the data view's column set, and whether there is a header in
+// its read configuration.
+export type StoredContentAuditConfig = Omit<ContentAuditConfig, 'columns' | 'hasHeaders'>;
 
 // ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────
 

@@ -213,15 +213,16 @@ describe('objectParsing', () => {
         const SUMMARY = { byteCount: 9, commentLineCount: 1, emptyLineCount: 2, lineCount: 5, nonUniformRecordCount: 3, recordCount: 4 };
 
         function runAudit(
-            hasHeaders: boolean,
+            hasHeaders: boolean | undefined,
             stream = new ReadableStream<Uint8Array>({
                 start: (controller) => {
                     controller.close();
                 }
             }),
-            auditOptions: { byteLimit?: number; encodingId?: string; stopSignal?: AbortSignal } = {}
+            auditOptions: { byteLimit?: number; encodingId?: string; stopSignal?: AbortSignal } = {},
+            auditedHasHeaders = hasHeaders === true // What the auditor finds. It checks again when the preview found no header.
         ) {
-            const columnAuditor = { auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue([{ id: 'a' }]) };
+            const columnAuditor = { auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue({ columnConfigs: [{ id: 'a' }], hasHeaders: auditedHasHeaders }) };
             const parsedBytes: number[] = [];
             const parseStream = vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
                 const reader = sourceStream.getReader();
@@ -266,6 +267,7 @@ describe('objectParsing', () => {
                 columns: [{ id: 'a' }],
                 commentLineCount: 1,
                 emptyLineCount: 2,
+                hasHeaders: true,
                 invalidFieldLengthCount: 3,
                 isComplete: true,
                 lineCount: 5,
@@ -282,6 +284,15 @@ describe('objectParsing', () => {
             const auditConfig = await runAudit(false).audit;
 
             expect(auditConfig.recordCount).toBe(4);
+        });
+
+        it('leaves out a header the auditor finds when the preview found none', async () => {
+            const { audit, columnAuditor } = runAudit(undefined, undefined, {}, true);
+
+            const auditConfig = await audit;
+
+            expect(auditConfig).toMatchObject({ hasHeaders: true, recordCount: 3 });
+            expect(columnAuditor.completeAudit).toHaveBeenCalledOnce();
         });
 
         it('ends at the first record to finish past the byte limit, and stops reading the item', async () => {

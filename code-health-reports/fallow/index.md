@@ -20,14 +20,14 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3488 |
+| Total LOC | 3495 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 136, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.2% |
 | Dead Exports | 0.4% |
-| Maintainability (avg) | 92.2 |
+| Maintainability (avg) | 92.3 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 1 |
@@ -49,7 +49,7 @@
 | `scripts/documentEncodings.ts` | 95.8 | 0 | 0 | 0% | 0.18 | 20.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
-| `src/component/module/connector/objectParsing.ts` | 88.8 | 1 | 4 | 0% | 0.16 | 14.0 |
+| `src/component/module/connector/objectParsing.ts` | 89.1 | 1 | 4 | 0% | 0.15 | 14.0 |
 | `src/errors/index.ts` | 91.0 | 3 | 0 | 0% | 0.30 | 13.8 |
 | `src/component/dataView/index.ts` | 91.5 | 8 | 4 | 0% | 0.07 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
@@ -63,7 +63,7 @@
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.2/100
+**Average maintainability index:** 92.3/100
 
 ### Hotspots (14 files, since 6 months)
 
@@ -74,8 +74,8 @@
 | `src/component/module/tool/index.ts` | 15.7 | 12 | 100 | 0.19 | 6 | stable |
 | `src/component/dataView/index.ts` | 14.6 | 25 | 622 | 0.07 | 8 | accelerating |
 | `src/errors/index.ts` | 14.3 | 8 | 226 | 0.30 | 3 | stable |
-| `src/component/module/connector/objectParsing.ts` | 14.1 | 9 | 476 | 0.16 | 1 | stable |
 | `src/component/module/connector/index.ts` | 13.9 | 38 | 576 | 0.05 | 4 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 13.2 | 9 | 476 | 0.15 | 1 | stable |
 | `src/component/module/tool/delimitedText.ts` | 10.3 | 3 | 109 | 0.35 | 1 | cooling |
 | `scripts/documentEncodings.ts` | 5.8 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 5.6 | 3 | 169 | 0.23 | 0 | cooling |
