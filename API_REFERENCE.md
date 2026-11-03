@@ -38,6 +38,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ConnectionNodeConfig`**
 - **`DateOrderId`**
 - **`DecimalSeparatorId`**
+- **`NumericReadingConfig`**
 - **`ObjectColumnConfig`**
 - **`StorageTypeId`**
 

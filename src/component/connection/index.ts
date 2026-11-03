@@ -110,6 +110,7 @@ export interface ObjectColumnConfig {
     minSize: number | undefined;
     minValue: string | undefined;
     minWholeDigits: number | undefined;
+    numericReadings?: Partial<Record<DecimalSeparatorId, NumericReadingConfig>> | undefined; // A column's figures for each decimal separator, for a column whose values could be read with either.
     missingValueCount: number | undefined; // Nothing between the delimiters, a record too short to reach the column, or a null word such as 'NULL'.
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
@@ -120,8 +121,16 @@ export interface ObjectColumnConfig {
     voidValueCount: number | undefined; // Blank and missing values together.
 }
 
-// 'currency' ─ The currency of each number in a column that holds several, such as 'USD' or '€'.
-export type ColumnDerivationId = 'currency';
+// 'currency' ─ The currency of each number in a column that holds several, such as 'USD' or '€'. Kept for data views
+// saved before 'unit'.
+// 'unit' ─ The unit of each number in a column where any has one: its currency, such as 'USD' or '€', or '%'.
+export type ColumnDerivationId = 'currency' | 'unit';
+
+// What a column of numbers measures when read with one decimal separator. Choosing the other separator swaps these in.
+export type NumericReadingConfig = Pick<
+    ObjectColumnConfig,
+    'dataSubtypeId' | 'maxDecimals' | 'maxValue' | 'maxWholeDigits' | 'minDecimals' | 'minValue' | 'minWholeDigits' | 'storageTypeId'
+>;
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
 

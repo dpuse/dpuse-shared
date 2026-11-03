@@ -20,7 +20,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3476 |
+| Total LOC | 3485 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 136, module scopes: 2, templates: 0 |
@@ -74,8 +74,8 @@
 | `src/component/module/tool/index.ts` | 15.7 | 12 | 100 | 0.19 | 6 | stable |
 | `src/errors/index.ts` | 14.3 | 8 | 226 | 0.30 | 3 | stable |
 | `src/component/module/connector/objectParsing.ts` | 14.1 | 9 | 476 | 0.16 | 1 | stable |
+| `src/component/dataView/index.ts` | 13.9 | 24 | 621 | 0.07 | 8 | accelerating |
 | `src/component/module/connector/index.ts` | 13.9 | 38 | 576 | 0.05 | 4 | accelerating |
-| `src/component/dataView/index.ts` | 13.2 | 23 | 618 | 0.07 | 8 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 10.3 | 3 | 109 | 0.35 | 1 | cooling |
 | `scripts/documentEncodings.ts` | 5.8 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 5.6 | 3 | 169 | 0.23 | 0 | cooling |
