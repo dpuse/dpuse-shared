@@ -72,9 +72,9 @@
 | `src/utilities/index.ts` | 19.8 | 14 | 619 | 0.25 | 1 | stable |
 | `src/locale/index.ts` | 17.7 | 11 | 153 | 0.36 | 4 | cooling |
 | `src/component/module/tool/index.ts` | 15.7 | 12 | 100 | 0.19 | 6 | stable |
+| `src/component/dataView/index.ts` | 14.6 | 25 | 622 | 0.07 | 8 | accelerating |
 | `src/errors/index.ts` | 14.3 | 8 | 226 | 0.30 | 3 | stable |
 | `src/component/module/connector/objectParsing.ts` | 14.1 | 9 | 476 | 0.16 | 1 | stable |
-| `src/component/dataView/index.ts` | 13.9 | 24 | 621 | 0.07 | 8 | accelerating |
 | `src/component/module/connector/index.ts` | 13.9 | 38 | 576 | 0.05 | 4 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 10.3 | 3 | 109 | 0.35 | 1 | cooling |
 | `scripts/documentEncodings.ts` | 5.8 | 4 | 68 | 0.18 | 0 | cooling |
