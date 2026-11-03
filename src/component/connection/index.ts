@@ -112,6 +112,8 @@ export interface ObjectColumnConfig {
     minWholeDigits: number | undefined;
     numericReadings?: Partial<Record<DecimalSeparatorId, NumericReadingConfig>> | undefined; // A column's figures for each decimal separator, for a column whose values could be read with either.
     missingValueCount: number | undefined; // Nothing between the delimiters, a record too short to reach the column, or a null word such as 'NULL'.
+    nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
+    nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
     quotedValueCount: number | undefined;

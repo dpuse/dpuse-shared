@@ -37,6 +37,7 @@ export interface DataViewColumnConfig extends ObjectColumnConfig {
     chosenDataSubtypeId?: DataSubtypeId | undefined;
     chosenDataTypeId?: DataTypeId | undefined;
     chosenDecimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
+    chosenNullWordsAreEmpty?: boolean | undefined; // For a text column: the user chose to read null words such as 'NA' as no value.
 }
 
 // ── Types - Read Configuration ───────────────────────────────────────────────────────────────────────────────────────
