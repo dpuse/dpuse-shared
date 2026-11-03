@@ -1,5 +1,5 @@
 {
-  "version": "1.0.173",
+  "version": "1.0.174",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -2570,8 +2570,8 @@
       }
     },
     "@vitest/coverage-v8": {
-      "version": "5.0.5",
-      "resolved": "https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-5.0.5.tgz",
+      "version": "5.1.0",
+      "resolved": "https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-5.1.0.tgz",
       "overridden": false,
       "dependencies": {
         "@bcoe/v8-coverage": {
@@ -2581,17 +2581,17 @@
         },
         "@vitest/browser": {},
         "@vitest/istanbul-lib-coverage": {
-          "version": "1.0.2",
-          "resolved": "https://registry.npmjs.org/@vitest/istanbul-lib-coverage/-/istanbul-lib-coverage-1.0.2.tgz",
+          "version": "2.1.0",
+          "resolved": "https://registry.npmjs.org/@vitest/istanbul-lib-coverage/-/istanbul-lib-coverage-2.1.0.tgz",
           "overridden": false
         },
         "@vitest/istanbul-lib-report": {
-          "version": "1.0.2",
-          "resolved": "https://registry.npmjs.org/@vitest/istanbul-lib-report/-/istanbul-lib-report-1.0.2.tgz",
+          "version": "2.1.0",
+          "resolved": "https://registry.npmjs.org/@vitest/istanbul-lib-report/-/istanbul-lib-report-2.1.0.tgz",
           "overridden": false,
           "dependencies": {
             "@vitest/istanbul-lib-coverage": {
-              "version": "1.0.2"
+              "version": "2.1.0"
             }
           }
         },
@@ -2687,7 +2687,7 @@
           "overridden": false
         },
         "vitest": {
-          "version": "5.0.5"
+          "version": "5.1.0"
         }
       }
     },
@@ -3769,8 +3769,8 @@
       }
     },
     "vitest": {
-      "version": "5.0.5",
-      "resolved": "https://registry.npmjs.org/vitest/-/vitest-5.0.5.tgz",
+      "version": "5.1.0",
+      "resolved": "https://registry.npmjs.org/vitest/-/vitest-5.1.0.tgz",
       "overridden": false,
       "dependencies": {
         "@edge-runtime/vm": {},
@@ -3800,19 +3800,19 @@
         "@vitest/browser-webdriverio": {},
         "@vitest/coverage-istanbul": {},
         "@vitest/coverage-v8": {
-          "version": "5.0.5"
+          "version": "5.1.0"
         },
         "@vitest/mocker": {
-          "version": "5.0.5",
-          "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-5.0.5.tgz",
+          "version": "5.1.0",
+          "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-5.1.0.tgz",
           "overridden": false,
           "dependencies": {
             "@jridgewell/trace-mapping": {
               "version": "0.3.31"
             },
             "@vitest/spy": {
-              "version": "5.0.5",
-              "resolved": "https://registry.npmjs.org/@vitest/spy/-/spy-5.0.5.tgz",
+              "version": "5.1.0",
+              "resolved": "https://registry.npmjs.org/@vitest/spy/-/spy-5.1.0.tgz",
               "overridden": false
             },
             "estree-walker": {
@@ -3826,8 +3826,8 @@
               }
             },
             "magic-string": {
-              "version": "1.4.3",
-              "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-1.4.3.tgz",
+              "version": "1.4.5",
+              "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-1.4.5.tgz",
               "overridden": false,
               "dependencies": {
                 "@jridgewell/sourcemap-codec": {
@@ -3860,8 +3860,8 @@
         "happy-dom": {},
         "jsdom": {},
         "magic-string": {
-          "version": "1.4.3",
-          "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-1.4.3.tgz",
+          "version": "1.4.5",
+          "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-1.4.5.tgz",
           "overridden": false,
           "dependencies": {
             "@jridgewell/sourcemap-codec": {
@@ -3881,8 +3881,8 @@
           "version": "4.3.0"
         },
         "tinybench": {
-          "version": "6.2.2",
-          "resolved": "https://registry.npmjs.org/tinybench/-/tinybench-6.2.2.tgz",
+          "version": "6.2.3",
+          "resolved": "https://registry.npmjs.org/tinybench/-/tinybench-6.2.3.tgz",
           "overridden": false
         },
         "tinyexec": {

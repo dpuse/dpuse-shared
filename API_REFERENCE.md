@@ -32,6 +32,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 #### Types
 
 - **`AccountConnectionConfig`**
+- **`ColumnDerivationId`**
 - **`ConnectionConfig`** (extends `ComponentInstanceConfig`)
 - **`ConnectionDescriptionConfig`**
 - **`ConnectionNodeConfig`**

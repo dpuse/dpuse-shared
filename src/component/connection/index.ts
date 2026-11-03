@@ -89,12 +89,14 @@ export interface ObjectColumnConfig {
     dataSubtypeId: DataSubtypeId | undefined;
     dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
     decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
+    derivationId?: ColumnDerivationId | undefined; // What a column the item does not hold is worked out from. Undefined for a column of the item.
+    derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
     distinctValueCount: number | undefined; // Undefined when there are too many to count, because counting them all would hold the whole column in memory.
     frequentValues: Record<string, number> | undefined; // The values seen more than once, most frequent first, with how often. Empty when there are too many to count.
     inferenceCounts: Record<string, number>;
     invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
     invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
-    isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId'. Either the browser's locale decided, or they disagree and the majority did.
+    isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId', or mix formats that may not belong together, such as two currencies.
     isIgnored: boolean | undefined;
     isRequired: boolean | undefined;
     isUnique: boolean | undefined; // Undefined when there are too many values to tell.
@@ -117,6 +119,9 @@ export interface ObjectColumnConfig {
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
     voidValueCount: number | undefined; // Blank and missing values together.
 }
+
+// 'currency' ─ The currency of each number in a column that holds several, such as 'USD' or '€'.
+export type ColumnDerivationId = 'currency';
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
 

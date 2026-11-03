@@ -20,7 +20,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3470 |
+| Total LOC | 3476 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 136, module scopes: 2, templates: 0 |
@@ -65,7 +65,7 @@
 
 **Average maintainability index:** 92.2/100
 
-### Hotspots (13 files, since 6 months)
+### Hotspots (14 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
@@ -76,6 +76,7 @@
 | `src/component/module/connector/objectParsing.ts` | 14.1 | 9 | 476 | 0.16 | 1 | stable |
 | `src/component/module/connector/index.ts` | 13.9 | 38 | 576 | 0.05 | 4 | accelerating |
 | `src/component/dataView/index.ts` | 13.2 | 23 | 618 | 0.07 | 8 | accelerating |
+| `src/component/module/tool/delimitedText.ts` | 10.3 | 3 | 109 | 0.35 | 1 | cooling |
 | `scripts/documentEncodings.ts` | 5.8 | 4 | 68 | 0.18 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 5.6 | 3 | 169 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 4.9 | 9 | 101 | 0.09 | 16 | stable |
@@ -83,7 +84,7 @@
 | `vite.config.ts` | 2.5 | 21 | 139 | 0.02 | 0 | accelerating |
 | `src/component/module/presenter/index.ts` | 1.6 | 9 | 92 | 0.03 | 1 | cooling |
 
-*3 files excluded (< 3 commits)*
+*2 files excluded (< 3 commits)*
 
 ### Hidden Change Coupling (4 pairs, since 12 months)
 

@@ -3,7 +3,7 @@ import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
 import type { Component, ComponentInstanceConfig } from '@/component';
-import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
+import type { ConnectionNodeConfig, DecimalSeparatorId, ObjectColumnConfig } from '@/component/connection';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale/label';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -36,6 +36,7 @@ export interface ColumnSetConfig {
 export interface DataViewColumnConfig extends ObjectColumnConfig {
     chosenDataSubtypeId?: DataSubtypeId | undefined;
     chosenDataTypeId?: DataTypeId | undefined;
+    chosenDecimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
 }
 
 // ── Types - Read Configuration ───────────────────────────────────────────────────────────────────────────────────────
