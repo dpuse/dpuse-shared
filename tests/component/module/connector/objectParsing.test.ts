@@ -380,6 +380,80 @@ describe('objectParsing', () => {
             expect(auditConfig).toMatchObject({ byteCount: 8, isComplete: false });
         });
 
+        it('hands a large piece to the parser 1 MB at a time, so the progress follows what it has read', async () => {
+            const MEGABYTE = 1_048_576;
+            const piece = new Uint8Array(2.5 * MEGABYTE).fill(0x61); // One piece, as WebKit reads an item in pieces of about 18 MB.
+            const stream = new ReadableStream<Uint8Array>({
+                start: (controller) => {
+                    controller.enqueue(piece);
+                    controller.close();
+                }
+            });
+            const readByteCounts: number[] = [];
+            tools.byName['rust-csv-core-parser'] = {
+                parseStream: vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
+                    const reader = sourceStream.getReader();
+                    let result = await reader.read();
+                    while (!result.done) {
+                        readByteCounts.push(result.value.length);
+                        chunk('parsingRecordArray', RECORDS); // Records come out of each read, as they do from a parser.
+                        result = await reader.read();
+                    }
+                    return SUMMARY;
+                })
+            };
+            const onProgress = vi.fn<(recordCount: number, byteCount: number) => void>();
+
+            const auditConfig = await auditObjectContentWithParser({
+                constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue({ columnConfigs: [], hasHeaders: false }) }),
+                onProgress,
+                options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: false, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                signal: new AbortController().signal,
+                stream,
+                toolConfigs: TOOL_CONFIGS
+            });
+
+            expect(readByteCounts).toEqual([MEGABYTE, MEGABYTE, 0.5 * MEGABYTE]);
+            expect(onProgress.mock.calls.map(([, byteCount]) => byteCount)).toEqual([MEGABYTE, 2 * MEGABYTE, 2.5 * MEGABYTE]);
+            expect(auditConfig).toMatchObject({ byteCount: 2.5 * MEGABYTE, isComplete: true });
+        });
+
+        it('ends at the next record after the limit when it falls inside a part of a large piece', async () => {
+            const MEGABYTE = 1_048_576;
+            const piece = new Uint8Array(2.5 * MEGABYTE).fill(0x61);
+            piece[1.5 * MEGABYTE] = 0x0a; // The first record ends halfway through the second part.
+            const stream = new ReadableStream<Uint8Array>({
+                start: (controller) => {
+                    controller.enqueue(piece);
+                    controller.close();
+                }
+            });
+            let parsedByteCount = 0;
+            tools.byName['rust-csv-core-parser'] = {
+                parseStream: vi.fn(async (sourceStream: ReadableStream<Uint8Array>) => {
+                    const reader = sourceStream.getReader();
+                    let result = await reader.read();
+                    while (!result.done) {
+                        parsedByteCount += result.value.length; // Counted rather than kept, because spreading a megabyte overflows the stack.
+                        result = await reader.read();
+                    }
+                    return SUMMARY;
+                })
+            };
+
+            const auditConfig = await auditObjectContentWithParser({
+                constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue({ columnConfigs: [], hasHeaders: false }) }),
+                onProgress: vi.fn(),
+                options: { byteLimit: 1, chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: false, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                signal: new AbortController().signal,
+                stream,
+                toolConfigs: TOOL_CONFIGS
+            });
+
+            expect(parsedByteCount).toBe(1.5 * MEGABYTE + 1);
+            expect(auditConfig).toMatchObject({ byteCount: 1.5 * MEGABYTE + 1, isComplete: false });
+        });
+
         it('adds up how long the parser waited for the item to arrive', async () => {
             vi.useFakeTimers();
             const stream = new ReadableStream<Uint8Array>({

@@ -42,6 +42,11 @@ const CARRIAGE_RETURN_BYTE = 0x0d;
 const LINE_FEED_BYTE = 0x0a;
 const QUOTE_BYTE = 0x22;
 
+// The most an audit hands its parser at a time. WebKit reads an item in pieces of about 18 MB, against about 2 MB in
+// Chromium, and the bytes audited are counted as the parser takes them, so a whole piece at once made the progress jump
+// in large steps and reach 100% while the parser was still reading.
+const MAX_AUDIT_READ_BYTE_COUNT = 1_048_576;
+
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Builds the first audit and preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
@@ -238,7 +243,8 @@ function constructFirstAuditConfig(input: {
 // Passes the stream through until the limit is reached or the stop signal fires, then ends it just after the next record.
 // Ending the stream, rather than aborting, lets the parser finish normally, so its counts are kept and no record is cut
 // in two. The limit is a minimum, because a record that runs past it is read to its end. Line breaks inside quotes do not
-// end a record, so every byte is checked for quotes, even while no limit is near.
+// end a record, so every byte is checked for quotes, even while no limit is near. A large piece is handed over a part at a
+// time, the rest kept for the next read, so the byte count follows what the parser has taken.
 function endAtRecordBoundary(
     stream: ReadableStream<Uint8Array>,
     options: Pick<AuditObjectContentOptions, 'byteLimit' | 'encodingId' | 'stopSignal'>
@@ -247,24 +253,32 @@ function endAtRecordBoundary(
     const recordEndFinder = constructRecordEndFinder(options.encodingId);
     let byteCount = 0;
     let isComplete = false;
+    let pendingBytes: Uint8Array | undefined; // What is left of the last piece read, not yet handed over.
     const boundedStream = new ReadableStream<Uint8Array>(
         {
             async pull(controller): Promise<void> {
-                const result = await reader.read();
-                if (result.done) {
-                    isComplete = true;
-                    controller.close();
-                    return;
+                let pieceBytes = pendingBytes;
+                if (pieceBytes == null) {
+                    const result = await reader.read();
+                    if (result.done) {
+                        isComplete = true;
+                        controller.close();
+                        return;
+                    }
+                    pieceBytes = result.value;
                 }
+                const bytes = pieceBytes.subarray(0, MAX_AUDIT_READ_BYTE_COUNT); // A view, not a copy.
+                pendingBytes = pieceBytes.length > MAX_AUDIT_READ_BYTE_COUNT ? pieceBytes.subarray(MAX_AUDIT_READ_BYTE_COUNT) : undefined;
                 const limit = options.stopSignal?.aborted === true ? byteCount : (options.byteLimit ?? Infinity);
-                const recordEnd = recordEndFinder(result.value, byteCount, limit - byteCount);
+                const recordEnd = recordEndFinder(bytes, byteCount, limit - byteCount);
                 if (recordEnd == null) {
-                    byteCount += result.value.length;
-                    controller.enqueue(result.value);
+                    byteCount += bytes.length;
+                    controller.enqueue(bytes);
                     return;
                 }
                 byteCount += recordEnd;
-                controller.enqueue(result.value.subarray(0, recordEnd));
+                pendingBytes = undefined;
+                controller.enqueue(bytes.subarray(0, recordEnd));
                 controller.close();
                 await reader.cancel();
             },
