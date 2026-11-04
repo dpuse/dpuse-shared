@@ -21,6 +21,7 @@ export interface DataViewConfig extends ComponentInstanceConfig {
     contentAuditConfig: StoredContentAuditConfig | undefined;
     columnSetConfig: ColumnSetConfig | undefined;
     relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
+    storeConnectorId?: string | undefined; // The store connector its records load into. Absent from a data view saved before the choice, which loads into the app's default store.
 }
 
 // ── Types - Column Set Configuration ─────────────────────────────────────────────────────────────────────────────────
