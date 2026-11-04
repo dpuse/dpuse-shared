@@ -1,4 +1,5 @@
 import { createRequire } from 'node:module';
+import iconv from 'iconv-lite';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -17,19 +18,29 @@ describe('ENCODING_TYPE_CONFIG_MAP', () => {
     });
 
     // Fails when a jschardet upgrade adds, drops, renames or remaps an encoding, so the table never drifts from it.
-    it("holds exactly the encodings jschardet's 'detect' can report, in lower case, each decoded with the browser name jschardet gives it", async () => {
+    it("marks as detectable exactly the encodings jschardet's 'detect' can report, in lower case, each decoded with the browser name jschardet gives it", async () => {
         const jschardetEncodings = await listJschardetEncodings();
+        const detectableConfigs = Object.values(ENCODING_TYPE_CONFIG_MAP).filter(({ isDetectable }) => isDetectable);
 
-        expect(Object.values(ENCODING_TYPE_CONFIG_MAP).map(({ decoderId, id }) => ({ decoderId, id }))).toEqual(
-            expect.arrayContaining(jschardetEncodings.map(({ browserName, name }) => ({ decoderId: browserName, id: name.toLowerCase() })))
+        expect(detectableConfigs.map(({ id, textDecoderId }) => ({ id, textDecoderId }))).toEqual(
+            expect.arrayContaining(jschardetEncodings.map(({ browserName, name }) => ({ id: name.toLowerCase(), textDecoderId: browserName })))
         );
-        expect(Object.keys(ENCODING_TYPE_CONFIG_MAP)).toHaveLength(jschardetEncodings.length);
+        expect(detectableConfigs).toHaveLength(jschardetEncodings.length);
+    });
+
+    // An encoding jschardet never reports is only worth listing if the user can choose it and have it read.
+    it('makes every encoding that cannot be detected decodable by TextDecoder or iconv-lite', () => {
+        for (const { iconvLiteDecoderId, isDetectable, textDecoderId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (!isDetectable) expect(textDecoderId ?? iconvLiteDecoderId).not.toBeNull();
     });
 
     // Node accepts the same encoding names as browsers, though it decodes a few characters differently (see
     // 'samples.test.ts'). Real browsers are checked by hand with 'npm run check:browsers'.
     it('decodes only with names TextDecoder takes as its own', () => {
-        for (const { decoderId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (decoderId != null) expect(new TextDecoder(decoderId).encoding).toBe(decoderId);
+        for (const { textDecoderId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (textDecoderId != null) expect(new TextDecoder(textDecoderId).encoding).toBe(textDecoderId);
+    });
+
+    it('decodes with iconv-lite only by names it knows', () => {
+        for (const { iconvLiteDecoderId } of Object.values(ENCODING_TYPE_CONFIG_MAP)) if (iconvLiteDecoderId != null) expect(iconv.encodingExists(iconvLiteDecoderId)).toBe(true);
     });
 });
 
@@ -78,7 +89,7 @@ describe('getEncodingTypeConfigs', () => {
     });
 
     it('marks an encoding decodable exactly when it has a browser name', () => {
-        for (const { decoderId, isDecodable } of getEncodingTypeConfigs()) expect(isDecodable).toBe(decoderId != null);
+        for (const { isDecodable, textDecoderId } of getEncodingTypeConfigs()) expect(isDecodable).toBe(textDecoderId != null);
     });
 
     it('translates the group but never the encoding id', () => {

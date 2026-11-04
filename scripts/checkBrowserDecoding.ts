@@ -50,7 +50,7 @@ const BROWSERS: Browser[] = [
     { appPath: '/Applications/Safari.app', launch: (url) => spawn('/usr/bin/open', ['-a', 'Safari', url]), name: 'Safari' }
 ];
 
-const DECODER_IDS = [...new Set(Object.values(ENCODING_TYPE_CONFIG_MAP).flatMap(({ decoderId }) => (decoderId == null ? [] : [decoderId])))];
+const DECODER_IDS = [...new Set(Object.values(ENCODING_TYPE_CONFIG_MAP).flatMap(({ textDecoderId }) => (textDecoderId == null ? [] : [textDecoderId])))];
 
 // The page tries every browser name in the browser and posts back what happened.
 const PAGE_HTML = `<!doctype html><meta charset="utf-8"><script>

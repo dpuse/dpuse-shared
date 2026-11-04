@@ -14,18 +14,21 @@ const START_MARKER = '<!-- ENCODINGS_START -->';
 // ── Main ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const rows = getEncodingTypeConfigs('en').map(
-    ({ decoderId, groupLabel, id, isDecodable }) => `|${groupLabel === '' ? '—' : groupLabel}|${id}|${isDecodable ? '✅' : '❌'}|${decoderId ?? '—'}|`
+    ({ groupLabel, iconvLiteDecoderId, id, isDecodable, isDetectable, textDecoderId }) =>
+        `|${groupLabel === '' ? '—' : groupLabel}|${id}|${isDetectable ? '✅' : '❌'}|${isDecodable ? '✅' : '❌'}|${textDecoderId ?? '—'}|${iconvLiteDecoderId ?? '—'}|`
 );
 const table = [
-    "The table below lists every encoding [jschardet](https://github.com/aadsm/jschardet) can identify from a file's contents, under the name it reports. A test checks the table against jschardet's own list of encodings, so it fails if a jschardet upgrade adds, drops, renames or remaps one.",
+    "The table below lists every encoding [jschardet](https://github.com/aadsm/jschardet) can identify from a file's contents, under the name it reports, plus those that the browser or [iconv-lite](https://github.com/ashtuchkin/iconv-lite) can decode but jschardet never reports. A test checks the table against jschardet's own list of encodings, so it fails if a jschardet upgrade adds, drops, renames or remaps one.",
     '',
+    "- **Detectable** — jschardet can report it. One that is not can only be chosen by hand. `gbk` is also read by `gb18030`.",
     "- **Decodable** — the browser's built-in `TextDecoder` can decode it. Those that cannot are refused by all the major browsers: `HZ-GB-2312` and `ISO-2022-KR` are blocked by the WHATWG Encoding Standard for security reasons, and the rest, such as UTF-32, UTF-7 and the DOS, Mac and mainframe code pages, are not part of the standard. A file in one can still be named, even though it cannot be read. `UTF-16` is marked not decodable because its byte-order mark decides which way round it is read, so it has no single browser name.",
-    "- **Decoded As** — the name browsers decode it with, taken from jschardet's own map. Browsers treat some names as aliases, so for example `ascii` and `ISO-8859-1` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, and `ascii` never rejects bytes above 0x7F.",
+    "- **TextDecoder** — the name browsers decode it with, taken from jschardet's own map. Browsers treat some names as aliases, so for example `ascii` and `ISO-8859-1` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, and `ascii` never rejects bytes above 0x7F.",
+    "- **iconv-lite** — the name iconv-lite decodes it with. Nothing decodes with iconv-lite yet: the column records what it could read, including most DOS and Mac code pages, UTF-7 and UTF-32. A test checks that iconv-lite accepts every name.",
     '',
-    "The major browsers all follow the Encoding Standard, so these columns hold for each of them. A test checks that Node's `TextDecoder`, which follows the same standard, accepts every Decoded As name as its own. They were also confirmed in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.",
+    "The major browsers all follow the Encoding Standard, so these columns hold for each of them. A test checks that Node's `TextDecoder`, which follows the same standard, accepts every TextDecoder name as its own. They were also confirmed in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.",
     '',
-    '|Group|Encoding|Decodable|Decoded As|',
-    '|:-|:-|:-:|:-|',
+    '|Group|Encoding|Detectable|Decodable|TextDecoder|iconv-lite|',
+    '|:-|:-|:-:|:-:|:-|:-|',
     ...rows
 ].join('\n');
 

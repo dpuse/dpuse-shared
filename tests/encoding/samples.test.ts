@@ -55,10 +55,11 @@ const CHARDET_SOURCE_TEXTS = new Map([
 ]);
 
 describe('encoding samples', () => {
-    it('has a text sample for every encoding in the table, and no other', () => {
+    it('has a text sample for every detectable encoding in the table, and no other', () => {
         const sampledIds = SAMPLES.filter(({ file }) => file.endsWith('.txt')).map(({ encodingId }) => encodingId);
+        const detectableIds = Object.values(ENCODING_TYPE_CONFIG_MAP).filter(({ isDetectable }) => isDetectable).map(({ id }) => id);
 
-        expect(sampledIds.toSorted(compareText)).toEqual(Object.keys(ENCODING_TYPE_CONFIG_MAP).toSorted(compareText));
+        expect(sampledIds.toSorted(compareText)).toEqual(detectableIds.toSorted(compareText));
     });
 
     describeSampleSet(
@@ -86,7 +87,7 @@ function compareText(left: string, right: string): number {
 
 // The text of an encoding browsers can decode. Undefined for one they cannot, or a missing name.
 function decodeAs(encodingId: string | null, bytes: Uint8Array): string | undefined {
-    const isDecodable = encodingId != null && isEncodingTypeId(encodingId) && ENCODING_TYPE_CONFIG_MAP[encodingId].decoderId != null;
+    const isDecodable = encodingId != null && isEncodingTypeId(encodingId) && ENCODING_TYPE_CONFIG_MAP[encodingId].textDecoderId != null;
     return isDecodable ? new TextDecoder(resolveDecoderId(encodingId)).decode(bytes) : undefined;
 }
 
