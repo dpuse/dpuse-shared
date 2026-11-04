@@ -14,7 +14,7 @@ interface EncodingGroupConfig {
 // One per encoding jschardet can detect, keyed by the name its 'detect' reports, in lower case.
 interface EncodingTypeConfig {
     id: EncodingTypeId;
-    groupId: EncodingGroupId | null; // Null for encodings that belong to no group, e.g. 'ascii' and 'utf-8'.
+    groupId: EncodingGroupId | null; // Null for an encoding that belongs to no group, i.e. 'ascii'.
     decoderId: string | null; // The name browsers decode it with, from jschardet's own map. Null when browsers cannot.
 }
 export interface EncodingTypeConfigLocalised {
@@ -45,13 +45,11 @@ const ENCODING_GROUP_CONFIG_DATA = {
     japanese: { id: 'japanese', label: { en: 'Japanese', es: 'Japonés' } },
     korean: { id: 'korean', label: { en: 'Korean', es: 'Coreano' } },
     nordic: { id: 'nordic', label: { en: 'Nordic', es: 'Nórdico' } },
-    other: { id: 'other', label: { en: 'Other', es: 'Otro' } },
-    romanian: { id: 'romanian', label: { en: 'Romanian', es: 'Rumano' } },
+    southEasternEuropean: { id: 'southEasternEuropean', label: { en: 'South-Eastern European', es: 'Europeo sudoriental' } },
     southernEuropean: { id: 'southernEuropean', label: { en: 'Southern European', es: 'Europeo meridional' } },
     thai: { id: 'thai', label: { en: 'Thai', es: 'Tailandés' } },
     turkish: { id: 'turkish', label: { en: 'Turkish', es: 'Turco' } },
-    unicode16: { id: 'unicode16', label: { en: 'Unicode 16', es: 'Unicode 16' } },
-    unicode32: { id: 'unicode32', label: { en: 'Unicode 32', es: 'Unicode 32' } },
+    unicode: { id: 'unicode', label: { en: 'Unicode', es: 'Unicode' } },
     vietnamese: { id: 'vietnamese', label: { en: 'Vietnamese', es: 'Vietnamita' } },
     western: { id: 'western', label: { en: 'Western', es: 'Occidental' } }
 } as const satisfies Record<string, { id: string; label: LocaleLabel }>;
@@ -111,7 +109,7 @@ const ENCODING_TYPE_CONFIG_DATA = {
     'iso8859-10': { id: 'iso8859-10', groupId: 'nordic', decoderId: 'iso-8859-10' },
     'iso8859-14': { id: 'iso8859-14', groupId: 'celtic', decoderId: 'iso-8859-14' },
     'iso8859-15': { id: 'iso8859-15', groupId: 'western', decoderId: 'iso-8859-15' },
-    'iso8859-16': { id: 'iso8859-16', groupId: 'romanian', decoderId: 'iso-8859-16' },
+    'iso8859-16': { id: 'iso8859-16', groupId: 'southEasternEuropean', decoderId: 'iso-8859-16' },
     johab: { id: 'johab', groupId: 'korean', decoderId: null },
     'koi8-r': { id: 'koi8-r', groupId: 'cyrillic', decoderId: 'koi8-r' },
     'koi8-t': { id: 'koi8-t', groupId: 'cyrillic', decoderId: null },
@@ -126,15 +124,15 @@ const ENCODING_TYPE_CONFIG_DATA = {
     ptcp154: { id: 'ptcp154', groupId: 'cyrillic', decoderId: null },
     shift_jis: { id: 'shift_jis', groupId: 'japanese', decoderId: 'shift_jis' },
     'tis-620': { id: 'tis-620', groupId: 'thai', decoderId: 'windows-874' },
-    'utf-7': { id: 'utf-7', groupId: 'other', decoderId: null },
-    'utf-8': { id: 'utf-8', groupId: null, decoderId: 'utf-8' },
-    'utf-8-sig': { id: 'utf-8-sig', groupId: null, decoderId: 'utf-8' }, // jschardet's map leaves it out, but 'utf-8' skips the byte-order mark.
-    'utf-16': { id: 'utf-16', groupId: 'unicode16', decoderId: null },
-    'utf-16-be': { id: 'utf-16-be', groupId: 'unicode16', decoderId: 'utf-16be' },
-    'utf-16-le': { id: 'utf-16-le', groupId: 'unicode16', decoderId: 'utf-16le' },
-    'utf-32': { id: 'utf-32', groupId: 'unicode32', decoderId: null },
-    'utf-32-be': { id: 'utf-32-be', groupId: 'unicode32', decoderId: null },
-    'utf-32-le': { id: 'utf-32-le', groupId: 'unicode32', decoderId: null },
+    'utf-7': { id: 'utf-7', groupId: 'unicode', decoderId: null },
+    'utf-8': { id: 'utf-8', groupId: 'unicode', decoderId: 'utf-8' },
+    'utf-8-sig': { id: 'utf-8-sig', groupId: 'unicode', decoderId: 'utf-8' }, // jschardet's map leaves it out, but 'utf-8' skips the byte-order mark.
+    'utf-16': { id: 'utf-16', groupId: 'unicode', decoderId: null },
+    'utf-16-be': { id: 'utf-16-be', groupId: 'unicode', decoderId: 'utf-16be' },
+    'utf-16-le': { id: 'utf-16-le', groupId: 'unicode', decoderId: 'utf-16le' },
+    'utf-32': { id: 'utf-32', groupId: 'unicode', decoderId: null },
+    'utf-32-be': { id: 'utf-32-be', groupId: 'unicode', decoderId: null },
+    'utf-32-le': { id: 'utf-32-le', groupId: 'unicode', decoderId: null },
     'windows-1250': { id: 'windows-1250', groupId: 'centralEuropean', decoderId: 'windows-1250' },
     'windows-1251': { id: 'windows-1251', groupId: 'cyrillic', decoderId: 'windows-1251' },
     'windows-1252': { id: 'windows-1252', groupId: 'western', decoderId: 'windows-1252' },
@@ -167,7 +165,7 @@ export function getEncodingTypeConfigs(localeId: LocaleId = DEFAULT_LOCALE_ID): 
         const groupLabel = groupId == null ? '' : resolveGroupLabel(groupId, localeId);
         return { id, groupLabel, label: groupLabel ? `${groupLabel} (${id})` : id, isDecodable: decoderId != null, decoderId };
     });
-    return encodingTypeConfigs.toSorted((left, right) => left.groupLabel.localeCompare(right.groupLabel, localeId) || left.label.localeCompare(right.label, localeId));
+    return encodingTypeConfigs.toSorted((left, right) => left.groupLabel.localeCompare(right.groupLabel, localeId) || left.id.localeCompare(right.id, localeId, { numeric: true })); // Ids, not labels, so 'utf-16' sorts before 'utf-16-le'.
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────

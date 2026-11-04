@@ -90,94 +90,94 @@ The table below lists every encoding [jschardet](https://github.com/aadsm/jschar
 
 The major browsers all follow the Encoding Standard, so these columns hold for each of them. A test checks that Node's `TextDecoder`, which follows the same standard, accepts every Decoded As name as its own. They were also confirmed in Chrome 154, Edge 154, Firefox 156 and Safari 26.6 (October 2026), and all four gave identical results. To re-check them on a Mac, run `npm run check:browsers` after a build.
 
-| Group               | Encoding        | Decodable | Decoded As     |
-| :------------------ | :-------------- | :-------: | :------------- |
-| —                   | ascii           |    ✅     | windows-1252   |
-| —                   | utf-8           |    ✅     | utf-8          |
-| —                   | utf-8-sig       |    ✅     | utf-8          |
-| Arabic              | cp1006          |    ❌     | —              |
-| Arabic              | cp720           |    ❌     | —              |
-| Arabic              | cp864           |    ❌     | —              |
-| Arabic              | iso-8859-6      |    ✅     | iso-8859-6     |
-| Arabic              | windows-1256    |    ✅     | windows-1256   |
-| Baltic              | cp775           |    ❌     | —              |
-| Baltic              | iso-8859-13     |    ✅     | iso-8859-13    |
-| Baltic              | iso8859-4       |    ✅     | iso-8859-4     |
-| Baltic              | windows-1257    |    ✅     | windows-1257   |
-| Celtic              | iso8859-14      |    ✅     | iso-8859-14    |
-| Central European    | cp852           |    ❌     | —              |
-| Central European    | iso-8859-2      |    ✅     | iso-8859-2     |
-| Central European    | maclatin2       |    ❌     | —              |
-| Central European    | windows-1250    |    ✅     | windows-1250   |
-| Chinese Simplified  | gb18030         |    ✅     | gb18030        |
-| Chinese Simplified  | hz-gb-2312      |    ❌     | —              |
-| Chinese Traditional | big5            |    ✅     | big5           |
-| Cyrillic            | cp1125          |    ❌     | —              |
-| Cyrillic            | ibm855          |    ❌     | —              |
-| Cyrillic            | ibm866          |    ✅     | ibm866         |
-| Cyrillic            | iso-8859-5      |    ✅     | iso-8859-5     |
-| Cyrillic            | koi8-r          |    ✅     | koi8-r         |
-| Cyrillic            | koi8-t          |    ❌     | —              |
-| Cyrillic            | koi8-u          |    ✅     | koi8-u         |
-| Cyrillic            | kz1048          |    ❌     | —              |
-| Cyrillic            | maccyrillic     |    ✅     | x-mac-cyrillic |
-| Cyrillic            | ptcp154         |    ❌     | —              |
-| Cyrillic            | windows-1251    |    ✅     | windows-1251   |
-| Greek               | cp737           |    ❌     | —              |
-| Greek               | cp869           |    ❌     | —              |
-| Greek               | cp875           |    ❌     | —              |
-| Greek               | iso-8859-7      |    ✅     | iso-8859-7     |
-| Greek               | macgreek        |    ❌     | —              |
-| Greek               | windows-1253    |    ✅     | windows-1253   |
-| Hebrew              | cp424           |    ❌     | —              |
-| Hebrew              | cp856           |    ❌     | —              |
-| Hebrew              | cp862           |    ❌     | —              |
-| Hebrew              | iso-8859-8      |    ✅     | iso-8859-8-i   |
-| Hebrew              | windows-1255    |    ✅     | windows-1255   |
-| Japanese            | cp932           |    ✅     | shift_jis      |
-| Japanese            | euc-jp          |    ✅     | euc-jp         |
-| Japanese            | iso-2022-jp     |    ✅     | iso-2022-jp    |
-| Japanese            | iso2022_jp_2004 |    ❌     | —              |
-| Japanese            | iso2022_jp_ext  |    ❌     | —              |
-| Japanese            | shift_jis       |    ✅     | shift_jis      |
-| Korean              | cp949           |    ✅     | euc-kr         |
-| Korean              | euc-kr          |    ✅     | euc-kr         |
-| Korean              | iso-2022-kr     |    ❌     | —              |
-| Korean              | johab           |    ❌     | —              |
-| Nordic              | cp861           |    ❌     | —              |
-| Nordic              | cp865           |    ❌     | —              |
-| Nordic              | iso8859-10      |    ✅     | iso-8859-10    |
-| Nordic              | maciceland      |    ❌     | —              |
-| Other               | utf-7           |    ❌     | —              |
-| Romanian            | iso8859-16      |    ✅     | iso-8859-16    |
-| Southern European   | iso8859-3       |    ✅     | iso-8859-3     |
-| Thai                | cp874           |    ✅     | windows-874    |
-| Thai                | tis-620         |    ✅     | windows-874    |
-| Turkish             | cp1026          |    ❌     | —              |
-| Turkish             | cp857           |    ❌     | —              |
-| Turkish             | iso-8859-9      |    ✅     | windows-1254   |
-| Turkish             | macturkish      |    ❌     | —              |
-| Turkish             | windows-1254    |    ✅     | windows-1254   |
-| Unicode 16          | utf-16-be       |    ✅     | utf-16be       |
-| Unicode 16          | utf-16-le       |    ✅     | utf-16le       |
-| Unicode 16          | utf-16          |    ❌     | —              |
-| Unicode 32          | utf-32-be       |    ❌     | —              |
-| Unicode 32          | utf-32-le       |    ❌     | —              |
-| Unicode 32          | utf-32          |    ❌     | —              |
-| Vietnamese          | cp1258          |    ✅     | windows-1258   |
-| Western             | cp1140          |    ❌     | —              |
-| Western             | cp273           |    ❌     | —              |
-| Western             | cp437           |    ❌     | —              |
-| Western             | cp500           |    ❌     | —              |
-| Western             | cp850           |    ❌     | —              |
-| Western             | cp858           |    ❌     | —              |
-| Western             | cp860           |    ❌     | —              |
-| Western             | cp863           |    ❌     | —              |
-| Western             | hp-roman8       |    ❌     | —              |
-| Western             | iso-8859-1      |    ✅     | windows-1252   |
-| Western             | iso8859-15      |    ✅     | iso-8859-15    |
-| Western             | macroman        |    ✅     | macintosh      |
-| Western             | windows-1252    |    ✅     | windows-1252   |
+| Group                  | Encoding        | Decodable | Decoded As     |
+| :--------------------- | :-------------- | :-------: | :------------- |
+| —                      | ascii           |    ✅     | windows-1252   |
+| Arabic                 | cp720           |    ❌     | —              |
+| Arabic                 | cp864           |    ❌     | —              |
+| Arabic                 | cp1006          |    ❌     | —              |
+| Arabic                 | iso-8859-6      |    ✅     | iso-8859-6     |
+| Arabic                 | windows-1256    |    ✅     | windows-1256   |
+| Baltic                 | cp775           |    ❌     | —              |
+| Baltic                 | iso-8859-13     |    ✅     | iso-8859-13    |
+| Baltic                 | iso8859-4       |    ✅     | iso-8859-4     |
+| Baltic                 | windows-1257    |    ✅     | windows-1257   |
+| Celtic                 | iso8859-14      |    ✅     | iso-8859-14    |
+| Central European       | cp852           |    ❌     | —              |
+| Central European       | iso-8859-2      |    ✅     | iso-8859-2     |
+| Central European       | maclatin2       |    ❌     | —              |
+| Central European       | windows-1250    |    ✅     | windows-1250   |
+| Chinese Simplified     | gb18030         |    ✅     | gb18030        |
+| Chinese Simplified     | hz-gb-2312      |    ❌     | —              |
+| Chinese Traditional    | big5            |    ✅     | big5           |
+| Cyrillic               | cp1125          |    ❌     | —              |
+| Cyrillic               | ibm855          |    ❌     | —              |
+| Cyrillic               | ibm866          |    ✅     | ibm866         |
+| Cyrillic               | iso-8859-5      |    ✅     | iso-8859-5     |
+| Cyrillic               | koi8-r          |    ✅     | koi8-r         |
+| Cyrillic               | koi8-t          |    ❌     | —              |
+| Cyrillic               | koi8-u          |    ✅     | koi8-u         |
+| Cyrillic               | kz1048          |    ❌     | —              |
+| Cyrillic               | maccyrillic     |    ✅     | x-mac-cyrillic |
+| Cyrillic               | ptcp154         |    ❌     | —              |
+| Cyrillic               | windows-1251    |    ✅     | windows-1251   |
+| Greek                  | cp737           |    ❌     | —              |
+| Greek                  | cp869           |    ❌     | —              |
+| Greek                  | cp875           |    ❌     | —              |
+| Greek                  | iso-8859-7      |    ✅     | iso-8859-7     |
+| Greek                  | macgreek        |    ❌     | —              |
+| Greek                  | windows-1253    |    ✅     | windows-1253   |
+| Hebrew                 | cp424           |    ❌     | —              |
+| Hebrew                 | cp856           |    ❌     | —              |
+| Hebrew                 | cp862           |    ❌     | —              |
+| Hebrew                 | iso-8859-8      |    ✅     | iso-8859-8-i   |
+| Hebrew                 | windows-1255    |    ✅     | windows-1255   |
+| Japanese               | cp932           |    ✅     | shift_jis      |
+| Japanese               | euc-jp          |    ✅     | euc-jp         |
+| Japanese               | iso-2022-jp     |    ✅     | iso-2022-jp    |
+| Japanese               | iso2022_jp_2004 |    ❌     | —              |
+| Japanese               | iso2022_jp_ext  |    ❌     | —              |
+| Japanese               | shift_jis       |    ✅     | shift_jis      |
+| Korean                 | cp949           |    ✅     | euc-kr         |
+| Korean                 | euc-kr          |    ✅     | euc-kr         |
+| Korean                 | iso-2022-kr     |    ❌     | —              |
+| Korean                 | johab           |    ❌     | —              |
+| Nordic                 | cp861           |    ❌     | —              |
+| Nordic                 | cp865           |    ❌     | —              |
+| Nordic                 | iso8859-10      |    ✅     | iso-8859-10    |
+| Nordic                 | maciceland      |    ❌     | —              |
+| South-Eastern European | iso8859-16      |    ✅     | iso-8859-16    |
+| Southern European      | iso8859-3       |    ✅     | iso-8859-3     |
+| Thai                   | cp874           |    ✅     | windows-874    |
+| Thai                   | tis-620         |    ✅     | windows-874    |
+| Turkish                | cp857           |    ❌     | —              |
+| Turkish                | cp1026          |    ❌     | —              |
+| Turkish                | iso-8859-9      |    ✅     | windows-1254   |
+| Turkish                | macturkish      |    ❌     | —              |
+| Turkish                | windows-1254    |    ✅     | windows-1254   |
+| Unicode                | utf-7           |    ❌     | —              |
+| Unicode                | utf-8           |    ✅     | utf-8          |
+| Unicode                | utf-8-sig       |    ✅     | utf-8          |
+| Unicode                | utf-16          |    ❌     | —              |
+| Unicode                | utf-16-be       |    ✅     | utf-16be       |
+| Unicode                | utf-16-le       |    ✅     | utf-16le       |
+| Unicode                | utf-32          |    ❌     | —              |
+| Unicode                | utf-32-be       |    ❌     | —              |
+| Unicode                | utf-32-le       |    ❌     | —              |
+| Vietnamese             | cp1258          |    ✅     | windows-1258   |
+| Western                | cp273           |    ❌     | —              |
+| Western                | cp437           |    ❌     | —              |
+| Western                | cp500           |    ❌     | —              |
+| Western                | cp850           |    ❌     | —              |
+| Western                | cp858           |    ❌     | —              |
+| Western                | cp860           |    ❌     | —              |
+| Western                | cp863           |    ❌     | —              |
+| Western                | cp1140          |    ❌     | —              |
+| Western                | hp-roman8       |    ❌     | —              |
+| Western                | iso-8859-1      |    ✅     | windows-1252   |
+| Western                | iso8859-15      |    ✅     | iso-8859-15    |
+| Western                | macroman        |    ✅     | macintosh      |
+| Western                | windows-1252    |    ✅     | windows-1252   |
 
 <!-- ENCODINGS_END -->
 
@@ -241,9 +241,9 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 | Chunk/Module/File                                                           | Composition                                                                                    |
 | :-------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| **dist/dpuse-shared.es.js**                                                 | 63.3&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;18.1&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| **dist/dpuse-shared.es.js**                                                 | 63.2&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;18.0&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 13 more                            | `████████████████░░░░`&nbsp;77.7%&nbsp;·&nbsp;49.2&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒░░░░░░░░░░░░░`&nbsp;34.4%&nbsp;·&nbsp;21.8&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒░░░░░░░░░░░░░`&nbsp;34.3%&nbsp;·&nbsp;21.7&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ dataFormatIcons.ts        | `▒▒▒▒▒░░░░░░░░░░░░░░░`&nbsp;26.6%&nbsp;·&nbsp;16.8&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒░░░░░░░░░░░░░░░░░░`&nbsp;7.9%&nbsp;·&nbsp;5.0&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ delimitedText.ts          | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;2.5%&nbsp;·&nbsp;1.6&nbsp;kB                                       |

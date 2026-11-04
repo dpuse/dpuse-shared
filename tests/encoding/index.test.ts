@@ -62,20 +62,18 @@ describe('getEncodingTypeConfigs', () => {
         expect(getEncodingTypeConfigs()).toHaveLength(Object.keys(ENCODING_TYPE_CONFIG_MAP).length);
     });
 
-    it('sorts by group label, then by label, leaving the ungrouped encodings first', () => {
+    it('sorts by group label, then by id with numbers in numeric order, leaving the ungrouped encodings first', () => {
         const encodingTypeConfigs = getEncodingTypeConfigs();
 
-        expect(encodingTypeConfigs.slice(0, 4).map((config) => [config.groupLabel, config.label])).toEqual([
+        expect(encodingTypeConfigs.slice(0, 2).map((config) => [config.groupLabel, config.label])).toEqual([
             ['', 'ascii'],
-            ['', 'utf-8'],
-            ['', 'utf-8-sig'],
-            ['Arabic', 'Arabic (cp1006)']
+            ['Arabic', 'Arabic (cp720)']
         ]);
 
         for (const [index, config] of encodingTypeConfigs.slice(1).entries()) {
             const previousConfig = encodingTypeConfigs[index];
             if (previousConfig == null) throw new TypeError('Expected a preceding config.');
-            expect(previousConfig.groupLabel.localeCompare(config.groupLabel, 'en') || previousConfig.label.localeCompare(config.label, 'en')).toBeLessThanOrEqual(0);
+            expect(previousConfig.groupLabel.localeCompare(config.groupLabel, 'en') || previousConfig.id.localeCompare(config.id, 'en', { numeric: true })).toBeLessThanOrEqual(0);
         }
     });
 
@@ -90,7 +88,7 @@ describe('getEncodingTypeConfigs', () => {
     });
 
     it('labels an ungrouped encoding with its id alone', () => {
-        expect(getEncodingTypeConfigs('es').find((config) => config.id === 'utf-8')).toMatchObject({ groupLabel: '', label: 'utf-8' });
+        expect(getEncodingTypeConfigs('es').find((config) => config.id === 'ascii')).toMatchObject({ groupLabel: '', label: 'ascii' });
     });
 });
 
