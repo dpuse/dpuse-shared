@@ -1,12 +1,12 @@
 // ── DPUse Framework
 import type { ParseTextOptions, ParseTextResult } from '@/component/module/tool';
-import type { ParsingRecord, PreviewIssue, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { ParsingRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // What a parser tool supplies: the text read with one delimiter. A record it cannot read is left out and becomes an
 // issue, so every parser reports the same way and the choice of delimiter below is the same whichever parser reads.
-export type ParseTextWithDelimiter = (text: string, delimiter: ValueDelimiterId, isComplete: boolean) => Promise<{ issues: PreviewIssue[]; records: ParsingRecord[] }>;
+export type ParseTextWithDelimiter = (text: string, delimiter: ValueDelimiterId, isComplete: boolean) => Promise<{ issues: SampleIssue[]; records: ParsingRecord[] }>;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -40,12 +40,12 @@ async function determineValueDelimiter(
     delimiters: ValueDelimiterId[],
     isComplete: boolean,
     parseTextWithDelimiter: ParseTextWithDelimiter
-): Promise<{ issues: PreviewIssue[]; parsedRecords: ParsingRecord[]; valueDelimiterId: ValueDelimiterId | undefined }> {
+): Promise<{ issues: SampleIssue[]; parsedRecords: ParsingRecord[]; valueDelimiterId: ValueDelimiterId | undefined }> {
     let valueDelimiterId: ValueDelimiterId | undefined;
     let priorAverageCount: number | undefined;
     let priorSumCountDiffs: number | undefined;
     let parsedRecords: ParsingRecord[] = [];
-    let fewestIssuesParse: { delimiter: ValueDelimiterId; issues: PreviewIssue[]; records: ParsingRecord[] } | undefined;
+    let fewestIssuesParse: { delimiter: ValueDelimiterId; issues: SampleIssue[]; records: ParsingRecord[] } | undefined;
     let hasParsedWithoutIssues = false;
 
     /* TODO: Could improve performance by limiting the number of delimiters
@@ -81,7 +81,7 @@ async function determineValueDelimiter(
 }
 
 // The earlier parse wins a tie, so delimiters keep their order of preference.
-function chooseFewerIssues<T extends { issues: PreviewIssue[] }>(priorParse: T | undefined, parse: T): T {
+function chooseFewerIssues<T extends { issues: SampleIssue[] }>(priorParse: T | undefined, parse: T): T {
     return priorParse == null || parse.issues.length < priorParse.issues.length ? parse : priorParse;
 }
 

@@ -1,6 +1,8 @@
 // ── DPUse Framework
+import type { BaseConfig } from '@/index';
 import type { ConnectorConfig } from '@/component/module/connector';
 import type { LocaleLabel } from '@/locale/label';
+import type { LocalisedConfig } from '@/locale';
 import type { Component, ComponentInstanceConfig } from '@/component';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
@@ -54,32 +56,16 @@ export interface ConnectionDescriptionConfig {
 
 // ── Types - Configuration - Node ─────────────────────────────────────────────────────────────────────────────────────
 
-export interface ConnectionNodeConfig {
-    id: string;
-    label: string;
-    description: string;
-    icon: string | null;
-    iconDark: string | null;
-    childCount: number | undefined;
-    childNodes: ConnectionNodeConfig[];
-    // columnsConfigs?: ObjectColumnConfig[];
+export interface ConnectionNodeConfig extends LocalisedConfig<BaseConfig> {
+    childCount: number | undefined; // How many items a folder holds, where the connector can tell. Undefined for an item.
     extension: string | undefined;
     folderPath: string;
-    handle: DPAFileSystemFileHandle | undefined;
-    //nodeDisplayHeight?: number;
     lastModifiedAt: number | undefined;
     mimeType: string | undefined;
     name: string;
     size: number | undefined;
-    typeId: NodeTypeId;
+    typeId: 'folder' | 'object';
 }
-
-interface DPAFileSystemFileHandle {
-    readonly kind: 'file';
-    getFile(): Promise<File>;
-}
-
-type NodeTypeId = 'folder' | 'object';
 
 // ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
 

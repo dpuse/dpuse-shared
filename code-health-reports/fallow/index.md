@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3546 |
+| Total LOC | 3517 |
 | Avg Cyclomatic | 2.7 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 136, module scopes: 2, templates: 0 |
@@ -56,7 +56,7 @@
 | `src/component/dataView/index.ts` | 91.5 | 8 | 4 | 0% | 0.07 | 12.0 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
 | `src/component/module/connector/index.ts` | 89.3 | 4 | 9 | 0% | 0.05 | 8.0 |
-| `src/locale/index.ts` | 86.4 | 4 | 1 | 0% | 0.36 | 6.0 |
+| `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/tool/index.ts` | 86.5 | 6 | 6 | 0% | 0.19 | 4.0 |
 | `src/component/index.ts` | 92.9 | 16 | 2 | 0% | 0.09 | 4.0 |
 | `src/encoding/index.ts` | 95.4 | 3 | 1 | 0% | 0.06 | 3.0 |
@@ -72,10 +72,10 @@
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/utilities/index.ts` | 19.1 | 14 | 619 | 0.25 | 1 | stable |
-| `src/locale/index.ts` | 17.1 | 11 | 153 | 0.36 | 4 | cooling |
+| `src/locale/index.ts` | 17.0 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/component/module/connector/objectParsing.ts` | 15.7 | 11 | 527 | 0.15 | 1 | cooling |
 | `src/component/dataView/index.ts` | 15.5 | 27 | 629 | 0.07 | 8 | accelerating |
 | `src/component/module/tool/index.ts` | 15.1 | 12 | 100 | 0.19 | 6 | stable |
-| `src/component/module/connector/objectParsing.ts` | 14.2 | 10 | 493 | 0.15 | 1 | cooling |
 | `src/component/module/connector/index.ts` | 13.9 | 39 | 582 | 0.05 | 4 | accelerating |
 | `src/errors/index.ts` | 13.8 | 8 | 226 | 0.30 | 3 | stable |
 | `src/component/module/tool/delimitedText.ts` | 9.9 | 3 | 109 | 0.35 | 1 | cooling |

@@ -35,7 +35,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ColumnDerivationId`**
 - **`ConnectionConfig`** (extends `ComponentInstanceConfig`)
 - **`ConnectionDescriptionConfig`**
-- **`ConnectionNodeConfig`**
+- **`ConnectionNodeConfig`** (extends `LocalisedConfig<BaseConfig>`)
 - **`DateOrderId`**
 - **`DecimalSeparatorId`**
 - **`NumericReadingConfig`**
@@ -110,13 +110,13 @@ Every export, grouped by import path. This file is updated each time `npm run do
 #### Types
 
 - **`BooleanInferenceResult`**
-- **`ColumnSetConfig`**
+- **`ColumnChoiceConfig`**
+- **`ColumnChoiceConfigs`**
 - **`ContentAuditConfig`**
 - **`DataFormatIconConfig`**
 - **`DataFormatId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**
-- **`DataViewColumnConfig`** (extends `ObjectColumnConfig`)
 - **`DataViewConfig`** (extends `ComponentInstanceConfig`)
 - **`InferenceRecord`**
 - **`InferenceResult`**
@@ -126,12 +126,11 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`NumericSubtypeId`**
 - **`NumericUnitsId`**
 - **`ParsingRecord`**
-- **`PreviewConfig`**
-- **`PreviewIssue`**
-- **`PreviewIssueSeverityId`**
-- **`ReadConfig`**
+- **`ReadingConfig`**
 - **`RecordDelimiterId`**
-- **`StoredContentAuditConfig`**
+- **`SampleConfig`**
+- **`SampleIssue`**
+- **`SampleIssueSeverityId`**
 - **`StringInferenceResult`**
 - **`TemporalInferenceResult`**
 - **`TemporalSubtypeId`**

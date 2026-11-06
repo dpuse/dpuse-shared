@@ -16,7 +16,7 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsingRecord, PreviewConfig, ReadConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsingRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -103,6 +103,7 @@ export interface AuditObjectContentOptions extends EngineConnectorActionOptions 
 }
 export interface AuditObjectContentResult {
     contentAuditConfig: ContentAuditConfig;
+    hasHeaders: boolean; // Whether the first record is a header. An audit can find one the sample missed, because it reads more records. It belongs to the reading configuration, not the audit.
 }
 
 // ── Types - Action - Close Store ─────────────────────────────────────────────────────────────────────────────────────
@@ -235,8 +236,8 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
 }
 export interface PreviewObjectResult {
     contentAuditConfig: ContentAuditConfig;
-    previewConfig: PreviewConfig;
-    readConfig: ReadConfig;
+    sampleConfig: SampleConfig;
+    readingConfig: ReadingConfig;
 }
 
 // ── Types - Action - Query Records ───────────────────────────────────────────────────────────────────────────────────

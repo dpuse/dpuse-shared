@@ -14,85 +14,82 @@ type DataViewInterface = Component;
 
 export interface DataViewConfig extends ComponentInstanceConfig {
     typeId: 'dataView';
-    connectionId: string; // Always set, because a data view is only saved once its connection is chosen.
+    connectionId: string;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
-    readConfig: ReadConfig | undefined;
-    previewConfig: PreviewConfig | undefined;
-    contentAuditConfig: StoredContentAuditConfig | undefined;
-    columnSetConfig: ColumnSetConfig | undefined;
-    relationshipsAuditConfig: RelationshipsAuditConfig | undefined;
-    storeConnectorId?: string | undefined; // The store connector its records load into. Absent from a data view saved before the choice, which loads into the app's default store.
+    readingConfig: ReadingConfig | undefined;
+    sampleConfig: SampleConfig | undefined;
+    contentAuditConfig: ContentAuditConfig | undefined; // What the latest audit found, its columns included. Each audit replaces it whole.
+    columnChoiceConfigs: ColumnChoiceConfigs | undefined; // What the user chose for the columns. An audit leaves it as it is.
+    storeConnectorId: string | undefined;
 }
 
-// ── Types - Column Set Configuration ─────────────────────────────────────────────────────────────────────────────────
+// ── Types - Column Configuration ─────────────────────────────────────────────────────────────────────────────────────
 
-// The data view's one list of columns, from its latest audit.
-export interface ColumnSetConfig {
-    asAt: number; // When the columns were read.
-    columnConfigs: DataViewColumnConfig[];
+// What the user chose for each column, keyed by the column's position as a string. A column takes each choice in place
+// of what the audit detected, and keeps what was detected for anything not chosen.
+export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
+
+// A type chosen without a subtype keeps the detected subtype when it is the detected type.
+export interface ColumnChoiceConfig {
+    dataSubtypeId?: DataSubtypeId | undefined;
+    dataTypeId?: DataTypeId | undefined;
+    decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
+    nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
 }
 
-// A column's 'dataTypeId' and 'dataSubtypeId' are always what was detected. A type the user chose is held apart, so a new
-// audit updates what was detected and the choice survives. A record saved before subtypes could be chosen has none.
-export interface DataViewColumnConfig extends ObjectColumnConfig {
-    chosenDataSubtypeId?: DataSubtypeId | undefined;
-    chosenDataTypeId?: DataTypeId | undefined;
-    chosenDecimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
-    chosenNullWordsAreEmpty?: boolean | undefined; // For a text column: the user chose to read null words such as 'NA' as no value.
-}
-
-// ── Types - Read Configuration ───────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Reading Configuration ────────────────────────────────────────────────────────────────────────────────────
 
 // How an item is read. Found when it is first opened, and followed by every audit and load.
-export interface ReadConfig {
-    commentMarkId?: string | undefined; // TODO: under review.
-    commentMarkOtherCharSeq?: string | undefined; // TODO: under review.
+export interface ReadingConfig {
     dataFormatId: DataFormatId;
     encodingConfidenceLevel: number | undefined;
     encodingId: string | undefined;
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
-    linesToSkipAtStart?: number | undefined; // TODO: under review.
     parserId?: string | undefined; // The config id of the tool that parsed the item. Absent where no tool did, e.g. an empty file or a format no tool reads yet.
-    quoteEscapeChar?: string | undefined; // TODO: under review.
-    quoteMarkId?: string | undefined; // TODO: under review.
-    quoteMarkOtherCharSeq?: string | undefined; // TODO: under review.
     recordDelimiterId: RecordDelimiterId | undefined;
-    recordDelimiterOtherCharSeq?: string | undefined; // TODO: under review.
-    skipEmptyLines?: boolean | undefined; // TODO: under review.
-    skipLinesWithEmptyValues?: boolean | undefined; // TODO: under review.
-    skipLinesWithErrors?: boolean | undefined; // TODO: under review.
     valueDelimiterId: ValueDelimiterId | undefined;
-    valueDelimiterOtherCharSeq?: string | undefined; // TODO: under review.
-    valueTrimMethodId?: ValueTrimMethodId | undefined; // TODO: under review.
+
+    // TODO: following are under review.
+    commentMarkId?: string | undefined;
+    commentMarkOtherCharSeq?: string | undefined;
+    linesToSkipAtStart?: number | undefined;
+    quoteEscapeChar?: string | undefined;
+    quoteMarkId?: string | undefined;
+    quoteMarkOtherCharSeq?: string | undefined;
+    recordDelimiterOtherCharSeq?: string | undefined;
+    skipEmptyLines?: boolean | undefined;
+    skipLinesWithEmptyValues?: boolean | undefined;
+    skipLinesWithErrors?: boolean | undefined;
+    valueDelimiterOtherCharSeq?: string | undefined;
+    valueTrimMethodId?: ValueTrimMethodId | undefined;
 }
 
-// ── Types - Preview Configuration ────────────────────────────────────────────────────────────────────────────────────
+// ── Types - Sample Configuration ─────────────────────────────────────────────────────────────────────────────────────
 
 // The start of an item, as text and records. Small enough to hold in memory and save with a data view, unlike what an
 // audit reads.
-export interface PreviewConfig {
-    errorMessage?: string | undefined; // TODO: under review.
-    issues?: PreviewIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
+export interface SampleConfig {
+    issues?: SampleIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
     parsedRecords: ParsingRecord[];
     size: number | undefined; // How many bytes of the item the text and records came from. Undefined where the item is not read as bytes.
     text: string | undefined;
 }
 
-// One thing found while previewing an item. Not a failure: the preview still holds whatever was read, so the item can be
+// One thing found while sampling an item. Not a failure: the sample still holds whatever was read, so the item can be
 // shown and read another way.
-export interface PreviewIssue {
+export interface SampleIssue {
     endLineNumber?: number | undefined; // The last line it covers, when it runs over several, e.g. a quote never closed runs to where the parser gave up.
     fieldNumber?: number | undefined; // The value within the record, counting from 1.
     id: string; // The parser's own code, e.g. 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
     lineNumber: number | undefined; // The line of the text where it starts, counting from 1, when the parser says.
     message: string; // In English, as the parser gives it. The app shows its own wording for the ids it knows.
     recordNumber?: number | undefined; // The record it is in, counting from 1, a header record included.
-    severityId: PreviewIssueSeverityId;
+    severityId: SampleIssueSeverityId;
     value?: string | undefined; // The value or character at fault, cut short when long.
 }
 
-export type PreviewIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
+export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
 
 export type DataFormatId = 'arrow' | 'avro' | 'dtv' | 'json' | 'jsonl' | 'markdown' | 'ods' | 'parquet' | 'sav' | 'sqlite' | 'xlsx' | 'xml' | 'unknown';
 
@@ -122,21 +119,10 @@ export interface ContentAuditConfig {
     emptyLineCount: number | undefined;
     invalidFieldLengthCount: number | undefined; // Records whose number of values differs from the first record's.
     duration: number;
-    hasHeaders: boolean; // Whether the first record is a header. An audit can find one the preview missed, because it reads more records.
     isComplete: boolean; // Whether the audit reached the end of the item.
     lineCount: number | undefined;
     recordCount: number; // Data records only. A header record is not counted.
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined where the bytes were fetched before the audit started.
-}
-
-// An audit as a data view saves it. Its columns are saved in the data view's column set, and whether there is a header in
-// its read configuration.
-export type StoredContentAuditConfig = Omit<ContentAuditConfig, 'columns' | 'hasHeaders'>;
-
-// ── Types - Relationships Audit Configuration ────────────────────────────────────────────────────────────────────────
-
-interface RelationshipsAuditConfig {
-    placeholder: string; // TODO
 }
 
 // ── Types - Data Type Identifiers ────────────────────────────────────────────────────────────────────────────────────

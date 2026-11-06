@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 // ── DPUse Framework
 import { parseDelimitedText } from '@/component/module/tool';
 import type { ParseTextWithDelimiter } from '@/component/module/tool';
-import type { ParsingRecord, PreviewIssue, ValueDelimiterId } from '@/component/dataView';
+import type { ParsingRecord, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 
 // ── Tests ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -13,7 +13,7 @@ const CANDIDATES: ValueDelimiterId[] = [',', ';', '\t'];
 // A parser that splits on the delimiter it is given and reports a quote issue for any text with a quote in it. The real
 // parsers do much more; this is only enough to choose between delimiters.
 const splitParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
-    const issues: PreviewIssue[] = text.includes('"') ? [{ id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' }] : [];
+    const issues: SampleIssue[] = text.includes('"') ? [{ id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' }] : [];
     const records: ParsingRecord[] = text
         .split('\n')
         .filter((line) => line !== '')
@@ -29,7 +29,7 @@ function readValues(records: ParsingRecord[]): (string | null)[][] {
     return records.map((record) => record.map((field) => field.value));
 }
 
-const QUOTE_ISSUE: PreviewIssue = { id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' };
+const QUOTE_ISSUE: SampleIssue = { id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' };
 
 // Meets a quote issue with the comma only.
 const commaIssueParser: ParseTextWithDelimiter = async (text, delimiter, isComplete) => {

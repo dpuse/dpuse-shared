@@ -1,5 +1,5 @@
 // ── DPUse Framework
-import type { DataFormatId, ParsingRecord, PreviewIssue, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { DataFormatId, ParsingRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 import type { RecordRetrievalTypeId, RetrieveRecordsSummary } from '@/component/module/connector';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -26,7 +26,7 @@ export interface ParseTextOptions {
 }
 
 export interface ParseTextResult {
-    issues: PreviewIssue[]; // Every record the parser could not read, in the order found. Empty when the text parsed cleanly.
+    issues: SampleIssue[]; // Every record the parser could not read, in the order found. Empty when the text parsed cleanly.
     parsedRecords: ParsingRecord[];
     recordDelimiterId: RecordDelimiterId;
     valueDelimiterId: ValueDelimiterId | undefined; // Undefined when the text is not delimited.

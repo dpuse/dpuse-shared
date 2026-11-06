@@ -5,6 +5,7 @@ import type { FileTypeResult } from 'file-type';
 import { ORDERED_VALUE_DELIMITER_IDS } from '@/component/dataView';
 import type {
     AuditObjectContentOptions,
+    AuditObjectContentResult,
     ColumnAuditor,
     ConnectorUtilities,
     PreviewObjectResult,
@@ -69,14 +70,14 @@ export async function buildPreviewObjectResult(input: {
     // there is nothing to show.
     if (size === 0) {
         return {
-            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], hasHeaders: false, isComplete: true, recordCount: 0, size, startedAt }),
-            previewConfig: {
+            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: true, recordCount: 0, size, startedAt }),
+            sampleConfig: {
                 issues: [{ id: 'empty', lineNumber: undefined, message: 'The file is empty.', severityId: 'info' }],
                 parsedRecords: [],
                 size: 0,
                 text: undefined
             },
-            readConfig: {
+            readingConfig: {
                 dataFormatId: 'dtv',
                 encodingConfidenceLevel: undefined,
                 encodingId: undefined,
@@ -90,9 +91,9 @@ export async function buildPreviewObjectResult(input: {
 
     if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) {
         return {
-            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], hasHeaders: false, isComplete: filePreview.isComplete, recordCount: 0, size, startedAt }),
-            previewConfig: { issues: [], parsedRecords: [], size, text },
-            readConfig: {
+            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: filePreview.isComplete, recordCount: 0, size, startedAt }),
+            sampleConfig: { issues: [], parsedRecords: [], size, text },
+            readingConfig: {
                 dataFormatId: dataFormatId ?? 'unknown',
                 encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
                 encodingId: filePreview.encodingId,
@@ -124,19 +125,18 @@ export async function buildPreviewObjectResult(input: {
         contentAuditConfig: constructFirstAuditConfig({
             asAt,
             columns: inferenceSummary.columnConfigs,
-            hasHeaders: inferenceSummary.hasHeaderRow,
             isComplete: filePreview.isComplete,
             recordCount: Math.max(0, parseTextResult.parsedRecords.length - (inferenceSummary.hasHeaderRow ? 1 : 0)), // A header record names the columns and is not data.
             size,
             startedAt
         }),
-        previewConfig: {
+        sampleConfig: {
             issues: parseTextResult.issues, // Records the parser could not read. The text is still returned, so the user can see them.
             parsedRecords: parseTextResult.parsedRecords,
             size,
             text
         },
-        readConfig: {
+        readingConfig: {
             dataFormatId,
             encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
             encodingId: filePreview.encodingId,
@@ -177,7 +177,7 @@ export async function auditObjectContentWithParser(input: {
     signal: AbortSignal;
     stream: ReadableStream<Uint8Array>;
     toolConfigs: ToolConfig[];
-}): Promise<ContentAuditConfig> {
+}): Promise<AuditObjectContentResult> {
     const { constructColumnAuditor, onProgress, options, signal, stream, toolConfigs } = input;
     const asAt = Date.now();
     const startedAt = performance.now();
@@ -194,20 +194,20 @@ export async function auditObjectContentWithParser(input: {
         }
     );
     const { columnConfigs, hasHeaders } = columnAuditor.completeAudit();
-    return {
+    const contentAuditConfig: ContentAuditConfig = {
         asAt,
         byteCount: auditSource.byteCount(),
         columns: columnConfigs,
         commentLineCount: summary.commentLineCount,
         duration: performance.now() - startedAt,
         emptyLineCount: summary.emptyLineCount,
-        hasHeaders,
         invalidFieldLengthCount: summary.nonUniformRecordCount,
         isComplete: auditSource.isComplete(),
         lineCount: summary.lineCount,
         recordCount: Math.max(0, summary.recordCount - (hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
         sourceWaitDuration: timedSource.waitDuration()
     };
+    return { contentAuditConfig, hasHeaders };
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -217,13 +217,12 @@ export async function auditObjectContentWithParser(input: {
 function constructFirstAuditConfig(input: {
     asAt: number;
     columns: ContentAuditConfig['columns'];
-    hasHeaders: boolean;
     isComplete: boolean;
     recordCount: number;
     size: number;
     startedAt: number;
 }): ContentAuditConfig {
-    const { asAt, columns, hasHeaders, isComplete, recordCount, size, startedAt } = input;
+    const { asAt, columns, isComplete, recordCount, size, startedAt } = input;
     return {
         asAt,
         byteCount: size,
@@ -231,7 +230,6 @@ function constructFirstAuditConfig(input: {
         commentLineCount: undefined,
         duration: performance.now() - startedAt,
         emptyLineCount: undefined,
-        hasHeaders,
         invalidFieldLengthCount: undefined,
         isComplete,
         lineCount: undefined,
