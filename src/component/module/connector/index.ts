@@ -16,7 +16,7 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsingRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ export interface ConnectorInterface extends Component {
     retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>; // Retrieve all chunks from an object for a specified connection.
     retrieveRecords?(
         options: RetrieveRecordsOptions,
-        chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsingRecord[]) => void | Promise<void>, // A returned promise holds the read back until it settles.
+        chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsedRecord[]) => void | Promise<void>, // A returned promise holds the read back until it settles.
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void>; // Retrieve all records from an object for a specified connection.
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>; // Upsert one or more records into an object for a specified connection.
@@ -65,13 +65,13 @@ export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, 
 export interface ConnectorUtilities {
     constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
-    inferValues: (parsedRecord: ParsingRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
-    inferDataTypes: (parsedRecords: ParsingRecord[], hasHeaders?: boolean) => InferenceSummary;
+    inferValues: (parsedRecord: ParsedRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
+    inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean) => InferenceSummary;
 }
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
 export interface ColumnAuditor {
-    auditRecords: (parsedRecords: ParsingRecord[]) => void;
+    auditRecords: (parsedRecords: ParsedRecord[]) => void;
     completeAudit: () => { columnConfigs: ObjectColumnConfig[]; hasHeaders: boolean };
 }
 
@@ -279,13 +279,13 @@ export interface QueryRecordsResult {
 // Counts a preview's columns again when the user says whether its first record is a header, so the item is not read again.
 export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptions {
     hasHeaders: boolean;
-    parsedRecords: ParsingRecord[];
+    parsedRecords: ParsedRecord[];
 }
 
 // Says what each value of the records shown is, so the table can mark the ones that do not fit their column.
 export interface ClassifyPreviewValuesOptions extends EngineConnectorActionOptions {
     columnConfigs: ObjectColumnConfig[]; // Each column as the user wants it read.
-    parsedRecords: ParsingRecord[]; // Data records only, with no header record.
+    parsedRecords: ParsedRecord[]; // Data records only, with no header record.
 }
 
 export type PreviewValueStateId = 'blank' | 'invalid' | 'missing' | 'valid';

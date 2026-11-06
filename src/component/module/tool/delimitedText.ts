@@ -1,12 +1,12 @@
 // ── DPUse Framework
+import type { ParsedRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 import type { ParseTextOptions, ParseTextResult } from '@/component/module/tool';
-import type { ParsingRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // What a parser tool supplies: the text read with one delimiter. A record it cannot read is left out and becomes an
 // issue, so every parser reports the same way and the choice of delimiter below is the same whichever parser reads.
-export type ParseTextWithDelimiter = (text: string, delimiter: ValueDelimiterId, isComplete: boolean) => Promise<{ issues: SampleIssue[]; records: ParsingRecord[] }>;
+export type ParseTextWithDelimiter = (text: string, delimiter: ValueDelimiterId, isComplete: boolean) => Promise<{ issues: SampleIssue[]; records: ParsedRecord[] }>;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -40,12 +40,12 @@ async function determineValueDelimiter(
     delimiters: ValueDelimiterId[],
     isComplete: boolean,
     parseTextWithDelimiter: ParseTextWithDelimiter
-): Promise<{ issues: SampleIssue[]; parsedRecords: ParsingRecord[]; valueDelimiterId: ValueDelimiterId | undefined }> {
+): Promise<{ issues: SampleIssue[]; parsedRecords: ParsedRecord[]; valueDelimiterId: ValueDelimiterId | undefined }> {
     let valueDelimiterId: ValueDelimiterId | undefined;
     let priorAverageCount: number | undefined;
     let priorSumCountDiffs: number | undefined;
-    let parsedRecords: ParsingRecord[] = [];
-    let fewestIssuesParse: { delimiter: ValueDelimiterId; issues: SampleIssue[]; records: ParsingRecord[] } | undefined;
+    let parsedRecords: ParsedRecord[] = [];
+    let fewestIssuesParse: { delimiter: ValueDelimiterId; issues: SampleIssue[]; records: ParsedRecord[] } | undefined;
     let hasParsedWithoutIssues = false;
 
     /* TODO: Could improve performance by limiting the number of delimiters
@@ -86,7 +86,7 @@ function chooseFewerIssues<T extends { issues: SampleIssue[] }>(priorParse: T | 
 }
 
 // The average number of values per record, and how much that number changes from one record to the next.
-function measureValueCounts(records: ParsingRecord[]): { averageValueCount: number; sumOfValueCountDiffs: number } {
+function measureValueCounts(records: ParsedRecord[]): { averageValueCount: number; sumOfValueCountDiffs: number } {
     let totalValueCount = 0;
     let sumOfValueCountDiffs = 0;
     let priorValueCount: number | undefined;
@@ -99,7 +99,7 @@ function measureValueCounts(records: ParsingRecord[]): { averageValueCount: numb
 }
 
 // Most records have the same number of values, more than one. Ragged rows are allowed, as the parsers allow them.
-function isTabular(parsedRecords: ParsingRecord[]): boolean {
+function isTabular(parsedRecords: ParsedRecord[]): boolean {
     const recordCountByValueCount = new Map<number, number>();
     for (const record of parsedRecords) recordCountByValueCount.set(record.length, (recordCountByValueCount.get(record.length) ?? 0) + 1);
     const [commonValueCount = 0, commonRecordCount = 0] = [...recordCountByValueCount].toSorted((left, right) => right[1] - left[1])[0] ?? [];

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 // ── DPUse Framework
 import { parseDelimitedText } from '@/component/module/tool';
 import type { ParseTextWithDelimiter } from '@/component/module/tool';
-import type { ParsingRecord, SampleIssue, ValueDelimiterId } from '@/component/dataView';
+import type { ParsedRecord, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 
 // ── Tests ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -14,7 +14,7 @@ const CANDIDATES: ValueDelimiterId[] = [',', ';', '\t'];
 // parsers do much more; this is only enough to choose between delimiters.
 const splitParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
     const issues: SampleIssue[] = text.includes('"') ? [{ id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' }] : [];
-    const records: ParsingRecord[] = text
+    const records: ParsedRecord[] = text
         .split('\n')
         .filter((line) => line !== '')
         .map((line) => line.split(delimiter).map((value) => ({ value, valueWasQuoted: false })));
@@ -25,7 +25,7 @@ function parse(text: string, valueDelimiterIds = CANDIDATES, parseTextWithDelimi
     return parseDelimitedText(text, { dataFormatId: 'dtv', isComplete: true, valueDelimiterIds }, parseTextWithDelimiter);
 }
 
-function readValues(records: ParsingRecord[]): (string | null)[][] {
+function readValues(records: ParsedRecord[]): (string | null)[][] {
     return records.map((record) => record.map((field) => field.value));
 }
 

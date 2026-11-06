@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { ObjectFilePreview } from '@/component/module/connector';
 import type { ToolConfig } from '@/component/module/tool';
 import { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from '@/component/module/connector';
-import type { ParsingRecord, ValueDelimiterId } from '@/component/dataView';
+import type { ParsedRecord, ValueDelimiterId } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -43,7 +43,7 @@ const RUST = buildToolConfig('dpuse-tool-rust-csv-core-parser', ['dtv']);
 const JSON_TOOL = buildToolConfig('dpuse-tool-json-parser', ['json']);
 const TOOL_CONFIGS = [RUST, ADALTAS, JSON_TOOL];
 
-const RECORDS = [[{ value: 'a', valueWasQuoted: false }]] as ParsingRecord[];
+const RECORDS = [[{ value: 'a', valueWasQuoted: false }]] as ParsedRecord[];
 
 function buildFilePreview(overrides: Partial<ObjectFilePreview> = {}): ObjectFilePreview {
     return {
@@ -224,7 +224,7 @@ describe('objectParsing', () => {
         ) {
             const columnAuditor = { auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue({ columnConfigs: [{ id: 'a' }], hasHeaders: auditedHasHeaders }) };
             const parsedBytes: number[] = [];
-            const parseStream = vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
+            const parseStream = vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsedRecord[]) => void) => {
                 const reader = sourceStream.getReader();
                 let result = await reader.read();
                 while (!result.done) {
@@ -392,7 +392,7 @@ describe('objectParsing', () => {
             });
             const readByteCounts: number[] = [];
             tools.byName['rust-csv-core-parser'] = {
-                parseStream: vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsingRecord[]) => void) => {
+                parseStream: vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsedRecord[]) => void) => {
                     const reader = sourceStream.getReader();
                     let result = await reader.read();
                     while (!result.done) {

@@ -23,20 +23,6 @@ export interface DataViewConfig extends ComponentInstanceConfig {
     storeConnectorId: string | undefined;
 }
 
-// ── Types - Column Configuration ─────────────────────────────────────────────────────────────────────────────────────
-
-// What the user chose for each column, keyed by the column's position as a string. A column takes each choice in place
-// of what the audit detected, and keeps what was detected for anything not chosen.
-export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
-
-// A type chosen without a subtype keeps the detected subtype when it is the detected type.
-export interface ColumnChoiceConfig {
-    dataSubtypeId?: DataSubtypeId | undefined;
-    dataTypeId?: DataTypeId | undefined;
-    decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
-    nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
-}
-
 // ── Types - Reading Configuration ────────────────────────────────────────────────────────────────────────────────────
 
 // How an item is read. Found when it is first opened, and followed by every audit and load.
@@ -62,7 +48,27 @@ export interface ReadingConfig {
     skipLinesWithEmptyValues?: boolean | undefined;
     skipLinesWithErrors?: boolean | undefined;
     valueDelimiterOtherCharSeq?: string | undefined;
-    valueTrimMethodId?: ValueTrimMethodId | undefined;
+    valueTrimMethodId?: 'both' | 'left' | 'right' | 'none' | undefined;
+}
+
+export type DataFormatId = 'arrow' | 'avro' | 'dtv' | 'json' | 'jsonl' | 'markdown' | 'ods' | 'parquet' | 'sav' | 'sqlite' | 'xlsx' | 'xml' | 'unknown';
+
+export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
+
+export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
+
+// ── Types - Column Configuration ─────────────────────────────────────────────────────────────────────────────────────
+
+// What the user chose for each column, keyed by the column's position as a string. A column takes each choice in place
+// of what the audit detected, and keeps what was detected for anything not chosen.
+export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
+
+// A type chosen without a subtype keeps the detected subtype when it is the detected type.
+export interface ColumnChoiceConfig {
+    dataSubtypeId?: DataSubtypeId | undefined;
+    dataTypeId?: DataTypeId | undefined;
+    decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
+    nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
 }
 
 // ── Types - Sample Configuration ─────────────────────────────────────────────────────────────────────────────────────
@@ -71,7 +77,7 @@ export interface ReadingConfig {
 // audit reads.
 export interface SampleConfig {
     issues?: SampleIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
-    parsedRecords: ParsingRecord[];
+    parsedRecords: ParsedRecord[];
     size: number | undefined; // How many bytes of the item the text and records came from. Undefined where the item is not read as bytes.
     text: string | undefined;
 }
@@ -91,20 +97,12 @@ export interface SampleIssue {
 
 export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
 
-export type DataFormatId = 'arrow' | 'avro' | 'dtv' | 'json' | 'jsonl' | 'markdown' | 'ods' | 'parquet' | 'sav' | 'sqlite' | 'xlsx' | 'xml' | 'unknown';
+export type ParsedRecord = ParsedValue[];
 
-export type ParsingRecord = ParsingResult[];
-
-interface ParsingResult {
+interface ParsedValue {
     value: string | null;
     valueWasQuoted: boolean;
 }
-
-export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
-
-export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
-
-type ValueTrimMethodId = 'both' | 'left' | 'right' | 'none';
 
 // ── Types - Content Audit Configuration ──────────────────────────────────────────────────────────────────────────────
 
