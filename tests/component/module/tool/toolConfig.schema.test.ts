@@ -1,7 +1,7 @@
 import { safeParse } from 'valibot';
 import { describe, expect, it } from 'vitest';
 
-import { DATA_FORMAT_ICON_CONFIGS } from '@/component/dataView';
+import { DATA_FORMAT_CONFIGS } from '@/component/dataView';
 import { parserConfigSchema, parserDataFormatIdSchema, toolConfigSchema } from '@/component/module/tool/toolConfig.schema';
 
 // Every field the schema requires. The tools' own configurations omit several of them, so the build checks only their 'parser' block.
@@ -56,12 +56,14 @@ describe('parserConfigSchema', () => {
 });
 
 describe('parserDataFormatIdSchema', () => {
-    // Every data format has an icon except 'unknown', and the icons are typed to cover them all, so a format added to
-    // 'DataFormatId' without being added to the schema fails here.
-    it('lists exactly the data formats that have an icon', () => {
+    // A format added to 'DATA_FORMAT_CONFIGS' without being added to the schema fails here. 'unknown' has no records to
+    // read, so no parser reads it.
+    it('lists every data format except unknown', () => {
         const schemaIds = parserDataFormatIdSchema.options.map((option) => option.literal);
         expect(schemaIds.toSorted((first, second) => first.localeCompare(second))).toEqual(
-            Object.keys(DATA_FORMAT_ICON_CONFIGS).toSorted((first, second) => first.localeCompare(second))
+            DATA_FORMAT_CONFIGS.map(({ id }) => id)
+                .filter((id) => id !== 'unknown')
+                .toSorted((first, second) => first.localeCompare(second))
         );
     });
 });

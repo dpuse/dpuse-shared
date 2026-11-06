@@ -2,7 +2,7 @@
 import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
-import { ORDERED_VALUE_DELIMITER_IDS } from '@/component/dataView';
+import { VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
 import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
@@ -110,7 +110,7 @@ export async function buildPreviewObjectResult(input: {
     // is reported even when it does not split the text into a table, so the user sees the result of their choice. Whether the preview holds the whole item decides if a
     // quote left open at its end is an error, or a value the preview cut off.
     const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
-    const valueDelimiterIds = valueDelimiterId == null ? ORDERED_VALUE_DELIMITER_IDS : [valueDelimiterId];
+    const valueDelimiterIds = valueDelimiterId == null ? VALUE_DELIMITER_CONFIGS.map(({ id }) => id) : [valueDelimiterId];
     const detectedParseTextResult = await parser.parseText(text, { dataFormatId, isComplete: filePreview.isComplete, valueDelimiterIds });
     const isDelimitedText = dataFormatId === 'dtv';
     const parseTextResult =

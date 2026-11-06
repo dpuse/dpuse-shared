@@ -16,7 +16,7 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, DataFormatId, InferenceSummary, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -71,7 +71,13 @@ export interface ConnectorUtilities {
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
 export interface ColumnAuditor {
     auditRecords: (parsedRecords: ParsedRecord[]) => void;
-    completeAudit: () => { columnConfigs: ObjectColumnConfig[]; hasHeaders: boolean };
+    completeAudit: () => InferenceSummary;
+}
+
+// The columns detected from a set of records, from a sample held in memory or from an audit.
+export interface InferenceSummary {
+    columnConfigs: ObjectColumnConfig[];
+    hasHeaders: boolean; // Whether the first record is a header, detected unless the caller said.
 }
 
 // ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────

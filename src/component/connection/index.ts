@@ -122,7 +122,7 @@ export type NumericReadingConfig = Pick<
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
 
-export type DecimalSeparatorId = ',' | '.';
+export type DecimalSeparatorId = (typeof DECIMAL_SEPARATOR_IDS)[number];
 
 export type StorageTypeId =
     | 'binary'
@@ -142,3 +142,7 @@ export type StorageTypeId =
     | 'string'
     | 'time'
     | 'unknown';
+
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+export const DECIMAL_SEPARATOR_IDS = [',', '.'] as const;

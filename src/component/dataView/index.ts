@@ -2,16 +2,12 @@
 import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
-import type { Component, ComponentInstanceConfig } from '@/component';
+import type { ComponentInstanceConfig } from '@/component';
 import type { ConnectionNodeConfig, DecimalSeparatorId, ObjectColumnConfig } from '@/component/connection';
-import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabelMap, resolveLabel } from '@/locale/label';
 
-// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-type DataViewInterface = Component;
-
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Data View
 export interface DataViewConfig extends ComponentInstanceConfig {
     typeId: 'dataView';
     connectionId: string;
@@ -23,9 +19,7 @@ export interface DataViewConfig extends ComponentInstanceConfig {
     storeConnectorId: string | undefined;
 }
 
-// ── Types - Reading Configuration ────────────────────────────────────────────────────────────────────────────────────
-
-// How an item is read. Found when it is first opened, and followed by every audit and load.
+// ── Reading ─ How an item is read. Found when it is first opened, and followed by every audit and load.
 export interface ReadingConfig {
     dataFormatId: DataFormatId;
     encodingConfidenceLevel: number | undefined;
@@ -37,30 +31,30 @@ export interface ReadingConfig {
     valueDelimiterId: ValueDelimiterId | undefined;
 
     // TODO: following are under review.
-    commentMarkId?: string | undefined;
-    commentMarkOtherCharSeq?: string | undefined;
-    linesToSkipAtStart?: number | undefined;
-    quoteEscapeChar?: string | undefined;
-    quoteMarkId?: string | undefined;
-    quoteMarkOtherCharSeq?: string | undefined;
-    recordDelimiterOtherCharSeq?: string | undefined;
-    skipEmptyLines?: boolean | undefined;
-    skipLinesWithEmptyValues?: boolean | undefined;
-    skipLinesWithErrors?: boolean | undefined;
-    valueDelimiterOtherCharSeq?: string | undefined;
-    valueTrimMethodId?: 'both' | 'left' | 'right' | 'none' | undefined;
+    // commentMarkId?: string | undefined;
+    // commentMarkOtherCharSeq?: string | undefined;
+    // linesToSkipAtStart?: number | undefined;
+    // quoteEscapeChar?: string | undefined;
+    // quoteMarkId?: string | undefined;
+    // quoteMarkOtherCharSeq?: string | undefined;
+    // recordDelimiterOtherCharSeq?: string | undefined;
+    // skipEmptyLines?: boolean | undefined;
+    // skipLinesWithEmptyValues?: boolean | undefined;
+    // skipLinesWithErrors?: boolean | undefined;
+    // valueDelimiterOtherCharSeq?: string | undefined;
+    // valueTrimMethodId?: 'both' | 'left' | 'right' | 'none' | undefined;
 }
 
-export type DataFormatId = 'arrow' | 'avro' | 'dtv' | 'json' | 'jsonl' | 'markdown' | 'ods' | 'parquet' | 'sav' | 'sqlite' | 'xlsx' | 'xml' | 'unknown';
+export type DataFormatId = (typeof DATA_FORMAT_CONFIGS)[number]['id'];
+
+export type DataFormatSupportId = 'planned' | 'supported' | 'unsupported';
 
 export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
+export type ValueDelimiterId = (typeof VALUE_DELIMITER_CONFIGS)[number]['id'] | ''; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-// ── Types - Sample Configuration ─────────────────────────────────────────────────────────────────────────────────────
-
-// The start of an item, as text and records. Small enough to hold in memory and save with a data view, unlike what an
-// audit reads.
+// ── Sample ─ The start of an item, as text and records. Small enough to hold in memory and save with a data view,
+// unlike what an audit reads.
 export interface SampleConfig {
     issues?: SampleIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
     parsedRecords: ParsedRecord[];
@@ -85,11 +79,9 @@ export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an err
 
 export type ParsedRecord = { value: string | null; valueWasQuoted: boolean }[];
 
-// ── Types - Content Audit Configuration ──────────────────────────────────────────────────────────────────────────────
-
-// How much of an item has been audited and what was found. Opening an item audits its first few kilobytes, and later
-// audits read further from its start. A parser that only counts records, such as the Rust CSV parser, leaves the columns
-// empty and the other counts undefined.
+// ── Content Audit ─ How much of an item has been audited and what was found. Opening an item audits its first few
+// kilobytes, and later audits read further from its start. A parser that only counts records, such as the Rust CSV
+// parser, leaves the columns empty and the other counts undefined.
 export interface ContentAuditConfig {
     asAt: number;
     byteCount: number; // How many bytes of the item were audited. 0 where the item is not read as bytes.
@@ -104,151 +96,80 @@ export interface ContentAuditConfig {
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined where the bytes were fetched before the audit started.
 }
 
-// ── Types - Column Choice Configuration ──────────────────────────────────────────────────────────────────────────────
-
-// What the user chose for each column, keyed by the column's position as a string. A column takes each choice in place
-// of what the audit detected, and keeps what was detected for anything not chosen.
+// ── Column Choices ─ What the user chose for each column, keyed by the column's position as a string. A column takes
+// each choice in place of what the audit detected, and keeps what was detected for anything not chosen.
 export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
 
 // A type chosen without a subtype keeps the detected subtype when it is the detected type.
 export interface ColumnChoiceConfig {
-    dataSubtypeId?: DataSubtypeId | undefined;
     dataTypeId?: DataTypeId | undefined;
+    dataSubtypeId?: DataSubtypeId | undefined;
     decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
     nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
 }
 
-// ── Types - Data Type Identifiers ────────────────────────────────────────────────────────────────────────────────────
+// ── Data Types
+export type DataTypeId = DataTypeConfig['id'];
 
-export type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
+export type DataSubtypeId = DataTypeConfig['subtypeIds'][number];
 
-export type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtypeId;
+export type NumericSubtypeId = Extract<DataTypeConfig, { id: 'numeric' }>['subtypeIds'][number];
 
-export type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
+export type StringSubtypeId = Extract<DataTypeConfig, { id: 'string' }>['subtypeIds'][number];
 
-export type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
+export type TemporalSubtypeId = Extract<DataTypeConfig, { id: 'temporal' }>['subtypeIds'][number];
 
-export type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
-
-// ── Types - Data Type Inference ──────────────────────────────────────────────────────────────────────────────────────
-
-// The columns detected from records held in memory, such as a sample's.
-export interface InferenceSummary {
-    columnConfigs: ObjectColumnConfig[];
-    hasHeaders: boolean; // Whether the first record is a header, detected unless the caller said.
-}
+type DataTypeConfig = (typeof DATA_TYPE_CONFIGS)[number];
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { DATA_FORMAT_ICON_CONFIGS, type DataFormatIconConfig } from './dataFormatIcons';
+// ── Data Formats ─ What DPUse can do with each format. 'supportId' says whether a format is read as data today, is
+// planned but has no reader yet, or is not data. A format with 'isText' can be shown as text, and one with 'isTable' as
+// a table of records.
+export const DATA_FORMAT_CONFIGS = [
+    { id: 'arrow', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'avro', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'dtv', isTable: true, isText: true, supportId: 'supported' },
+    { id: 'json', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'jsonl', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'markdown', isTable: false, isText: true, supportId: 'unsupported' }, // A document, so it is shown but not read as data.
+    { id: 'ods', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'parquet', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'sav', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'sqlite', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'xlsx', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'xml', isTable: false, isText: false, supportId: 'planned' },
+    { id: 'unknown', isTable: false, isText: false, supportId: 'unsupported' }
+] as const satisfies readonly { id: string; isTable: boolean; isText: boolean; supportId: DataFormatSupportId }[];
 
-const DATA_FORMATS_CONFIG: { id: DataFormatId; labels: LocaleLabelMap }[] = [
-    { id: 'arrow', labels: createLabelMap({ en: 'Arrow' }) },
-    { id: 'avro', labels: createLabelMap({ en: 'Avro' }) },
-    { id: 'dtv', labels: createLabelMap({ en: 'Delimited text (CSV, TSV…)' }) },
-    { id: 'json', labels: createLabelMap({ en: 'JSON' }) },
-    { id: 'jsonl', labels: createLabelMap({ en: 'JSON Lines (JSONL)' }) },
-    { id: 'markdown', labels: createLabelMap({ en: 'Markdown (MD)' }) },
-    { id: 'ods', labels: createLabelMap({ en: 'OpenDocument spreadsheet (ODS)' }) },
-    { id: 'parquet', labels: createLabelMap({ en: 'Parquet' }) },
-    { id: 'sav', labels: createLabelMap({ en: 'SPSS (SAV)' }) },
-    { id: 'sqlite', labels: createLabelMap({ en: 'SQLite' }) },
-    { id: 'xlsx', labels: createLabelMap({ en: 'Excel (XLSX, XLSM)' }) },
-    { id: 'xml', labels: createLabelMap({ en: 'XML' }) }
-];
+// ── Value Delimiters ─ In the order detection tries them, most common first. The record and unit separators are
+// invisible characters, so their ids name them and 'character' holds the character itself.
+export const VALUE_DELIMITER_CONFIGS = [
+    { id: ',', character: ',' },
+    { id: ';', character: ';' },
+    { id: '\t', character: '\t' },
+    { id: '|', character: '|' },
+    { id: ' ', character: ' ' },
+    { id: ':', character: ':' },
+    { id: '_', character: '_' },
+    { id: '!', character: '!' },
+    { id: '0x1F', character: '\u{1F}' },
+    { id: '0x1E', character: '\u{1E}' }
+] as const satisfies readonly { character: string; id: string }[];
 
-export const ORDERED_VALUE_DELIMITER_IDS: ValueDelimiterId[] = [',', ';', '\t', '|', ' ', ':', '_', '!', '0x1F', '0x1E']; // Ordered from estimated most common to least common.
+// ── Data Types ─ In the order a list of types shows them, each with its subtypes. A type stored with no subtype is
+// read as its 'defaultSubtypeId'. 'unknown' is only ever detected, so it cannot be chosen.
+export const DATA_TYPE_CONFIGS = [
+    { id: 'string', defaultSubtypeId: 'plain', isChoosable: true, subtypeIds: ['plain', 'email', 'url', 'uuid', 'ulid', 'ipv4', 'ipv6'] },
+    { id: 'numeric', defaultSubtypeId: 'integer', isChoosable: true, subtypeIds: ['integer', 'decimal', 'bigint'] },
+    { id: 'temporal', defaultSubtypeId: 'dateTime', isChoosable: true, subtypeIds: ['date', 'dateTime', 'time'] },
+    { id: 'boolean', defaultSubtypeId: undefined, isChoosable: true, subtypeIds: [] },
+    { id: 'unknown', defaultSubtypeId: undefined, isChoosable: false, subtypeIds: [] }
+] as const satisfies readonly { defaultSubtypeId: string | undefined; id: string; isChoosable: boolean; subtypeIds: readonly string[] }[];
 
-const RECORD_DELIMITERS_CONFIG: { id: RecordDelimiterId; labels: LocaleLabelMap }[] = [
-    { id: '\n', labels: createLabelMap({ en: 'Newline' }) },
-    { id: '\r', labels: createLabelMap({ en: 'Carriage Return' }) },
-    { id: '\r\n', labels: createLabelMap({ en: 'Carriage Return/Newline' }) }
-];
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const VALUE_DELIMITERS_CONFIG: { id: ValueDelimiterId; labels: LocaleLabelMap }[] = [
-    { id: ':', labels: createLabelMap({ en: 'Colon' }) },
-    { id: ',', labels: createLabelMap({ en: 'Comma' }) },
-    { id: '!', labels: createLabelMap({ en: 'Exclamation Mark' }) },
-    // { id: '', label: { 'en': 'Other' } }, // TODO: Maybe set this to a 'not printing' or special ascii character when there is a user supplied delimited, rather than ''?
-    { id: '0x1E', labels: createLabelMap({ en: 'Record Separator' }) },
-    { id: ';', labels: createLabelMap({ en: 'Semicolon' }) },
-    { id: ' ', labels: createLabelMap({ en: 'Space' }) },
-    { id: '\t', labels: createLabelMap({ en: 'Tab' }) },
-    { id: '_', labels: createLabelMap({ en: 'Underscore' }) },
-    { id: '0x1F', labels: createLabelMap({ en: 'Unit Separator' }) },
-    { id: '|', labels: createLabelMap({ en: 'Vertical Bar' }) }
-];
-
-// ── Actions - Data Format(s) ─────────────────────────────────────────────────────────────────────────────────────────
-
-interface ObjectDataFormat {
-    id: DataFormatId;
-    label: string;
+// The character a value delimiter splits values with. The '' placeholder has none, so it comes back as itself.
+export function getValueDelimiterCharacter(valueDelimiterId: ValueDelimiterId): string {
+    return VALUE_DELIMITER_CONFIGS.find(({ id }) => id === valueDelimiterId)?.character ?? valueDelimiterId;
 }
-
-function getDataFormat(id: DataFormatId, localeId = DEFAULT_LOCALE_ID): ObjectDataFormat {
-    const dataFormat = DATA_FORMATS_CONFIG.find((dataFormat) => dataFormat.id === id);
-    if (dataFormat) {
-        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
-        return { id: dataFormat.id, label: localizedLabel ?? dataFormat.id };
-    }
-    return { id, label: id };
-}
-
-function getDataFormats(localeId = DEFAULT_LOCALE_ID): ObjectDataFormat[] {
-    const items: ObjectDataFormat[] = [];
-    for (const dataFormat of DATA_FORMATS_CONFIG) {
-        const localizedLabel = resolveLabel(dataFormat.labels, localeId);
-        items.push({ id: dataFormat.id, label: localizedLabel ?? dataFormat.id });
-    }
-    return items.toSorted((first, second) => first.label.localeCompare(second.label));
-}
-
-// ── Actions - Record Delimiter(s) ────────────────────────────────────────────────────────────────────────────────────
-
-interface ObjectRecordDelimiter {
-    id: RecordDelimiterId;
-    label: string;
-}
-
-const getRecordDelimiter = (id: RecordDelimiterId, localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter => {
-    const recordDelimiter = RECORD_DELIMITERS_CONFIG.find((recordDelimiter) => recordDelimiter.id === id);
-    if (recordDelimiter) {
-        const localizedLabel = resolveLabel(recordDelimiter.labels, localeId);
-        return { id: recordDelimiter.id, label: localizedLabel ?? recordDelimiter.id };
-    }
-    return { id, label: id };
-};
-
-const getRecordDelimiters = (localeId = DEFAULT_LOCALE_ID): ObjectRecordDelimiter[] => {
-    const items: ObjectRecordDelimiter[] = [];
-    for (const recordDelimiter of RECORD_DELIMITERS_CONFIG) {
-        const localizedLabel = resolveLabel(recordDelimiter.labels, localeId);
-        items.push({ id: recordDelimiter.id, label: localizedLabel ?? recordDelimiter.id });
-    }
-    return items.toSorted((first, second) => first.label.localeCompare(second.label));
-};
-
-// ── Actions - Value Delimiter(s) ─────────────────────────────────────────────────────────────────────────────────────
-
-interface ValueDelimiter {
-    id: ValueDelimiterId;
-    label: string;
-}
-const getValueDelimiter = (id: ValueDelimiterId, localeId = DEFAULT_LOCALE_ID): ValueDelimiter => {
-    const valueDelimiter = VALUE_DELIMITERS_CONFIG.find((valueDelimiter) => valueDelimiter.id === id);
-    if (valueDelimiter) {
-        const localizedLabel = resolveLabel(valueDelimiter.labels, localeId);
-        return { id: valueDelimiter.id, label: localizedLabel ?? valueDelimiter.id };
-    }
-    return { id, label: id };
-};
-
-const getValueDelimiters = (localeId = DEFAULT_LOCALE_ID): ValueDelimiter[] => {
-    const items: ValueDelimiter[] = [];
-    for (const valueDelimiter of VALUE_DELIMITERS_CONFIG) {
-        const localizedLabel = resolveLabel(valueDelimiter.labels, localeId);
-        items.push({ id: valueDelimiter.id, label: localizedLabel ?? valueDelimiter.id });
-    }
-    return items.toSorted((first, second) => first.label.localeCompare(second.label));
-};

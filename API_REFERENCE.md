@@ -29,6 +29,10 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 ### Component › Connection
 
+#### Constants
+
+- **`DECIMAL_SEPARATOR_IDS`**`: readonly [",", "."]`
+
 #### Types
 
 - **`AccountConnectionConfig`**
@@ -102,22 +106,26 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 ### Component › Data View
 
+#### Functions
+
+- **`getValueDelimiterCharacter`**`(valueDelimiterId: ValueDelimiterId)`
+
 #### Constants
 
-- **`DATA_FORMAT_ICON_CONFIGS`**`: Record<Exclude<DataFormatId, 'unknown'>, DataFormatIconConfig>`
-- **`ORDERED_VALUE_DELIMITER_IDS`**`: ValueDelimiterId[]`
+- **`DATA_FORMAT_CONFIGS`**`: readonly [{ readonly id: "arrow"; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, { readonly id: "avro"; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, ... 10 more ..., { ...; }]`
+- **`DATA_TYPE_CONFIGS`**`: readonly [{ readonly id: "string"; readonly defaultSubtypeId: "plain"; readonly isChoosable: true; readonly subtypeIds: readonly ["plain", "email", "url", "uuid", "ulid", "ipv4", "ipv6"]; }, { ...; }, { ...; }, { ...; }, { ...; }]`
+- **`VALUE_DELIMITER_CONFIGS`**`: readonly [{ readonly id: ","; readonly character: ","; }, { readonly id: ";"; readonly character: ";"; }, { readonly id: "\t"; readonly character: "\t"; }, { readonly id: "|"; readonly character: "|"; }, ... 5 more ..., { ...; }]`
 
 #### Types
 
 - **`ColumnChoiceConfig`**
 - **`ColumnChoiceConfigs`**
 - **`ContentAuditConfig`**
-- **`DataFormatIconConfig`**
 - **`DataFormatId`**
+- **`DataFormatSupportId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**
 - **`DataViewConfig`** (extends `ComponentInstanceConfig`)
-- **`InferenceSummary`**
 - **`NumericSubtypeId`**
 - **`ParsedRecord`**
 - **`ReadingConfig`**
@@ -184,6 +192,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`GetReadableStreamOptions`** (extends `EngineConnectorActionOptions`)
 - **`GetRecordOptions`** (extends `EngineConnectorActionOptions`)
 - **`GetRecordResult`**
+- **`InferenceSummary`**
 - **`ListNodesOptions`** (extends `EngineConnectorActionOptions`)
 - **`ListNodesResult`**
 - **`LoadObjectRecordsOptions`** (extends `EngineConnectorActionOptions`)
