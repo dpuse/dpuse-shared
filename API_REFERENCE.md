@@ -109,7 +109,6 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
-- **`BooleanInferenceResult`**
 - **`ColumnChoiceConfig`**
 - **`ColumnChoiceConfigs`**
 - **`ContentAuditConfig`**
@@ -118,21 +117,15 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`DataSubtypeId`**
 - **`DataTypeId`**
 - **`DataViewConfig`** (extends `ComponentInstanceConfig`)
-- **`InferenceRecord`**
-- **`InferenceResult`**
 - **`InferenceSummary`**
-- **`NumericInferenceResult`**
-- **`NumericSignId`**
 - **`NumericSubtypeId`**
-- **`NumericUnitsId`**
 - **`ParsedRecord`**
 - **`ReadingConfig`**
 - **`RecordDelimiterId`**
 - **`SampleConfig`**
 - **`SampleIssue`**
 - **`SampleIssueSeverityId`**
-- **`StringInferenceResult`**
-- **`TemporalInferenceResult`**
+- **`StringSubtypeId`**
 - **`TemporalSubtypeId`**
 - **`ValueDelimiterId`**
 

@@ -75,7 +75,7 @@ function buildStream(...pieces: string[]): { cancel: ReturnType<typeof vi.fn>; s
     return { cancel, stream };
 }
 
-const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaderRow: true };
+const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaders: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
 function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewObjectResult>[0] {

@@ -16,7 +16,7 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, DataFormatId, InferenceRecord, InferenceSummary, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, InferenceSummary, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -65,7 +65,6 @@ export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, 
 export interface ConnectorUtilities {
     constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
-    inferValues: (parsedRecord: ParsedRecord, columnConfigs: ObjectColumnConfig[], hasLeadingRecord: boolean) => InferenceRecord;
     inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean) => InferenceSummary;
 }
 

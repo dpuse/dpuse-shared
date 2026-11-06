@@ -126,7 +126,7 @@ export async function buildPreviewObjectResult(input: {
             asAt,
             columns: inferenceSummary.columnConfigs,
             isComplete: filePreview.isComplete,
-            recordCount: Math.max(0, parseTextResult.parsedRecords.length - (inferenceSummary.hasHeaderRow ? 1 : 0)), // A header record names the columns and is not data.
+            recordCount: Math.max(0, parseTextResult.parsedRecords.length - (inferenceSummary.hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
             size,
             startedAt
         }),
@@ -141,7 +141,7 @@ export async function buildPreviewObjectResult(input: {
             encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
             encodingId: filePreview.encodingId,
             fileType: filePreview.fileTypeConfig,
-            hasHeaders: inferenceSummary.hasHeaderRow,
+            hasHeaders: inferenceSummary.hasHeaders,
             parserId: usedParserId,
             recordDelimiterId: parseTextResult.recordDelimiterId,
             valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId

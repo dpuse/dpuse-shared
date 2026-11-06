@@ -57,20 +57,6 @@ export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special
 
 export type ValueDelimiterId = '' | ':' | ',' | '!' | '0x1E' | ';' | ' ' | '\t' | '_' | '0x1F' | '|'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-// ── Types - Column Configuration ─────────────────────────────────────────────────────────────────────────────────────
-
-// What the user chose for each column, keyed by the column's position as a string. A column takes each choice in place
-// of what the audit detected, and keeps what was detected for anything not chosen.
-export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
-
-// A type chosen without a subtype keeps the detected subtype when it is the detected type.
-export interface ColumnChoiceConfig {
-    dataSubtypeId?: DataSubtypeId | undefined;
-    dataTypeId?: DataTypeId | undefined;
-    decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
-    nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
-}
-
 // ── Types - Sample Configuration ─────────────────────────────────────────────────────────────────────────────────────
 
 // The start of an item, as text and records. Small enough to hold in memory and save with a data view, unlike what an
@@ -97,12 +83,7 @@ export interface SampleIssue {
 
 export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
 
-export type ParsedRecord = ParsedValue[];
-
-interface ParsedValue {
-    value: string | null;
-    valueWasQuoted: boolean;
-}
+export type ParsedRecord = { value: string | null; valueWasQuoted: boolean }[];
 
 // ── Types - Content Audit Configuration ──────────────────────────────────────────────────────────────────────────────
 
@@ -123,6 +104,20 @@ export interface ContentAuditConfig {
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined where the bytes were fetched before the audit started.
 }
 
+// ── Types - Column Choice Configuration ──────────────────────────────────────────────────────────────────────────────
+
+// What the user chose for each column, keyed by the column's position as a string. A column takes each choice in place
+// of what the audit detected, and keeps what was detected for anything not chosen.
+export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
+
+// A type chosen without a subtype keeps the detected subtype when it is the detected type.
+export interface ColumnChoiceConfig {
+    dataSubtypeId?: DataSubtypeId | undefined;
+    dataTypeId?: DataTypeId | undefined;
+    decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
+    nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
+}
+
 // ── Types - Data Type Identifiers ────────────────────────────────────────────────────────────────────────────────────
 
 export type DataTypeId = 'boolean' | 'numeric' | 'string' | 'temporal' | 'unknown';
@@ -131,85 +126,16 @@ export type DataSubtypeId = NumericSubtypeId | StringSubtypeId | TemporalSubtype
 
 export type NumericSubtypeId = 'bigint' | 'integer' | 'decimal';
 
-type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
+export type StringSubtypeId = 'email' | 'ipv4' | 'ipv6' | 'ulid' | 'uuid' | 'url' | 'plain';
 
 export type TemporalSubtypeId = 'date' | 'dateTime' | 'time';
 
 // ── Types - Data Type Inference ──────────────────────────────────────────────────────────────────────────────────────
 
+// The columns detected from records held in memory, such as a sample's.
 export interface InferenceSummary {
     columnConfigs: ObjectColumnConfig[];
-    hasHeaderRow: boolean;
-}
-
-export type InferenceRecord = InferenceResult[];
-
-export type InferenceResult = BooleanInferenceResult | NumericInferenceResult | StringInferenceResult | TemporalInferenceResult | UnknownInferenceResult;
-
-export interface BooleanInferenceResult {
-    dataTypeId: 'boolean';
-    dataSubtypeId: undefined;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: boolean;
-}
-
-export type NumericInferenceResult = BigIntInferenceResult | NumberInferenceResult;
-
-interface BigIntInferenceResult {
-    dataTypeId: 'numeric';
-    dataSubtypeId: 'bigint';
-    format: string;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: bigint;
-    currencySymbolId: string | undefined;
-    decimalPlaces: number;
-    signId: NumericSignId;
-    unitsId: NumericUnitsId;
-}
-
-interface NumberInferenceResult {
-    dataTypeId: 'numeric';
-    dataSubtypeId: 'integer' | 'decimal';
-    format: string;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: number;
-    currencySymbolId: string | undefined;
-    decimalPlaces: number;
-    signId: NumericSignId;
-    unitsId: NumericUnitsId;
-}
-
-export type NumericSignId = 'negative' | 'zero' | 'positive';
-
-export type NumericUnitsId = 'currency' | 'percentage' | 'plain';
-
-export interface StringInferenceResult {
-    dataTypeId: 'string';
-    dataSubtypeId: StringSubtypeId;
-    format: string | undefined;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: string;
-}
-
-export interface TemporalInferenceResult {
-    dataTypeId: 'temporal';
-    dataSubtypeId: TemporalSubtypeId;
-    format: string;
-    inputValue: string;
-    inputValueWasQuoted: boolean;
-    inferredValue: Date;
-}
-
-interface UnknownInferenceResult {
-    dataTypeId: 'unknown';
-    dataSubtypeId: undefined;
-    inputValue: string | null;
-    inputValueWasQuoted: boolean;
-    inferredValue: null;
+    hasHeaders: boolean; // Whether the first record is a header, detected unless the caller said.
 }
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
