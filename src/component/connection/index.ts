@@ -78,7 +78,7 @@ export interface ObjectColumnConfig {
     derivationId?: ColumnDerivationId | undefined; // What a column the item does not hold is worked out from. Undefined for a column of the item.
     derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
     distinctValueCount: number | undefined; // Undefined when there are too many to count, because counting them all would hold the whole column in memory.
-    frequentValues: Record<string, number> | undefined; // The values seen more than once, most frequent first, with how often. Empty when there are too many to count.
+    frequentValues: Record<string, number> | undefined; // The most frequent values, with how often each is seen. Empty when there are too many to count.
     inferenceCounts: Record<string, number>;
     invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
     invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
@@ -88,6 +88,7 @@ export interface ObjectColumnConfig {
     isUnique: boolean | undefined; // Undefined when there are too many values to tell.
     label: LocaleLabel;
     leadingInferenceCounts: Record<string, number>;
+    leastFrequentValues?: Record<string, number> | undefined; // The least frequent values not already in 'frequentValues', with how often each is seen. Empty when there are too many to count.
     maxDecimals: number | undefined;
     maxSize: number | undefined;
     maxValue: string | undefined;
@@ -103,6 +104,7 @@ export interface ObjectColumnConfig {
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
     quotedValueCount: number | undefined;
+    singleValueCount?: number | undefined; // Distinct values seen only once. Undefined when there are too many values to count.
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.

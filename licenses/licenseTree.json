@@ -1,15 +1,15 @@
 {
-  "version": "1.0.187",
+  "version": "1.0.189",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.147",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.147.tgz",
+      "version": "1.0.148",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.148.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.183",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.183.tgz",
+          "version": "1.0.188",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.188.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -1119,7 +1119,7 @@
               }
             },
             "spdx-satisfies": {
-              "version": "6.0.0"
+              "version": "6.0.1"
             },
             "treeify": {
               "version": "1.1.0",
@@ -1134,8 +1134,8 @@
           "overridden": false
         },
         "spdx-satisfies": {
-          "version": "6.0.0",
-          "resolved": "https://registry.npmjs.org/spdx-satisfies/-/spdx-satisfies-6.0.0.tgz",
+          "version": "6.0.1",
+          "resolved": "https://registry.npmjs.org/spdx-satisfies/-/spdx-satisfies-6.0.1.tgz",
           "overridden": false,
           "dependencies": {
             "spdx-compare": {
@@ -3215,13 +3215,13 @@
       }
     },
     "fallow": {
-      "version": "3.40.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.40.0.tgz",
+      "version": "3.41.0",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.41.0.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.40.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.40.0.tgz",
+          "version": "3.41.0",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.41.0.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
@@ -3237,8 +3237,8 @@
           "overridden": false
         },
         "fallow-type-aware": {
-          "version": "3.40.0",
-          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.40.0.tgz",
+          "version": "3.41.0",
+          "resolved": "https://registry.npmjs.org/fallow-type-aware/-/fallow-type-aware-3.41.0.tgz",
           "overridden": false,
           "dependencies": {
             "tsrs": {},
