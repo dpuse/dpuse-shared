@@ -78,9 +78,11 @@ export interface ObjectColumnConfig {
     derivationId?: ColumnDerivationId | undefined; // What a column the item does not hold is worked out from. Undefined for a column of the item.
     derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
     distinctValueCount: number | undefined; // Undefined when there are too many to count, because counting them all would hold the whole column in memory.
-    frequentValues: Record<string, number> | undefined; // The most frequent values, with how often each is seen. Empty when there are too many to count.
+    frequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. Empty when there are too many to count.
     inferenceCounts: Record<string, number>;
     invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
+    invalidDistinctValueCount?: number | undefined; // Distinct values that do not fit the column's type. Undefined when there are too many values to count.
+    invalidFrequentValues?: Record<string, number> | undefined; // The most frequent values that do not fit the column's type, with how often each is seen. Empty when there are too many to count.
     invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
     isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId', or mix formats that may not belong together, such as two currencies.
     isIgnored: boolean | undefined;
@@ -88,7 +90,7 @@ export interface ObjectColumnConfig {
     isUnique: boolean | undefined; // Undefined when there are too many values to tell.
     label: LocaleLabel;
     leadingInferenceCounts: Record<string, number>;
-    leastFrequentValues?: Record<string, number> | undefined; // The least frequent values not already in 'frequentValues', with how often each is seen. Empty when there are too many to count.
+    leastFrequentValues?: Record<string, number> | undefined; // The least frequent values that fit the column's type and are not already in 'frequentValues', with how often each is seen. Empty when there are too many to count.
     maxDecimals: number | undefined;
     maxSize: number | undefined;
     maxValue: string | undefined;
@@ -104,7 +106,7 @@ export interface ObjectColumnConfig {
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
     quotedValueCount: number | undefined;
-    singleValueCount?: number | undefined; // Distinct values seen only once. Undefined when there are too many values to count.
+    singleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
