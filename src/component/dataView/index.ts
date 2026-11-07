@@ -109,17 +109,13 @@ export interface ColumnChoiceConfig {
 }
 
 // ── Data Types
-export type DataTypeId = DataTypeConfig['id'];
-
-export type DataSubtypeId = DataTypeConfig['subtypeIds'][number];
-
-export type NumericSubtypeId = Extract<DataTypeConfig, { id: 'numeric' }>['subtypeIds'][number];
-
-export type StringSubtypeId = Extract<DataTypeConfig, { id: 'string' }>['subtypeIds'][number];
-
-export type TemporalSubtypeId = Extract<DataTypeConfig, { id: 'temporal' }>['subtypeIds'][number];
 
 type DataTypeConfig = (typeof DATA_TYPE_CONFIGS)[number];
+export type DataTypeId = DataTypeConfig['id'];
+export type DataSubtypeId = DataTypeConfig['subtypeIds'][number];
+export type NumericSubtypeId = Extract<DataTypeConfig, { id: 'numeric' }>['subtypeIds'][number];
+export type StringSubtypeId = Extract<DataTypeConfig, { id: 'string' }>['subtypeIds'][number];
+export type TemporalSubtypeId = Extract<DataTypeConfig, { id: 'temporal' }>['subtypeIds'][number];
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
