@@ -78,7 +78,8 @@ export interface ObjectColumnConfig {
     derivationId?: ColumnDerivationId | undefined; // What a column the item does not hold is worked out from. Undefined for a column of the item.
     derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
     distinctValueCount: number | undefined; // Undefined when there are too many to count, because counting them all would hold the whole column in memory.
-    frequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. Empty when there are too many to count.
+    frequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. A number or date is counted by its value, however it is written. Empty when there are too many to count.
+    highestValues?: [string, number][] | undefined; // The highest values that fit the column's type, highest first, with how often each is seen. Exact however many values there are.
     inferenceCounts: Record<string, number>;
     invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
     invalidDistinctValueCount?: number | undefined; // Distinct values that do not fit the column's type. Undefined when there are too many values to count.
@@ -91,6 +92,7 @@ export interface ObjectColumnConfig {
     label: LocaleLabel;
     leadingInferenceCounts: Record<string, number>;
     leastFrequentValues?: Record<string, number> | undefined; // The least frequent values that fit the column's type and are not already in 'frequentValues', with how often each is seen. Empty when there are too many to count.
+    lowestValues?: [string, number][] | undefined; // The lowest values that fit the column's type, lowest first, with how often each is seen. Exact however many values there are.
     maxDecimals: number | undefined;
     maxSize: number | undefined;
     maxValue: string | undefined;
@@ -110,7 +112,15 @@ export interface ObjectColumnConfig {
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
+    valueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 equal ranges, lowest first.
     voidValueCount: number | undefined; // Blank and missing values together.
+}
+
+// One range of a column's values, and how many valid values fall in it.
+export interface ValueBinConfig {
+    count: number;
+    lowerValue: string; // Where the range starts: a number, or an ISO date, date-time or time.
+    upperValue: string; // Where the range ends, and the next one starts.
 }
 
 // 'currency' ─ The currency of each number in a column that holds several, such as 'USD' or '€'. Kept for data views

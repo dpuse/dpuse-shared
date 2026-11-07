@@ -45,6 +45,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`NumericReadingConfig`**
 - **`ObjectColumnConfig`**
 - **`StorageTypeId`**
+- **`ValueBinConfig`**
 
 ### Component › Context
 
