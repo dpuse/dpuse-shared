@@ -160,7 +160,30 @@ export const VALUE_DELIMITER_CONFIGS = [
 // ── Data Types ─ In the order a list of types shows them, each with its subtypes. A type stored with no subtype is
 // read as its 'defaultSubtypeId'. 'unknown' is only ever detected, so it cannot be chosen.
 export const DATA_TYPE_CONFIGS = [
-    { id: 'string', defaultSubtypeId: 'plain', isChoosable: true, subtypeIds: ['plain', 'email', 'url', 'uuid', 'ulid', 'ipv4', 'ipv6'] },
+    {
+        id: 'string',
+        defaultSubtypeId: 'plain',
+        isChoosable: true,
+        subtypeIds: [
+            'plain',
+            'email',
+            'url',
+            'uuid',
+            'ulid',
+            'ipv4',
+            'ipv6',
+            'ipRange',
+            'macAddress',
+            'iban',
+            'isbn',
+            'paymentCard',
+            'hexColor',
+            'json',
+            'countryCode',
+            'currencyCode',
+            'languageCode'
+        ]
+    },
     { id: 'numeric', defaultSubtypeId: 'integer', isChoosable: true, subtypeIds: ['integer', 'decimal', 'bigint'] },
     { id: 'temporal', defaultSubtypeId: 'dateTime', isChoosable: true, subtypeIds: ['date', 'dateTime', 'time'] },
     { id: 'boolean', defaultSubtypeId: undefined, isChoosable: true, subtypeIds: [] },
