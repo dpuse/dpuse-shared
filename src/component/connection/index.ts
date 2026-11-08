@@ -108,11 +108,12 @@ export interface ObjectColumnConfig {
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
     quotedValueCount: number | undefined;
+    rankedValueCounts?: number[] | undefined; // For a column of text or true/false values: how often each distinct valid value is seen, most frequent first, to chart how evenly they are spread. Undefined for numbers and dates, which have 'valueBins', and when there are too many values to count.
     singleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
-    valueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 equal ranges, lowest first.
+    valueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 ranges with round edges, such as tens or months, lowest first. One range that starts and ends at the value when every value is the same.
     voidValueCount: number | undefined; // Blank and missing values together.
 }
 
