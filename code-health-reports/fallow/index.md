@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3315 |
+| Total LOC | 3314 |
 | Avg Cyclomatic | 2.8 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 127, module scopes: 2, templates: 0 |
@@ -72,7 +72,7 @@
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/component/module/connector/objectParsing.ts` | 20.3 | 15 | 567 | 0.16 | 1 | stable |
-| `src/utilities/index.ts` | 16.2 | 13 | 580 | 0.25 | 1 | stable |
+| `src/utilities/index.ts` | 15.1 | 11 | 474 | 0.25 | 1 | stable |
 | `src/locale/index.ts` | 14.9 | 11 | 153 | 0.36 | 5 | cooling |
 | `src/component/module/tool/delimitedText.ts` | 14.8 | 5 | 133 | 0.35 | 1 | stable |
 | `src/component/module/connector/index.ts` | 13.9 | 43 | 616 | 0.05 | 4 | accelerating |

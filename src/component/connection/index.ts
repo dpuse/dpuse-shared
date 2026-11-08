@@ -108,7 +108,6 @@ export interface ObjectColumnConfig {
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
     paddedValueCount: number | undefined; // Values with spaces before or after them.
     quotedValueCount: number | undefined;
-    rankedValueCounts?: number[] | undefined; // For a column of text or true/false values: how often each distinct valid value is seen, most frequent first, to chart how evenly they are spread. Undefined for numbers and dates, which have 'valueBins', and when there are too many values to count.
     singleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
