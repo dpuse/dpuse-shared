@@ -112,9 +112,23 @@ export interface ObjectColumnConfig {
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
     validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
+    valueBinOutliers?: ValueBinOutlierConfig | undefined; // When a few values lie far beyond the rest, 'valueBins' covers only about the middle 98% of them, and this counts the values beyond its first and last ranges. Undefined when the ranges cover every value.
+    valueBinScaleId?: ValueBinScaleId | undefined; // How 'valueBins' divides the values. Absent for ranges of equal width.
     valueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 ranges with round edges, such as tens or months, lowest first. One range that starts and ends at the value when every value is the same.
     voidValueCount: number | undefined; // Blank and missing values together.
 }
+
+// The values beyond a column's ranges, when its ranges leave out a few far from the rest.
+export interface ValueBinOutlierConfig {
+    aboveCount: number; // Values at or above the end of the last range.
+    belowCount: number; // Values below the start of the first range.
+    isEstimated: boolean; // The counts, the ranges' own included, are estimated from a sample, because the column held more values than the sample keeps.
+}
+
+// 'linear' ─ Ranges of equal width, such as tens or months.
+// 'log' ─ One range for each power of ten, or a few together, mirrored for negative numbers, with zero as a range of its
+// own. Used when the values span so many powers of ten that ranges of equal width would put nearly all of them in one.
+export type ValueBinScaleId = 'linear' | 'log';
 
 // One range of a column's values, and how many valid values fall in it.
 export interface ValueBinConfig {
