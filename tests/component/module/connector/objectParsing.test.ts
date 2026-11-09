@@ -170,14 +170,14 @@ describe('objectParsing', () => {
                 sampleConfig: { issues: [{ id: 'empty', severityId: 'info' }], parsedRecords: [], size: 0 },
                 readingConfig: { dataFormatId: 'dtv', hasHeaders: false, recordDelimiterId: '\n', valueDelimiterId: ',' }
             });
-            expect(result.readingConfig).not.toHaveProperty('parserId');
+            expect(result.readingConfig.parserId).toBeUndefined();
         });
 
         it('keeps the text of a format no tool reads yet, without parsing it', async () => {
             const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'xml', text: '<a/>' })));
 
             expect(result).toMatchObject({ sampleConfig: { parsedRecords: [], text: '<a/>' }, readingConfig: { dataFormatId: 'xml', valueDelimiterId: undefined } });
-            expect(result.readingConfig).not.toHaveProperty('parserId');
+            expect(result.readingConfig.parserId).toBeUndefined();
         });
 
         it("reports a type the app cannot read as 'unknown'", async () => {

@@ -271,7 +271,7 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | Chunk/Module/File                                                           | Composition                                                                                    |
 | :-------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
 | **dist/dpuse-shared.es.js**                                                 | 56.3&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;13.6&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 12 more                            | `███████████████░░░░░`&nbsp;73.7%&nbsp;·&nbsp;41.5&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 12 more                            | `███████████████░░░░░`&nbsp;73.8%&nbsp;·&nbsp;41.6&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░`&nbsp;54.6%&nbsp;·&nbsp;30.7&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒░░░░░░░░░░░░░░░░░░`&nbsp;9.2%&nbsp;·&nbsp;5.2&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ delimitedText.ts          | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;2.8%&nbsp;·&nbsp;1.6&nbsp;kB                                       |

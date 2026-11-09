@@ -94,6 +94,7 @@ export async function buildPreviewObjectResult(input: {
                 encodingId: undefined,
                 fileType: undefined,
                 hasHeaders: false,
+                parserId: undefined,
                 recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
                 valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
             }
@@ -110,6 +111,7 @@ export async function buildPreviewObjectResult(input: {
                 encodingId: filePreview.encodingId,
                 fileType: filePreview.fileTypeConfig,
                 hasHeaders: undefined,
+                parserId: undefined,
                 recordDelimiterId: undefined,
                 valueDelimiterId: undefined
             }

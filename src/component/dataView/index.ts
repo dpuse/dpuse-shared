@@ -3,7 +3,7 @@ import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
 import type { ComponentInstanceConfig } from '@/component';
-import type { ConnectionNodeConfig, DateOrderId, DecimalSeparatorId, ObjectColumnConfig } from '@/component/connection';
+import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -92,8 +92,21 @@ export interface ContentAuditConfig {
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, such as while it downloads. Undefined when the bytes were fetched before the audit started.
 }
 
-// ── Column Audit ─ What an audit found in a column's values, with the column itself.
-export interface ColumnAuditConfig extends ObjectColumnConfig {
+// ── Column Reading ─ How a column's values are read from an item's text, which a load needs as well as the column
+// itself. A database or an API gives typed values, so it has none of these.
+export interface ColumnReadingConfig extends ObjectColumnConfig {
+    derivedFromColumnIndex?: number | undefined; // For a column the audit adds, such as a number column's units: the column it is worked out from, by position.
+    decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
+    dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
+    nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
+}
+
+export type DateOrderId = 'dayFirst' | 'monthFirst';
+
+export type DecimalSeparatorId = (typeof DECIMAL_SEPARATOR_IDS)[number];
+
+// ── Column Audit ─ What an audit found in a column's values, with how the column is read.
+export interface ColumnAuditConfig extends ColumnReadingConfig {
     // ── Inference ─ Each value read one by one, before the column settles its type.
     inferenceCounts: Record<string, number>;
     leadingInferenceCounts: Record<string, number>;
@@ -259,6 +272,9 @@ export const DATA_TYPE_CONFIGS = [
     { id: 'boolean', defaultSubtypeId: undefined, isChoosable: true, subtypeIds: [] },
     { id: 'unknown', defaultSubtypeId: undefined, isChoosable: false, subtypeIds: [] }
 ] as const satisfies readonly { defaultSubtypeId: string | undefined; id: string; isChoosable: boolean; subtypeIds: readonly string[] }[];
+
+// ── Decimal Separators
+export const DECIMAL_SEPARATOR_IDS = [',', '.'] as const;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 

@@ -2,11 +2,10 @@
 import type { InferOutput } from 'valibot';
 
 // ── DPUse Framework
-import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
-import type { ColumnAuditConfig, ContentAuditConfig, DataFormatId, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
+import type { ColumnAuditConfig, ColumnReadingConfig, ContentAuditConfig, DataFormatId, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
     connectorActionNameSchema,
@@ -29,8 +28,7 @@ export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFile
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
-export interface ConnectorInterface extends Component {
-    readonly config: ConnectorConfig;
+export interface ConnectorInterface {
     abortOperation?(): void; // Abort the active long running action.
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number) => void): Promise<AuditObjectContentResult>;
     closeStore?(options: CloseStoreOptions): Promise<void>; // Close a store connector's database and release its hold on it, so another tab can open it.
@@ -198,6 +196,7 @@ export interface LoadObjectRecordsResult {
 // The engine's load reads the records from the source connection and passes them to the store connection, so they
 // never travel through the app.
 export interface EngineLoadObjectRecordsOptions extends LoadObjectRecordsOptions {
+    columnConfigs: ColumnReadingConfig[]; // As 'LoadObjectRecordsOptions' has them, with how each is read from the item's text. The store gets only the column itself.
     hasHeaders: boolean; // From the preview. A header record names the columns and is not loaded.
     ignoredColumnIndexes: number[]; // The columns the user chose to ignore, by position. The store gets no column for them.
     headerValues: (string | null)[] | undefined; // The preview's header record as it was read. A different header record means the columns have moved, so nothing is loaded.
@@ -288,7 +287,7 @@ export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptio
 
 // Says what each value of the records shown is, so the table can mark the ones that do not fit their column.
 export interface ClassifyPreviewValuesOptions extends EngineConnectorActionOptions {
-    columnConfigs: ObjectColumnConfig[]; // Each column as the user wants it read.
+    columnConfigs: ColumnReadingConfig[]; // Each column as the user wants it read.
     parsedRecords: ParsedRecord[]; // Data records only, with no header record.
 }
 

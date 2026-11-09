@@ -69,27 +69,15 @@ export interface ConnectionNodeConfig extends LocalisedConfig<BaseConfig> {
 
 // ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
 
-// What a column of an object is: its name, its type and how its values are read. What an audit finds in its values is
-// kept apart, in 'ColumnAuditConfig'.
+// What a column of an object is, as any source can describe it: a file, a database or an API. How a file's text is read
+// into it, and what an audit finds in its values, are kept in the data view's 'ColumnReadingConfig' and
+// 'ColumnAuditConfig'.
 export interface ObjectColumnConfig {
-    // ── Identity
     label: LocaleLabel;
-    derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
-
-    // ── Type
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
-
-    // ── Reading ─ How values that could be taken more than one way are read.
-    decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
-    dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
-    nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
 }
-
-export type DateOrderId = 'dayFirst' | 'monthFirst';
-
-export type DecimalSeparatorId = (typeof DECIMAL_SEPARATOR_IDS)[number];
 
 export type StorageTypeId =
     | 'binary'
@@ -109,7 +97,3 @@ export type StorageTypeId =
     | 'string'
     | 'time'
     | 'unknown';
-
-// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export const DECIMAL_SEPARATOR_IDS = [',', '.'] as const;
