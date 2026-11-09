@@ -72,7 +72,18 @@ export async function buildPreviewObjectResult(input: {
         return {
             contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: true, recordCount: 0, size, startedAt }),
             sampleConfig: {
-                issues: [{ id: 'empty', lineNumber: undefined, message: 'The file is empty.', severityId: 'info' }],
+                issues: [
+                    {
+                        endLineNumber: undefined,
+                        fieldNumber: undefined,
+                        id: 'empty',
+                        lineNumber: undefined,
+                        message: 'The file is empty.',
+                        recordNumber: undefined,
+                        severityId: 'info',
+                        value: undefined
+                    }
+                ],
                 parsedRecords: [],
                 size: 0,
                 text: undefined

@@ -13,7 +13,9 @@ const CANDIDATES: ValueDelimiterId[] = [',', ';', '\t'];
 // A parser that splits on the delimiter it is given and reports a quote issue for any text with a quote in it. The real
 // parsers do much more; this is only enough to choose between delimiters.
 const splitParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
-    const issues: SampleIssue[] = text.includes('"') ? [{ id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' }] : [];
+    const issues: SampleIssue[] = text.includes('"')
+        ? [{ endLineNumber: undefined, fieldNumber: undefined, id: 'QUOTE', lineNumber: 1, message: 'Quote.', recordNumber: undefined, severityId: 'error', value: undefined }]
+        : [];
     const records: ParsedRecord[] = text
         .split('\n')
         .filter((line) => line !== '')
@@ -29,7 +31,16 @@ function readValues(records: ParsedRecord[]): (string | null)[][] {
     return records.map((record) => record.map((field) => field.value));
 }
 
-const QUOTE_ISSUE: SampleIssue = { id: 'QUOTE', lineNumber: 1, message: 'Quote.', severityId: 'error' };
+const QUOTE_ISSUE: SampleIssue = {
+    endLineNumber: undefined,
+    fieldNumber: undefined,
+    id: 'QUOTE',
+    lineNumber: 1,
+    message: 'Quote.',
+    recordNumber: undefined,
+    severityId: 'error',
+    value: undefined
+};
 
 // Meets a quote issue with the comma only.
 const commaIssueParser: ParseTextWithDelimiter = async (text, delimiter, isComplete) => {

@@ -26,23 +26,23 @@ export interface ReadingConfig {
     encodingId: string | undefined;
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
-    parserId?: string | undefined; // The config id of the tool that parsed the item. Absent where no tool did, e.g. an empty file or a format no tool reads yet.
+    parserId: string | undefined; // The config id of the tool that parsed the item. Absent where no tool did, e.g. an empty file or a format no tool reads yet.
     recordDelimiterId: RecordDelimiterId | undefined;
     valueDelimiterId: ValueDelimiterId | undefined;
 
     // TODO: following are under review.
-    // commentMarkId?: string | undefined;
-    // commentMarkOtherCharSeq?: string | undefined;
-    // linesToSkipAtStart?: number | undefined;
-    // quoteEscapeChar?: string | undefined;
-    // quoteMarkId?: string | undefined;
-    // quoteMarkOtherCharSeq?: string | undefined;
-    // recordDelimiterOtherCharSeq?: string | undefined;
-    // skipEmptyLines?: boolean | undefined;
-    // skipLinesWithEmptyValues?: boolean | undefined;
-    // skipLinesWithErrors?: boolean | undefined;
-    // valueDelimiterOtherCharSeq?: string | undefined;
-    // valueTrimMethodId?: 'both' | 'left' | 'right' | 'none' | undefined;
+    // commentMarkId: string | undefined;
+    // commentMarkOtherCharSeq: string | undefined;
+    // linesToSkipAtStart: number | undefined;
+    // quoteEscapeChar: string | undefined;
+    // quoteMarkId: string | undefined;
+    // quoteMarkOtherCharSeq: string | undefined;
+    // recordDelimiterOtherCharSeq: string | undefined;
+    // skipEmptyLines: boolean | undefined;
+    // skipLinesWithEmptyValues: boolean | undefined;
+    // skipLinesWithErrors: boolean | undefined;
+    // valueDelimiterOtherCharSeq: string | undefined;
+    // valueTrimMethodId: 'both' | 'left' | 'right' | 'none' | undefined;
 }
 
 export type DataFormatId = (typeof DATA_FORMAT_CONFIGS)[number]['id'];
@@ -53,10 +53,10 @@ export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special
 
 export type ValueDelimiterId = (typeof VALUE_DELIMITER_CONFIGS)[number]['id'] | ''; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-// ── Sample ─ The start of an item, as text and records. Small enough to hold in memory and save with a data view,
-// unlike what an audit reads.
+// ── Sample Configuration ─ The start of an item, as text and records. Small enough to hold in memory and save with a
+// data view, unlike what an audit reads.
 export interface SampleConfig {
-    issues?: SampleIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors. Absent from connectors that do not report them.
+    issues: SampleIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors.
     parsedRecords: ParsedRecord[];
     size: number | undefined; // How many bytes of the item the text and records came from. Undefined where the item is not read as bytes.
     text: string | undefined;
@@ -65,14 +65,14 @@ export interface SampleConfig {
 // One thing found while sampling an item. Not a failure: the sample still holds whatever was read, so the item can be
 // shown and read another way.
 export interface SampleIssue {
-    endLineNumber?: number | undefined; // The last line it covers, when it runs over several, e.g. a quote never closed runs to where the parser gave up.
-    fieldNumber?: number | undefined; // The value within the record, counting from 1.
+    endLineNumber: number | undefined; // The last line it covers, when it runs over several, e.g. a quote never closed runs to where the parser gave up.
+    fieldNumber: number | undefined; // The value within the record, counting from 1.
     id: string; // The parser's own code, e.g. 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
     lineNumber: number | undefined; // The line of the text where it starts, counting from 1, when the parser says.
     message: string; // In English, as the parser gives it. The app shows its own wording for the ids it knows.
-    recordNumber?: number | undefined; // The record it is in, counting from 1, a header record included.
+    recordNumber: number | undefined; // The record it is in, counting from 1, a header record included.
     severityId: SampleIssueSeverityId;
-    value?: string | undefined; // The value or character at fault, cut short when long.
+    value: string | undefined; // The value or character at fault, cut short when long.
 }
 
 export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
@@ -102,11 +102,11 @@ export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
 
 // A type chosen without a subtype keeps the detected subtype when it is the detected type.
 export interface ColumnChoiceConfig {
-    dataTypeId?: DataTypeId | undefined;
-    dataSubtypeId?: DataSubtypeId | undefined;
-    dateOrderId?: DateOrderId | undefined; // For a column of dates whose values do not settle it.
-    decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
-    nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
+    dataTypeId: DataTypeId | undefined;
+    dataSubtypeId: DataSubtypeId | undefined;
+    dateOrderId: DateOrderId | undefined; // For a column of dates whose values do not settle it.
+    decimalSeparatorId: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
+    nullWordsAreEmpty: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
 }
 
 // ── Data Types
