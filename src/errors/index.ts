@@ -3,7 +3,7 @@
 // Serializable representation of an error; used for transporting errors across api and worker boundaries
 export interface SerialisedError {
     data: Record<string, unknown> | undefined;
-    locator: string; // Error locator 'package.module.method'
+    locator: string; // Where the error is raised, e.g. 'dpuse-engine.engine.loadConnector'. See the DPUse 'CLAUDE.md'.
     message: string; // Human-readable error message
     name: string; // Error class or type name
     stack: string | undefined; // Stack trace if available
@@ -37,7 +37,7 @@ const SECRET_TEXT_PATTERNS: [RegExp, (match: string, ...groups: string[]) => str
 // Base class for all DPUse  errors; includes a locator for the error; never thrown directly
 class DPUseError extends Error {
     readonly data: Record<string, unknown> | undefined;
-    readonly locator: string; // Error locator 'package.module.method'
+    readonly locator: string; // Where the error is raised, e.g. 'dpuse-engine.engine.loadConnector'. See the DPUse 'CLAUDE.md'.
     constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
         super(message, options);
         this.name = 'DPUseError';
