@@ -36,19 +36,13 @@ Every export, grouped by import path. This file is updated each time `npm run do
 #### Types
 
 - **`AccountConnectionConfig`**
-- **`ColumnDerivationId`**
 - **`ConnectionConfig`** (extends `ComponentInstanceConfig`)
 - **`ConnectionDescriptionConfig`**
 - **`ConnectionNodeConfig`** (extends `LocalisedConfig<BaseConfig>`)
 - **`DateOrderId`**
-- **`DateReadingConfig`**
 - **`DecimalSeparatorId`**
-- **`NumericReadingConfig`**
 - **`ObjectColumnConfig`**
 - **`StorageTypeId`**
-- **`ValueBinConfig`**
-- **`ValueBinOutlierConfig`**
-- **`ValueBinScaleId`**
 
 ### Component › Context
 
@@ -122,14 +116,16 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`ColumnAuditConfig`** (extends `ObjectColumnConfig`)
 - **`ColumnChoiceConfig`**
 - **`ColumnChoiceConfigs`**
 - **`ContentAuditConfig`**
 - **`DataFormatId`**
-- **`DataFormatSupportId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**
 - **`DataViewConfig`** (extends `ComponentInstanceConfig`)
+- **`DateReadingConfig`**
+- **`NumericReadingConfig`**
 - **`NumericSubtypeId`**
 - **`ParsedRecord`**
 - **`ReadingConfig`**
@@ -139,6 +135,9 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`SampleIssueSeverityId`**
 - **`StringSubtypeId`**
 - **`TemporalSubtypeId`**
+- **`ValueBinConfig`**
+- **`ValueBinOutlierConfig`**
+- **`ValueBinScaleId`**
 - **`ValueDelimiterId`**
 
 ### Component › Event Query

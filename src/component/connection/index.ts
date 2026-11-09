@@ -69,86 +69,23 @@ export interface ConnectionNodeConfig extends LocalisedConfig<BaseConfig> {
 
 // ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
 
+// What a column of an object is: its name, its type and how its values are read. What an audit finds in its values is
+// kept apart, in 'ColumnAuditConfig'.
 export interface ObjectColumnConfig {
-    blankValueCount: number | undefined; // Values written as an empty quoted value, or as only spaces.
+    // ── Identity
+    label: LocaleLabel;
+    derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
+
+    // ── Type
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
-    dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
-    dateReadings?: Partial<Record<DateOrderId, DateReadingConfig>> | undefined; // A column's figures for each date order, for a column whose dates could be read either way.
-    decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
-    derivationId?: ColumnDerivationId | undefined; // What a column the item does not hold is worked out from. Undefined for a column of the item.
-    derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
-    distinctValueCount: number | undefined; // Undefined when there are too many to count, because counting them all would hold the whole column in memory.
-    frequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. A number or date is counted by its value, however it is written. Empty when there are too many to count.
-    highestValues?: [string, number][] | undefined; // The highest values that fit the column's type, highest first, with how often each is seen. Exact however many values there are.
-    inferenceCounts: Record<string, number>;
-    invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
-    invalidDistinctValueCount?: number | undefined; // Distinct values that do not fit the column's type. Undefined when there are too many values to count.
-    invalidFrequentValues?: Record<string, number> | undefined; // The most frequent values that do not fit the column's type, with how often each is seen. Empty when there are too many to count.
-    invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
-    isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId', or mix formats that may not belong together, such as two currencies.
-    isIgnored: boolean | undefined;
-    isComplete: boolean | undefined; // Every record has a value that fits the column's type, so none loads empty.
-    isUnique: boolean | undefined; // Undefined when there are too many values to tell.
-    label: LocaleLabel;
-    leadingInferenceCounts: Record<string, number>;
-    leastFrequentValues?: Record<string, number> | undefined; // The least frequent values that fit the column's type and are not already in 'frequentValues', with how often each is seen. Empty when there are too many to count.
-    lowestValues?: [string, number][] | undefined; // The lowest values that fit the column's type, lowest first, with how often each is seen. Exact however many values there are.
-    maxDecimals: number | undefined;
-    maxSize: number | undefined;
-    maxValue: string | undefined;
-    maxWholeDigits: number | undefined;
-    minDecimals: number | undefined;
-    minSize: number | undefined;
-    minValue: string | undefined;
-    minWholeDigits: number | undefined;
-    numericReadings?: Partial<Record<DecimalSeparatorId, NumericReadingConfig>> | undefined; // A column's figures for each decimal separator, for a column whose values could be read with either.
-    missingValueCount: number | undefined; // Nothing between the delimiters, a record too short to reach the column, or a null word such as 'NULL'.
-    nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
-    nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
-    formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
-    singleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
-    validValueCount: number | undefined;
-    validValues: Record<string, string>; // A sample of the values that fit, each with the type it was read as.
-    valueBinOutliers?: ValueBinOutlierConfig | undefined; // When a few values lie far beyond the rest, 'valueBins' covers only about the middle 98% of them, and this counts the values beyond its first and last ranges. Undefined when the ranges cover every value.
-    valueBinScaleId?: ValueBinScaleId | undefined; // How 'valueBins' divides the values. Absent for ranges of equal width.
-    valueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 ranges with round edges, such as tens or months, lowest first. One range that starts and ends at the value when every value is the same.
-    voidValueCount: number | undefined; // Blank and missing values together.
+
+    // ── Reading ─ How values that could be taken more than one way are read.
+    decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
+    dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
+    nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
 }
-
-// The values beyond a column's ranges, when its ranges leave out a few far from the rest.
-export interface ValueBinOutlierConfig {
-    aboveCount: number; // Values at or above the end of the last range.
-    belowCount: number; // Values below the start of the first range.
-    isEstimated: boolean; // The counts, the ranges' own included, are estimated from a sample, because the column held more values than the sample keeps.
-}
-
-// 'linear' ─ Ranges of equal width, such as tens or months.
-// 'log' ─ One range for each power of ten, or a few together, mirrored for negative numbers, with zero as a range of its
-// own. Used when the values span so many powers of ten that ranges of equal width would put nearly all of them in one.
-export type ValueBinScaleId = 'linear' | 'log';
-
-// One range of a column's values, and how many valid values fall in it.
-export interface ValueBinConfig {
-    count: number;
-    lowerValue: string; // Where the range starts: a number, or an ISO date, date-time or time.
-    upperValue: string; // Where the range ends, and the next one starts.
-}
-
-// 'currency' ─ The currency of each number in a column that holds several, such as 'USD' or '€'. Kept for data views
-// saved before 'unit'.
-// 'unit' ─ The unit of each number in a column where any has one: its currency, such as 'USD' or '€', or '%'.
-export type ColumnDerivationId = 'currency' | 'unit';
-
-// What a column of numbers measures when read with one decimal separator. Choosing the other separator swaps these in.
-export type NumericReadingConfig = Pick<
-    ObjectColumnConfig,
-    'dataSubtypeId' | 'maxDecimals' | 'maxValue' | 'maxWholeDigits' | 'minDecimals' | 'minValue' | 'minWholeDigits' | 'storageTypeId'
->;
-
-// What a column of dates measures when read in one date order. Choosing the other order swaps these in.
-export type DateReadingConfig = Pick<ObjectColumnConfig, 'formats' | 'maxValue' | 'minValue'>;
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
 

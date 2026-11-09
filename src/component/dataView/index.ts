@@ -14,19 +14,19 @@ export interface DataViewConfig extends ComponentInstanceConfig {
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     readingConfig: ReadingConfig | undefined;
     sampleConfig: SampleConfig | undefined;
-    contentAuditConfig: ContentAuditConfig | undefined; // What the latest audit found, its columns included. Each audit replaces it whole.
-    columnChoiceConfigs: ColumnChoiceConfigs | undefined; // What the user chose for the columns. An audit leaves it as it is.
+    contentAuditConfig: ContentAuditConfig | undefined; // Replaced whole by each audit.
+    columnChoiceConfigs: ColumnChoiceConfigs | undefined; // Kept across audits, so the user's choices survive a new one.
     storeConnectorId: string | undefined;
 }
 
-// ── Reading ─ How an item is read. Found when it is first opened, and followed by every audit and load.
+// ── Reading ─ How an item is read. Detected when the item is first opened, then reused by every audit and load.
 export interface ReadingConfig {
     dataFormatId: DataFormatId;
-    encodingConfidenceLevel: number | undefined;
+    encodingConfidenceLevel: number | undefined; // From 0 to 1. Undefined when the encoding was assumed, not detected.
     encodingId: string | undefined;
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
-    parserId: string | undefined; // The config id of the tool that parsed the item. Absent where no tool did, e.g. an empty file or a format no tool reads yet.
+    parserId: string | undefined; // The config id of the parser tool. Undefined when no tool parsed the item, such as an empty file or a format no tool reads yet.
     recordDelimiterId: RecordDelimiterId | undefined;
     valueDelimiterId: ValueDelimiterId | undefined;
 
@@ -46,67 +46,141 @@ export interface ReadingConfig {
 }
 
 export type DataFormatId = (typeof DATA_FORMAT_CONFIGS)[number]['id'];
-
-export type DataFormatSupportId = 'planned' | 'supported' | 'unsupported';
-
 export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
-
 export type ValueDelimiterId = (typeof VALUE_DELIMITER_CONFIGS)[number]['id'] | ''; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
-// ── Sample Configuration ─ The start of an item, as text and records. Small enough to hold in memory and save with a
-// data view, unlike what an audit reads.
+// ── Sample Configuration ─ The start of an item, as text and parsed records. Small enough to hold in memory and save
+// with the data view, unlike the whole item an audit reads.
 export interface SampleConfig {
-    issues: SampleIssue[]; // What stops or limits reading the item as data, e.g. an empty file or parsing errors.
+    issues: SampleIssue[]; // Problems found while sampling, such as an empty file or parse errors.
     parsedRecords: ParsedRecord[];
-    size: number | undefined; // How many bytes of the item the text and records came from. Undefined where the item is not read as bytes.
+    size: number | undefined; // The bytes the text and records came from. Undefined when the item is not read as bytes.
     text: string | undefined;
 }
 
-// One thing found while sampling an item. Not a failure: the sample still holds whatever was read, so the item can be
-// shown and read another way.
+// A problem found while sampling an item. The sample still holds whatever was read, so the item can be shown and read
+// again with other settings.
 export interface SampleIssue {
-    endLineNumber: number | undefined; // The last line it covers, when it runs over several, e.g. a quote never closed runs to where the parser gave up.
-    fieldNumber: number | undefined; // The value within the record, counting from 1.
-    id: string; // The parser's own code, e.g. 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
-    lineNumber: number | undefined; // The line of the text where it starts, counting from 1, when the parser says.
-    message: string; // In English, as the parser gives it. The app shows its own wording for the ids it knows.
-    recordNumber: number | undefined; // The record it is in, counting from 1, a header record included.
+    endLineNumber: number | undefined; // Set when the issue spans several lines, such as an unclosed quote that runs on to where the parser stopped.
+    fieldNumber: number | undefined; // The value's position in its record, counting from 1.
+    id: string; // The parser's own code, such as 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
+    lineNumber: number | undefined; // The first line it covers, counting from 1. Undefined when the parser does not say.
+    message: string; // The parser's own English text. The app shows its own wording for the ids it knows.
+    recordNumber: number | undefined; // Counting from 1, with any header record included.
     severityId: SampleIssueSeverityId;
-    value: string | undefined; // The value or character at fault, cut short when long.
+    value: string | undefined; // The value or character at fault, shortened when long.
 }
 
 export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
 
 export type ParsedRecord = { value: string | null; valueWasQuoted: boolean }[];
 
-// ── Content Audit ─ How much of an item has been audited and what was found. Opening an item audits its first few
-// kilobytes, and later audits read further from its start. A parser that only counts records, such as the Rust CSV
-// parser, leaves the columns empty and the other counts undefined.
+// ── Content Audit ─ What an audit found in an item. The first audit covers only the preview read when the item is
+// opened, and later audits read further from its start. A count is undefined when the audit did not take it, as in the
+// first audit, which does not count lines.
 export interface ContentAuditConfig {
-    asAt: number;
-    byteCount: number; // How many bytes of the item were audited. 0 where the item is not read as bytes.
-    columns: ObjectColumnConfig[];
+    asAt: number; // When the audit started, in milliseconds since the epoch.
+    byteCount: number; // 0 when the item is not read as bytes.
+    columns: ColumnAuditConfig[];
     commentLineCount: number | undefined;
     emptyLineCount: number | undefined;
-    invalidFieldLengthCount: number | undefined; // Records whose number of values differs from the first record's.
-    duration: number;
+    invalidFieldLengthCount: number | undefined; // Records with a different number of values from the first record.
+    duration: number; // In milliseconds.
     isComplete: boolean; // Whether the audit reached the end of the item.
     lineCount: number | undefined;
-    recordCount: number; // Data records only. A header record is not counted.
-    sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, e.g. while it downloads. Undefined where the bytes were fetched before the audit started.
+    recordCount: number; // Data records only, without the header record.
+    sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, such as while it downloads. Undefined when the bytes were fetched before the audit started.
 }
 
-// ── Column Choices ─ What the user chose for each column, keyed by the column's position as a string. A column takes
-// each choice in place of what the audit detected, and keeps what was detected for anything not chosen.
+// ── Column Audit ─ What an audit found in a column's values, with the column itself.
+export interface ColumnAuditConfig extends ObjectColumnConfig {
+    // ── Inference ─ Each value read one by one, before the column settles its type.
+    inferenceCounts: Record<string, number>;
+    leadingInferenceCounts: Record<string, number>;
+
+    // ── Reading ─ What the values show about how they are read.
+    numericReadings?: Partial<Record<DecimalSeparatorId, NumericReadingConfig>> | undefined; // A column's figures for each decimal separator, for a column whose values could be read with either.
+    dateReadings?: Partial<Record<DateOrderId, DateReadingConfig>> | undefined; // A column's figures for each date order, for a column whose dates could be read either way.
+    isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId', or mix formats that may not belong together, such as two currencies.
+    nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
+
+    // ── Counts
+    validValueCount: number | undefined;
+    invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
+    blankValueCount: number | undefined; // Values written as an empty quoted value, or as only spaces.
+    missingValueCount: number | undefined; // Nothing between the delimiters, a record too short to reach the column, or a null word such as 'NULL'.
+    isComplete: boolean | undefined; // Every record has a value that fits the column's type, so none loads empty.
+
+    // ── Formats
+    validFormats: Record<string, number>; // How many values that fit the column's type have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
+    validMinSize: number | undefined;
+    validMaxSize: number | undefined;
+    validMinWholeDigits: number | undefined;
+    validMaxWholeDigits: number | undefined;
+    validMinDecimals: number | undefined;
+    validMaxDecimals: number | undefined;
+
+    // ── Distinct Values
+    validDistinctValueCount: number | undefined; // Distinct values that fit the column's type. Undefined when there are too many to count, because counting them all would hold the whole column in memory.
+    validSingleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
+    invalidDistinctValueCount?: number | undefined; // Distinct values that do not fit the column's type. Undefined when there are too many values to count.
+    validIsUnique: boolean | undefined; // Undefined when there are too many values to tell.
+
+    // ── Frequent Values
+    validFrequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. A number or date is counted by its value, however it is written. Empty when there are too many to count.
+    validLeastFrequentValues?: Record<string, number> | undefined; // The least frequent values that fit the column's type and are not already in 'validFrequentValues', with how often each is seen. Empty when there are too many to count.
+    invalidFrequentValues?: Record<string, number> | undefined; // The most frequent values that do not fit the column's type, with how often each is seen. Empty when there are too many to count.
+    invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
+
+    // ── Range
+    validLowestValues?: [string, number][] | undefined; // The lowest values that fit the column's type, lowest first, with how often each is seen. Exact however many values there are.
+    validHighestValues?: [string, number][] | undefined; // The highest values that fit the column's type, highest first, with how often each is seen. Exact however many values there are.
+    validValueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 ranges with round edges, such as tens or months, lowest first. One range that starts and ends at the value when every value is the same.
+    validValueBinScaleId?: ValueBinScaleId | undefined; // How 'validValueBins' divides the values. Absent for ranges of equal width.
+    validValueBinOutliers?: ValueBinOutlierConfig | undefined; // When a few values lie far beyond the rest, 'validValueBins' covers only about the middle 98% of them, and this counts the values beyond its first and last ranges. Undefined when the ranges cover every value.
+}
+
+// What a column of numbers measures when read with one decimal separator. Choosing the other separator swaps these in.
+export type NumericReadingConfig = Pick<
+    ColumnAuditConfig,
+    'dataSubtypeId' | 'validMaxDecimals' | 'validMaxWholeDigits' | 'validMinDecimals' | 'validMinWholeDigits' | 'storageTypeId'
+>;
+
+// What a column of dates measures when read in one date order. Choosing the other order swaps these in.
+export type DateReadingConfig = Pick<ColumnAuditConfig, 'validFormats'>;
+
+// One range of a column's values, and how many valid values fall in it.
+export interface ValueBinConfig {
+    count: number;
+    lowerValue: string; // Where the range starts: a number, or an ISO date, date-time or time.
+    upperValue: string; // Where the range ends, and the next one starts.
+}
+
+// 'linear' ─ Ranges of equal width, such as tens or months.
+// 'log' ─ One range for each power of ten, or a few together, mirrored for negative numbers, with zero as a range of its
+// own. Used when the values span so many powers of ten that ranges of equal width would put nearly all of them in one.
+export type ValueBinScaleId = 'linear' | 'log';
+
+// The values beyond a column's ranges, when its ranges leave out a few far from the rest.
+export interface ValueBinOutlierConfig {
+    aboveCount: number; // Values at or above the end of the last range.
+    belowCount: number; // Values below the start of the first range.
+    isEstimated: boolean; // The counts, the ranges' own included, are estimated from a sample, because the column held more values than the sample keeps.
+}
+
+// ── Column Choices ─ What the user chose for each column, keyed by the column's position as a string. Anything not
+// chosen keeps what the audit detected.
 export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
 
-// A type chosen without a subtype keeps the detected subtype when it is the detected type.
+// A type chosen without a subtype keeps the detected subtype when it matches the detected type, and otherwise takes the
+// type's 'defaultSubtypeId'.
 export interface ColumnChoiceConfig {
     dataTypeId: DataTypeId | undefined;
     dataSubtypeId: DataSubtypeId | undefined;
-    dateOrderId: DateOrderId | undefined; // For a column of dates whose values do not settle it.
-    decimalSeparatorId: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
-    nullWordsAreEmpty: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
+    dateOrderId: DateOrderId | undefined; // For a date column whose values fit more than one order, such as 03/04/2024.
+    decimalSeparatorId: DecimalSeparatorId | undefined; // For a number column whose values fit either separator, such as 1,234.
+    isIgnored: boolean | undefined; // Whether the column is left out when the data view loads.
+    nullWordsAreEmpty: boolean | undefined; // For a text column: whether words such as 'NA' mean no value.
 }
 
 // ── Data Types
@@ -120,16 +194,15 @@ export type TemporalSubtypeId = Extract<DataTypeConfig, { id: 'temporal' }>['sub
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// ── Data Formats ─ What DPUse can do with each format. 'supportId' says whether a format is read as data today, is
-// planned but has no reader yet, or is not data. A format with 'isText' can be shown as text, and one with 'isTable' as
-// a table of records.
+// ── Data Formats ─ What DPUse can do with each format. 'supportId' says whether the format is read as data now, is
+// planned, or is not data. 'isText' means it can be shown as text, and 'isTable' as a table of records.
 export const DATA_FORMAT_CONFIGS = [
     { id: 'arrow', isTable: false, isText: false, supportId: 'planned' },
     { id: 'avro', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'dtv', isTable: true, isText: true, supportId: 'supported' },
+    { id: 'dtv', isTable: true, isText: true, supportId: 'supported' }, // Delimited text, such as CSV or TSV.
     { id: 'json', isTable: false, isText: false, supportId: 'planned' },
     { id: 'jsonl', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'markdown', isTable: false, isText: true, supportId: 'unsupported' }, // A document, so it is shown but not read as data.
+    { id: 'markdown', isTable: false, isText: true, supportId: 'unsupported' }, // A document, so it is shown as text but not read as data.
     { id: 'ods', isTable: false, isText: false, supportId: 'planned' },
     { id: 'parquet', isTable: false, isText: false, supportId: 'planned' },
     { id: 'sav', isTable: false, isText: false, supportId: 'planned' },
@@ -137,10 +210,10 @@ export const DATA_FORMAT_CONFIGS = [
     { id: 'xlsx', isTable: false, isText: false, supportId: 'planned' },
     { id: 'xml', isTable: false, isText: false, supportId: 'planned' },
     { id: 'unknown', isTable: false, isText: false, supportId: 'unsupported' }
-] as const satisfies readonly { id: string; isTable: boolean; isText: boolean; supportId: DataFormatSupportId }[];
+] as const satisfies readonly { id: string; isTable: boolean; isText: boolean; supportId: 'planned' | 'supported' | 'unsupported' }[];
 
-// ── Value Delimiters ─ In the order detection tries them, most common first. The record and unit separators are
-// invisible characters, so their ids name them and 'character' holds the character itself.
+// ── Value Delimiters ─ In the order detection tries them, most common first. The unit and record separators are
+// invisible, so their ids name them and 'character' holds the character itself.
 export const VALUE_DELIMITER_CONFIGS = [
     { id: ',', character: ',' },
     { id: ';', character: ';' },
@@ -154,8 +227,8 @@ export const VALUE_DELIMITER_CONFIGS = [
     { id: '0x1E', character: '\u{1E}' }
 ] as const satisfies readonly { character: string; id: string }[];
 
-// ── Data Types ─ In the order a list of types shows them, each with its subtypes. A type stored with no subtype is
-// read as its 'defaultSubtypeId'. 'unknown' is only ever detected, so it cannot be chosen.
+// ── Data Types ─ In the order the type list shows them. A type stored without a subtype is read as its
+// 'defaultSubtypeId'. 'unknown' is only ever detected, so it cannot be chosen.
 export const DATA_TYPE_CONFIGS = [
     {
         id: 'string',
@@ -189,7 +262,7 @@ export const DATA_TYPE_CONFIGS = [
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// The character a value delimiter splits values with. The '' placeholder has none, so it comes back as itself.
+// The '' placeholder has no character, so it comes back unchanged.
 export function getValueDelimiterCharacter(valueDelimiterId: ValueDelimiterId): string {
     return VALUE_DELIMITER_CONFIGS.find(({ id }) => id === valueDelimiterId)?.character ?? valueDelimiterId;
 }

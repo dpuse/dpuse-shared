@@ -6,6 +6,7 @@ import type { Component } from '@/component';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
+import type { ColumnAuditConfig, ContentAuditConfig, DataFormatId, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
     connectorActionNameSchema,
@@ -16,7 +17,6 @@ import type {
     connectorUsageConfigSchema,
     connectorUsageIdSchema
 } from './connectorConfig.schema';
-import type { ContentAuditConfig, DataFormatId, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -30,9 +30,7 @@ export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFile
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface ConnectorInterface extends Component {
-    abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
-    readonly toolConfigs: ToolConfig[];
     abortOperation?(): void; // Abort the active long running action.
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number) => void): Promise<AuditObjectContentResult>;
     closeStore?(options: CloseStoreOptions): Promise<void>; // Close a store connector's database and release its hold on it, so another tab can open it.
@@ -76,7 +74,7 @@ export interface ColumnAuditor {
 
 // The columns detected from a set of records, from a sample held in memory or from an audit.
 export interface InferenceSummary {
-    columnConfigs: ObjectColumnConfig[];
+    columnConfigs: ColumnAuditConfig[];
     hasHeaders: boolean; // Whether the first record is a header, detected unless the caller said.
 }
 
@@ -201,6 +199,7 @@ export interface LoadObjectRecordsResult {
 // never travel through the app.
 export interface EngineLoadObjectRecordsOptions extends LoadObjectRecordsOptions {
     hasHeaders: boolean; // From the preview. A header record names the columns and is not loaded.
+    ignoredColumnIndexes: number[]; // The columns the user chose to ignore, by position. The store gets no column for them.
     headerValues: (string | null)[] | undefined; // The preview's header record as it was read. A different header record means the columns have moved, so nothing is loaded.
     sourceConnectionConfig: ConnectionConfig | LocalisedConfig<ConnectionConfig>; // The app passes the localised one it holds.
     sourceOptions: RetrieveRecordsOptions; // Read the item the same way the audit did.
