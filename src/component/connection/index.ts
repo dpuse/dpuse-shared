@@ -74,6 +74,7 @@ export interface ObjectColumnConfig {
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
     dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
+    dateReadings?: Partial<Record<DateOrderId, DateReadingConfig>> | undefined; // A column's figures for each date order, for a column whose dates could be read either way.
     decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
     derivationId?: ColumnDerivationId | undefined; // What a column the item does not hold is worked out from. Undefined for a column of the item.
     derivedFromColumnIndex?: number | undefined; // The column a derived column is worked out from, by position.
@@ -87,7 +88,7 @@ export interface ObjectColumnConfig {
     invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
     isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId', or mix formats that may not belong together, such as two currencies.
     isIgnored: boolean | undefined;
-    isRequired: boolean | undefined;
+    isComplete: boolean | undefined; // Every record has a value that fits the column's type, so none loads empty.
     isUnique: boolean | undefined; // Undefined when there are too many values to tell.
     label: LocaleLabel;
     leadingInferenceCounts: Record<string, number>;
@@ -106,8 +107,6 @@ export interface ObjectColumnConfig {
     nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
     nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
     formats: Record<string, number>; // How many values have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
-    paddedValueCount: number | undefined; // Values with spaces before or after them.
-    quotedValueCount: number | undefined;
     singleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
     storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
     validValueCount: number | undefined;
@@ -147,6 +146,9 @@ export type NumericReadingConfig = Pick<
     ObjectColumnConfig,
     'dataSubtypeId' | 'maxDecimals' | 'maxValue' | 'maxWholeDigits' | 'minDecimals' | 'minValue' | 'minWholeDigits' | 'storageTypeId'
 >;
+
+// What a column of dates measures when read in one date order. Choosing the other order swaps these in.
+export type DateReadingConfig = Pick<ObjectColumnConfig, 'formats' | 'maxValue' | 'minValue'>;
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
 

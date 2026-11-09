@@ -41,6 +41,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ConnectionDescriptionConfig`**
 - **`ConnectionNodeConfig`** (extends `LocalisedConfig<BaseConfig>`)
 - **`DateOrderId`**
+- **`DateReadingConfig`**
 - **`DecimalSeparatorId`**
 - **`NumericReadingConfig`**
 - **`ObjectColumnConfig`**

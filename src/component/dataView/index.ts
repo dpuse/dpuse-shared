@@ -3,7 +3,7 @@ import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
 import type { ComponentInstanceConfig } from '@/component';
-import type { ConnectionNodeConfig, DecimalSeparatorId, ObjectColumnConfig } from '@/component/connection';
+import type { ConnectionNodeConfig, DateOrderId, DecimalSeparatorId, ObjectColumnConfig } from '@/component/connection';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -104,6 +104,7 @@ export type ColumnChoiceConfigs = Partial<Record<string, ColumnChoiceConfig>>;
 export interface ColumnChoiceConfig {
     dataTypeId?: DataTypeId | undefined;
     dataSubtypeId?: DataSubtypeId | undefined;
+    dateOrderId?: DateOrderId | undefined; // For a column of dates whose values do not settle it.
     decimalSeparatorId?: DecimalSeparatorId | undefined; // For a column whose values do not settle it.
     nullWordsAreEmpty?: boolean | undefined; // For a text column: read null words such as 'NA' as no value.
 }
