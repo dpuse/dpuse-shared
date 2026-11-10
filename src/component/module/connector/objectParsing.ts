@@ -6,14 +6,13 @@ import { VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
 import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
-    ColumnAuditor,
     ConnectorUtilities,
     PreviewObjectResult,
     RecordRetrievalTypeId,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@/component/module/connector';
-import type { ContentAuditConfig, DataFormatId, ParsedRecord, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, ParsedRecord, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 import { resolveDecoderId } from '@/encoding';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ParserInterface, ToolConfig } from '@/component/module/tool';
@@ -52,17 +51,20 @@ const MAX_AUDIT_READ_BYTE_COUNT = 1_048_576;
 
 // Builds the first audit and preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
 // format's default, and delimited text with the value delimiter the user chose or the one detected. An item that is empty, or of a format no tool reads yet, comes back as itself with no
-// records rather than as an error, and its text is kept so the picker can still show it.
+// records rather than as an error, and its text is kept so the picker can still show it. A source that states its columns,
+// or whether the item has a header record, passes them on, so they are taken rather than inferred.
 export async function buildPreviewObjectResult(input: {
     asAt: number;
+    declaredColumnConfigs?: DeclaredColumnConfig[] | undefined;
     filePreview: ObjectFilePreview;
+    hasHeaders?: boolean | undefined;
     inferDataTypes: ConnectorUtilities['inferDataTypes'];
     parserId: string | undefined;
     startedAt: number; // From 'performance.now()', before the item was fetched.
     toolConfigs: ToolConfig[];
     valueDelimiterId: ValueDelimiterId | undefined;
 }): Promise<PreviewObjectResult> {
-    const { asAt, filePreview, inferDataTypes, parserId, startedAt, toolConfigs, valueDelimiterId } = input;
+    const { asAt, declaredColumnConfigs, filePreview, hasHeaders, inferDataTypes, parserId, startedAt, toolConfigs, valueDelimiterId } = input;
     const { dataFormatId, text } = filePreview;
     const size = filePreview.bytes.length;
 
@@ -132,7 +134,7 @@ export async function buildPreviewObjectResult(input: {
             : detectedParseTextResult;
 
     // Infer and cast values for each parsed record.
-    const inferenceSummary = inferDataTypes(parseTextResult.parsedRecords);
+    const inferenceSummary = inferDataTypes(parseTextResult.parsedRecords, hasHeaders, declaredColumnConfigs);
 
     return {
         contentAuditConfig: constructFirstAuditConfig({
@@ -182,19 +184,21 @@ export async function retrieveRecordsWithParser(input: {
 
 // Reads an item's records from its start, to count them and describe their columns, up to 'options.byteLimit' or until
 // 'options.stopSignal' fires. Records are audited one chunk at a time, so the item is never held in memory. 'onProgress'
-// receives the number of records in each chunk as it is audited, and the bytes read so far.
+// receives the number of records in each chunk as it is audited, and the bytes read so far. A source that states its
+// columns passes them on, so the audit takes their types rather than inferring them.
 export async function auditObjectContentWithParser(input: {
-    constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor;
+    constructColumnAuditor: ConnectorUtilities['constructColumnAuditor'];
+    declaredColumnConfigs?: DeclaredColumnConfig[] | undefined;
     onProgress: (recordCount: number, byteCount: number) => void;
     options: AuditObjectContentOptions;
     signal: AbortSignal;
     stream: ReadableStream<Uint8Array>;
     toolConfigs: ToolConfig[];
 }): Promise<AuditObjectContentResult> {
-    const { constructColumnAuditor, onProgress, options, signal, stream, toolConfigs } = input;
+    const { constructColumnAuditor, declaredColumnConfigs, onProgress, options, signal, stream, toolConfigs } = input;
     const asAt = Date.now();
     const startedAt = performance.now();
-    const columnAuditor = constructColumnAuditor(options.hasHeaders);
+    const columnAuditor = constructColumnAuditor(options.hasHeaders, declaredColumnConfigs);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
     const timedSource = timeSourceWaits(stream);
     const auditSource = endAtRecordBoundary(timedSource.stream, options);

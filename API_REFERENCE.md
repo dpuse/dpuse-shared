@@ -123,6 +123,8 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`DateOrderId`**
 - **`DateReadingConfig`**
 - **`DecimalSeparatorId`**
+- **`DeclaredColumnConfig`**
+- **`DeclaredReadingConfig`**
 - **`NumericReadingConfig`**
 - **`NumericSubtypeId`**
 - **`ParsedRecord`**
@@ -154,8 +156,8 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
-- **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor; onProgress: (recordCount: number, byteCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
-- **`buildPreviewObjectResult`**`(input: { asAt: number; filePreview: ObjectFilePreview; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; valueDelimiterId: ValueDelimiterId | undefined; })`
+- **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: ConnectorUtilities['constructColumnAuditor']; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; onProgress: (recordCount: number, byteCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`buildPreviewObjectResult`**`(input: { asAt: number; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; filePreview: ObjectFilePreview; hasHeaders?: boolean | undefined; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; valueDelimiterId: ValueDelimiterId | undefined; })`
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`

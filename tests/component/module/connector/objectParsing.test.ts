@@ -185,6 +185,23 @@ describe('objectParsing', () => {
 
             expect(result).toMatchObject({ sampleConfig: { text: undefined }, readingConfig: { dataFormatId: 'unknown' } });
         });
+
+        it('hands inference the columns and header record the source states', async () => {
+            tools.byName['rust-csv-core-parser'] = { parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
+            const declaredColumnConfigs = [{ dataSubtypeId: undefined, dataTypeId: 'numeric' as const, label: 'Amount', name: 'amount' }];
+
+            await buildPreviewObjectResult({ ...buildPreviewInput(buildFilePreview()), declaredColumnConfigs, hasHeaders: true });
+
+            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, true, declaredColumnConfigs);
+        });
+
+        it('leaves the header record to detection when the source does not state it', async () => {
+            tools.byName['rust-csv-core-parser'] = { parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
+
+            await buildPreviewObjectResult(buildPreviewInput(buildFilePreview()));
+
+            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, undefined, undefined);
+        });
     });
 
     describe('retrieveRecordsWithParser', () => {
@@ -445,7 +462,16 @@ describe('objectParsing', () => {
             const { contentAuditConfig: auditConfig } = await auditObjectContentWithParser({
                 constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue({ columnConfigs: [], hasHeaders: false }) }),
                 onProgress: vi.fn(),
-                options: { byteLimit: 1, chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: false, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                options: {
+                    byteLimit: 1,
+                    chunkSize: undefined,
+                    dataFormatId: 'dtv',
+                    encodingId: 'utf-8',
+                    hasHeaders: false,
+                    parserId: undefined,
+                    path: '/a.csv',
+                    valueDelimiterId: ','
+                } as never,
                 signal: new AbortController().signal,
                 stream,
                 toolConfigs: TOOL_CONFIGS
@@ -471,6 +497,30 @@ describe('objectParsing', () => {
             vi.useRealTimers();
 
             expect(auditConfig.sourceWaitDuration).toBeGreaterThanOrEqual(100);
+        });
+
+        it('hands the auditor the columns the source states', async () => {
+            tools.byName['rust-csv-core-parser'] = {
+                parseStream: vi.fn().mockResolvedValue({ byteCount: 0, commentLineCount: 0, emptyLineCount: 0, lineCount: 0, nonUniformRecordCount: 0, recordCount: 0 })
+            };
+            const constructColumnAuditor = vi.fn().mockReturnValue({ auditRecords: vi.fn(), completeAudit: () => ({ columnConfigs: [], hasHeaders: true }) });
+            const declaredColumnConfigs = [{ dataSubtypeId: 'date' as const, dataTypeId: 'temporal' as const, label: undefined, name: 'hireDate' }];
+
+            await auditObjectContentWithParser({
+                constructColumnAuditor,
+                declaredColumnConfigs,
+                onProgress: vi.fn(),
+                options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: true, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                signal: new AbortController().signal,
+                stream: new ReadableStream<Uint8Array>({
+                    start: (controller) => {
+                        controller.close();
+                    }
+                }),
+                toolConfigs: TOOL_CONFIGS
+            });
+
+            expect(constructColumnAuditor).toHaveBeenCalledWith(true, declaredColumnConfigs);
         });
     });
 });

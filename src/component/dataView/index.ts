@@ -110,6 +110,7 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     // ── Inference ─ Each value read one by one, before the column settles its type.
     inferenceCounts: Record<string, number>;
     leadingInferenceCounts: Record<string, number>;
+    isTypeDeclared?: boolean | undefined; // The item's source states the column's type, so it was taken rather than inferred.
 
     // ── Reading ─ What the values show about how they are read.
     numericReadings?: Partial<Record<DecimalSeparatorId, NumericReadingConfig>> | undefined; // A column's figures for each decimal separator, for a column whose values could be read with either.
@@ -151,6 +152,24 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     validValueBins?: ValueBinConfig[] | undefined; // For a column of numbers, dates or times: how many of its valid values fall in each of up to 20 ranges with round edges, such as tens or months, lowest first. One range that starts and ends at the value when every value is the same.
     validValueBinScaleId?: ValueBinScaleId | undefined; // How 'validValueBins' divides the values. Absent for ranges of equal width.
     validValueBinOutliers?: ValueBinOutlierConfig | undefined; // When a few values lie far beyond the rest, 'validValueBins' covers only about the middle 98% of them, and this counts the values beyond its first and last ranges. Undefined when the ranges cover every value.
+}
+
+// ── Declared Columns ─ The columns an item's source states, as a database or an application does, or a schema file
+// beside a data file. An audit then takes each column's type rather than inferring it, and only counts the values.
+export interface DeclaredColumnConfig {
+    name: string; // As the item's header record writes it.
+    label: string | undefined; // Shown in place of the name. Undefined to show the name.
+    dataTypeId: Exclude<DataTypeId, 'unknown'> | undefined; // Undefined when the source does not say, so the type is inferred.
+    dataSubtypeId: DataSubtypeId | undefined; // Undefined to take the type's 'defaultSubtypeId'.
+}
+
+// ── Declared Reading ─ How the source says its items are read, so it is not detected and the user has nothing to
+// choose. A value left undefined is detected as usual.
+export interface DeclaredReadingConfig {
+    dataFormatId: DataFormatId;
+    encodingId: string | undefined;
+    hasHeaders: boolean | undefined;
+    valueDelimiterId: ValueDelimiterId | undefined;
 }
 
 // What a column of numbers measures when read with one decimal separator. Choosing the other separator swaps these in.

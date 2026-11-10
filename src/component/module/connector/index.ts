@@ -5,7 +5,17 @@ import type { InferOutput } from 'valibot';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
-import type { ColumnAuditConfig, ColumnReadingConfig, ContentAuditConfig, DataFormatId, ParsedRecord, ReadingConfig, SampleConfig, ValueDelimiterId } from '@/component/dataView';
+import type {
+    ColumnAuditConfig,
+    ColumnReadingConfig,
+    ContentAuditConfig,
+    DataFormatId,
+    DeclaredColumnConfig,
+    ParsedRecord,
+    ReadingConfig,
+    SampleConfig,
+    ValueDelimiterId
+} from '@/component/dataView';
 import type { ConnectionConfig, ConnectionDescriptionConfig, ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 import type {
     connectorActionNameSchema,
@@ -25,6 +35,9 @@ export { connectorConfigSchema } from './connectorConfig.schema';
 // ── Actions - Object Parsing ─────────────────────────────────────────────────────────────────────────────────────────
 
 export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
+
+// ── Table Schema
+export { readTableSchema } from './tableSchema';
 
 // ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -58,10 +71,12 @@ export type ConnectorActionName = InferOutput<typeof connectorActionNameSchema>;
 
 export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 
+// 'declaredColumnConfigs' are the columns the item's source states, matched to the item's columns by position. Each
+// declared type is taken in place of the one the values suggest.
 export interface ConnectorUtilities {
-    constructColumnAuditor: (hasHeaders: boolean | undefined) => ColumnAuditor;
+    constructColumnAuditor: (hasHeaders: boolean | undefined, declaredColumnConfigs?: DeclaredColumnConfig[]) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
-    inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean) => InferenceSummary;
+    inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean, declaredColumnConfigs?: DeclaredColumnConfig[]) => InferenceSummary;
 }
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
