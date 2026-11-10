@@ -186,21 +186,36 @@ describe('objectParsing', () => {
             expect(result).toMatchObject({ sampleConfig: { text: undefined }, readingConfig: { dataFormatId: 'unknown' } });
         });
 
-        it('hands inference the columns and header record the source states', async () => {
-            tools.byName['rust-csv-core-parser'] = { parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
+        it('hands inference the columns and header record the source states, and marks the reading as declared', async () => {
+            const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+            tools.byName['rust-csv-core-parser'] = { parseText };
             const declaredColumnConfigs = [{ dataSubtypeId: undefined, dataTypeId: 'numeric' as const, label: 'Amount', name: 'amount' }];
+            const declaredReadingConfig = { dataFormatId: 'dtv' as const, encodingId: 'utf-8', hasHeaders: true, valueDelimiterId: ';' as const };
 
-            await buildPreviewObjectResult({ ...buildPreviewInput(buildFilePreview()), declaredColumnConfigs, hasHeaders: true });
+            const result = await buildPreviewObjectResult({ ...buildPreviewInput(buildFilePreview(), undefined, ','), declaredColumnConfigs, declaredReadingConfig });
 
             expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, true, declaredColumnConfigs);
+            expect(parseText).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ valueDelimiterIds: [';'] })); // The source's delimiter, not the one given.
+            expect(result.readingConfig).toMatchObject({ isDeclared: true, valueDelimiterId: ';' });
+        });
+
+        it('marks an empty item from a source that says how it is read as declared', async () => {
+            const emptyFilePreview = buildFilePreview({ bytes: new Uint8Array(0) });
+            const result = await buildPreviewObjectResult({
+                ...buildPreviewInput(emptyFilePreview),
+                declaredReadingConfig: { dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: true, valueDelimiterId: ',' }
+            });
+
+            expect(result.readingConfig.isDeclared).toBe(true);
         });
 
         it('leaves the header record to detection when the source does not state it', async () => {
             tools.byName['rust-csv-core-parser'] = { parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
 
-            await buildPreviewObjectResult(buildPreviewInput(buildFilePreview()));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview()));
 
             expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, undefined, undefined);
+            expect(result.readingConfig.isDeclared).toBe(false);
         });
     });
 

@@ -12,7 +12,8 @@ import type {
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@/component/module/connector';
-import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, ParsedRecord, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig, ParsedRecord } from '@/component/dataView';
+import type { RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 import { resolveDecoderId } from '@/encoding';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ParserInterface, ToolConfig } from '@/component/module/tool';
@@ -51,21 +52,25 @@ const MAX_AUDIT_READ_BYTE_COUNT = 1_048_576;
 
 // Builds the first audit and preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
 // format's default, and delimited text with the value delimiter the user chose or the one detected. An item that is empty, or of a format no tool reads yet, comes back as itself with no
-// records rather than as an error, and its text is kept so the picker can still show it. A source that states its columns,
-// or whether the item has a header record, passes them on, so they are taken rather than inferred.
+// records rather than as an error, and its text is kept so the picker can still show it. A source that states its columns
+// or how the item is read, such as a resource file beside it, passes them on, so they are taken rather than inferred or
+// detected, and the reading is marked as declared. The connector also hands the declared format and encoding to the file
+// previewer, which reads the item before this is called.
 export async function buildPreviewObjectResult(input: {
     asAt: number;
     declaredColumnConfigs?: DeclaredColumnConfig[] | undefined;
+    declaredReadingConfig?: DeclaredReadingConfig | undefined;
     filePreview: ObjectFilePreview;
-    hasHeaders?: boolean | undefined;
     inferDataTypes: ConnectorUtilities['inferDataTypes'];
     parserId: string | undefined;
     startedAt: number; // From 'performance.now()', before the item was fetched.
     toolConfigs: ToolConfig[];
     valueDelimiterId: ValueDelimiterId | undefined;
 }): Promise<PreviewObjectResult> {
-    const { asAt, declaredColumnConfigs, filePreview, hasHeaders, inferDataTypes, parserId, startedAt, toolConfigs, valueDelimiterId } = input;
+    const { asAt, declaredColumnConfigs, declaredReadingConfig, filePreview, inferDataTypes, parserId, startedAt, toolConfigs } = input;
     const { dataFormatId, text } = filePreview;
+    const valueDelimiterId = declaredReadingConfig?.valueDelimiterId ?? input.valueDelimiterId;
+    const isDeclared = declaredReadingConfig != null;
     const size = filePreview.bytes.length;
 
     // An empty file is a table with no rows. An issue says so, because it is not an error but the user should know why
@@ -96,6 +101,7 @@ export async function buildPreviewObjectResult(input: {
                 encodingId: undefined,
                 fileType: undefined,
                 hasHeaders: false,
+                isDeclared,
                 parserId: undefined,
                 recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
                 valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
@@ -113,6 +119,7 @@ export async function buildPreviewObjectResult(input: {
                 encodingId: filePreview.encodingId,
                 fileType: filePreview.fileTypeConfig,
                 hasHeaders: undefined,
+                isDeclared,
                 parserId: undefined,
                 recordDelimiterId: undefined,
                 valueDelimiterId: undefined
@@ -134,7 +141,7 @@ export async function buildPreviewObjectResult(input: {
             : detectedParseTextResult;
 
     // Infer and cast values for each parsed record.
-    const inferenceSummary = inferDataTypes(parseTextResult.parsedRecords, hasHeaders, declaredColumnConfigs);
+    const inferenceSummary = inferDataTypes(parseTextResult.parsedRecords, declaredReadingConfig?.hasHeaders, declaredColumnConfigs);
 
     return {
         contentAuditConfig: constructFirstAuditConfig({
@@ -157,6 +164,7 @@ export async function buildPreviewObjectResult(input: {
             encodingId: filePreview.encodingId,
             fileType: filePreview.fileTypeConfig,
             hasHeaders: inferenceSummary.hasHeaders,
+            isDeclared,
             parserId: usedParserId,
             recordDelimiterId: parseTextResult.recordDelimiterId,
             valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId

@@ -26,6 +26,7 @@ export interface ReadingConfig {
     encodingId: string | undefined;
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
+    isDeclared?: boolean | undefined; // The item's source says how it is read, such as a resource file beside it, so the user has nothing to choose.
     parserId: string | undefined; // The config id of the parser tool. Undefined when no tool parsed the item, such as an empty file or a format no tool reads yet.
     recordDelimiterId: RecordDelimiterId | undefined;
     valueDelimiterId: ValueDelimiterId | undefined;
@@ -115,7 +116,7 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     // ── Reading ─ What the values show about how they are read.
     numericReadings?: Partial<Record<DecimalSeparatorId, NumericReadingConfig>> | undefined; // A column's figures for each decimal separator, for a column whose values could be read with either.
     dateReadings?: Partial<Record<DateOrderId, DateReadingConfig>> | undefined; // A column's figures for each date order, for a column whose dates could be read either way.
-    isFormatAmbiguous: boolean | undefined; // The column's values do not settle 'dateOrderId' or 'decimalSeparatorId', or mix formats that may not belong together, such as two currencies.
+    formatIssueIds: FormatIssueId[] | undefined; // Why the column's format is unclear. Empty when a number, date or yes/no column is clear. Undefined when the format was not checked.
     nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
 
     // ── Counts
@@ -175,11 +176,24 @@ export interface DeclaredReadingConfig {
 // What a column of numbers measures when read with one decimal separator. Choosing the other separator swaps these in.
 export type NumericReadingConfig = Pick<
     ColumnAuditConfig,
-    'dataSubtypeId' | 'validMaxDecimals' | 'validMaxWholeDigits' | 'validMinDecimals' | 'validMinWholeDigits' | 'storageTypeId'
+    'dataSubtypeId' | 'validMaxDecimals' | 'validMaxWholeDigits' | 'validMinDecimals' | 'validMinWholeDigits'
 >;
 
 // What a column of dates measures when read in one date order. Choosing the other order swaps these in.
 export type DateReadingConfig = Pick<ColumnAuditConfig, 'validFormats'>;
+
+// Why a column's format is unclear. The decimal separator or date order is unproven when no value shows it, weakly
+// proven when the values that show it are outnumbered by the values it decides, and mixed when values show both ways.
+export type FormatIssueId =
+    | 'booleanPairMixed'
+    | 'currencyMixed'
+    | 'dateOrderMixed'
+    | 'dateOrderUnproven'
+    | 'decimalSeparatorMixed'
+    | 'decimalSeparatorUnproven'
+    | 'decimalSeparatorWeaklyProven'
+    | 'percentageMixed'
+    | 'scientificNotationMixed';
 
 // One range of a column's values, and how many valid values fall in it.
 export interface ValueBinConfig {

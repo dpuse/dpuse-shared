@@ -32,15 +32,9 @@ import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } fro
 
 export { connectorConfigSchema } from './connectorConfig.schema';
 
-// ── Actions - Object Parsing ─────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
-
-// ── Table Schema
-export { readTableSchema } from './tableSchema';
-
-// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Interface
 export interface ConnectorInterface {
     abortOperation?(): void; // Abort the active long running action.
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number) => void): Promise<AuditObjectContentResult>;
@@ -91,8 +85,7 @@ export interface InferenceSummary {
     hasHeaders: boolean; // Whether the first record is a header, detected unless the caller said.
 }
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export type ConnectorConfig = InferOutput<typeof connectorConfigSchema>;
 
 type ConnectorCategoryConfig = InferOutput<typeof connectorCategoryConfigSchema>;
@@ -103,8 +96,7 @@ export type ConnectorItemTypeId = InferOutput<typeof connectorItemTypeIdSchema>;
 
 type ConnectorUsageConfig = InferOutput<typeof connectorUsageConfigSchema>;
 
-// ── Types - Action - Audit Object Content ────────────────────────────────────────────────────────────────────────────
-
+// ── Audit Object Content
 export interface AuditObjectContentOptions extends EngineConnectorActionOptions {
     byteLimit: number | undefined; // Stops at the first record to end after this many bytes. Reads the whole item when undefined.
     chunkSize: number | undefined;
@@ -122,33 +114,28 @@ export interface AuditObjectContentResult {
     hasHeaders: boolean; // Whether the first record is a header. An audit can find one the sample missed, because it reads more records. It belongs to the reading configuration, not the audit.
 }
 
-// ── Types - Action - Close Store ─────────────────────────────────────────────────────────────────────────────────────
-
+// ── Close Store
 export type CloseStoreOptions = EngineConnectorActionOptions;
 
-// ── Types - Action - Create Object ───────────────────────────────────────────────────────────────────────────────────
-
+// ── Create Object
 export interface CreateObjectOptions extends EngineConnectorActionOptions {
     path: string;
     structure: string;
 }
 
-// ── Types - Action - Describe Connection ─────────────────────────────────────────────────────────────────────────────
-
+// ── Describe Connection
 export type DescribeConnectionOptions = EngineConnectorActionOptions;
 
 interface DescribeConnectionResult {
     descriptionConfig: ConnectionDescriptionConfig;
 }
 
-// ── Types - Action - Drop Object ─────────────────────────────────────────────────────────────────────────────────────
-
+// ── Drop Object
 export interface DropObjectOptions extends EngineConnectorActionOptions {
     path: string;
 }
 
-// ── Types - Action - Find Object ─────────────────────────────────────────────────────────────────────────────────────
-
+// ── Find Object
 export interface FindObjectOptions extends EngineConnectorActionOptions {
     storeId: string | undefined;
     nodeId: string;
@@ -157,8 +144,7 @@ export interface FindObjectResult {
     path: string | undefined;
 }
 
-// ── Types - Action - Get Info ────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Get Info
 export interface GetInfoOptions extends EngineConnectorActionOptions {
     path: string;
 }
@@ -166,15 +152,13 @@ export interface GetInfoResult {
     info: Record<string, unknown>; // Raw, connector-specific metadata — not yet normalized to a common shape.
 }
 
-// ── Types - Action - Get Readable Stream ─────────────────────────────────────────────────────────────────────────────
-
+// ── Get Readable Stream
 export interface GetReadableStreamOptions extends EngineConnectorActionOptions {
     id: string;
     path: string;
 }
 
-// ── Types - Action - Get Record ──────────────────────────────────────────────────────────────────────────────────────
-
+// ── Get Record
 export interface GetRecordOptions extends EngineConnectorActionOptions {
     id: string;
     path: string;
@@ -183,8 +167,7 @@ export interface GetRecordResult {
     record?: string[] | Record<string, unknown>;
 }
 
-// ── Types - Action - List Nodes ──────────────────────────────────────────────────────────────────────────────────────
-
+// ── List Nodes
 export interface ListNodesOptions extends EngineConnectorActionOptions {
     folderPath: string;
     limit?: number;
@@ -198,8 +181,7 @@ export interface ListNodesResult {
     totalCount: number;
 }
 
-// ── Types - Action - Load Object Records ─────────────────────────────────────────────────────────────────────────────
-
+// ── Load Object Records
 export interface LoadObjectRecordsOptions extends EngineConnectorActionOptions {
     columnConfigs: ObjectColumnConfig[]; // The data view's columns, each with the type to load it as. The store creates the object's columns from these, in this order.
     path: string;
@@ -229,8 +211,7 @@ export interface EngineLoadObjectRecordsResult extends LoadObjectRecordsResult {
 export type StoreRecord = StoreValue[];
 export type StoreValue = bigint | boolean | Date | number | string | null;
 
-// ── Types - Action - Open Store ──────────────────────────────────────────────────────────────────────────────────────
-
+// ── Open Store
 export type OpenStoreOptions = EngineConnectorActionOptions;
 export interface OpenStoreResult {
     storeStateId: StoreStateId;
@@ -240,8 +221,7 @@ export interface OpenStoreResult {
 // 'unavailable' means the browser gives no storage to keep it in, e.g. in some private windows.
 export type StoreStateId = 'heldElsewhere' | 'ready' | 'unavailable';
 
-// ── Types - Action - Preview Object ──────────────────────────────────────────────────────────────────────────────────
-
+// ── Preview Object
 export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     dataFormatId: DataFormatId | undefined; // A format the user chose, read in place of the one detected.
@@ -258,8 +238,7 @@ export interface PreviewObjectResult {
     readingConfig: ReadingConfig;
 }
 
-// ── Types - Action - Query Records ───────────────────────────────────────────────────────────────────────────────────
-
+// ── Query Records
 // Columns are named by their position in the audit's columns, because an audited column has a label but no id. With
 // 'groupColumnIndexes', each result record holds the group's values, then one value for each aggregate.
 export interface QueryRecordsOptions extends EngineConnectorActionOptions {
@@ -292,8 +271,7 @@ export interface QueryRecordsResult {
     totalCount: number; // How many records, or groups, pass the filters in all, so a table can size itself.
 }
 
-// ── Types - Action - Recount Preview Columns ─────────────────────────────────────────────────────────────────────────
-
+// ── Recount Preview Columns
 // Counts a preview's columns again when the user says whether its first record is a header, so the item is not read again.
 export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptions {
     hasHeaders: boolean;
@@ -308,15 +286,13 @@ export interface ClassifyPreviewValuesOptions extends EngineConnectorActionOptio
 
 export type PreviewValueStateId = 'blank' | 'invalid' | 'missing' | 'valid';
 
-// ── Types - Action - Remove Records ──────────────────────────────────────────────────────────────────────────────────
-
+// ── Remove Records
 export interface RemoveRecordsOptions extends EngineConnectorActionOptions {
     keys: string[];
     path: string;
 }
 
-// ── Types - Action - Retrieve Chunks ─────────────────────────────────────────────────────────────────────────────────
-
+// ── Retrieve Chunks
 export interface RetrieveChunksOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     encodingId: string;
@@ -324,8 +300,7 @@ export interface RetrieveChunksOptions extends EngineConnectorActionOptions {
     valueDelimiterId: ValueDelimiterId;
 }
 
-// ── Types - Action - Retrieve Records ────────────────────────────────────────────────────────────────────────────────
-
+// ── Retrieve Records
 export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     dataFormatId: DataFormatId; // From the preview.
@@ -351,12 +326,14 @@ export interface RetrieveRecordsSummary {
 
 export type RecordRetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
 
-// ── Types - Action - Upsert Records ──────────────────────────────────────────────────────────────────────────────────
-
+// ── Upsert Records
 export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
     records: Record<string, unknown>[];
     path: string;
 }
+
+// ── Usage
+export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>;
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -416,11 +393,13 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'retrieveRecords'
 ]);
 
-// ── Types - Usage ────────────────────────────────────────────────────────────────────────────────────────────────────
-
-export type ConnectorUsageId = InferOutput<typeof connectorUsageIdSchema>;
-
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// ── Object Parsing
+export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
+
+// ── Table Schema
+export { readTableSchema } from './tableSchema';
 
 // Determines whether a connector is a source, destination, or bidirectional connector, based on the actions it implements.
 export function determineConnectorUsageId(actionNames: ConnectorActionName[]): ConnectorUsageId {

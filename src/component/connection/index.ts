@@ -76,24 +76,4 @@ export interface ObjectColumnConfig {
     label: LocaleLabel;
     dataTypeId: DataTypeId;
     dataSubtypeId: DataSubtypeId | undefined;
-    storageTypeId: StorageTypeId | undefined; // The narrowest type that holds every value that fits the column.
 }
-
-export type StorageTypeId =
-    | 'binary'
-    | 'boolean'
-    | 'byte'
-    | 'date'
-    | 'dateTime'
-    | 'dateTimeOffset'
-    | 'decimal'
-    | 'double'
-    | 'int8'
-    | 'int16'
-    | 'int32'
-    | 'int64'
-    | 'object'
-    | 'single'
-    | 'string'
-    | 'time'
-    | 'unknown';
