@@ -72,18 +72,18 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 21.0 | 18 | 604 | 0.15 | 1 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 46 | 653 | 0.05 | 4 | accelerating |
-| `src/utilities/index.ts` | 13.7 | 11 | 474 | 0.25 | 1 | stable |
-| `src/locale/index.ts` | 13.6 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/component/module/tool/delimitedText.ts` | 13.5 | 5 | 133 | 0.35 | 1 | stable |
-| `src/errors/index.ts` | 13.4 | 9 | 230 | 0.30 | 4 | stable |
-| `src/component/module/tool/index.ts` | 12.1 | 12 | 100 | 0.19 | 6 | stable |
-| `scripts/documentEncodings.ts` | 6.9 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 6.1 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 3.8 | 9 | 101 | 0.09 | 15 | stable |
-| `src/encoding/index.ts` | 3.3 | 9 | 778 | 0.06 | 3 | accelerating |
-| `src/component/dataView/index.ts` | 2.7 | 38 | 1426 | 0.01 | 8 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 21.6 | 19 | 624 | 0.15 | 1 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 47 | 734 | 0.05 | 4 | accelerating |
+| `src/utilities/index.ts` | 13.3 | 11 | 474 | 0.25 | 1 | stable |
+| `src/locale/index.ts` | 13.2 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/component/module/tool/delimitedText.ts` | 13.1 | 5 | 133 | 0.35 | 1 | stable |
+| `src/errors/index.ts` | 13.0 | 9 | 230 | 0.30 | 4 | stable |
+| `src/component/module/tool/index.ts` | 11.7 | 12 | 100 | 0.19 | 6 | stable |
+| `scripts/documentEncodings.ts` | 6.7 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 5.9 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 3.7 | 9 | 101 | 0.09 | 15 | stable |
+| `src/encoding/index.ts` | 3.2 | 9 | 778 | 0.06 | 3 | accelerating |
+| `src/component/dataView/index.ts` | 2.7 | 39 | 1444 | 0.01 | 8 | accelerating |
 | `vite.config.ts` | 1.9 | 21 | 139 | 0.02 | 0 | accelerating |
 | `src/component/module/presenter/index.ts` | 1.2 | 9 | 92 | 0.03 | 1 | cooling |
 
