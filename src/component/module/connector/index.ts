@@ -284,7 +284,7 @@ export interface ClassifyPreviewValuesOptions extends EngineConnectorActionOptio
     parsedRecords: ParsedRecord[]; // Data records only, with no header record.
 }
 
-export type PreviewValueStateId = 'blank' | 'invalid' | 'missing' | 'valid';
+export type PreviewValueStateId = 'blank' | 'empty' | 'invalid' | 'null' | 'valid';
 
 // ── Remove Records
 export interface RemoveRecordsOptions extends EngineConnectorActionOptions {

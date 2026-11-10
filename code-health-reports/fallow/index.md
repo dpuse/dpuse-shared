@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3447 |
+| Total LOC | 3449 |
 | Avg Cyclomatic | 2.8 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 131, module scopes: 2, templates: 0 |
@@ -83,7 +83,7 @@
 | `scripts/checkBrowserDecoding.ts` | 5.9 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 3.7 | 9 | 101 | 0.09 | 15 | stable |
 | `src/encoding/index.ts` | 3.2 | 9 | 778 | 0.06 | 3 | accelerating |
-| `src/component/dataView/index.ts` | 2.7 | 39 | 1444 | 0.01 | 8 | accelerating |
+| `src/component/dataView/index.ts` | 2.7 | 40 | 1446 | 0.01 | 8 | accelerating |
 | `vite.config.ts` | 1.9 | 21 | 139 | 0.02 | 0 | accelerating |
 | `src/component/module/presenter/index.ts` | 1.2 | 9 | 92 | 0.03 | 1 | cooling |
 

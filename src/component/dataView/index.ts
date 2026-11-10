@@ -122,9 +122,11 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     // ── Counts
     validValueCount: number | undefined;
     invalidValueCount: number | undefined; // Values that do not fit the column's type, and so are stored as null.
+    // ── Missing Values ─ Blank, empty and null values together. Each loads as no value.
     blankValueCount: number | undefined; // Values written as an empty quoted value, or as only spaces.
-    missingValueCount: number | undefined; // Nothing between the delimiters, a record too short to reach the column, or a null word such as 'NULL'.
-    hasMissingValues: boolean | undefined; // A record has no value that fits the column's type, so it loads empty. An invalid value counts as missing.
+    emptyValueCount: number | undefined; // Nothing between the delimiters, or a record too short to reach the column.
+    nullValueCount: number | undefined; // Null words such as 'NULL', and 'NA' and the like where they are read as no value.
+    hasMissingValues: boolean | undefined; // Any blank, empty or null value. Invalid values are counted apart.
 
     // ── Formats
     validFormats: Record<string, number>; // How many values that fit the column's type have each format, e.g. 'yyyy-MM-dd', '9,999.9' or 'Yes/No'.
