@@ -6,12 +6,12 @@ import { componentReferenceConfigSchema } from '@/component/componentConfig.sche
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// ── Schemas - Action Name ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Action Name
 export const presenterActionNameSchema = literalUnion(['list', 'render', 'setColorMode']);
 
-// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export const presenterConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: literal('presenter'),

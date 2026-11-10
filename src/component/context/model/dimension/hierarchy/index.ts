@@ -3,8 +3,9 @@ import type { BaseConfig } from '@/index';
 import { ComponentInstanceConfig } from '@/component';
 import type { LocaleDescription, LocaleLabel } from '@/locale/label';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceConfig {
     typeId: 'contextModelDimensionHierarchy';
     type: string | null;
@@ -12,13 +13,11 @@ export interface ContextModelDimensionHierarchyConfig extends ComponentInstanceC
     children: ContextModelDimensionHierarchyNodeConfig[];
 }
 
-// ── Types - Level Configuration ──────────────────────────────────────────────────────────────────────────────────────
-
+// ── Level Configuration
 // Names one rank of the hierarchy's tree (e.g. 'Decade', 'Year'), top to bottom — not itself a node in the tree.
 export type ContextModelDimensionHierarchyLevelConfig = BaseConfig;
 
-// ── Types - Node Configuration ───────────────────────────────────────────────────────────────────────────────────────
-
+// ── Node Configuration
 // A single position in the tree. Deliberately lighter than 'ComponentInstanceConfig': a hierarchy nests arbitrarily
 // deep — an age hierarchy's leaves are individual years — and most nodes carry nothing beyond an id.
 export interface ContextModelDimensionHierarchyNodeConfig {

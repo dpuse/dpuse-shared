@@ -6,8 +6,9 @@ import type { LocalisedConfig } from '@/locale';
 import type { ModuleConfig } from '@/component/module';
 import type { ToolConfig } from '@/component/module/tool';
 
-// ── Types - Runtime ──────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Runtime
 // TODO: Should this be interface?
 export interface EngineRuntime {
     getEncodingTypeConfigs: (localeId: LocaleId) => EncodingTypeConfigLocalised[];
@@ -15,8 +16,7 @@ export interface EngineRuntime {
     invokeWorker(errorEventCallback: (errorEvent: ErrorEvent) => void): EngineWorker;
 }
 
-// ── Types -  Worker ──────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Worker
 export interface EngineWorker {
     initialise: (options: EngineInitialiseOptions) => Promise<void>;
     processRequest: (
@@ -56,8 +56,7 @@ export interface EngineCallbackData {
     properties: Record<string, unknown>;
 }
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';
 }

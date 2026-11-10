@@ -2,8 +2,9 @@
 import { ComponentInstanceConfig } from '@/component';
 import type { ContextModelDimensionHierarchyConfig } from './hierarchy';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 export interface ContextModelDimensionConfig extends ComponentInstanceConfig {
     typeId: 'contextModelDimension';
     groupId: string;

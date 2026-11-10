@@ -1,8 +1,9 @@
 // ── DPUse Framework
 import type { ComponentInstanceConfig, ComponentReferenceConfig } from '@/component';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 export interface ContextConfig extends ComponentInstanceConfig {
     typeId: 'context';
     areas: ContextAreaConfig[];

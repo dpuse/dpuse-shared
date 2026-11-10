@@ -176,13 +176,27 @@ export interface DeclaredReadingConfig {
 }
 
 // What a column of numbers measures when read with one decimal separator. Choosing the other separator swaps these in.
-export type NumericReadingConfig = Pick<
-    ColumnAuditConfig,
-    'dataSubtypeId' | 'validMaxDecimals' | 'validMaxWholeDigits' | 'validMinDecimals' | 'validMinWholeDigits'
->;
+export type NumericReadingConfig = Pick<ColumnAuditConfig, 'dataSubtypeId' | 'validMaxDecimals' | 'validMaxWholeDigits' | 'validMinDecimals' | 'validMinWholeDigits'> &
+    ValueDistributionConfig;
 
 // What a column of dates measures when read in one date order. Choosing the other order swaps these in.
-export type DateReadingConfig = Pick<ColumnAuditConfig, 'validFormats'>;
+export type DateReadingConfig = Pick<ColumnAuditConfig, 'validFormats'> & ValueDistributionConfig;
+
+// How many of each valid value a column holds, and how they spread from lowest to highest. A number or date can read
+// differently with each decimal separator or date order, such as '1,5' as 1.5 or 15, so each reading has its own.
+export type ValueDistributionConfig = Pick<
+    ColumnAuditConfig,
+    | 'validDistinctValueCount'
+    | 'validFrequentValues'
+    | 'validHighestValues'
+    | 'validIsUnique'
+    | 'validLeastFrequentValues'
+    | 'validLowestValues'
+    | 'validSingleValueCount'
+    | 'validValueBinOutliers'
+    | 'validValueBinScaleId'
+    | 'validValueBins'
+>;
 
 // Why a column's format is unclear. The decimal separator or date order is unproven when no value shows it, weakly
 // proven when the values that show it are outnumbered by the values it decides, and mixed when values show both ways.

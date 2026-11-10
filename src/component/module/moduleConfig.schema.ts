@@ -5,13 +5,13 @@ import { nullable, strictObject, string } from 'valibot';
 import { componentCoreFieldsConfig } from '@/component/componentConfig.schema';
 import { literalUnion } from '@/schema';
 
-// ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Type Identifier
 // We include 'app' here so we can monitor updates in 'dpuse-app'.
 export const moduleTypeIdSchema = literalUnion(['app', 'engine', 'connector', 'cookbook', 'presenter', 'tool']);
 
-// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export const moduleConfigCoreFields = {
     ...componentCoreFieldsConfig,
     vendorAccountURL: nullable(string()),

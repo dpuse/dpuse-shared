@@ -4,8 +4,9 @@ import type { ContextModelDimensionConfig } from './dimension';
 import type { ContextModelEntityConfig } from './entity';
 import type { ContextModelSecondaryMeasureConfig } from './secondaryMeasure';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 export interface ContextModelConfig extends ComponentInstanceConfig {
     typeId: 'contextModel';
     diagramURL?: string;

@@ -1,14 +1,14 @@
 // ── DPUse Framework
 import type { LocaleDescription, LocaleLabel } from '@/locale/label';
 
-// ── Types - Identifier ───────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Identifier
 // The fixed lifecycle every entity moves through. An entity's 'events' array holds only the stages that apply to it —
 // there is no entry, not a 'null' one, for a stage that doesn't.
 type ContextModelEntityEventId = 'creation' | 'activation' | 'recognition' | 'correction' | 'modification' | 'derecognition' | 'deactivation' | 'archival' | 'deletion';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 // Lighter than 'ComponentInstanceConfig': no icon, status, or timestamps — an event is a fixed point in an entity's
 // lifecycle, not an independently managed component.
 export interface ContextModelEntityEventConfig {

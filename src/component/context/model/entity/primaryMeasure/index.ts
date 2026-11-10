@@ -2,8 +2,9 @@
 import type { BaseConfig } from '@/index';
 import type { LocaleDescription } from '@/locale/label';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 // Lighter than 'ComponentInstanceConfig': no icon, status, or timestamps populated for a primary measure —
 // 'description' is also optional here, unlike the base, since a couple of measures skip it. The set of measure ids
 // varies per entity — some add their own alongside common ones (e.g. 'personLanguage' has

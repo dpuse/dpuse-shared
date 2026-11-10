@@ -4,10 +4,10 @@ import type { InferOutput } from 'valibot';
 // ── DPUse Framework
 import type { moduleConfigSchema, moduleTypeIdSchema } from './moduleConfig.schema';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 export type ModuleConfig = InferOutput<typeof moduleConfigSchema>;
 
-// ── Types - Module Type Identifier ───────────────────────────────────────────────────────────────────────────────────
-
+// ── Module Type Identifier
 type ModuleTypeId = InferOutput<typeof moduleTypeIdSchema>;

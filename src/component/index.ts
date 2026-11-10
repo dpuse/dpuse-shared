@@ -18,25 +18,22 @@ export interface Component {
     readonly config: ComponentInstanceConfig;
 }
 
-// ── Types - Base ─────────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Base
 export type ComponentBaseConfig = InferOutput<ReturnType<typeof strictObject<typeof componentBaseConfigSchema>>>;
 
-// ── Types - Instance Configuration ───────────────────────────────────────────────────────────────────────────────────
-
+// ── Instance Configuration
 export type ComponentInstanceConfig = InferOutput<typeof componentInstanceConfigSchema>;
 
-// ── Types - Reference Configuration ──────────────────────────────────────────────────────────────────────────────────
-
+// ── Reference Configuration
 export type ComponentReferenceConfig = InferOutput<typeof componentReferenceConfigSchema>;
 
-// ── Types - Status ───────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Status
 type ComponentStatus = InferOutput<typeof componentStatusConfigSchema>;
 type ComponentStatusColorId = InferOutput<typeof componentStatusColorIdSchema>;
 
-// ── Constants - Status ───────────────────────────────────────────────────────────────────────────────────────────────
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Status
 const COMPONENT_STATUS_CONFIGS: { id: string; color: ComponentStatusColorId; labels: LocaleLabel }[] = [
     { id: 'alpha', color: 'danger', labels: { en: 'alpha', es: 'alfa' } },
     { id: 'beta', color: 'warning', labels: { en: 'beta', es: 'beta' } },
@@ -44,8 +41,9 @@ const COMPONENT_STATUS_CONFIGS: { id: string; color: ComponentStatusColorId; lab
     { id: 'generalAvailability', color: 'success', labels: { en: '', es: '' } }
 ];
 
-// ── Actions - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Status
 export function getComponentStatus(id: string, localeId: LocaleId = DEFAULT_LOCALE_ID): ComponentStatus {
     const componentStatus = COMPONENT_STATUS_CONFIGS.find((componentStatus) => componentStatus.id === id);
     if (componentStatus) {

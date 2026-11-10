@@ -1,16 +1,16 @@
 // ── DPUse Framework
 import type { ComponentInstanceConfig } from '@/component';
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Configuration
 export interface PresentationConfig extends ComponentInstanceConfig {
     typeId: 'presenterPresentation';
     content: string;
     order: number;
 }
 
-// ── Types - Visual Configuration ─────────────────────────────────────────────────────────────────────────────────────
-
+// ── Visual Configuration
 export interface PresentationVisualConfig {
     content: PresentationVisualContentConfig;
     views: PresentationVisualViewConfig[];
@@ -32,8 +32,7 @@ export interface PresentationVisualViewConfig {
 
 export type PresentationCategoryId = 'cartesianChart' | 'chordDiagram' | 'periodFlowBoundariesChart' | 'polarChart' | 'rangeChart' | 'sankeyDiagram' | 'streamGraph' | 'valueTable';
 
-// ── Types - Visual View Configuration - Cartesian Chart ──────────────────────────────────────────────────────────────
-
+// ── Cartesian Chart
 export interface PresentationVisualCartesianChartViewConfig extends PresentationVisualViewConfig {
     categoryId: 'cartesianChart';
     typeId: PresentationCartesianTypeId;
@@ -41,20 +40,17 @@ export interface PresentationVisualCartesianChartViewConfig extends Presentation
 
 export type PresentationCartesianTypeId = 'areaLine' | 'areaSpline' | 'bar' | 'column' | 'line' | 'spline';
 
-// ── Types - Visual View Configuration - Chord Diagram ────────────────────────────────────────────────────────────────
-
+// ── Chord Diagram
 interface PresentationVisualChordDiagramViewConfig extends PresentationVisualViewConfig {
     categoryId: 'chordDiagram';
 }
 
-// ── Types - Visual View Configuration - Period Flow Boundaries Chart ─────────────────────────────────────────────────
-
+// ── Period Flow Boundaries Chart
 export interface PresentationVisualPeriodFlowBoundariesChartViewConfig extends PresentationVisualViewConfig {
     categoryId: 'periodFlowBoundariesChart';
 }
 
-// ── Types - Visual View Configuration - Polar Chart ──────────────────────────────────────────────────────────────────
-
+// ── Polar Chart
 export interface PresentationVisualPolarChartViewConfig extends PresentationVisualViewConfig {
     categoryId: 'polarChart';
     typeId: PresentationPolarTypeId;
@@ -64,8 +60,7 @@ export interface PresentationVisualPolarChartViewConfig extends PresentationVisu
 // Maybe new categories cartesianRangeChart and polarRangeChart.
 export type PresentationPolarTypeId = 'areaLine' | 'areaRange' | 'areaSpline' | 'column' | 'columnRange' | 'line' | 'spline';
 
-// ── Types - Visual View Configuration - Range Chart ──────────────────────────────────────────────────────────────────
-
+// ── Range Chart
 export interface PresentationVisualRangeChartViewConfig extends PresentationVisualViewConfig {
     categoryId: 'rangeChart';
     typeId: PresentationRangeTypeId;
@@ -73,26 +68,22 @@ export interface PresentationVisualRangeChartViewConfig extends PresentationVisu
 
 export type PresentationRangeTypeId = 'areaLine' | 'areaSpline' | 'bar' | 'column';
 
-// ── Types - Visual View Configuration - Sankey Diagram ───────────────────────────────────────────────────────────────
-
+// ── Sankey Diagram
 interface PresentationVisualSankeyDiagramViewConfig extends PresentationVisualViewConfig {
     categoryId: 'sankeyDiagram';
 }
 
-// ── Types - Visual View Configuration - Stream Graph ─────────────────────────────────────────────────────────────────
-
+// ── Stream Graph
 interface PresentationVisualStreamGraphViewConfig extends PresentationVisualViewConfig {
     categoryId: 'streamGraph';
 }
 
-// ── Types - Visual View Configuration - Value Table ──────────────────────────────────────────────────────────────────
-
+// ── Value Table
 interface PresentationVisualValueTableViewConfig extends PresentationVisualViewConfig {
     categoryId: 'valueTable';
 }
 
-// ── Types - View ─────────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── View
 export interface PresentationView {
     resize: () => void;
     vendorId: string;

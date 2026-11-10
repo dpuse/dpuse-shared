@@ -6,12 +6,12 @@ import { componentReferenceConfigSchema } from '@/component/componentConfig.sche
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// ── Schemas - Action Name ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Action Name
 export const cookbookActionNameSchema = literalUnion(['list']);
 
-// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export const cookbookConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: literal('cookbook'),

@@ -11,8 +11,9 @@ import { literalUnion } from '@/schema';
 import { localeLabelSchema } from '@/locale/locale.schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// ── Schemas - Action Name ────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Action Name
 // Names of the operations a connector may implement.
 export const connectorActionNameSchema = literalUnion([
     'abortOperation',
@@ -36,16 +37,14 @@ export const connectorActionNameSchema = literalUnion([
     'upsertRecords'
 ]);
 
-// ── Schemas - Category Configuration ─────────────────────────────────────────────────────────────────────────────────
-
+// ── Category Configuration
 const connectorCategoryIdSchema = literalUnion(['application', 'curatedDataset', 'database', 'fileStore']); // Category identifiers used for grouping and filtering connectors.
 
 export const connectorCategoryConfigSchema = strictObject({
     label: localeLabelSchema
 });
 
-// ── Schemas - Item Type ──────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Item Type
 // The kind of item a connector's connections hold, which names the item a data view is built from.
 export const connectorItemTypeIdSchema = literalUnion(['apiEndpoint', 'file', 'table']);
 
@@ -53,16 +52,14 @@ export const connectorItemTypeConfigSchema = strictObject({
     label: localeLabelSchema
 });
 
-// ── Schemas - Usage ──────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Usage
 export const connectorUsageIdSchema = literalUnion(['bidirectional', 'destination', 'source', 'unknown']); // Connector data pipeline usage identifiers.
 
 export const connectorUsageConfigSchema = strictObject({
     label: localeLabelSchema
 });
 
-// ── Schemas - Implementation ─────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Implementation
 const connectorAuthMethodIdSchema = literalUnion(['apiKey', 'disabled', 'oAuth2', 'none']); // Authentication method identifiers supported by a connector implementation.
 
 const connectorImplementationParametersSchema = record(string(), string()); // One set of implementation parameters, keyed by name.
@@ -78,8 +75,7 @@ const connectorImplementationSchema = strictObject({
     params: optional(array(connectorImplementationParametersSchema))
 });
 
-// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export const connectorConfigSchema = strictObject({
     ...moduleConfigCoreFields,
     typeId: literal('connector'),

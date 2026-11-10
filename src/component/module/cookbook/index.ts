@@ -9,8 +9,9 @@ import type { cookbookActionNameSchema, cookbookConfigSchema } from './cookbookC
 
 export { cookbookConfigSchema } from './cookbookConfig.schema';
 
-// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Interface
 export interface CookbookInterface extends Component {
     readonly config: CookbookConfig;
 
@@ -19,6 +20,5 @@ export interface CookbookInterface extends Component {
 
 type CookbookActionName = InferOutput<typeof cookbookActionNameSchema>; // Names of the actions a cookbook may implement.
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export type CookbookConfig = InferOutput<typeof cookbookConfigSchema>;

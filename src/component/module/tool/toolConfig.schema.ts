@@ -9,8 +9,9 @@ import { array, literal, minLength, optional, pipe, strictObject, string } from 
 import { literalUnion } from '@/schema';
 import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 
-// ── Schemas - Parser ─────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Parser
 // The data formats a parser may read: every data format except 'unknown', which has no records to read.
 export const parserDataFormatIdSchema = literalUnion(['arrow', 'avro', 'dtv', 'json', 'jsonl', 'markdown', 'ods', 'parquet', 'sav', 'sqlite', 'xlsx', 'xml']);
 
@@ -18,8 +19,7 @@ export const parserConfigSchema = strictObject({
     dataFormatIds: pipe(array(parserDataFormatIdSchema), minLength(1)) // Written by hand, because only the tool's author knows which formats it reads.
 });
 
-// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 const toolActionNamesSchema = array(string());
 
 export const toolConfigSchema = strictObject({

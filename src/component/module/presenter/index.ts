@@ -12,8 +12,9 @@ import type { presenterActionNameSchema, presenterConfigSchema } from './present
 
 export { presenterConfigSchema } from './presenterConfig.schema';
 
-// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Interface
 export interface PresenterInterface extends Component {
     readonly config: PresenterConfig;
 
@@ -24,8 +25,7 @@ export interface PresenterInterface extends Component {
 
 export type PresenterActionName = InferOutput<typeof presenterActionNameSchema>; // Names of the actions a presenter may implement.
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export type PresenterConfig = InferOutput<typeof presenterConfigSchema>;
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────

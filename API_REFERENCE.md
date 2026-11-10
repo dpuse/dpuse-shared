@@ -139,6 +139,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ValueBinOutlierConfig`**
 - **`ValueBinScaleId`**
 - **`ValueDelimiterId`**
+- **`ValueDistributionConfig`**
 
 ### Component › Event Query
 

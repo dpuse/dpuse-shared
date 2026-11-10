@@ -5,8 +5,9 @@ import { nullable, number, strictObject, string } from 'valibot';
 import { baseConfigSchema } from '@/baseConfig.schema';
 import { literalUnion } from '@/schema';
 
-// ── Schemas - Type Identifier ────────────────────────────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Type Identifier
 export const componentTypeIdSchema = literalUnion([
     'app',
     'connector',
@@ -31,8 +32,7 @@ export const componentTypeIdSchema = literalUnion([
     'tool'
 ]);
 
-// ── Schemas - Status ─────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Status
 export const componentStatusColorIdSchema = literalUnion(['danger', 'success', 'warning']);
 
 const componentStatusIdSchema = literalUnion(['alpha', 'beta', 'releaseCandidate', 'generalAvailability']);
@@ -42,16 +42,14 @@ export const componentStatusConfigSchema = strictObject({
     label: string()
 });
 
-// ── Schemas - Base ───────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Base
 // Common base structure components and component references.
 export const componentBaseConfigSchema = {
     ...baseConfigSchema,
     typeId: componentTypeIdSchema
 };
 
-// ── Schemas - Reference ──────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Reference
 // Common structure for referencing all components.
 export const componentReferenceConfigSchema = strictObject({
     ...componentBaseConfigSchema,
@@ -59,8 +57,7 @@ export const componentReferenceConfigSchema = strictObject({
     path: string()
 });
 
-// ── Schemas - Configuration ──────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 // Core fields present in all components.
 export const componentCoreFieldsConfig = {
     ...componentBaseConfigSchema,

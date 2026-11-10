@@ -6,12 +6,12 @@ import type { LocalisedConfig } from '@/locale';
 import type { Component, ComponentInstanceConfig } from '@/component';
 import type { DataSubtypeId, DataTypeId } from '@/component/dataView';
 
-// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Interface
 type ConnectionInterface = Component;
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export interface ConnectionConfig extends ComponentInstanceConfig {
     typeId: 'connectorConnection';
     authorisation: Record<string, ConnectionAuthorisationConfig>;
@@ -28,8 +28,7 @@ export interface AccountConnectionConfig {
     id: string;
 }
 
-// ── Types - Configuration - Authorisation ────────────────────────────────────────────────────────────────────────────
-
+// ── Authorisation
 // TODO: Proof of concept for testing, not fully implemented. Tokens must not live in a connection config, which is saved,
 // synced and shown in the browser. Keep the refresh token on the server only and never send any token to the browser;
 // this should shrink to non-secret details such as the account id and expiry.
@@ -44,8 +43,7 @@ interface ConnectionAuthorisationConfig {
     uid: string; // Dropbox.
 }
 
-// ── Types - Configuration - Description ──────────────────────────────────────────────────────────────────────────────
-
+// ── Description
 export interface ConnectionDescriptionConfig {
     objects: {
         id: string;
@@ -54,8 +52,7 @@ export interface ConnectionDescriptionConfig {
     }[];
 }
 
-// ── Types - Configuration - Node ─────────────────────────────────────────────────────────────────────────────────────
-
+// ── Node
 export interface ConnectionNodeConfig extends LocalisedConfig<BaseConfig> {
     childCount: number | undefined; // How many items a folder holds, where the connector can tell. Undefined for an item.
     extension: string | undefined;
@@ -67,8 +64,7 @@ export interface ConnectionNodeConfig extends LocalisedConfig<BaseConfig> {
     typeId: 'folder' | 'object';
 }
 
-// ── Types - Configuration - Object Column ────────────────────────────────────────────────────────────────────────────
-
+// ── Object Column
 // What a column of an object is, as any source can describe it: a file, a database or an API. How a file's text is read
 // into it, and what an audit finds in its values, are kept in the data view's 'ColumnReadingConfig' and
 // 'ColumnAuditConfig'.

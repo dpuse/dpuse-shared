@@ -11,18 +11,17 @@ import type { parserConfigSchema, toolConfigSchema } from './toolConfig.schema';
 
 export { toolConfigSchema } from './toolConfig.schema';
 
-// ── Types - Interface ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// ── Interface
 type ToolInterface = Component;
 
-// ── Types - Configuration ────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Configuration
 export type ToolConfig = InferOutput<typeof toolConfigSchema>;
 
 export type ParserConfig = InferOutput<typeof parserConfigSchema>;
 
-// ── Types - Parser ───────────────────────────────────────────────────────────────────────────────────────────────────
-
+// ── Parser
 export type { ParserInterface, ParseStreamOptions, ParseTextOptions, ParseTextResult } from './parser';
 export { parseDelimitedText, type ParseTextWithDelimiter } from './delimitedText';
 
