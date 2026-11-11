@@ -1,6 +1,6 @@
 // ── DPUse Framework
 import type { DataFormatId, ParsedRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
-import type { RecordRetrievalTypeId, RetrieveRecordsSummary } from '@/component/module/connector';
+import type { ParsedRecordsChunk, RetrieveRecordsSummary } from '@/component/module/connector';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -8,13 +8,10 @@ import type { RecordRetrievalTypeId, RetrieveRecordsSummary } from '@/component/
 // tool that reads both JSON and JSON Lines needs no second class. A parser that cannot read a format leaves it out of
 // its config, so these methods are never called with one it does not list.
 export interface ParserInterface {
-    // A promise returned by 'chunk' is awaited before the parser reads further, so a slow receiver, such as a store being
-    // written to, holds the read back rather than letting records pile up in memory.
-    parseStream: (
-        stream: ReadableStream<Uint8Array>,
-        options: ParseStreamOptions,
-        chunk: (typeId: RecordRetrievalTypeId, records: ParsedRecord[]) => void | Promise<void>
-    ) => Promise<RetrieveRecordsSummary>;
+    // Yields the records a chunk at a time, then returns the summary. The parser reads no further until the next chunk is
+    // asked for, so a slow receiver, such as a store being written to, holds the read back rather than letting records
+    // pile up in memory.
+    parseStream: (stream: ReadableStream<Uint8Array>, options: ParseStreamOptions) => AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary, undefined>;
     parseText: (text: string, options: ParseTextOptions) => Promise<ParseTextResult>;
 }
 
@@ -35,8 +32,17 @@ export interface ParseTextResult {
 // ── Parse Stream ─ Reads a whole item, for retrieving records and for an audit.
 export interface ParseStreamOptions {
     abortSignal: AbortSignal;
-    chunkSize: number | undefined; // Records per call of 'chunk'. The parser's own default when undefined.
+    chunkSize: number | undefined; // Records per chunk. The parser's own default when undefined.
     dataFormatId: DataFormatId;
     encodingId: string;
     valueDelimiterId: ValueDelimiterId;
+}
+
+// What a parser counted while reading a whole item, for an audit to report. A header record counts as a record.
+export interface ParseStreamSummary extends RetrieveRecordsSummary {
+    byteCount: number; // Bytes read.
+    commentLineCount: number; // Lines that are wholly a comment.
+    emptyLineCount: number; // Lines with nothing on them.
+    lineCount: number; // Lines read.
+    nonUniformRecordCount: number; // Records with a different number of values from the first record.
 }

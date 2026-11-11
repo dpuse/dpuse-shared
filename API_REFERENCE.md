@@ -165,9 +165,11 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
+- **`convertStoreRecordToParsedRecord`**`(storeRecord: StoreRecord)`
+- **`convertStoreValueToText`**`(storeValue: StoreValue)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
-- **`retrieveRecordsWithParser`**`(input: { chunk: (typeId: RecordRetrievalTypeId, records: ParsedRecord[]) => void | Promise<void>; // A returned promise holds the read back until it settles. options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`retrieveRecordsWithParser`**`(input: { options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 
 #### Schemas
 
@@ -206,6 +208,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`LoadObjectRecordsResult`**
 - **`OpenStoreOptions`**
 - **`OpenStoreResult`**
+- **`ParsedRecordsChunk`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`PreviewObjectResult`**
 - **`PreviewValueStateId`**
@@ -216,11 +219,12 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`QueryRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`QueryRecordsResult`**
 - **`QuerySort`**
+- **`RecordKey`**
 - **`RecordRange`**
 - **`RecordRetrievalTypeId`**
 - **`RecountPreviewColumnsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RemoveRecordsOptions`** (extends `EngineConnectorActionOptions`)
-- **`RetrieveChunksOptions`** (extends `EngineConnectorActionOptions`)
+- **`RetrieveRecordsChunk`**
 - **`RetrieveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsSummary`**
 - **`StoreRecord`**
@@ -293,6 +297,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ParserConfig`** (inferred from `parserConfigSchema`)
 - **`ParserInterface`**
 - **`ParseStreamOptions`**
+- **`ParseStreamSummary`** (extends `RetrieveRecordsSummary`)
 - **`ParseTextOptions`**
 - **`ParseTextResult`**
 - **`ParseTextWithDelimiter`**

@@ -5,12 +5,12 @@ import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
     ConnectorUtilities,
+    ParsedRecordsChunk,
     PreviewObjectResult,
-    RecordRetrievalTypeId,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@/component/module/connector';
-import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig, ParsedRecord } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig } from '@/component/dataView';
 import type { FilePreviewResult, ParserInterface, ParseTextResult, ToolConfig } from '@/component/module/tool';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
@@ -177,20 +177,17 @@ export async function buildPreviewObjectResult(input: {
 
 // Reads every record of an item, with the tool that read its preview. The caller supplies the stream and owns the abort
 // signal, because only the connector knows how to reach its items.
-export async function retrieveRecordsWithParser(input: {
-    chunk: (typeId: RecordRetrievalTypeId, records: ParsedRecord[]) => void | Promise<void>; // A returned promise holds the read back until it settles.
+export async function* retrieveRecordsWithParser(input: {
     options: RetrieveRecordsOptions;
     signal: AbortSignal;
     stream: ReadableStream<Uint8Array>;
     toolConfigs: ToolConfig[];
-}): Promise<RetrieveRecordsSummary> {
-    const { chunk, options, signal, stream, toolConfigs } = input;
+}): AsyncGenerator<ParsedRecordsChunk, RetrieveRecordsSummary, undefined> {
+    const { options, signal, stream, toolConfigs } = input;
+    const { encodingId, valueDelimiterId } = establishFileReading(options);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
-    return await parser.parseStream(
-        stream,
-        { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId },
-        chunk
-    );
+    const { recordCount } = yield* parser.parseStream(stream, { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId, valueDelimiterId });
+    return { recordCount }; // The parser's counts of lines and bytes are for an audit, so they are not passed on.
 }
 
 // Reads an item's records from its start, to count them and describe their columns, up to 'options.byteLimit' or until
@@ -207,20 +204,27 @@ export async function auditObjectContentWithParser(input: {
     toolConfigs: ToolConfig[];
 }): Promise<AuditObjectContentResult> {
     const { constructColumnAuditor, declaredColumnConfigs, onProgress, options, signal, stream, toolConfigs } = input;
+    const { encodingId, valueDelimiterId } = establishFileReading(options);
     const asAt = Date.now();
     const startedAt = performance.now();
     const columnAuditor = constructColumnAuditor(options.hasHeaders, declaredColumnConfigs);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
     const timedSource = timeSourceWaits(stream);
-    const auditSource = endAtRecordBoundary(timedSource.stream, options);
-    const summary = await parser.parseStream(
-        auditSource.stream,
-        { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId },
-        (_typeId, records) => {
-            columnAuditor.auditRecords(records);
-            onProgress(records.length, auditSource.byteCount());
+    const auditSource = endAtRecordBoundary(timedSource.stream, { byteLimit: options.byteLimit, encodingId, stopSignal: options.stopSignal });
+    const parsing = parser.parseStream(auditSource.stream, { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId, valueDelimiterId });
+    // Read with 'next' rather than 'for await', which drops the summary the parser returns at the end.
+    let parsed = await parsing.next();
+    while (parsed.done !== true) {
+        try {
+            columnAuditor.auditRecords(parsed.value.records);
+            onProgress(parsed.value.records.length, auditSource.byteCount());
+        } catch (error) {
+            await parsing.throw(error); // Lets the parser stop its read, then rethrows the error.
+            throw error;
         }
-    );
+        parsed = await parsing.next();
+    }
+    const summary = parsed.value;
     const { columnConfigs, hasHeaders } = columnAuditor.completeAudit();
     const contentAuditConfig: ContentAuditConfig = {
         asAt,
@@ -239,6 +243,15 @@ export async function auditObjectContentWithParser(input: {
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// Only a file has an encoding and a value delimiter, and a parser needs both to read one.
+function establishFileReading(options: { encodingId: string | undefined; path: string; valueDelimiterId: ValueDelimiterId | undefined }): {
+    encodingId: string;
+    valueDelimiterId: ValueDelimiterId;
+} {
+    if (options.encodingId == null || options.valueDelimiterId == null) throw new Error(`'${options.path}' has no encoding or value delimiter, which a parser needs to read it.`);
+    return { encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId };
+}
 
 // The first audit of an item, from the records its preview parsed. The bytes were fetched before it started, so it has no
 // wait to report, and the parser's text mode does not count lines.
@@ -273,7 +286,7 @@ function constructFirstAuditConfig(input: {
 // time, the rest kept for the next read, so the byte count follows what the parser has taken.
 function endAtRecordBoundary(
     stream: ReadableStream<Uint8Array>,
-    options: Pick<AuditObjectContentOptions, 'byteLimit' | 'encodingId' | 'stopSignal'>
+    options: Pick<AuditObjectContentOptions, 'byteLimit' | 'stopSignal'> & { encodingId: string }
 ): { byteCount: () => number; isComplete: () => boolean; stream: ReadableStream<Uint8Array> } {
     const reader = stream.getReader();
     const recordEndFinder = constructRecordEndFinder(options.encodingId);

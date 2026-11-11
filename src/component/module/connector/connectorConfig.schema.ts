@@ -32,7 +32,6 @@ export const connectorActionNameSchema = literalUnion([
     'previewObject',
     'queryRecords',
     'removeRecords',
-    'retrieveChunks',
     'retrieveRecords',
     'upsertRecords'
 ]);

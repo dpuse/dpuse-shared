@@ -2,8 +2,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
+import type { ParsedRecordsChunk } from '@/component/module/connector';
 import { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from '@/component/module/connector';
-import type { FilePreviewResult, ToolConfig } from '@/component/module/tool';
+import type { FilePreviewResult, ParseStreamSummary, ToolConfig } from '@/component/module/tool';
 import type { ParsedRecord, ReadingChoiceConfig } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -77,6 +78,20 @@ function buildStream(...pieces: string[]): { cancel: ReturnType<typeof vi.fn>; s
         { highWaterMark: 0 }
     );
     return { cancel, stream };
+}
+
+// A parser's read that yields the chunks given, then returns the summary. 'onStop' runs when the read ends, however it
+// ends.
+async function* buildParsing(summary: ParseStreamSummary, chunks: ParsedRecordsChunk[] = [], onStop?: () => void): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
+    try {
+        for (const chunk of chunks) {
+            await Promise.resolve(); // Hands each chunk over a turn later, as a parser reading a stream does.
+            yield chunk;
+        }
+        return summary;
+    } finally {
+        onStop?.();
+    }
 }
 
 const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaders: true };
@@ -291,24 +306,58 @@ describe('objectParsing', () => {
     });
 
     describe('retrieveRecordsWithParser', () => {
-        it('streams the item through the tool that read its preview, and returns its summary', async () => {
-            const summary = { byteCount: 1, commentLineCount: 0, emptyLineCount: 0, lineCount: 1, nonUniformRecordCount: 0, recordCount: 1 };
-            const parseStream = vi.fn().mockResolvedValue(summary);
+        const RETRIEVE_OPTIONS = { chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', parserId: 'dpuse-tool-rust-csv-core-parser', path: '/a.csv', valueDelimiterId: ';' };
+        const SUMMARY = { byteCount: 1, commentLineCount: 0, emptyLineCount: 0, lineCount: 1, nonUniformRecordCount: 0, recordCount: 1 };
+
+        it('streams the item through the tool that read its preview, then returns its summary', async () => {
+            const chunks: ParsedRecordsChunk[] = [
+                { records: RECORDS, typeId: 'parsingRecordArray' },
+                { records: [...RECORDS, ...RECORDS], typeId: 'parsingRecordArray' }
+            ];
+            const parseStream = vi.fn(() => buildParsing(SUMMARY, chunks));
             tools.byName['rust-csv-core-parser'] = { parseStream };
             const stream = new ReadableStream<Uint8Array>();
             const signal = new AbortController().signal;
-            const chunk = vi.fn();
 
-            const result = await retrieveRecordsWithParser({
-                chunk,
-                options: { chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', parserId: 'dpuse-tool-rust-csv-core-parser', path: '/a.csv', valueDelimiterId: ';' } as never,
-                signal,
-                stream,
+            const retrieval = retrieveRecordsWithParser({ options: RETRIEVE_OPTIONS as never, signal, stream, toolConfigs: TOOL_CONFIGS });
+            const receivedChunks: ParsedRecordsChunk[] = [];
+            let result = await retrieval.next();
+            while (result.done !== true) {
+                receivedChunks.push(result.value);
+                result = await retrieval.next();
+            }
+
+            expect(receivedChunks).toEqual(chunks);
+            expect(result.value).toEqual({ recordCount: 1 }); // The parser's other counts are for an audit.
+            expect(parseStream).toHaveBeenCalledWith(stream, { abortSignal: signal, chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', valueDelimiterId: ';' });
+        });
+
+        it('fails for an item with no encoding or value delimiter, because only a file has them', async () => {
+            const retrieval = retrieveRecordsWithParser({
+                options: { ...RETRIEVE_OPTIONS, encodingId: undefined } as never,
+                signal: new AbortController().signal,
+                stream: new ReadableStream(),
                 toolConfigs: TOOL_CONFIGS
             });
 
-            expect(result).toBe(summary);
-            expect(parseStream).toHaveBeenCalledWith(stream, { abortSignal: signal, chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', valueDelimiterId: ';' }, chunk);
+            await expect(retrieval.next()).rejects.toThrow("'/a.csv' has no encoding or value delimiter, which a parser needs to read it.");
+        });
+
+        it('stops the parser when the receiver stops reading', async () => {
+            const onStop = vi.fn();
+            const chunks: ParsedRecordsChunk[] = [
+                { records: RECORDS, typeId: 'parsingRecordArray' },
+                { records: RECORDS, typeId: 'parsingRecordArray' }
+            ];
+            tools.byName['rust-csv-core-parser'] = { parseStream: vi.fn(() => buildParsing(SUMMARY, chunks, onStop)) };
+
+            const retrieval = retrieveRecordsWithParser({ options: RETRIEVE_OPTIONS as never, signal: new AbortController().signal, stream: new ReadableStream(), toolConfigs: TOOL_CONFIGS });
+            for await (const chunk of retrieval) {
+                expect(chunk.records).toBe(RECORDS);
+                break; // Stops after the first chunk, as a store does when its write fails.
+            }
+
+            expect(onStop).toHaveBeenCalledOnce();
         });
     });
 
@@ -327,15 +376,15 @@ describe('objectParsing', () => {
         ) {
             const columnAuditor = { auditRecords: vi.fn(), completeAudit: vi.fn().mockReturnValue({ columnConfigs: [{ id: 'a' }], hasHeaders: auditedHasHeaders }) };
             const parsedBytes: number[] = [];
-            const parseStream = vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsedRecord[]) => void) => {
+            const parseStream = vi.fn(async function* (sourceStream: ReadableStream<Uint8Array>): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
                 const reader = sourceStream.getReader();
                 let result = await reader.read();
                 while (!result.done) {
                     parsedBytes.push(...result.value); // Reads the stream through, as a parser does.
                     result = await reader.read();
                 }
-                chunk('parsingRecordArray', RECORDS);
-                chunk('parsingRecordArray', [...RECORDS, ...RECORDS]);
+                yield { records: RECORDS, typeId: 'parsingRecordArray' };
+                yield { records: [...RECORDS, ...RECORDS], typeId: 'parsingRecordArray' };
                 return SUMMARY;
             });
             tools.byName['rust-csv-core-parser'] = { parseStream };
@@ -495,12 +544,12 @@ describe('objectParsing', () => {
             });
             const readByteCounts: number[] = [];
             tools.byName['rust-csv-core-parser'] = {
-                parseStream: vi.fn(async (sourceStream: ReadableStream<Uint8Array>, _options: unknown, chunk: (typeId: string, records: ParsedRecord[]) => void) => {
+                parseStream: vi.fn(async function* (sourceStream: ReadableStream<Uint8Array>): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
                     const reader = sourceStream.getReader();
                     let result = await reader.read();
                     while (!result.done) {
                         readByteCounts.push(result.value.length);
-                        chunk('parsingRecordArray', RECORDS); // Records come out of each read, as they do from a parser.
+                        yield { records: RECORDS, typeId: 'parsingRecordArray' }; // Records come out of each read, as they do from a parser.
                         result = await reader.read();
                     }
                     return SUMMARY;
@@ -534,11 +583,12 @@ describe('objectParsing', () => {
             });
             let parsedByteCount = 0;
             tools.byName['rust-csv-core-parser'] = {
-                parseStream: vi.fn(async (sourceStream: ReadableStream<Uint8Array>) => {
+                parseStream: vi.fn(async function* (sourceStream: ReadableStream<Uint8Array>): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
                     const reader = sourceStream.getReader();
                     let result = await reader.read();
                     while (!result.done) {
                         parsedByteCount += result.value.length; // Counted rather than kept, because spreading a megabyte overflows the stack.
+                        yield* []; // Yields no records, so only the bytes read are checked.
                         result = await reader.read();
                     }
                     return SUMMARY;
@@ -587,7 +637,7 @@ describe('objectParsing', () => {
 
         it('hands the auditor the columns the source states', async () => {
             tools.byName['rust-csv-core-parser'] = {
-                parseStream: vi.fn().mockResolvedValue({ byteCount: 0, commentLineCount: 0, emptyLineCount: 0, lineCount: 0, nonUniformRecordCount: 0, recordCount: 0 })
+                parseStream: vi.fn(() => buildParsing({ byteCount: 0, commentLineCount: 0, emptyLineCount: 0, lineCount: 0, nonUniformRecordCount: 0, recordCount: 0 }))
             };
             const constructColumnAuditor = vi.fn().mockReturnValue({ auditRecords: vi.fn(), completeAudit: () => ({ columnConfigs: [], hasHeaders: true }) });
             const declaredColumnConfigs = [{ dataSubtypeId: 'date' as const, dataTypeId: 'temporal' as const, label: undefined, name: 'hireDate' }];

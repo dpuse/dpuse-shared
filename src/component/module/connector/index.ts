@@ -53,12 +53,7 @@ export interface ConnectorInterface {
     previewObject?(options: PreviewObjectOptions): Promise<PreviewObjectResult>; // Preview an object for a specified connection.
     queryRecords?(options: QueryRecordsOptions): Promise<QueryRecordsResult>; // Query one page of an object in a store connector.
     removeRecords?(options: RemoveRecordsOptions): Promise<void>; // Remove one or more records from an object for a specified connection.
-    retrieveChunks?(options: RetrieveChunksOptions, chunk: (data: Uint8Array) => void, complete: () => void): Promise<void>; // Retrieve all chunks from an object for a specified connection.
-    retrieveRecords?(
-        options: RetrieveRecordsOptions,
-        chunk: (typeId: RecordRetrievalTypeId, records: Record<string, unknown>[] | ParsedRecord[]) => void | Promise<void>, // A returned promise holds the read back until it settles.
-        complete: (result: RetrieveRecordsSummary) => void
-    ): Promise<void>; // Retrieve all records from an object for a specified connection.
+    retrieveRecords?(options: RetrieveRecordsOptions): AsyncGenerator<RetrieveRecordsChunk, RetrieveRecordsSummary, undefined>; // Retrieve all records from an object, a chunk at a time, then return the summary.
     upsertRecords?(options: UpsertRecordsOptions): Promise<void>; // Upsert one or more records into an object for a specified connection.
 }
 
@@ -102,13 +97,13 @@ export interface AuditObjectContentOptions extends EngineConnectorActionOptions 
     byteLimit: number | undefined; // Stops at the first record to end after this many bytes. Reads the whole item when undefined.
     chunkSize: number | undefined;
     dataFormatId: DataFormatId; // From the preview.
-    encodingId: string;
+    encodingId: string | undefined; // Only a file has one.
     hasHeaders: boolean | undefined; // From the preview. A header record names the columns and is not audited as data. Undefined when it was detected as absent, so the audit checks again with more records.
     parserId: string | undefined; // From the preview. The tool that read it, so the audit reads the item the same way.
     path: string;
     stopSignal: AbortSignal | undefined; // Stops at the end of the next record and keeps the result, unlike an abort. The engine adds it, because a signal cannot cross into the worker.
     supportsTransferableStreams: boolean;
-    valueDelimiterId: ValueDelimiterId;
+    valueDelimiterId: ValueDelimiterId | undefined; // Only a file has one.
 }
 export interface AuditObjectContentResult {
     contentAuditConfig: ContentAuditConfig;
@@ -119,9 +114,12 @@ export interface AuditObjectContentResult {
 export type CloseStoreOptions = EngineConnectorActionOptions;
 
 // ── Create Object
+// Columns are named by their position, because an audited column has a label but no id.
 export interface CreateObjectOptions extends EngineConnectorActionOptions {
+    columnConfigs: ObjectColumnConfig[]; // The object's columns, in order.
+    indexedColumnIndexes: number[]; // Columns to index, so finding and sorting records by them is quick.
+    keyColumnIndex: number | undefined; // The column whose value identifies each record. When undefined, records are numbered as they are added.
     path: string;
-    structure: string;
 }
 
 // ── Describe Connection
@@ -155,17 +153,19 @@ export interface GetInfoResult {
 
 // ── Get Readable Stream
 export interface GetReadableStreamOptions extends EngineConnectorActionOptions {
-    id: string;
     path: string;
 }
 
 // ── Get Record
 export interface GetRecordOptions extends EngineConnectorActionOptions {
-    id: string;
+    id: RecordKey;
     path: string;
 }
+
+// Identifies a record within its object. Records numbered as they were added have a number.
+export type RecordKey = number | string;
 export interface GetRecordResult {
-    record?: string[] | Record<string, unknown>;
+    record: StoreRecord;
 }
 
 // ── List Nodes
@@ -290,47 +290,44 @@ export type PreviewValueStateId = 'blank' | 'empty' | 'invalid' | 'null' | 'vali
 
 // ── Remove Records
 export interface RemoveRecordsOptions extends EngineConnectorActionOptions {
-    keys: string[];
+    keys: RecordKey[]; // Every record is removed when empty.
     path: string;
-}
-
-// ── Retrieve Chunks
-export interface RetrieveChunksOptions extends EngineConnectorActionOptions {
-    chunkSize: number | undefined;
-    encodingId: string;
-    path: string;
-    valueDelimiterId: ValueDelimiterId;
 }
 
 // ── Retrieve Records
 export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     chunkSize: number | undefined;
     dataFormatId: DataFormatId; // From the preview.
-    encodingId: string;
+    encodingId: string | undefined; // Only a file has one.
     parserId: string | undefined; // From the preview. The tool that read it, so the records are read the same way.
     path: string;
     range?: RecordRange | undefined; // Which records to return, by position. Every record without it. Only store connectors read it.
-    valueDelimiterId: ValueDelimiterId;
+    valueDelimiterId: ValueDelimiterId | undefined; // Only a file has one.
 }
 export interface RecordRange {
     limit: number; // How many records to return at most.
     offset: number; // The position of the first, counting from 0.
 }
+// What every connector can say about a retrieval. A parser's counts of lines and bytes are in 'ParseStreamSummary'.
 export interface RetrieveRecordsSummary {
-    byteCount: number; // Number of processed bytes.
-    commentLineCount: number; // Count the number of lines being fully commented.
-    emptyLineCount: number; // Count the number of processed empty lines; work only with the skip_empty_lines option or an error will be thrown if an empty line is found.
-    lineCount: number; // Number of lines encountered in the source dataset, start at 1 for the first line.
-    nonUniformRecordCount: number; // Number of non uniform records when relax_column_count is true.
-    recordCount: number; // Count the number of processed records.
+    recordCount: number; // Records retrieved.
     totalCount?: number | undefined; // How many records the object holds in all. Given when a range was asked for, so a table can size itself.
 }
 
-export type RecordRetrievalTypeId = 'jsonRecordArray' | 'parsingRecordArray';
+export type RecordRetrievalTypeId = 'parsingRecordArray' | 'storeRecordArray';
+
+// One chunk of retrieved records. Nothing more is read until the next chunk is asked for, so a slow receiver, such as a
+// store being written to, holds the read back. A connector that reads text hands over its records still as text, to be
+// typed by the columns the user chooses. A connector that holds typed values hands them over typed.
+export type RetrieveRecordsChunk = ParsedRecordsChunk | { records: StoreRecord[]; typeId: 'storeRecordArray' };
+export interface ParsedRecordsChunk {
+    records: ParsedRecord[];
+    typeId: 'parsingRecordArray';
+}
 
 // ── Upsert Records
 export interface UpsertRecordsOptions extends EngineConnectorActionOptions {
-    records: Record<string, unknown>[];
+    records: StoreRecord[];
     path: string;
 }
 
@@ -369,7 +366,6 @@ const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     previewObject: 'Preview Object',
     queryRecords: 'Query Records',
     removeRecords: 'Remove Records',
-    retrieveChunks: 'Retrieve Chunks',
     retrieveRecords: 'Retrieve Records',
     upsertRecords: 'Upsert Records'
 };
@@ -391,7 +387,6 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'listNodes',
     'previewObject',
     'queryRecords',
-    'retrieveChunks',
     'retrieveRecords'
 ]);
 
@@ -399,6 +394,9 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 
 // ── Object Parsing
 export { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from './objectParsing';
+
+// ── Store Values
+export { convertStoreRecordToParsedRecord, convertStoreValueToText } from './storeValues';
 
 // ── Table Schema
 export { readTableSchema } from './tableSchema';
