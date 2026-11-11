@@ -21,14 +21,14 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3578 |
+| Total LOC | 3625 |
 | Avg Cyclomatic | 3.0 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 135, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 141, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
-| Dead Files | 2.1% |
+| Dead Files | 2.0% |
 | Dead Exports | 0.4% |
-| Maintainability (avg) | 92.1 |
+| Maintainability (avg) | 92.5 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 2 |
@@ -43,9 +43,9 @@
 
 **!** marks the dimension that breached.
 
-**47** files, **135** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**49** files, **141** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
-### File Health Scores (18 files)
+### File Health Scores (21 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
@@ -55,7 +55,8 @@
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
 | `src/errors/index.ts` | 91.0 | 4 | 0 | 0% | 0.30 | 13.8 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
-| `src/component/module/connector/index.ts` | 88.6 | 5 | 11 | 0% | 0.05 | 8.0 |
+| `src/component/module/connector/index.ts` | 87.9 | 5 | 13 | 0% | 0.05 | 8.0 |
+| `src/component/module/connector/storePath.ts` | 95.8 | 1 | 0 | 0% | 0.39 | 7.0 |
 | `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/connector/tableSchema.ts` | 90.2 | 1 | 2 | 0% | 0.18 | 6.0 |
 | `src/component/module/tool/index.ts` | 86.2 | 6 | 6 | 0% | 0.20 | 4.0 |
@@ -64,32 +65,35 @@
 | `src/component/dataView/index.ts` | 95.3 | 10 | 2 | 0% | 0.01 | 3.0 |
 | `src/encoding/index.ts` | 95.4 | 5 | 1 | 0% | 0.06 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 11 | 0 | 0% | 0.12 | 3.0 |
+| `src/component/module/engine/index.ts` | 91.3 | 2 | 6 | 0% | 0.03 | 2.0 |
 | `src/component/module/presenter/index.ts` | 91.9 | 1 | 5 | 0% | 0.03 | 2.0 |
+| `src/component/module/connector/webLock.ts` | 97.0 | 1 | 0 | 0% | 0.22 | 2.0 |
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.1/100
+**Average maintainability index:** 92.5/100
 
-### Hotspots (14 files, since 6 months)
+### Hotspots (15 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 35.2 | 22 | 839 | 0.23 | 1 | stable |
-| `src/component/module/tool/index.ts` | 15.6 | 15 | 118 | 0.20 | 6 | stable |
-| `src/component/module/connector/index.ts` | 13.7 | 50 | 740 | 0.05 | 5 | accelerating |
-| `src/utilities/index.ts` | 12.1 | 11 | 474 | 0.25 | 1 | stable |
-| `src/locale/index.ts` | 12.0 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/component/module/tool/delimitedText.ts` | 11.9 | 5 | 133 | 0.35 | 1 | stable |
-| `src/errors/index.ts` | 11.9 | 9 | 230 | 0.30 | 4 | stable |
-| `scripts/documentEncodings.ts` | 6.1 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 5.4 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 4.0 | 10 | 119 | 0.09 | 14 | stable |
-| `src/encoding/index.ts` | 3.0 | 9 | 778 | 0.06 | 5 | accelerating |
-| `src/component/dataView/index.ts` | 2.8 | 44 | 1524 | 0.01 | 10 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 36.4 | 23 | 892 | 0.23 | 1 | stable |
+| `src/component/module/tool/index.ts` | 16.8 | 16 | 120 | 0.20 | 6 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 51 | 804 | 0.05 | 5 | accelerating |
+| `src/utilities/index.ts` | 12.0 | 11 | 474 | 0.25 | 1 | stable |
+| `src/locale/index.ts` | 11.8 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/component/module/tool/delimitedText.ts` | 11.7 | 5 | 133 | 0.35 | 1 | stable |
+| `src/errors/index.ts` | 11.7 | 9 | 230 | 0.30 | 4 | stable |
+| `scripts/documentEncodings.ts` | 6.0 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 5.3 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 3.9 | 10 | 119 | 0.09 | 14 | stable |
+| `src/encoding/index.ts` | 2.9 | 9 | 778 | 0.06 | 5 | accelerating |
+| `src/component/dataView/index.ts` | 2.7 | 44 | 1524 | 0.01 | 10 | accelerating |
 | `vite.config.ts` | 1.7 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/engine/index.ts` | 1.3 | 10 | 98 | 0.03 | 2 | stable |
 | `src/component/module/presenter/index.ts` | 1.3 | 10 | 98 | 0.03 | 1 | cooling |
 
-*3 files excluded (< 3 commits)*
+*4 files excluded (< 3 commits)*
 
 ### Hidden Change Coupling (10 pairs, since 12 months)
 
@@ -98,15 +102,21 @@
 | `src/component/module/cookbook/index.ts` | `src/component/module/index.ts` | 71% | 5 | 6 | 8 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 60% | 6 | 8 | 12 | **strong** |
 | `src/component/module/cookbook/cookbookConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 6 | 12 | **strong** |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 53% | 9 | 22 | 12 | **strong** |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 51% | 9 | 23 | 12 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 40% | 6 | 22 | 8 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 40% | 5 | 8 | 17 |  |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 39% | 6 | 23 | 8 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 38% | 5 | 8 | 18 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
-| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 33% | 5 | 13 | 17 |  |
+| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 32% | 5 | 13 | 18 |  |
 
 *Files that change together in the commit history with no import between them.*
+
+### Refactoring Targets (1)
+
+| Efficiency | Category | Effort / Confidence | File | Recommendation |
+|:-----------|:---------|:--------------------|:-----|:---------------|
+| 10.9 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 5 dependents amplify every change |
 
 ---
 
@@ -123,6 +133,10 @@
 - **Commits**: commits in the analysis window
 - **Churn**: total lines added + deleted
 - **Trend**: accelerating / stable / cooling
+- **Efficiency**: priority / effort (higher = better quick-win value, default sort)
+- **Category**: recommendation type (churn+complexity, high impact, dead code, complexity, coupling, circular dep)
+- **Effort**: estimated effort (low / medium / high) based on file size, function count, and fan-in
+- **Confidence**: recommendation reliability (high = deterministic analysis, medium = heuristic, low = git-dependent)
 
 [Full metric reference](https://fallow.tools/docs/explanations/health/)
 

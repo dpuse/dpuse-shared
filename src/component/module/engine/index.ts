@@ -42,7 +42,9 @@ export interface EngineAuthActionOptions {
 export interface EngineConnectorActionOptions {
     accountId?: string;
     appCheckToken?: string;
+    requestId?: string; // Names the request, so the app can stop it with an 'abort' request naming the same id.
     sessionAccessToken?: string;
+    signal?: AbortSignal | undefined; // Stops the action when the app aborts its request. The engine adds it, because a signal cannot cross into the worker.
 }
 
 export interface EngineContextActionOptions {
@@ -59,4 +61,11 @@ export interface EngineCallbackData {
 // ── Configuration
 export interface EngineConfig extends ModuleConfig {
     typeId: 'engine';
+}
+
+// ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// The signal that stops an action. A request the app did not name has none, so its action gets one that never fires.
+export function resolveRequestSignal(options: Pick<EngineConnectorActionOptions, 'signal'>): AbortSignal {
+    return options.signal ?? new AbortController().signal;
 }

@@ -160,6 +160,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
+- **`acquireWebLock`**`(name: string)`
 - **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: ConnectorUtilities['constructColumnAuditor']; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; onProgress: (recordCount: number, byteCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 - **`buildPreviewObjectResult`**`(input: { asAt: number; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; declaredReadingConfig?: DeclaredReadingConfig | undefined; filePreview: FilePreviewResult; inferDataTypes: ConnectorUtilities['inferDataTypes']; readingChoiceConfig: ReadingChoiceConfig | undefined; // The previewer has already decoded the text with the chosen encoding. startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; })`
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
@@ -169,6 +170,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`convertStoreValueToText`**`(storeValue: StoreValue)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
+- **`resolveStorePath`**`(path: string)`
 - **`retrieveRecordsWithParser`**`(input: { options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 
 #### Schemas
@@ -220,7 +222,6 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`QueryRecordsResult`**
 - **`QuerySort`**
 - **`RecordKey`**
-- **`RecordRange`**
 - **`RecordRetrievalTypeId`**
 - **`RecountPreviewColumnsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RemoveRecordsOptions`** (extends `EngineConnectorActionOptions`)
@@ -244,6 +245,10 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`CookbookInterface`** (extends `Component`)
 
 ### Component › Module › Engine
+
+#### Functions
+
+- **`resolveRequestSignal`**`(options: Pick<EngineConnectorActionOptions, 'signal'>)`
 
 #### Types
 

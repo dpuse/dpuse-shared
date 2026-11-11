@@ -37,7 +37,6 @@ export { connectorConfigSchema } from './connectorConfig.schema';
 
 // ── Interface
 export interface ConnectorInterface {
-    abortOperation?(): void; // Abort the active long running action.
     auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number) => void): Promise<AuditObjectContentResult>;
     closeStore?(options: CloseStoreOptions): Promise<void>; // Close a store connector's database and release its hold on it, so another tab can open it.
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
@@ -301,17 +300,11 @@ export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     encodingId: string | undefined; // Only a file has one.
     parserId: string | undefined; // From the preview. The tool that read it, so the records are read the same way.
     path: string;
-    range?: RecordRange | undefined; // Which records to return, by position. Every record without it. Only store connectors read it.
     valueDelimiterId: ValueDelimiterId | undefined; // Only a file has one.
-}
-export interface RecordRange {
-    limit: number; // How many records to return at most.
-    offset: number; // The position of the first, counting from 0.
 }
 // What every connector can say about a retrieval. A parser's counts of lines and bytes are in 'ParseStreamSummary'.
 export interface RetrieveRecordsSummary {
     recordCount: number; // Records retrieved.
-    totalCount?: number | undefined; // How many records the object holds in all. Given when a range was asked for, so a table can size itself.
 }
 
 export type RecordRetrievalTypeId = 'parsingRecordArray' | 'storeRecordArray';
@@ -350,7 +343,6 @@ const CONNECTOR_ITEM_TYPE_CONFIGS: { id: string; label: LocaleLabel }[] = [
 ];
 
 const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
-    abortOperation: 'Abort Operation',
     auditObjectContent: 'Audit Object Content',
     closeStore: 'Close Store',
     createObject: 'Create Object',
@@ -395,8 +387,14 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 // ── Object Parsing
 export { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from './objectParsing';
 
+// ── Store Paths
+export { resolveStorePath } from './storePath';
+
 // ── Store Values
 export { convertStoreRecordToParsedRecord, convertStoreValueToText } from './storeValues';
+
+// ── Web Locks
+export { acquireWebLock } from './webLock';
 
 // ── Table Schema
 export { readTableSchema } from './tableSchema';
@@ -411,7 +409,7 @@ export function determineConnectorUsageId(actionNames: ConnectorActionName[]): C
     }
     if (isSourceOperation && isDestinationOperation) return 'bidirectional';
     if (isSourceOperation) return 'source';
-    return isDestinationOperation ? 'destination' : 'unknown'; // Neither reads nor writes data, e.g. only 'abortOperation' or 'describeConnection'.
+    return isDestinationOperation ? 'destination' : 'unknown'; // Neither reads nor writes data, e.g. only 'describeConnection'.
 }
 
 export const constructConnectorCategoryConfig = (id: string, localeId = DEFAULT_LOCALE_ID): LocalisedConfig<ConnectorCategoryConfig> => {

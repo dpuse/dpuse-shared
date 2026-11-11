@@ -16,7 +16,6 @@ import { moduleConfigCoreFields } from '@/component/module/moduleConfig.schema';
 // ── Action Name
 // Names of the operations a connector may implement.
 export const connectorActionNameSchema = literalUnion([
-    'abortOperation',
     'auditObjectContent',
     'closeStore',
     'createObject',
