@@ -72,20 +72,20 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 23.0 | 20 | 649 | 0.16 | 1 | stable |
-| `src/component/module/tool/index.ts` | 14.7 | 14 | 116 | 0.20 | 6 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 49 | 738 | 0.05 | 4 | accelerating |
-| `src/utilities/index.ts` | 12.6 | 11 | 474 | 0.25 | 1 | stable |
-| `src/locale/index.ts` | 12.5 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/component/module/tool/delimitedText.ts` | 12.4 | 5 | 133 | 0.35 | 1 | stable |
-| `src/errors/index.ts` | 12.3 | 9 | 230 | 0.30 | 4 | stable |
-| `scripts/documentEncodings.ts` | 6.3 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 5.6 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 4.2 | 10 | 119 | 0.09 | 14 | stable |
-| `src/encoding/index.ts` | 3.1 | 9 | 778 | 0.06 | 5 | accelerating |
-| `src/component/dataView/index.ts` | 2.7 | 42 | 1476 | 0.01 | 9 | accelerating |
-| `vite.config.ts` | 1.8 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 1.4 | 10 | 98 | 0.03 | 1 | cooling |
+| `src/component/module/connector/objectParsing.ts` | 23.6 | 21 | 661 | 0.16 | 1 | stable |
+| `src/component/module/tool/index.ts` | 14.3 | 14 | 116 | 0.20 | 6 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 50 | 740 | 0.05 | 4 | accelerating |
+| `src/utilities/index.ts` | 12.3 | 11 | 474 | 0.25 | 1 | stable |
+| `src/component/module/tool/delimitedText.ts` | 12.1 | 5 | 133 | 0.35 | 1 | stable |
+| `src/locale/index.ts` | 12.1 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/errors/index.ts` | 12.0 | 9 | 230 | 0.30 | 4 | stable |
+| `scripts/documentEncodings.ts` | 6.1 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 5.4 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 4.1 | 10 | 119 | 0.09 | 14 | stable |
+| `src/encoding/index.ts` | 3.0 | 9 | 778 | 0.06 | 5 | accelerating |
+| `src/component/dataView/index.ts` | 2.7 | 43 | 1499 | 0.01 | 9 | accelerating |
+| `vite.config.ts` | 1.7 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/presenter/index.ts` | 1.3 | 10 | 98 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 
