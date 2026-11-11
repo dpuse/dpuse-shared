@@ -98,15 +98,19 @@ export async function buildPreviewObjectResult(input: {
             sampleConfig: { issues: [], parsedRecords: [], size, text },
             readingConfig: {
                 dataFormatId: dataFormatId ?? 'unknown',
+                dataFormatSourceId: filePreview.dataFormatSourceId,
                 encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
                 encodingId: filePreview.encodingId,
+                encodingSourceId: filePreview.encodingSourceId,
                 fileType: filePreview.fileTypeConfig,
                 hasHeaders: undefined,
                 isDeclared,
                 parserId: undefined,
                 recordDelimiterId: undefined,
+                replacementCharacterCount: filePreview.replacementCharacterCount,
                 valueDelimiterId: undefined
-            }
+            },
+            encodingCandidates: filePreview.encodingCandidates
         };
     }
 
@@ -143,15 +147,19 @@ export async function buildPreviewObjectResult(input: {
         },
         readingConfig: {
             dataFormatId,
+            dataFormatSourceId: filePreview.dataFormatSourceId,
             encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
             encodingId: filePreview.encodingId,
+            encodingSourceId: filePreview.encodingSourceId,
             fileType: filePreview.fileTypeConfig,
             hasHeaders: inferenceSummary.hasHeaders,
             isDeclared,
             parserId: usedParserId,
             recordDelimiterId: parseTextResult.recordDelimiterId,
+            replacementCharacterCount: filePreview.replacementCharacterCount,
             valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId
-        }
+        },
+        encodingCandidates: filePreview.encodingCandidates
     };
 }
 

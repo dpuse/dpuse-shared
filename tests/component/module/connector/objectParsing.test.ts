@@ -48,11 +48,14 @@ function buildFilePreview(overrides: Partial<FilePreviewResult> = {}): FilePrevi
     return {
         bytes: new Uint8Array(10),
         dataFormatId: 'dtv',
+        dataFormatSourceId: 'default',
         encodingCandidates: undefined,
         encodingConfidenceLevel: 100,
         encodingId: 'utf-8',
+        encodingSourceId: 'utf8Validation',
         fileTypeConfig: undefined,
         isComplete: true,
+        replacementCharacterCount: 0,
         text: 'a,b\n1,2\n',
         ...overrides
     };
@@ -102,6 +105,31 @@ describe('objectParsing', () => {
                 sampleConfig: { parsedRecords: RECORDS, size: 10, text: 'a,b\n1,2\n' },
                 readingConfig: { dataFormatId: 'dtv', hasHeaders: true, parserId: 'dpuse-tool-rust-csv-core-parser', recordDelimiterId: '\n', valueDelimiterId: ';' }
             });
+        });
+
+        it.each([
+            ['a parsed item', 'dtv', 'a,b\n1,2\n'],
+            ['an item no tool reads yet', 'xml', '<a/>']
+        ] as const)('keeps in the reading of %s how its format and encoding were found, and the encoding candidates beside it', async (_description, dataFormatId, text) => {
+            tools.byName['rust-csv-core-parser'] = { parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
+            const encodingCandidates = [
+                { confidenceLevel: 0.46, id: 'windows-1251' as const },
+                { confidenceLevel: 0.43, id: 'maccyrillic' as const }
+            ];
+            const filePreview = buildFilePreview({
+                dataFormatId,
+                dataFormatSourceId: 'jsonSyntax',
+                encodingCandidates,
+                encodingSourceId: 'detection',
+                replacementCharacterCount: 3,
+                text
+            });
+
+            const result = await buildPreviewObjectResult(buildPreviewInput(filePreview));
+
+            expect(result.readingConfig).toMatchObject({ dataFormatSourceId: 'jsonSyntax', encodingSourceId: 'detection', replacementCharacterCount: 3 });
+            expect(result.encodingCandidates).toEqual(encodingCandidates);
+            expect(result.readingConfig).not.toHaveProperty('encodingCandidates');
         });
 
         it('parses with the tool the user chose, even when it is not the first', async () => {

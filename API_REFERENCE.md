@@ -116,6 +116,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ColumnReadingConfig`** (extends `ObjectColumnConfig`)
 - **`ContentAuditConfig`**
 - **`DataFormatId`**
+- **`DataFormatSourceId`**
 - **`DataSubtypeId`**
 - **`DataTypeId`**
 - **`DataViewConfig`** (extends `ComponentInstanceConfig`)
@@ -124,6 +125,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`DecimalSeparatorId`**
 - **`DeclaredColumnConfig`**
 - **`DeclaredReadingConfig`**
+- **`EncodingSourceId`**
 - **`FormatIssueId`**
 - **`NumericReadingConfig`**
 - **`NumericSubtypeId`**

@@ -22,13 +22,16 @@ export interface DataViewConfig extends ComponentInstanceConfig {
 // ── Reading ─ How an item is read. Detected when the item is first opened, then reused by every audit and load.
 export interface ReadingConfig {
     dataFormatId: DataFormatId;
+    dataFormatSourceId?: DataFormatSourceId | undefined; // Undefined when the item has no format, such as an empty file or a PDF.
     encodingConfidenceLevel: number | undefined; // From 0 to 1. Undefined when the encoding was assumed, not detected.
     encodingId: string | undefined;
+    encodingSourceId?: EncodingSourceId | undefined; // Undefined when no text was decoded, such as from an empty or binary file.
     fileType: FileTypeResult | undefined;
     hasHeaders: boolean | undefined;
     isDeclared?: boolean | undefined; // The item's source says how it is read, such as a resource file beside it, so the user has nothing to choose.
     parserId: string | undefined; // The config id of the parser tool. Undefined when no tool parsed the item, such as an empty file or a format no tool reads yet.
     recordDelimiterId: RecordDelimiterId | undefined;
+    replacementCharacterCount?: number | undefined; // How many '\uFFFD' characters decoding put in place of bytes the encoding cannot read. Undefined when no text was decoded.
     valueDelimiterId: ValueDelimiterId | undefined;
 
     // TODO: following are under review.
@@ -47,6 +50,26 @@ export interface ReadingConfig {
 }
 
 export type DataFormatId = (typeof DATA_FORMAT_CONFIGS)[number]['id'];
+
+// How the data format was found.
+export type DataFormatSourceId =
+    | 'choice' // The user chose it, or the item's source declared it.
+    | 'fileContent' // The file was recognised from its content, such as Parquet, Excel or XML.
+    | 'jsonSyntax' // The text is JSON or JSON Lines.
+    | 'mimeType' // Markdown, recognised from the MIME type.
+    | 'extension' // Markdown, recognised from the file extension.
+    | 'default'; // None of the above, so the text is treated as delimited text.
+
+// How the encoding was found.
+export type EncodingSourceId =
+    | 'choice' // The user chose it, or the item's source declared it.
+    | 'byteOrderMark' // The file starts with a byte order mark.
+    | 'xmlDeclaration' // The XML declaration names it.
+    | 'xmlDefault' // XML with no byte order mark or declaration, which XML defines as UTF-8.
+    | 'utf8Validation' // The text is valid UTF-8 and contains characters other than ASCII.
+    | 'detection' // jschardet's best guess that the browser can decode.
+    | 'asciiAssumption' // The text is all ASCII, so UTF-8 is assumed.
+    | 'fallback'; // The chosen or detected encoding cannot be decoded, so UTF-8 was used instead.
 export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 export type ValueDelimiterId = (typeof VALUE_DELIMITER_CONFIGS)[number]['id'] | ''; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 

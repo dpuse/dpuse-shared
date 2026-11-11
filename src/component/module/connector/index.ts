@@ -2,6 +2,7 @@
 import type { InferOutput } from 'valibot';
 
 // ── DPUse Framework
+import type { EncodingDetectionConfig } from '@/encoding';
 import type { EngineConnectorActionOptions } from '@/component/module/engine';
 import type { LocalisedConfig } from '@/locale';
 import type { ToolConfig } from '@/component/module/tool';
@@ -236,6 +237,7 @@ export interface PreviewObjectResult {
     contentAuditConfig: ContentAuditConfig;
     sampleConfig: SampleConfig;
     readingConfig: ReadingConfig;
+    encodingCandidates?: EncodingDetectionConfig[] | undefined; // For choosing another encoding. Not part of the reading, so not saved with the data view.
 }
 
 // ── Query Records
