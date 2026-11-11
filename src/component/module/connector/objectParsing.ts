@@ -11,9 +11,9 @@ import type {
     RetrieveRecordsSummary
 } from '@/component/module/connector';
 import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig, ParsedRecord } from '@/component/dataView';
-import type { FilePreviewResult, ParserInterface, ToolConfig } from '@/component/module/tool';
+import type { FilePreviewResult, ParserInterface, ParseTextResult, ToolConfig } from '@/component/module/tool';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
-import type { RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -33,28 +33,34 @@ const MAX_AUDIT_READ_BYTE_COUNT = 1_048_576;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Builds the first audit and preview of an item from what the file previewer found, parsing its text with the tool the user chose or the
-// format's default, and delimited text with the value delimiter the user chose or the one detected. An item that is empty, or of a format no tool reads yet, comes back as itself with no
-// records rather than as an error, and its text is kept so the picker can still show it. A source that states its columns
-// or how the item is read, such as a resource file beside it, passes them on, so they are taken rather than inferred or
-// detected, and the reading is marked as declared. The connector also hands the declared format and encoding to the file
-// previewer, which reads the item before this is called.
+// Builds the first audit and preview of an item from what the file previewer found. The reading reports what was
+// detected, and never a choice: the detected or declared format, the format's default tool, and the delimiters found.
+// The sample and the audit follow the user's choices, so the user sees the result of what they chose. When nothing
+// that affects parsing was chosen, one parse serves both. An item that is empty, or of a format no tool reads yet, comes
+// back with no records rather than as an error, and its text is kept so the picker can still show it. A source that
+// states its columns or how the item is read, such as a resource file beside it, passes them on. They are taken rather
+// than inferred or detected, and the reading is marked as declared.
 export async function buildPreviewObjectResult(input: {
     asAt: number;
     declaredColumnConfigs?: DeclaredColumnConfig[] | undefined;
     declaredReadingConfig?: DeclaredReadingConfig | undefined;
     filePreview: FilePreviewResult;
     inferDataTypes: ConnectorUtilities['inferDataTypes'];
-    parserId: string | undefined;
+    readingChoiceConfig: ReadingChoiceConfig | undefined; // The previewer has already decoded the text with the chosen encoding.
     startedAt: number; // From 'performance.now()', before the item was fetched.
     toolConfigs: ToolConfig[];
-    valueDelimiterId: ValueDelimiterId | undefined;
 }): Promise<PreviewObjectResult> {
-    const { asAt, declaredColumnConfigs, declaredReadingConfig, filePreview, inferDataTypes, parserId, startedAt, toolConfigs } = input;
-    const { dataFormatId, text } = filePreview;
-    const valueDelimiterId = declaredReadingConfig?.valueDelimiterId ?? input.valueDelimiterId;
+    const { asAt, declaredColumnConfigs, declaredReadingConfig, filePreview, inferDataTypes, readingChoiceConfig, startedAt, toolConfigs } = input;
+    const { isComplete, text } = filePreview;
     const isDeclared = declaredReadingConfig != null;
     const size = filePreview.bytes.length;
+    const sampleDecoding = { decodedEncodingId: filePreview.decodedEncodingId, replacementCharacterCount: filePreview.replacementCharacterCount };
+    const encodingCandidates = filePreview.encodingCandidates;
+    const detectedEncoding = {
+        encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
+        encodingId: declaredReadingConfig?.encodingId ?? filePreview.encodingId,
+        encodingSourceId: declaredReadingConfig?.encodingId == null ? filePreview.encodingSourceId : undefined // A declared encoding was not detected.
+    };
 
     // An empty file is a table with no rows. An issue says so, because it is not an error but the user should know why
     // there is nothing to show.
@@ -62,6 +68,7 @@ export async function buildPreviewObjectResult(input: {
         return {
             contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: true, recordCount: 0, size, startedAt }),
             sampleConfig: {
+                ...sampleDecoding,
                 issues: [
                     {
                         endLineNumber: undefined,
@@ -74,92 +81,97 @@ export async function buildPreviewObjectResult(input: {
                         value: undefined
                     }
                 ],
+                dataFormatId: 'dtv',
+                hasHeaders: false,
                 parsedRecords: [],
+                parserId: undefined,
+                recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
                 size: 0,
-                text: undefined
+                text: undefined,
+                valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
             },
             readingConfig: {
                 dataFormatId: 'dtv',
-                encodingConfidenceLevel: undefined,
-                encodingId: undefined,
+                dataFormatSourceId: undefined,
+                ...detectedEncoding,
                 fileType: undefined,
                 hasHeaders: false,
                 isDeclared,
                 parserId: undefined,
                 recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
                 valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
-            }
-        };
-    }
-
-    if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) {
-        return {
-            contentAuditConfig: constructFirstAuditConfig({ asAt, columns: [], isComplete: filePreview.isComplete, recordCount: 0, size, startedAt }),
-            sampleConfig: { issues: [], parsedRecords: [], size, text },
-            readingConfig: {
-                dataFormatId: dataFormatId ?? 'unknown',
-                dataFormatSourceId: filePreview.dataFormatSourceId,
-                encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
-                encodingId: filePreview.encodingId,
-                encodingSourceId: filePreview.encodingSourceId,
-                fileType: filePreview.fileTypeConfig,
-                hasHeaders: undefined,
-                isDeclared,
-                parserId: undefined,
-                recordDelimiterId: undefined,
-                replacementCharacterCount: filePreview.replacementCharacterCount,
-                valueDelimiterId: undefined
             },
-            encodingCandidates: filePreview.encodingCandidates
+            encodingCandidates
         };
     }
 
-    // Parse the text and, for delimited text, identify its delimiters. With no delimiter found, the text is parsed again
-    // with the default, so the records match the delimiter reported. A delimiter the user chose is the only one tried, and
-    // is reported even when it does not split the text into a table, so the user sees the result of their choice. Whether the preview holds the whole item decides if a
-    // quote left open at its end is an error, or a value the preview cut off.
-    const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
-    const valueDelimiterIds = valueDelimiterId == null ? VALUE_DELIMITER_CONFIGS.map(({ id }) => id) : [valueDelimiterId];
-    const detectedParseTextResult = await parser.parseText(text, { dataFormatId, isComplete: filePreview.isComplete, valueDelimiterIds });
-    const isDelimitedText = dataFormatId === 'dtv';
-    const parseTextResult =
-        isDelimitedText && valueDelimiterId == null && detectedParseTextResult.valueDelimiterId == null
-            ? await parser.parseText(text, { dataFormatId, isComplete: filePreview.isComplete, valueDelimiterIds: [DEFAULT_VALUE_DELIMITER_ID] })
-            : detectedParseTextResult;
+    // Detection parses with the detected or declared format and the format's default tool. The sample parses again only
+    // when the user chose a format, a tool or a value delimiter.
+    const detectedDataFormatId = declaredReadingConfig?.dataFormatId ?? filePreview.dataFormatId;
+    const declaredValueDelimiterId = declaredReadingConfig?.valueDelimiterId;
+    const detectedParse = await parsePreviewText({
+        dataFormatId: detectedDataFormatId,
+        isComplete,
+        parserId: undefined,
+        text,
+        toolConfigs,
+        valueDelimiterId: declaredValueDelimiterId
+    });
+    const sampleDataFormatId = readingChoiceConfig?.dataFormatId ?? detectedDataFormatId;
+    const isParseChosen = readingChoiceConfig?.dataFormatId != null || readingChoiceConfig?.parserId != null || readingChoiceConfig?.valueDelimiterId != null;
+    const sampleParse = isParseChosen
+        ? await parsePreviewText({
+              dataFormatId: sampleDataFormatId,
+              isComplete,
+              parserId: readingChoiceConfig.parserId,
+              text,
+              toolConfigs,
+              valueDelimiterId: declaredValueDelimiterId ?? readingChoiceConfig.valueDelimiterId
+          })
+        : detectedParse;
 
-    // Infer and cast values for each parsed record.
-    const inferenceSummary = inferDataTypes(parseTextResult.parsedRecords, declaredReadingConfig?.hasHeaders, declaredColumnConfigs);
+    // Infer and cast values for each parsed record. Detection is inferred separately only when the sample was parsed
+    // with choices, because the header record can differ.
+    const sampleRecords = sampleParse?.parseTextResult.parsedRecords ?? [];
+    const sampleInference = sampleParse == null ? undefined : inferDataTypes(sampleRecords, declaredReadingConfig?.hasHeaders, declaredColumnConfigs);
+    const detectedInference =
+        isParseChosen && detectedParse != null
+            ? inferDataTypes(detectedParse.parseTextResult.parsedRecords, declaredReadingConfig?.hasHeaders, declaredColumnConfigs)
+            : sampleInference;
 
     return {
         contentAuditConfig: constructFirstAuditConfig({
             asAt,
-            columns: inferenceSummary.columnConfigs,
-            isComplete: filePreview.isComplete,
-            recordCount: Math.max(0, parseTextResult.parsedRecords.length - (inferenceSummary.hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
+            columns: sampleInference?.columnConfigs ?? [],
+            isComplete,
+            recordCount: Math.max(0, sampleRecords.length - (sampleInference?.hasHeaders === true ? 1 : 0)), // A header record names the columns and is not data.
             size,
             startedAt
         }),
         sampleConfig: {
-            issues: parseTextResult.issues, // Records the parser could not read. The text is still returned, so the user can see them.
-            parsedRecords: parseTextResult.parsedRecords,
+            ...sampleDecoding,
+            dataFormatId: sampleDataFormatId ?? 'unknown',
+            hasHeaders: sampleInference?.hasHeaders,
+            issues: sampleParse?.parseTextResult.issues ?? [], // Records the parser could not read. The text is still returned, so the user can see them.
+            parsedRecords: sampleRecords,
+            parserId: sampleParse?.parserId,
+            recordDelimiterId: sampleParse?.parseTextResult.recordDelimiterId,
             size,
-            text
+            text,
+            valueDelimiterId: sampleParse?.valueDelimiterId
         },
         readingConfig: {
-            dataFormatId,
-            dataFormatSourceId: filePreview.dataFormatSourceId,
-            encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
-            encodingId: filePreview.encodingId,
-            encodingSourceId: filePreview.encodingSourceId,
+            dataFormatId: detectedDataFormatId ?? 'unknown',
+            dataFormatSourceId: declaredReadingConfig == null ? filePreview.dataFormatSourceId : undefined, // A declared format was not detected.
+            ...detectedEncoding,
             fileType: filePreview.fileTypeConfig,
-            hasHeaders: inferenceSummary.hasHeaders,
+            hasHeaders: detectedInference?.hasHeaders,
             isDeclared,
-            parserId: usedParserId,
-            recordDelimiterId: parseTextResult.recordDelimiterId,
-            replacementCharacterCount: filePreview.replacementCharacterCount,
-            valueDelimiterId: isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId
+            parserId: detectedParse?.parserId,
+            recordDelimiterId: detectedParse?.parseTextResult.recordDelimiterId,
+            valueDelimiterId: detectedParse?.valueDelimiterId
         },
-        encodingCandidates: filePreview.encodingCandidates
+        encodingCandidates
     };
 }
 
@@ -352,6 +364,34 @@ function timeSourceWaits(stream: ReadableStream<Uint8Array>): { stream: Readable
 }
 
 // Loads the tool the user chose for the format, or the format's default. Returns the id of the tool actually used.
+// Parses the preview text in a data format, with the tool and value delimiter given, or else the format's default tool
+// and the delimiter detected. Returns undefined when there is no text, or no tool reads the format yet. Delimited text
+// with no delimiter found is parsed again with the default delimiter, so the records match the delimiter reported. A
+// delimiter that was given is the only one tried. Whether the preview holds the whole item decides if a quote left open
+// at its end is an error, or a value the preview cut off.
+async function parsePreviewText(input: {
+    dataFormatId: DataFormatId | undefined;
+    isComplete: boolean;
+    parserId: string | undefined;
+    text: string | undefined;
+    toolConfigs: ToolConfig[];
+    valueDelimiterId: ValueDelimiterId | undefined;
+}): Promise<{ parserId: string; parseTextResult: ParseTextResult; valueDelimiterId: ValueDelimiterId | undefined } | undefined> {
+    const { dataFormatId, isComplete, parserId, text, toolConfigs, valueDelimiterId } = input;
+    if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) return undefined;
+
+    const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
+    const valueDelimiterIds = valueDelimiterId == null ? VALUE_DELIMITER_CONFIGS.map(({ id }) => id) : [valueDelimiterId];
+    const firstParseTextResult = await parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds });
+    const isDelimitedText = dataFormatId === 'dtv';
+    const parseTextResult =
+        isDelimitedText && valueDelimiterId == null && firstParseTextResult.valueDelimiterId == null
+            ? await parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds: [DEFAULT_VALUE_DELIMITER_ID] })
+            : firstParseTextResult;
+    const reportedValueDelimiterId = isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId;
+    return { parserId: usedParserId, parseTextResult, valueDelimiterId: reportedValueDelimiterId };
+}
+
 async function loadParser(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId: string | undefined): Promise<{ parser: ParserInterface; parserId: string }> {
     const parserToolConfig = resolveParserToolConfig(toolConfigs, dataFormatId, parserId);
     const parser = await loadTool<ParserInterface>(toolConfigs, parserToolConfig.id.slice(TOOL_NAME_PREFIX.length));

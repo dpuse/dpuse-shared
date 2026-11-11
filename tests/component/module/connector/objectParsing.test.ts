@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 // ── DPUse Framework
 import { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from '@/component/module/connector';
 import type { FilePreviewResult, ToolConfig } from '@/component/module/tool';
-import type { ParsedRecord, ValueDelimiterId } from '@/component/dataView';
+import type { ParsedRecord, ReadingChoiceConfig } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -49,6 +49,7 @@ function buildFilePreview(overrides: Partial<FilePreviewResult> = {}): FilePrevi
         bytes: new Uint8Array(10),
         dataFormatId: 'dtv',
         dataFormatSourceId: 'default',
+        decodedEncodingId: 'utf-8',
         encodingCandidates: undefined,
         encodingConfidenceLevel: 100,
         encodingId: 'utf-8',
@@ -81,8 +82,9 @@ function buildStream(...pieces: string[]): { cancel: ReturnType<typeof vi.fn>; s
 const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaders: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
-function buildPreviewInput(filePreview: FilePreviewResult, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewObjectResult>[0] {
-    return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, parserId, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS, valueDelimiterId };
+function buildPreviewInput(filePreview: FilePreviewResult, choices: Partial<ReadingChoiceConfig> = {}): Parameters<typeof buildPreviewObjectResult>[0] {
+    const readingChoiceConfig = { dataFormatId: undefined, encodingId: undefined, hasHeaders: undefined, parserId: undefined, valueDelimiterId: undefined, ...choices };
+    return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, readingChoiceConfig, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS };
 }
 
 describe('objectParsing', () => {
@@ -110,38 +112,67 @@ describe('objectParsing', () => {
         it.each([
             ['a parsed item', 'dtv', 'a,b\n1,2\n'],
             ['an item no tool reads yet', 'xml', '<a/>']
-        ] as const)('keeps in the reading of %s how its format and encoding were found, and the encoding candidates beside it', async (_description, dataFormatId, text) => {
-            tools.byName['rust-csv-core-parser'] = { parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
-            const encodingCandidates = [
-                { confidenceLevel: 0.46, id: 'windows-1251' as const },
-                { confidenceLevel: 0.43, id: 'maccyrillic' as const }
-            ];
-            const filePreview = buildFilePreview({
-                dataFormatId,
-                dataFormatSourceId: 'jsonSyntax',
-                encodingCandidates,
-                encodingSourceId: 'detection',
-                replacementCharacterCount: 3,
-                text
-            });
+        ] as const)(
+            'keeps in the reading of %s how its format and encoding were found, in the sample how its text was decoded, and the candidates beside them',
+            async (_description, dataFormatId, text) => {
+                tools.byName['rust-csv-core-parser'] = {
+                    parseText: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' })
+                };
+                const encodingCandidates = [
+                    { confidenceLevel: 0.46, id: 'windows-1251' as const },
+                    { confidenceLevel: 0.43, id: 'maccyrillic' as const }
+                ];
+                const filePreview = buildFilePreview({
+                    dataFormatId,
+                    dataFormatSourceId: 'jsonSyntax',
+                    encodingCandidates,
+                    encodingSourceId: 'detection',
+                    replacementCharacterCount: 3,
+                    text
+                });
 
-            const result = await buildPreviewObjectResult(buildPreviewInput(filePreview));
+                const result = await buildPreviewObjectResult(buildPreviewInput(filePreview));
 
-            expect(result.readingConfig).toMatchObject({ dataFormatSourceId: 'jsonSyntax', encodingSourceId: 'detection', replacementCharacterCount: 3 });
-            expect(result.encodingCandidates).toEqual(encodingCandidates);
-            expect(result.readingConfig).not.toHaveProperty('encodingCandidates');
-        });
+                expect(result.readingConfig).toMatchObject({ dataFormatSourceId: 'jsonSyntax', encodingSourceId: 'detection' });
+                expect(result.sampleConfig).toMatchObject({ decodedEncodingId: 'utf-8', replacementCharacterCount: 3 });
+                expect(result.encodingCandidates).toEqual(encodingCandidates);
+                expect(result.readingConfig).not.toHaveProperty('encodingCandidates');
+            }
+        );
 
-        it('parses with the tool the user chose, even when it is not the first', async () => {
-            const adaltasParseText = vi.fn();
+        it('parses the sample with the tool the user chose, but reports the default tool in the reading', async () => {
+            const chosenRecords = [[{ value: 'chosen', valueWasQuoted: false }]] as ParsedRecord[];
+            const adaltasParseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: chosenRecords, recordDelimiterId: '\n', valueDelimiterId: ',' });
             const rustParseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
             tools.byName['adaltas-csv-parser'] = { parseText: adaltasParseText };
             tools.byName['rust-csv-core-parser'] = { parseText: rustParseText };
 
-            const { readingConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), 'dpuse-tool-rust-csv-core-parser'));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), { parserId: 'dpuse-tool-adaltas-csv-parser' }));
 
-            expect(adaltasParseText).not.toHaveBeenCalled();
-            expect(readingConfig.parserId).toBe('dpuse-tool-rust-csv-core-parser');
+            expect(result.sampleConfig).toMatchObject({ parsedRecords: chosenRecords, parserId: 'dpuse-tool-adaltas-csv-parser' });
+            expect(result.readingConfig.parserId).toBe('dpuse-tool-rust-csv-core-parser');
+        });
+
+        it('parses the sample in the format the user chose, but reports the detected format in the reading', async () => {
+            const jsonParseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+            const rustParseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
+            tools.byName['json-parser'] = { parseText: jsonParseText };
+            tools.byName['rust-csv-core-parser'] = { parseText: rustParseText };
+
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '[1]' }), { dataFormatId: 'dtv' }));
+
+            expect(rustParseText).toHaveBeenCalledWith('[1]', expect.objectContaining({ dataFormatId: 'dtv' }));
+            expect(result.readingConfig).toMatchObject({ dataFormatId: 'json', parserId: 'dpuse-tool-json-parser', valueDelimiterId: undefined });
+            expect(result.sampleConfig).toMatchObject({ dataFormatId: 'dtv', parserId: 'dpuse-tool-rust-csv-core-parser', recordDelimiterId: '\n', valueDelimiterId: ',' }); // How the sample was read, for audits and loads.
+        });
+
+        it('parses once when nothing that affects parsing was chosen', async () => {
+            const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
+            tools.byName['rust-csv-core-parser'] = { parseText };
+
+            await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), { encodingId: 'windows-1252', hasHeaders: false }));
+
+            expect(parseText).toHaveBeenCalledOnce();
         });
 
         it('reads delimited text with no delimiter found as comma-delimited, parsing it again with the comma', async () => {
@@ -158,15 +189,19 @@ describe('objectParsing', () => {
             expect(result).toMatchObject({ sampleConfig: { parsedRecords: RECORDS }, readingConfig: { valueDelimiterId: ',' } });
         });
 
-        it('parses only with the value delimiter the user chose, and reports it even when it does not split the text', async () => {
-            const parseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+        it('parses the sample only with the value delimiter the user chose, but reports the detected delimiter in the reading', async () => {
+            const parseText = vi
+                .fn()
+                .mockResolvedValueOnce({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' })
+                .mockResolvedValueOnce({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
             tools.byName['rust-csv-core-parser'] = { parseText };
 
-            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), undefined, '|'));
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview(), { valueDelimiterId: '|' }));
 
-            expect(parseText).toHaveBeenCalledTimes(1);
-            expect(parseText.mock.calls[0]?.[1]).toMatchObject({ valueDelimiterIds: ['|'] });
-            expect(result).toMatchObject({ sampleConfig: { parsedRecords: RECORDS }, readingConfig: { valueDelimiterId: '|' } });
+            expect(parseText).toHaveBeenCalledTimes(2);
+            expect(parseText.mock.calls[1]?.[1]).toMatchObject({ valueDelimiterIds: ['|'] });
+            expect(result.readingConfig.valueDelimiterId).toBe(',');
+            expect(result.sampleConfig.valueDelimiterId).toBe('|');
         });
 
         it('leaves the value delimiter undefined for a format that is not delimited, and parses it once', async () => {
@@ -220,11 +255,19 @@ describe('objectParsing', () => {
             const declaredColumnConfigs = [{ dataSubtypeId: undefined, dataTypeId: 'numeric' as const, label: 'Amount', name: 'amount' }];
             const declaredReadingConfig = { dataFormatId: 'dtv' as const, encodingId: 'utf-8', hasHeaders: true, valueDelimiterId: ';' as const };
 
-            const result = await buildPreviewObjectResult({ ...buildPreviewInput(buildFilePreview(), undefined, ','), declaredColumnConfigs, declaredReadingConfig });
+            const filePreview = buildFilePreview({ encodingId: 'windows-1252' });
+
+            const result = await buildPreviewObjectResult({ ...buildPreviewInput(filePreview, { valueDelimiterId: ',' }), declaredColumnConfigs, declaredReadingConfig });
 
             expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, true, declaredColumnConfigs);
             expect(parseText).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ valueDelimiterIds: [';'] })); // The source's delimiter, not the one given.
-            expect(result.readingConfig).toMatchObject({ isDeclared: true, valueDelimiterId: ';' });
+            expect(result.readingConfig).toMatchObject({
+                dataFormatSourceId: undefined,
+                encodingId: 'utf-8',
+                encodingSourceId: undefined,
+                isDeclared: true,
+                valueDelimiterId: ';'
+            });
         });
 
         it('marks an empty item from a source that says how it is read as declared', async () => {

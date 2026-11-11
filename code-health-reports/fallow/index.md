@@ -21,35 +21,36 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3490 |
-| Avg Cyclomatic | 2.8 |
+| Total LOC | 3544 |
+| Avg Cyclomatic | 3.0 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 131, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 132, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.2% |
 | Dead Exports | 0.4% |
-| Maintainability (avg) | 92.3 |
+| Maintainability (avg) | 92.1 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 2 |
 
-## Fallow: 2 high complexity functions
+## Fallow: 3 high complexity functions
 
 | File | Function | Severity | Cyclomatic | Cognitive | CRAP | Lines |
 |:-----|:---------|:---------|:-----------|:----------|:-----|:------|
+| `src/component/module/connector/objectParsing.ts:43` | `buildPreviewObjectResult` | high | 38 **!** | 18 **!** | 38.0 **!** | 134 |
 | `src/component/module/tool/delimitedText.ts:38` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
 | `scripts/documentEncodings.ts:17` | `rows` | moderate | 6 | 5 | 42.0 **!** | 2 |
 
 **!** marks the dimension that breached.
 
-**46** files, **131** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**46** files, **132** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (17 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
-| `src/component/module/connector/objectParsing.ts` | 88.8 | 1 | 4 | 0% | 0.16 | 17.0 |
+| `src/component/module/connector/objectParsing.ts` | 87.0 | 1 | 4 | 0% | 0.22 | 38.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
 | `src/errors/index.ts` | 91.0 | 4 | 0 | 0% | 0.30 | 13.8 |
@@ -66,13 +67,13 @@
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.3/100
+**Average maintainability index:** 92.1/100
 
 ### Hotspots (14 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 23.6 | 21 | 661 | 0.16 | 1 | stable |
+| `src/component/module/connector/objectParsing.ts` | 32.4 | 21 | 661 | 0.22 | 1 | stable |
 | `src/component/module/tool/index.ts` | 14.3 | 14 | 116 | 0.20 | 6 | stable |
 | `src/component/module/connector/index.ts` | 13.9 | 50 | 740 | 0.05 | 4 | accelerating |
 | `src/utilities/index.ts` | 12.3 | 11 | 474 | 0.25 | 1 | stable |

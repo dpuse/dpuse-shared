@@ -18,7 +18,7 @@ export type ToolConfig = InferOutput<typeof toolConfigSchema>;
 export type ParserConfig = InferOutput<typeof parserConfigSchema>;
 
 // ── File Previewer
-export type { FilePreviewerInterface, FilePreviewResult, PreviewChoices } from './filePreviewer';
+export type { FilePreviewerInterface, FilePreviewResult } from './filePreviewer';
 
 // ── Parser
 export type { ParserInterface, ParseStreamOptions, ParseTextOptions, ParseTextResult } from './parser';

@@ -13,6 +13,7 @@ export interface DataViewConfig extends ComponentInstanceConfig {
     connectionId: string;
     connectionNodeConfig: ConnectionNodeConfig | undefined;
     readingConfig: ReadingConfig | undefined;
+    readingChoiceConfig?: ReadingChoiceConfig | undefined; // The user's own choices. Kept apart, so the detected reading is never overwritten.
     sampleConfig: SampleConfig | undefined;
     contentAuditConfig: ContentAuditConfig | undefined; // Replaced whole by each audit.
     columnChoiceConfigs: ColumnChoiceConfigs | undefined; // Kept across audits, so the user's choices survive a new one.
@@ -31,7 +32,6 @@ export interface ReadingConfig {
     isDeclared?: boolean | undefined; // The item's source says how it is read, such as a resource file beside it, so the user has nothing to choose.
     parserId: string | undefined; // The config id of the parser tool. Undefined when no tool parsed the item, such as an empty file or a format no tool reads yet.
     recordDelimiterId: RecordDelimiterId | undefined;
-    replacementCharacterCount?: number | undefined; // How many '\uFFFD' characters decoding put in place of bytes the encoding cannot read. Undefined when no text was decoded.
     valueDelimiterId: ValueDelimiterId | undefined;
 
     // TODO: following are under review.
@@ -51,9 +51,18 @@ export interface ReadingConfig {
 
 export type DataFormatId = (typeof DATA_FORMAT_CONFIGS)[number]['id'];
 
+// What the user chose in place of what was detected. Anything that decodes or parses the item uses a choice when there
+// is one, and otherwise the detected reading.
+export interface ReadingChoiceConfig {
+    dataFormatId: DataFormatId | undefined;
+    encodingId: string | undefined;
+    hasHeaders: boolean | undefined;
+    parserId: string | undefined;
+    valueDelimiterId: ValueDelimiterId | undefined;
+}
+
 // How the data format was found.
 export type DataFormatSourceId =
-    | 'choice' // The user chose it, or the item's source declared it.
     | 'fileContent' // The file was recognised from its content, such as Parquet, Excel or XML.
     | 'jsonSyntax' // The text is JSON or JSON Lines.
     | 'mimeType' // Markdown, recognised from the MIME type.
@@ -62,24 +71,32 @@ export type DataFormatSourceId =
 
 // How the encoding was found.
 export type EncodingSourceId =
-    | 'choice' // The user chose it, or the item's source declared it.
     | 'byteOrderMark' // The file starts with a byte order mark.
     | 'xmlDeclaration' // The XML declaration names it.
     | 'xmlDefault' // XML with no byte order mark or declaration, which XML defines as UTF-8.
     | 'utf8Validation' // The text is valid UTF-8 and contains characters other than ASCII.
     | 'detection' // jschardet's best guess that the browser can decode.
     | 'asciiAssumption' // The text is all ASCII, so UTF-8 is assumed.
-    | 'fallback'; // The chosen or detected encoding cannot be decoded, so UTF-8 was used instead.
+    | 'fallback'; // jschardet found no encoding that the browser can decode, so UTF-8 is used.
 export type RecordDelimiterId = '\n' | '\r' | '\r\n'; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 export type ValueDelimiterId = (typeof VALUE_DELIMITER_CONFIGS)[number]['id'] | ''; // TODO: We need a special value here (NOT '') for when a user specified delimiter is implemented.
 
 // ── Sample Configuration ─ The start of an item, as text and parsed records. Small enough to hold in memory and save
 // with the data view, unlike the whole item an audit reads.
+// The sample is read with the user's choices, so it records what it was actually read with. An audit or a load reads the
+// item the same way.
 export interface SampleConfig {
+    dataFormatId?: DataFormatId | undefined; // The format the sample was read in: the chosen one, or the detected one when nothing was chosen.
+    decodedEncodingId?: string | undefined; // The encoding the text was decoded with: the chosen one, or the detected one when nothing was chosen. UTF-8 when that encoding cannot be decoded.
+    hasHeaders?: boolean | undefined; // Whether the sample's first record is a header record.
     issues: SampleIssue[]; // Problems found while sampling, such as an empty file or parse errors.
     parsedRecords: ParsedRecord[];
+    parserId?: string | undefined; // The config id of the parser tool that read the sample. Undefined when no tool read it.
+    recordDelimiterId?: RecordDelimiterId | undefined;
+    replacementCharacterCount?: number | undefined; // How many '\uFFFD' characters decoding put in place of bytes the decoded encoding cannot read. Undefined when no text was decoded.
     size: number | undefined; // The bytes the text and records came from. Undefined when the item is not read as bytes.
     text: string | undefined;
+    valueDelimiterId?: ValueDelimiterId | undefined;
 }
 
 // A problem found while sampling an item. The sample still holds whatever was read, so the item can be shown and read
