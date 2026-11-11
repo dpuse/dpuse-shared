@@ -1,7 +1,5 @@
-// ── External Dependencies & Registrations
-import type { FileTypeResult } from 'file-type';
-
 // ── DPUse Framework
+import { resolveDecoderId } from '@/encoding';
 import { VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
 import type {
     AuditObjectContentOptions,
@@ -13,24 +11,9 @@ import type {
     RetrieveRecordsSummary
 } from '@/component/module/connector';
 import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig, ParsedRecord } from '@/component/dataView';
-import type { RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
-import { resolveDecoderId } from '@/encoding';
+import type { FilePreviewResult, ParserInterface, ToolConfig } from '@/component/module/tool';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
-import type { ParserInterface, ToolConfig } from '@/component/module/tool';
-
-// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-// What a connector gets from the file previewer tool: the start of the item, its format and its text. Only the fields
-// the preview is built from.
-export interface ObjectFilePreview {
-    bytes: Uint8Array;
-    dataFormatId: DataFormatId | undefined;
-    encodingConfidenceLevel: number | undefined;
-    encodingId: string | undefined;
-    fileTypeConfig: FileTypeResult | undefined;
-    isComplete: boolean; // Whether the preview holds the whole item rather than only its start.
-    text: string | undefined;
-}
+import type { RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -60,7 +43,7 @@ export async function buildPreviewObjectResult(input: {
     asAt: number;
     declaredColumnConfigs?: DeclaredColumnConfig[] | undefined;
     declaredReadingConfig?: DeclaredReadingConfig | undefined;
-    filePreview: ObjectFilePreview;
+    filePreview: FilePreviewResult;
     inferDataTypes: ConnectorUtilities['inferDataTypes'];
     parserId: string | undefined;
     startedAt: number; // From 'performance.now()', before the item was fetched.

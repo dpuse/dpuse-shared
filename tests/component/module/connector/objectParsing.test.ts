@@ -2,9 +2,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
-import type { ObjectFilePreview } from '@/component/module/connector';
-import type { ToolConfig } from '@/component/module/tool';
 import { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from '@/component/module/connector';
+import type { FilePreviewResult, ToolConfig } from '@/component/module/tool';
 import type { ParsedRecord, ValueDelimiterId } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -45,10 +44,11 @@ const TOOL_CONFIGS = [RUST, ADALTAS, JSON_TOOL];
 
 const RECORDS = [[{ value: 'a', valueWasQuoted: false }]] as ParsedRecord[];
 
-function buildFilePreview(overrides: Partial<ObjectFilePreview> = {}): ObjectFilePreview {
+function buildFilePreview(overrides: Partial<FilePreviewResult> = {}): FilePreviewResult {
     return {
         bytes: new Uint8Array(10),
         dataFormatId: 'dtv',
+        encodingCandidates: undefined,
         encodingConfidenceLevel: 100,
         encodingId: 'utf-8',
         fileTypeConfig: undefined,
@@ -78,7 +78,7 @@ function buildStream(...pieces: string[]): { cancel: ReturnType<typeof vi.fn>; s
 const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaders: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
-function buildPreviewInput(filePreview: ObjectFilePreview, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewObjectResult>[0] {
+function buildPreviewInput(filePreview: FilePreviewResult, parserId?: string, valueDelimiterId?: ValueDelimiterId): Parameters<typeof buildPreviewObjectResult>[0] {
     return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, parserId, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS, valueDelimiterId };
 }
 

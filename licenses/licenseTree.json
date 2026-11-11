@@ -1,5 +1,5 @@
 {
-  "version": "1.0.205",
+  "version": "1.0.206",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -3612,19 +3612,19 @@
               }
             },
             "vite": {
-              "version": "8.3.7"
+              "version": "8.3.8"
             },
             "webpack": {}
           }
         },
         "vite": {
-          "version": "8.3.7"
+          "version": "8.3.8"
         }
       }
     },
     "vite": {
-      "version": "8.3.7",
-      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.7.tgz",
+      "version": "8.3.8",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.8.tgz",
       "overridden": false,
       "dependencies": {
         "@types/node": {
@@ -3827,7 +3827,7 @@
             },
             "msw": {},
             "vite": {
-              "version": "8.3.7"
+              "version": "8.3.8"
             }
           }
         },
@@ -3884,7 +3884,7 @@
           "version": "0.2.17"
         },
         "vite": {
-          "version": "8.3.7"
+          "version": "8.3.8"
         },
         "why-is-node-running": {
           "version": "3.2.1",

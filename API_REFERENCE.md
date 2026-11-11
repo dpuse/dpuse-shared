@@ -158,7 +158,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 #### Functions
 
 - **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: ConnectorUtilities['constructColumnAuditor']; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; onProgress: (recordCount: number, byteCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
-- **`buildPreviewObjectResult`**`(input: { asAt: number; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; declaredReadingConfig?: DeclaredReadingConfig | undefined; filePreview: ObjectFilePreview; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; valueDelimiterId: ValueDelimiterId | undefined; })`
+- **`buildPreviewObjectResult`**`(input: { asAt: number; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; declaredReadingConfig?: DeclaredReadingConfig | undefined; filePreview: FilePreviewResult; inferDataTypes: ConnectorUtilities['inferDataTypes']; parserId: string | undefined; startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; valueDelimiterId: ValueDelimiterId | undefined; })`
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
@@ -201,7 +201,6 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ListNodesResult`**
 - **`LoadObjectRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsResult`**
-- **`ObjectFilePreview`**
 - **`OpenStoreOptions`**
 - **`OpenStoreResult`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
@@ -286,12 +285,15 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`FilePreviewerInterface`**
+- **`FilePreviewResult`**
 - **`ParserConfig`** (inferred from `parserConfigSchema`)
 - **`ParserInterface`**
 - **`ParseStreamOptions`**
 - **`ParseTextOptions`**
 - **`ParseTextResult`**
 - **`ParseTextWithDelimiter`**
+- **`PreviewChoices`**
 - **`ToolConfig`** (inferred from `toolConfigSchema`, extends `ModuleConfig`)
 
 ### Component › Presentation

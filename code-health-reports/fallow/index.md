@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3446 |
+| Total LOC | 3455 |
 | Avg Cyclomatic | 2.8 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 131, module scopes: 2, templates: 0 |
@@ -42,14 +42,14 @@
 
 **!** marks the dimension that breached.
 
-**45** files, **131** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**46** files, **131** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (17 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
-| `src/component/module/connector/objectParsing.ts` | 89.1 | 1 | 4 | 0% | 0.15 | 17.0 |
+| `src/component/module/connector/objectParsing.ts` | 88.8 | 1 | 4 | 0% | 0.16 | 17.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
 | `src/errors/index.ts` | 91.0 | 4 | 0 | 0% | 0.30 | 13.8 |
@@ -58,9 +58,9 @@
 | `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/connector/tableSchema.ts` | 90.2 | 1 | 2 | 0% | 0.18 | 6.0 |
 | `src/component/module/tool/index.ts` | 86.2 | 6 | 6 | 0% | 0.20 | 4.0 |
-| `src/component/index.ts` | 92.9 | 15 | 2 | 0% | 0.09 | 4.0 |
-| `src/component/dataView/index.ts` | 95.3 | 8 | 2 | 0% | 0.01 | 3.0 |
-| `src/encoding/index.ts` | 95.4 | 3 | 1 | 0% | 0.06 | 3.0 |
+| `src/component/index.ts` | 92.9 | 14 | 2 | 0% | 0.09 | 4.0 |
+| `src/component/dataView/index.ts` | 95.3 | 9 | 2 | 0% | 0.01 | 3.0 |
+| `src/encoding/index.ts` | 95.4 | 4 | 1 | 0% | 0.06 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 11 | 0 | 0% | 0.12 | 3.0 |
 | `src/component/module/presenter/index.ts` | 91.9 | 1 | 5 | 0% | 0.03 | 2.0 |
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
@@ -72,31 +72,36 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 21.0 | 19 | 624 | 0.15 | 1 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 48 | 736 | 0.05 | 4 | accelerating |
-| `src/utilities/index.ts` | 13.0 | 11 | 474 | 0.25 | 1 | stable |
-| `src/component/module/tool/delimitedText.ts` | 12.8 | 5 | 133 | 0.35 | 1 | stable |
-| `src/locale/index.ts` | 12.8 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/errors/index.ts` | 12.7 | 9 | 230 | 0.30 | 4 | stable |
-| `src/component/module/tool/index.ts` | 12.0 | 12 | 100 | 0.20 | 6 | stable |
-| `scripts/documentEncodings.ts` | 6.5 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 5.8 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 3.6 | 9 | 101 | 0.09 | 15 | stable |
-| `src/encoding/index.ts` | 3.2 | 9 | 778 | 0.06 | 3 | accelerating |
-| `src/component/dataView/index.ts` | 2.7 | 41 | 1452 | 0.01 | 8 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 22.1 | 19 | 624 | 0.16 | 1 | stable |
+| `src/component/module/connector/index.ts` | 13.7 | 48 | 736 | 0.05 | 4 | accelerating |
+| `src/component/module/tool/index.ts` | 13.4 | 13 | 109 | 0.20 | 6 | stable |
+| `src/utilities/index.ts` | 12.8 | 11 | 474 | 0.25 | 1 | stable |
+| `src/locale/index.ts` | 12.7 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/component/module/tool/delimitedText.ts` | 12.6 | 5 | 133 | 0.35 | 1 | stable |
+| `src/errors/index.ts` | 12.5 | 9 | 230 | 0.30 | 4 | stable |
+| `scripts/documentEncodings.ts` | 6.4 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 5.7 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 4.2 | 10 | 119 | 0.09 | 14 | stable |
+| `src/encoding/index.ts` | 3.1 | 9 | 778 | 0.06 | 4 | accelerating |
+| `src/component/dataView/index.ts` | 2.8 | 42 | 1476 | 0.01 | 9 | accelerating |
 | `vite.config.ts` | 1.8 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/presenter/index.ts` | 1.2 | 9 | 92 | 0.03 | 1 | cooling |
+| `src/component/module/presenter/index.ts` | 1.4 | 10 | 98 | 0.03 | 1 | cooling |
 
 *3 files excluded (< 3 commits)*
 
-### Hidden Change Coupling (4 pairs, since 12 months)
+### Hidden Change Coupling (9 pairs, since 12 months)
 
 | File A | File B | Degree | Shared | Commits A | Commits B | Strong |
 |:-------|:-------|:-------|:-------|:----------|:----------|:-------|
-| `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 7 | 11 | **strong** |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 50% | 8 | 21 | 11 | **strong** |
-| `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 43% | 5 | 7 | 16 |  |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 36% | 5 | 21 | 7 |  |
+| `src/component/module/cookbook/index.ts` | `src/component/module/index.ts` | 71% | 5 | 6 | 8 | **strong** |
+| `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 60% | 6 | 8 | 12 | **strong** |
+| `src/component/module/cookbook/cookbookConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 6 | 12 | **strong** |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 53% | 9 | 22 | 12 | **strong** |
+| `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 40% | 6 | 22 | 8 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
+| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 36% | 5 | 13 | 15 |  |
+| `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
 
 *Files that change together in the commit history with no import between them.*
 

@@ -396,7 +396,7 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // ── Object Parsing
-export { auditObjectContentWithParser, buildPreviewObjectResult, type ObjectFilePreview, retrieveRecordsWithParser } from './objectParsing';
+export { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from './objectParsing';
 
 // ── Table Schema
 export { readTableSchema } from './tableSchema';

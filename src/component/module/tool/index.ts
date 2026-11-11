@@ -3,7 +3,6 @@ import type { InferOutput } from 'valibot';
 
 // ── DPUse Framework
 import { AppError } from '@/errors';
-import type { Component } from '@/component';
 import type { DataFormatId } from '@/component/dataView';
 import type { parserConfigSchema, toolConfigSchema } from './toolConfig.schema';
 
@@ -13,13 +12,13 @@ export { toolConfigSchema } from './toolConfig.schema';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// ── Interface
-type ToolInterface = Component;
-
 // ── Configuration
 export type ToolConfig = InferOutput<typeof toolConfigSchema>;
 
 export type ParserConfig = InferOutput<typeof parserConfigSchema>;
+
+// ── File Previewer
+export type { FilePreviewerInterface, FilePreviewResult, PreviewChoices } from './filePreviewer';
 
 // ── Parser
 export type { ParserInterface, ParseStreamOptions, ParseTextOptions, ParseTextResult } from './parser';
