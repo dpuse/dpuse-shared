@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "1.0.213",
+    "version": "1.0.214",
     "private": false,
     "description": "Common constants, types and utilities used across DPUse projects.",
     "license": "MIT",
@@ -73,7 +73,7 @@
         "fast-check": "^4.10.2",
         "iconv-lite": "^0.7.3",
         "jschardet": "^4.1.0",
-        "prettier": "^3.10.0",
+        "prettier": "^3.10.1",
         "sonda": "^0.14.0",
         "typescript": "^6.0.3",
         "vite": "^8.3.8",

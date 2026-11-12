@@ -21,7 +21,10 @@ export type ParserConfig = InferOutput<typeof parserConfigSchema>;
 export type { FilePreviewerInterface, FilePreviewResult } from './filePreviewer';
 
 // ── Parser
-export type { ParserInterface, ParseStreamOptions, ParseStreamSummary, ParseTextOptions, ParseTextResult } from './parser';
+export type { BuildStructureIndexOptions, ListStructureEntriesOptions, ListStructureEntriesResult, ParserInterface } from './parser';
+export type { ParseStreamOptions, ParseStreamSummary, ParseTextOptions, ParseTextResult, StructureCheckpoint } from './parser';
+export type { StructureContainerKindId, StructureEntry, StructureIndex, StructureKindId, StructureNode } from './parser';
+export type { StructuredParserInterface, StructurePath } from './parser';
 export { parseDelimitedText, type ParseTextWithDelimiter } from './delimitedText';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────

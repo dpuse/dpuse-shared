@@ -1,5 +1,5 @@
 {
-  "version": "1.0.212",
+  "version": "1.0.213",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -3367,8 +3367,8 @@
       "overridden": false
     },
     "prettier": {
-      "version": "3.10.0",
-      "resolved": "https://registry.npmjs.org/prettier/-/prettier-3.10.0.tgz",
+      "version": "3.10.1",
+      "resolved": "https://registry.npmjs.org/prettier/-/prettier-3.10.1.tgz",
       "overridden": false
     },
     "sonda": {

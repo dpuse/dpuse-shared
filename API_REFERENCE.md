@@ -297,8 +297,11 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`BuildStructureIndexOptions`**
 - **`FilePreviewerInterface`**
 - **`FilePreviewResult`**
+- **`ListStructureEntriesOptions`**
+- **`ListStructureEntriesResult`**
 - **`ParserConfig`** (inferred from `parserConfigSchema`)
 - **`ParserInterface`**
 - **`ParseStreamOptions`**
@@ -306,6 +309,14 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ParseTextOptions`**
 - **`ParseTextResult`**
 - **`ParseTextWithDelimiter`**
+- **`StructureCheckpoint`**
+- **`StructureContainerKindId`**
+- **`StructuredParserInterface`** (extends `ParserInterface`)
+- **`StructureEntry`**
+- **`StructureIndex`**
+- **`StructureKindId`**
+- **`StructureNode`**
+- **`StructurePath`**
 - **`ToolConfig`** (inferred from `toolConfigSchema`, extends `ModuleConfig`)
 
 ### Component › Presentation
