@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3625 |
+| Total LOC | 3626 |
 | Avg Cyclomatic | 3.0 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 141, module scopes: 2, templates: 0 |
@@ -77,23 +77,23 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 36.4 | 23 | 892 | 0.23 | 1 | stable |
-| `src/component/module/tool/index.ts` | 16.8 | 16 | 120 | 0.20 | 6 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 51 | 804 | 0.05 | 5 | accelerating |
-| `src/utilities/index.ts` | 12.0 | 11 | 474 | 0.25 | 1 | stable |
-| `src/locale/index.ts` | 11.8 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/component/module/tool/delimitedText.ts` | 11.7 | 5 | 133 | 0.35 | 1 | stable |
-| `src/errors/index.ts` | 11.7 | 9 | 230 | 0.30 | 4 | stable |
-| `scripts/documentEncodings.ts` | 6.0 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 5.3 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 3.9 | 10 | 119 | 0.09 | 14 | stable |
-| `src/encoding/index.ts` | 2.9 | 9 | 778 | 0.06 | 5 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 35.4 | 23 | 892 | 0.23 | 1 | stable |
+| `src/component/module/tool/index.ts` | 16.4 | 16 | 120 | 0.20 | 6 | stable |
+| `src/component/module/connector/index.ts` | 13.9 | 52 | 820 | 0.05 | 5 | accelerating |
+| `src/utilities/index.ts` | 11.7 | 11 | 474 | 0.25 | 1 | stable |
+| `src/locale/index.ts` | 11.5 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/component/module/tool/delimitedText.ts` | 11.4 | 5 | 133 | 0.35 | 1 | stable |
+| `src/errors/index.ts` | 11.4 | 9 | 230 | 0.30 | 4 | stable |
+| `scripts/documentEncodings.ts` | 5.8 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 5.2 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 3.8 | 10 | 119 | 0.09 | 14 | stable |
+| `src/encoding/index.ts` | 2.8 | 9 | 778 | 0.06 | 5 | accelerating |
 | `src/component/dataView/index.ts` | 2.7 | 44 | 1524 | 0.01 | 10 | accelerating |
-| `vite.config.ts` | 1.7 | 21 | 139 | 0.02 | 0 | accelerating |
-| `src/component/module/engine/index.ts` | 1.3 | 10 | 98 | 0.03 | 2 | stable |
+| `vite.config.ts` | 1.6 | 21 | 139 | 0.02 | 0 | accelerating |
+| `src/component/module/engine/index.ts` | 1.5 | 11 | 107 | 0.03 | 2 | stable |
 | `src/component/module/presenter/index.ts` | 1.3 | 10 | 98 | 0.03 | 1 | cooling |
 
-*4 files excluded (< 3 commits)*
+*6 files excluded (< 3 commits)*
 
 ### Hidden Change Coupling (10 pairs, since 12 months)
 
@@ -102,10 +102,10 @@
 | `src/component/module/cookbook/index.ts` | `src/component/module/index.ts` | 71% | 5 | 6 | 8 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 60% | 6 | 8 | 12 | **strong** |
 | `src/component/module/cookbook/cookbookConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 6 | 12 | **strong** |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 51% | 9 | 23 | 12 | **strong** |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 50% | 9 | 24 | 12 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 39% | 6 | 23 | 8 |  |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 38% | 6 | 24 | 8 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 38% | 5 | 8 | 18 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 32% | 5 | 13 | 18 |  |

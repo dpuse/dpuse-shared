@@ -244,6 +244,7 @@ export interface PreviewObjectResult {
 // 'groupColumnIndexes', each result record holds the group's values, then one value for each aggregate.
 export interface QueryRecordsOptions extends EngineConnectorActionOptions {
     aggregates: QueryAggregate[]; // Only read with 'groupColumnIndexes'.
+    columnConfigs: ObjectColumnConfig[]; // The columns the object was loaded with, in its order, so the store reads each value back as its type.
     filters: QueryFilter[]; // A record must pass them all.
     groupColumnIndexes: number[]; // No grouping when empty.
     limit: number;
