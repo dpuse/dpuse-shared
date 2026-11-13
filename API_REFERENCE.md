@@ -103,7 +103,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Constants
 
-- **`DATA_FORMAT_CONFIGS`**`: readonly [{ readonly id: "arrow"; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, { readonly id: "avro"; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, ... 10 more ..., { ...; }]`
+- **`DATA_FORMAT_CONFIGS`**`: readonly [{ readonly id: "arrow"; readonly isStructured: false; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, { readonly id: "avro"; readonly isStructured: false; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, ... 10 more ..., { ...; }]`
 - **`DATA_TYPE_CONFIGS`**`: readonly [{ readonly id: "string"; readonly defaultSubtypeId: "plain"; readonly isChoosable: true; readonly subtypeIds: readonly ["plain", "email", "url", "uuid", "ulid", "ipv4", "ipv6", "ipRange", "macAddress", ... 7 more ..., "languageCode"]; }, { ...; }, { ...; }, { ...; }, { ...; }]`
 - **`DECIMAL_SEPARATOR_IDS`**`: readonly [",", "."]`
 - **`VALUE_DELIMITER_CONFIGS`**`: readonly [{ readonly id: ","; readonly character: ","; }, { readonly id: ";"; readonly character: ";"; }, { readonly id: "\t"; readonly character: "\t"; }, { readonly id: "|"; readonly character: "|"; }, ... 5 more ..., { ...; }]`
@@ -170,6 +170,8 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`convertStoreValueToText`**`(storeValue: StoreValue)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
+- **`indexObjectStructureWithParser`**`(input: { onProgress: (byteCount: number) => void; options: IndexObjectStructureOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`listObjectStructureEntriesWithParser`**`(input: { options: ListObjectStructureEntriesOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 - **`resolveStorePath`**`(path: string)`
 - **`retrieveRecordsWithParser`**`(input: { options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 
@@ -203,9 +205,11 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`GetReadableStreamOptions`** (extends `EngineConnectorActionOptions`)
 - **`GetRecordOptions`** (extends `EngineConnectorActionOptions`)
 - **`GetRecordResult`**
+- **`IndexObjectStructureOptions`** (extends `EngineConnectorActionOptions`)
 - **`InferenceSummary`**
 - **`ListNodesOptions`** (extends `EngineConnectorActionOptions`)
 - **`ListNodesResult`**
+- **`ListObjectStructureEntriesOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsResult`**
 - **`OpenStoreOptions`**
@@ -315,6 +319,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`StructureEntry`**
 - **`StructureIndex`**
 - **`StructureKindId`**
+- **`StructureLocator`**
 - **`StructureNode`**
 - **`StructurePath`**
 - **`ToolConfig`** (inferred from `toolConfigSchema`, extends `ModuleConfig`)

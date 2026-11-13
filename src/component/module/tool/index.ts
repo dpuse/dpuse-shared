@@ -24,7 +24,7 @@ export type { FilePreviewerInterface, FilePreviewResult } from './filePreviewer'
 export type { BuildStructureIndexOptions, ListStructureEntriesOptions, ListStructureEntriesResult, ParserInterface } from './parser';
 export type { ParseStreamOptions, ParseStreamSummary, ParseTextOptions, ParseTextResult, StructureCheckpoint } from './parser';
 export type { StructureContainerKindId, StructureEntry, StructureIndex, StructureKindId, StructureNode } from './parser';
-export type { StructuredParserInterface, StructurePath } from './parser';
+export type { StructuredParserInterface, StructureLocator, StructurePath } from './parser';
 export { parseDelimitedText, type ParseTextWithDelimiter } from './delimitedText';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────

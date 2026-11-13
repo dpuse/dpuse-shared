@@ -85,7 +85,7 @@ describe('getConnectorActionsTable', () => {
 
         expect(rows[0]).toBe('|Action|Supported|');
         expect(rows[1]).toBe('|:----|:-------:|');
-        expect(rows).toHaveLength(19); // Two header rows, then one row per action.
+        expect(rows).toHaveLength(21); // Two header rows, then one row per action.
         expect(table).toContain('| Get Record | ✓ |');
         expect(table).toContain('| Upsert Records | ✓ |');
         expect(table).toContain('| Audit Object Content |  |');

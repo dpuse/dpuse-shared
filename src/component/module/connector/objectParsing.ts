@@ -1,19 +1,15 @@
 // ── DPUse Framework
+import { AppError } from '@/errors';
 import { resolveDecoderId } from '@/encoding';
-import { VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
-import type {
-    AuditObjectContentOptions,
-    AuditObjectContentResult,
-    ConnectorUtilities,
-    ParsedRecordsChunk,
-    PreviewObjectResult,
-    RetrieveRecordsOptions,
-    RetrieveRecordsSummary
-} from '@/component/module/connector';
+import type { RetrieveRecordsSummary } from '@/component/module/connector';
+import type { AuditObjectContentOptions, AuditObjectContentResult, ConnectorUtilities, IndexObjectStructureOptions } from '@/component/module/connector';
 import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig } from '@/component/dataView';
-import type { FilePreviewResult, ParserInterface, ParseTextResult, ToolConfig } from '@/component/module/tool';
+import { DATA_FORMAT_CONFIGS, VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
+import type { FilePreviewResult, ListStructureEntriesResult, ParserInterface, ParseTextResult, StructuredParserInterface } from '@/component/module/tool';
+import type { ListObjectStructureEntriesOptions, ParsedRecordsChunk, PreviewObjectResult, RetrieveRecordsOptions } from '@/component/module/connector';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
+import type { StructureIndex, StructurePath, ToolConfig } from '@/component/module/tool';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -21,6 +17,9 @@ import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@
 // or rows that split unevenly. It is then read with these, the most common ones. An empty file is read with them too.
 const DEFAULT_RECORD_DELIMITER_ID: RecordDelimiterId = '\n';
 const DEFAULT_VALUE_DELIMITER_ID: ValueDelimiterId = ',';
+
+// Formats that nest, so the user chooses the part read as the table, and that have no value delimiter.
+const STRUCTURED_DATA_FORMAT_IDS = new Set<DataFormatId>(DATA_FORMAT_CONFIGS.filter(({ isStructured }) => isStructured).map(({ id }) => id));
 
 const CARRIAGE_RETURN_BYTE = 0x0d;
 const LINE_FEED_BYTE = 0x0a;
@@ -107,23 +106,33 @@ export async function buildPreviewObjectResult(input: {
 
     // Detection parses with the detected or declared format and the format's default tool. The sample parses again only
     // when the user chose a format, a tool or a value delimiter.
+    // A nested format is mapped from the preview's bytes first, and its parser suggests the part to read as the table.
     const detectedDataFormatId = declaredReadingConfig?.dataFormatId ?? filePreview.dataFormatId;
     const declaredValueDelimiterId = declaredReadingConfig?.valueDelimiterId;
+    const detectedStructureIndex = await previewStructure({ dataFormatId: detectedDataFormatId, filePreview, parserId: undefined, toolConfigs });
     const detectedParse = await parsePreviewText({
         dataFormatId: detectedDataFormatId,
         isComplete,
         parserId: undefined,
+        structureIndex: detectedStructureIndex,
+        structurePath: detectedStructureIndex?.suggestedStructurePath,
         text,
         toolConfigs,
         valueDelimiterId: declaredValueDelimiterId
     });
     const sampleDataFormatId = readingChoiceConfig?.dataFormatId ?? detectedDataFormatId;
-    const isParseChosen = readingChoiceConfig?.dataFormatId != null || readingChoiceConfig?.parserId != null || readingChoiceConfig?.valueDelimiterId != null;
+    const isFormatChosen = readingChoiceConfig?.dataFormatId != null || readingChoiceConfig?.parserId != null;
+    const isParseChosen = isFormatChosen || readingChoiceConfig?.valueDelimiterId != null || readingChoiceConfig?.structurePath != null;
+    const sampleStructureIndex = isFormatChosen
+        ? await previewStructure({ dataFormatId: sampleDataFormatId, filePreview, parserId: readingChoiceConfig.parserId, toolConfigs })
+        : detectedStructureIndex;
     const sampleParse = isParseChosen
         ? await parsePreviewText({
               dataFormatId: sampleDataFormatId,
               isComplete,
               parserId: readingChoiceConfig.parserId,
+              structureIndex: sampleStructureIndex,
+              structurePath: readingChoiceConfig.structurePath ?? sampleStructureIndex?.suggestedStructurePath,
               text,
               toolConfigs,
               valueDelimiterId: declaredValueDelimiterId ?? readingChoiceConfig.valueDelimiterId
@@ -132,11 +141,13 @@ export async function buildPreviewObjectResult(input: {
 
     // Infer and cast values for each parsed record. Detection is inferred separately only when the sample was parsed
     // with choices, because the header record can differ.
+    // A parser whose first record is always a header, such as JSON keys, says so, and is not second-guessed.
     const sampleRecords = sampleParse?.parseTextResult.parsedRecords ?? [];
-    const sampleInference = sampleParse == null ? undefined : inferDataTypes(sampleRecords, declaredReadingConfig?.hasHeaders, declaredColumnConfigs);
+    const sampleHasHeaders = sampleParse?.parseTextResult.hasHeaders ?? declaredReadingConfig?.hasHeaders;
+    const sampleInference = sampleParse == null ? undefined : inferDataTypes(sampleRecords, sampleHasHeaders, declaredColumnConfigs);
     const detectedInference =
         isParseChosen && detectedParse != null
-            ? inferDataTypes(detectedParse.parseTextResult.parsedRecords, declaredReadingConfig?.hasHeaders, declaredColumnConfigs)
+            ? inferDataTypes(detectedParse.parseTextResult.parsedRecords, detectedParse.parseTextResult.hasHeaders ?? declaredReadingConfig?.hasHeaders, declaredColumnConfigs)
             : sampleInference;
 
     return {
@@ -157,6 +168,7 @@ export async function buildPreviewObjectResult(input: {
             parserId: sampleParse?.parserId,
             recordDelimiterId: sampleParse?.parseTextResult.recordDelimiterId,
             size,
+            structurePath: sampleParse?.structurePath,
             text,
             valueDelimiterId: sampleParse?.valueDelimiterId
         },
@@ -169,9 +181,11 @@ export async function buildPreviewObjectResult(input: {
             isDeclared,
             parserId: detectedParse?.parserId,
             recordDelimiterId: detectedParse?.parseTextResult.recordDelimiterId,
+            structurePath: detectedStructureIndex?.suggestedStructurePath,
             valueDelimiterId: detectedParse?.valueDelimiterId
         },
-        encodingCandidates
+        encodingCandidates,
+        structureIndex: sampleStructureIndex
     };
 }
 
@@ -186,7 +200,14 @@ export async function* retrieveRecordsWithParser(input: {
     const { options, signal, stream, toolConfigs } = input;
     const { encodingId, valueDelimiterId } = establishFileReading(options);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
-    const { recordCount } = yield* parser.parseStream(stream, { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId, valueDelimiterId });
+    const { recordCount } = yield* parser.parseStream(stream, {
+        abortSignal: signal,
+        chunkSize: options.chunkSize,
+        dataFormatId: options.dataFormatId,
+        encodingId,
+        structurePath: options.structurePath,
+        valueDelimiterId
+    });
     return { recordCount }; // The parser's counts of lines and bytes are for an audit, so they are not passed on.
 }
 
@@ -210,8 +231,20 @@ export async function auditObjectContentWithParser(input: {
     const columnAuditor = constructColumnAuditor(options.hasHeaders, declaredColumnConfigs);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
     const timedSource = timeSourceWaits(stream);
-    const auditSource = endAtRecordBoundary(timedSource.stream, { byteLimit: options.byteLimit, encodingId, stopSignal: options.stopSignal });
-    const parsing = parser.parseStream(auditSource.stream, { abortSignal: signal, chunkSize: options.chunkSize, dataFormatId: options.dataFormatId, encodingId, valueDelimiterId });
+    // Delimited text is cut at a record boundary here. A nested format can only be cut between its items, which only its
+    // parser can find, so it is given the limit and the stop signal instead.
+    const isStructured = STRUCTURED_DATA_FORMAT_IDS.has(options.dataFormatId);
+    const auditSource = isStructured ? countBytes(timedSource.stream) : endAtRecordBoundary(timedSource.stream, { byteLimit: options.byteLimit, encodingId, stopSignal: options.stopSignal });
+    const parsing = parser.parseStream(auditSource.stream, {
+        abortSignal: signal,
+        byteLimit: isStructured ? options.byteLimit : undefined,
+        chunkSize: options.chunkSize,
+        dataFormatId: options.dataFormatId,
+        encodingId,
+        stopSignal: isStructured ? options.stopSignal : undefined,
+        structurePath: options.structurePath,
+        valueDelimiterId
+    });
     // Read with 'next' rather than 'for await', which drops the summary the parser returns at the end.
     let parsed = await parsing.next();
     while (parsed.done !== true) {
@@ -234,7 +267,7 @@ export async function auditObjectContentWithParser(input: {
         duration: performance.now() - startedAt,
         emptyLineCount: summary.emptyLineCount,
         invalidFieldLengthCount: summary.nonUniformRecordCount,
-        isComplete: auditSource.isComplete(),
+        isComplete: summary.isComplete ?? auditSource.isComplete(),
         lineCount: summary.lineCount,
         recordCount: Math.max(0, summary.recordCount - (hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
         sourceWaitDuration: timedSource.waitDuration()
@@ -242,15 +275,52 @@ export async function auditObjectContentWithParser(input: {
     return { contentAuditConfig, hasHeaders };
 }
 
+// Maps the structure of a whole nested item, reporting the bytes read as it goes. A syntax error ends the map early and
+// is reported in it, with what was read before it kept.
+export async function indexObjectStructureWithParser(input: {
+    onProgress: (byteCount: number) => void;
+    options: IndexObjectStructureOptions;
+    signal: AbortSignal;
+    stream: ReadableStream<Uint8Array>;
+    toolConfigs: ToolConfig[];
+}): Promise<StructureIndex> {
+    const { onProgress, options, signal, stream, toolConfigs } = input;
+    const parser = await loadStructuredParser(toolConfigs, options.dataFormatId, options.parserId);
+    const encodingId = options.encodingId ?? 'utf-8';
+    return await parser.buildStructureIndex(stream, { abortSignal: signal, dataFormatId: options.dataFormatId, encodingId, isComplete: true, maxDepth: undefined, onProgress });
+}
+
+// Lists one page of a part of a nested item. The stream must start at the locator's start offset and may stop at its end
+// offset, so a connector that can read part of an item reads only those bytes.
+export async function listObjectStructureEntriesWithParser(input: {
+    options: ListObjectStructureEntriesOptions;
+    signal: AbortSignal;
+    stream: ReadableStream<Uint8Array>;
+    toolConfigs: ToolConfig[];
+}): Promise<ListStructureEntriesResult> {
+    const { options, signal, stream, toolConfigs } = input;
+    const parser = await loadStructuredParser(toolConfigs, options.dataFormatId, options.parserId);
+    return await parser.listStructureEntries(stream, {
+        abortSignal: signal,
+        dataFormatId: options.dataFormatId,
+        entryCount: options.entryCount,
+        locator: options.locator,
+        maxValueLength: options.maxValueLength,
+        path: options.structurePath
+    });
+}
+
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Only a file has an encoding and a value delimiter, and a parser needs both to read one.
-function establishFileReading(options: { encodingId: string | undefined; path: string; valueDelimiterId: ValueDelimiterId | undefined }): {
+// Only a file has an encoding and a value delimiter, and a parser needs both to read one. A nested format has no value
+// delimiter.
+function establishFileReading(options: { dataFormatId: DataFormatId; encodingId: string | undefined; path: string; valueDelimiterId: ValueDelimiterId | undefined }): {
     encodingId: string;
     valueDelimiterId: ValueDelimiterId;
 } {
-    if (options.encodingId == null || options.valueDelimiterId == null) throw new Error(`'${options.path}' has no encoding or value delimiter, which a parser needs to read it.`);
-    return { encodingId: options.encodingId, valueDelimiterId: options.valueDelimiterId };
+    const valueDelimiterId = options.valueDelimiterId ?? (STRUCTURED_DATA_FORMAT_IDS.has(options.dataFormatId) ? '' : undefined);
+    if (valueDelimiterId == null || options.encodingId == null) throw new Error(`'${options.path}' has no encoding or value delimiter, which a parser needs to read it.`);
+    return { encodingId: options.encodingId, valueDelimiterId };
 }
 
 // The first audit of an item, from the records its preview parsed. The bytes were fetched before it started, so it has no
@@ -352,6 +422,32 @@ function constructRecordEndFinder(encodingId: string): (bytes: Uint8Array, posit
     };
 }
 
+// Passes the stream through, counting the bytes the parser has taken, for an audit's progress.
+function countBytes(stream: ReadableStream<Uint8Array>): { byteCount: () => number; isComplete: () => boolean; stream: ReadableStream<Uint8Array> } {
+    const reader = stream.getReader();
+    let byteCount = 0;
+    let isComplete = false;
+    const countedStream = new ReadableStream<Uint8Array>(
+        {
+            async pull(controller): Promise<void> {
+                const result = await reader.read();
+                if (result.done) {
+                    isComplete = true;
+                    controller.close();
+                    return;
+                }
+                byteCount += result.value.length;
+                controller.enqueue(result.value);
+            },
+            cancel(reason): Promise<void> {
+                return reader.cancel(reason);
+            }
+        },
+        { highWaterMark: 0 }
+    );
+    return { byteCount: () => byteCount, isComplete: () => isComplete, stream: countedStream };
+}
+
 // Passes the stream through, adding up how long the parser waits for each chunk, so an audit can show how much of its
 // time went on fetching the item rather than reading it. A chunk is only asked for when the parser wants one, so the
 // wait is time the parser sat idle. The browser keeps receiving the item meanwhile, so this does not slow the fetch.
@@ -382,18 +478,32 @@ function timeSourceWaits(stream: ReadableStream<Uint8Array>): { stream: Readable
 // with no delimiter found is parsed again with the default delimiter, so the records match the delimiter reported. A
 // delimiter that was given is the only one tried. Whether the preview holds the whole item decides if a quote left open
 // at its end is an error, or a value the preview cut off.
+// A nested format whose structure was mapped is read from the part at 'structurePath'. With no part chosen or suggested,
+// there are no records until the user chooses one. When its structure could not be read at all, such as in an encoding
+// its parser does not read, the structure's issues are the sample's.
 async function parsePreviewText(input: {
     dataFormatId: DataFormatId | undefined;
     isComplete: boolean;
     parserId: string | undefined;
+    structureIndex: StructureIndex | undefined;
+    structurePath: StructurePath | undefined;
     text: string | undefined;
     toolConfigs: ToolConfig[];
     valueDelimiterId: ValueDelimiterId | undefined;
-}): Promise<{ parserId: string; parseTextResult: ParseTextResult; valueDelimiterId: ValueDelimiterId | undefined } | undefined> {
-    const { dataFormatId, isComplete, parserId, text, toolConfigs, valueDelimiterId } = input;
+}): Promise<{ parserId: string; parseTextResult: ParseTextResult; structurePath: StructurePath | undefined; valueDelimiterId: ValueDelimiterId | undefined } | undefined> {
+    const { dataFormatId, isComplete, parserId, structureIndex, structurePath, text, toolConfigs, valueDelimiterId } = input;
     if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) return undefined;
 
     const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
+    if (structureIndex != null) {
+        const isUnreadable = structureIndex.nodes.length === 0 && structureIndex.issues.length > 0;
+        if (isUnreadable || structurePath == null) {
+            const issues = isUnreadable ? structureIndex.issues : [];
+            return { parserId: usedParserId, parseTextResult: { issues, parsedRecords: [], recordDelimiterId: '\n', valueDelimiterId: undefined }, structurePath: undefined, valueDelimiterId: undefined };
+        }
+        const parseTextResult = await parser.parseText(text, { dataFormatId, isComplete, structurePath, valueDelimiterIds: [] });
+        return { parserId: usedParserId, parseTextResult, structurePath, valueDelimiterId: undefined };
+    }
     const valueDelimiterIds = valueDelimiterId == null ? VALUE_DELIMITER_CONFIGS.map(({ id }) => id) : [valueDelimiterId];
     const firstParseTextResult = await parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds });
     const isDelimitedText = dataFormatId === 'dtv';
@@ -402,11 +512,48 @@ async function parsePreviewText(input: {
             ? await parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds: [DEFAULT_VALUE_DELIMITER_ID] })
             : firstParseTextResult;
     const reportedValueDelimiterId = isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId;
-    return { parserId: usedParserId, parseTextResult, valueDelimiterId: reportedValueDelimiterId };
+    return { parserId: usedParserId, parseTextResult, structurePath: undefined, valueDelimiterId: reportedValueDelimiterId };
+}
+
+// Maps the structure of a nested item from the preview's bytes, with the tool that reads its format. Undefined for a
+// format that does not nest, or when its tool does not map structure, which then reads the item its own way.
+async function previewStructure(input: {
+    dataFormatId: DataFormatId | undefined;
+    filePreview: FilePreviewResult;
+    parserId: string | undefined;
+    toolConfigs: ToolConfig[];
+}): Promise<StructureIndex | undefined> {
+    const { dataFormatId, filePreview, parserId, toolConfigs } = input;
+    const isMapped =
+        dataFormatId != null &&
+        STRUCTURED_DATA_FORMAT_IDS.has(dataFormatId) &&
+        listParserToolConfigs(toolConfigs, dataFormatId).length > 0 &&
+        resolveParserToolConfig(toolConfigs, dataFormatId, parserId).actionNames?.includes('buildStructureIndex') === true;
+    if (!isMapped) return undefined;
+    const parser = await loadStructuredParser(toolConfigs, dataFormatId, parserId);
+    const stream = new Blob([filePreview.bytes as Uint8Array<ArrayBuffer>]).stream();
+    const encodingId = filePreview.decodedEncodingId ?? 'utf-8';
+    return await parser.buildStructureIndex(stream, {
+        abortSignal: new AbortController().signal, // The bytes are already in memory, so there is nothing to cancel.
+        dataFormatId,
+        encodingId,
+        isComplete: filePreview.isComplete,
+        maxDepth: undefined,
+        onProgress: undefined
+    });
 }
 
 async function loadParser(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId: string | undefined): Promise<{ parser: ParserInterface; parserId: string }> {
     const parserToolConfig = resolveParserToolConfig(toolConfigs, dataFormatId, parserId);
     const parser = await loadTool<ParserInterface>(toolConfigs, parserToolConfig.id.slice(TOOL_NAME_PREFIX.length));
     return { parser, parserId: parserToolConfig.id };
+}
+
+// The tool for a nested format, which must also map structure.
+async function loadStructuredParser(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId: string | undefined): Promise<StructuredParserInterface> {
+    const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
+    if (!('buildStructureIndex' in parser)) {
+        throw new AppError(`Tool '${usedParserId}' does not map the structure of '${dataFormatId}' items.`, 'dpuse-shared.component.module.connector.objectParsing.loadStructuredParser');
+    }
+    return parser as StructuredParserInterface;
 }

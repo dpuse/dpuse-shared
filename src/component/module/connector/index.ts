@@ -28,6 +28,7 @@ import type {
     connectorUsageIdSchema
 } from './connectorConfig.schema';
 import { createLabelMap, DEFAULT_LOCALE_ID, type LocaleLabel, resolveLabel } from '@/locale/label';
+import type { ListStructureEntriesResult, StructureIndex, StructureLocator, StructurePath } from '@/component/module/tool';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -42,11 +43,13 @@ export interface ConnectorInterface {
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
     dropObject?(options: DropObjectOptions): Promise<void>; // Drop (delete) an object for a specified connection.
-    findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Find an object for a specified connection.
+    findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Finds an object by its id, wherever it is in the connection.
     getInfo?(options: GetInfoOptions): Promise<GetInfoResult>; // Get metadata/info for a node (at any hierarchy level) for a specified connection.
     getReadableStream?(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>; // Get a reader that can retrieve all records from an object for a specified connection.
     getRecord?(options: GetRecordOptions): Promise<GetRecordResult>; // Get a record for an object for a specified connection.
+    indexObjectStructure?(options: IndexObjectStructureOptions, chunk: (byteCount: number) => void): Promise<StructureIndex>; // Map the structure of a whole nested item, such as JSON, reporting the bytes read as it goes.
     listNodes?(options: ListNodesOptions): Promise<ListNodesResult>; // List nodes in a folder for a specified connection.
+    listObjectStructureEntries?(options: ListObjectStructureEntriesOptions): Promise<ListStructureEntriesResult>; // List one page of a part of a nested item, such as JSON.
     loadObjectRecords?(options: LoadObjectRecordsOptions, chunks: AsyncIterable<StoreRecord[]>): Promise<LoadObjectRecordsResult>; // Replace an object in a store connector with the records given.
     openStore?(options: OpenStoreOptions): Promise<OpenStoreResult>; // Open a store connector's database, unless another tab holds it.
     previewObject?(options: PreviewObjectOptions): Promise<PreviewObjectResult>; // Preview an object for a specified connection.
@@ -101,6 +104,7 @@ export interface AuditObjectContentOptions extends EngineConnectorActionOptions 
     parserId: string | undefined; // From the preview. The tool that read it, so the audit reads the item the same way.
     path: string;
     stopSignal: AbortSignal | undefined; // Stops at the end of the next record and keeps the result, unlike an abort. The engine adds it, because a signal cannot cross into the worker.
+    structurePath?: StructurePath | undefined; // From the preview. The part of a nested item read as the table.
     supportsTransferableStreams: boolean;
     valueDelimiterId: ValueDelimiterId | undefined; // Only a file has one.
 }
@@ -135,11 +139,10 @@ export interface DropObjectOptions extends EngineConnectorActionOptions {
 
 // ── Find Object
 export interface FindObjectOptions extends EngineConnectorActionOptions {
-    storeId: string | undefined;
-    nodeId: string;
+    id: string; // The object's id, as 'listNodes' gives it.
 }
 export interface FindObjectResult {
-    path: string | undefined;
+    path: string | undefined; // The object's path, as the other actions take it.
 }
 
 // ── Get Info
@@ -167,6 +170,14 @@ export interface GetRecordResult {
     record: StoreRecord;
 }
 
+// ── Index Object Structure
+export interface IndexObjectStructureOptions extends EngineConnectorActionOptions {
+    dataFormatId: DataFormatId; // From the preview.
+    encodingId: string | undefined; // From the preview.
+    parserId: string | undefined; // From the preview. The tool that read it, so the structure is read the same way.
+    path: string;
+}
+
 // ── List Nodes
 export interface ListNodesOptions extends EngineConnectorActionOptions {
     folderPath: string;
@@ -179,6 +190,17 @@ export interface ListNodesResult {
     connectionNodeConfigs: ConnectionNodeConfig[];
     isMore: boolean;
     totalCount: number;
+}
+
+// ── List Object Structure Entries
+export interface ListObjectStructureEntriesOptions extends EngineConnectorActionOptions {
+    dataFormatId: DataFormatId; // From the preview.
+    entryCount: number; // The most entries to list.
+    locator: StructureLocator; // From the parser: the node's own, a checkpoint's, or the next page's. The connector reads only the bytes it names.
+    maxValueLength: number | undefined; // Longer text values are cut short. The parser's own default when undefined.
+    parserId: string | undefined; // From the preview. The tool that read it, so the structure is read the same way.
+    path: string;
+    structurePath: StructurePath; // The node being listed.
 }
 
 // ── Load Object Records
@@ -230,6 +252,7 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
     mimeType: string | undefined; // The type the connection's listing gave the item, if any.
     parserId: string | undefined; // A tool the user chose to read the item, used in place of the first that reads its format.
     path: string;
+    structurePath?: StructurePath | undefined; // The part of a nested item the user chose to read as the table, used in place of the one suggested.
     valueDelimiterId: ValueDelimiterId | undefined; // A value delimiter the user chose, used in place of the one detected.
 }
 export interface PreviewObjectResult {
@@ -237,6 +260,7 @@ export interface PreviewObjectResult {
     sampleConfig: SampleConfig;
     readingConfig: ReadingConfig;
     encodingCandidates?: EncodingDetectionConfig[] | undefined; // For choosing another encoding. Not part of the reading, so not saved with the data view.
+    structureIndex?: StructureIndex | undefined; // The structure of a nested item, as far as the preview read, for choosing the part read as the table. Not saved with the data view.
 }
 
 // ── Query Records
@@ -301,6 +325,7 @@ export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
     encodingId: string | undefined; // Only a file has one.
     parserId: string | undefined; // From the preview. The tool that read it, so the records are read the same way.
     path: string;
+    structurePath?: StructurePath | undefined; // From the preview. The part of a nested item read as the table.
     valueDelimiterId: ValueDelimiterId | undefined; // Only a file has one.
 }
 // What every connector can say about a retrieval. A parser's counts of lines and bytes are in 'ParseStreamSummary'.
@@ -353,7 +378,9 @@ const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     getInfo: 'Get Info',
     getReadableStream: 'Get Readable Stream',
     getRecord: 'Get Record',
+    indexObjectStructure: 'Index Object Structure',
     listNodes: 'List Nodes',
+    listObjectStructureEntries: 'List Object Structure Entries',
     loadObjectRecords: 'Load Object Records',
     openStore: 'Open Store',
     previewObject: 'Preview Object',
@@ -377,7 +404,9 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'getInfo',
     'getReadableStream',
     'getRecord',
+    'indexObjectStructure',
     'listNodes',
+    'listObjectStructureEntries',
     'previewObject',
     'queryRecords',
     'retrieveRecords'
@@ -386,7 +415,8 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // ── Object Parsing
-export { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from './objectParsing';
+export { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from './objectParsing';
+export { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from './objectParsing';
 
 // ── Store Paths
 export { resolveStorePath } from './storePath';

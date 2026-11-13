@@ -3,6 +3,7 @@ import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
 import type { ComponentInstanceConfig } from '@/component';
+import type { StructurePath } from '@/component/module/tool';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -32,6 +33,7 @@ export interface ReadingConfig {
     isDeclared?: boolean | undefined; // The item's source says how it is read, such as a resource file beside it, so the user has nothing to choose.
     parserId: string | undefined; // The config id of the parser tool. Undefined when no tool parsed the item, such as an empty file or a format no tool reads yet.
     recordDelimiterId: RecordDelimiterId | undefined;
+    structurePath?: StructurePath | undefined; // The part of a nested item read as the table, as its parser suggests. Undefined when there is none, or several to choose from.
     valueDelimiterId: ValueDelimiterId | undefined;
 
     // TODO: following are under review.
@@ -58,6 +60,7 @@ export interface ReadingChoiceConfig {
     encodingId: string | undefined;
     hasHeaders: boolean | undefined;
     parserId: string | undefined;
+    structurePath?: StructurePath | undefined;
     valueDelimiterId: ValueDelimiterId | undefined;
 }
 
@@ -95,6 +98,7 @@ export interface SampleConfig {
     recordDelimiterId?: RecordDelimiterId | undefined;
     replacementCharacterCount?: number | undefined; // How many '\uFFFD' characters decoding put in place of bytes the decoded encoding cannot read. Undefined when no text was decoded.
     size: number | undefined; // The bytes the text and records came from. Undefined when the item is not read as bytes.
+    structurePath?: StructurePath | undefined; // The part of a nested item the records were read from. Undefined when none has been chosen, so there are no records.
     text: string | undefined;
     valueDelimiterId?: ValueDelimiterId | undefined;
 }
@@ -102,6 +106,7 @@ export interface SampleConfig {
 // A problem found while sampling an item. The sample still holds whatever was read, so the item can be shown and read
 // again with other settings.
 export interface SampleIssue {
+    columnNumber?: number | undefined; // Where on 'lineNumber' the problem is, counting characters from 1. Undefined when the parser does not say.
     endLineNumber: number | undefined; // Set when the issue spans several lines, such as an unclosed quote that runs on to where the parser stopped.
     fieldNumber: number | undefined; // The value's position in its record, counting from 1.
     id: string; // The parser's own code, such as 'CSV_QUOTE_NOT_CLOSED', or 'empty' for an item with no content.
@@ -297,22 +302,23 @@ export type TemporalSubtypeId = Extract<DataTypeConfig, { id: 'temporal' }>['sub
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // ── Data Formats ─ What DPUse can do with each format. 'supportId' says whether the format is read as data now, is
-// planned, or is not data. 'isText' means it can be shown as text, and 'isTable' as a table of records.
+// planned, or is not data. 'isText' means it can be shown as text, and 'isTable' as a table of records. 'isStructured'
+// means it nests, so the user chooses the part read as the table, and it has no value delimiter.
 export const DATA_FORMAT_CONFIGS = [
-    { id: 'arrow', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'avro', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'dtv', isTable: true, isText: true, supportId: 'supported' }, // Delimited text, such as CSV or TSV.
-    { id: 'json', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'jsonl', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'markdown', isTable: false, isText: true, supportId: 'unsupported' }, // A document, so it is shown as text but not read as data.
-    { id: 'ods', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'parquet', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'sav', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'sqlite', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'xlsx', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'xml', isTable: false, isText: false, supportId: 'planned' },
-    { id: 'unknown', isTable: false, isText: false, supportId: 'unsupported' }
-] as const satisfies readonly { id: string; isTable: boolean; isText: boolean; supportId: 'planned' | 'supported' | 'unsupported' }[];
+    { id: 'arrow', isStructured: false, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'avro', isStructured: false, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'dtv', isStructured: false, isTable: true, isText: true, supportId: 'supported' }, // Delimited text, such as CSV or TSV.
+    { id: 'json', isStructured: true, isTable: true, isText: true, supportId: 'supported' },
+    { id: 'jsonl', isStructured: true, isTable: true, isText: true, supportId: 'supported' },
+    { id: 'markdown', isStructured: false, isTable: false, isText: true, supportId: 'unsupported' }, // A document, so it is shown as text but not read as data.
+    { id: 'ods', isStructured: true, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'parquet', isStructured: false, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'sav', isStructured: false, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'sqlite', isStructured: false, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'xlsx', isStructured: true, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'xml', isStructured: true, isTable: false, isText: false, supportId: 'planned' },
+    { id: 'unknown', isStructured: false, isTable: false, isText: false, supportId: 'unsupported' }
+] as const satisfies readonly { id: string; isStructured: boolean; isTable: boolean; isText: boolean; supportId: 'planned' | 'supported' | 'unsupported' }[];
 
 // ── Value Delimiters ─ In the order detection tries them, most common first. The unit and record separators are
 // invisible, so their ids name them and 'character' holds the character itself.

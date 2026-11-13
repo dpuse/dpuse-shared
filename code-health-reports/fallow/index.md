@@ -21,14 +21,14 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3701 |
-| Avg Cyclomatic | 3.0 |
+| Total LOC | 3905 |
+| Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 141, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 152, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.0% |
 | Dead Exports | 0.3% |
-| Maintainability (avg) | 92.5 |
+| Maintainability (avg) | 92.4 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 2 |
@@ -37,32 +37,32 @@
 
 | File | Function | Severity | Cyclomatic | Cognitive | CRAP | Lines |
 |:-----|:---------|:---------|:-----------|:----------|:-----|:------|
-| `src/component/module/connector/objectParsing.ts:43` | `buildPreviewObjectResult` | high | 38 **!** | 18 **!** | 38.0 **!** | 134 |
+| `src/component/module/connector/objectParsing.ts:42` | `buildPreviewObjectResult` | high | 48 **!** | 23 **!** | 48.0 **!** | 149 |
 | `src/component/module/tool/delimitedText.ts:38` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
 | `scripts/documentEncodings.ts:17` | `rows` | moderate | 6 | 5 | 42.0 **!** | 2 |
 
 **!** marks the dimension that breached.
 
-**49** files, **141** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**49** files, **152** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (21 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
+| `src/component/module/connector/objectParsing.ts` | 85.6 | 1 | 5 | 0% | 0.24 | 48.0 |
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
-| `src/component/module/connector/objectParsing.ts` | 86.7 | 1 | 4 | 0% | 0.23 | 38.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
-| `src/errors/index.ts` | 91.0 | 4 | 0 | 0% | 0.30 | 13.8 |
+| `src/errors/index.ts` | 91.0 | 5 | 0 | 0% | 0.30 | 13.8 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
 | `src/component/module/connector/index.ts` | 87.9 | 5 | 13 | 0% | 0.05 | 8.0 |
 | `src/component/module/connector/storePath.ts` | 95.8 | 1 | 0 | 0% | 0.39 | 7.0 |
 | `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/connector/tableSchema.ts` | 90.2 | 1 | 2 | 0% | 0.18 | 6.0 |
-| `src/component/module/tool/index.ts` | 86.5 | 6 | 6 | 0% | 0.19 | 4.0 |
+| `src/component/module/tool/index.ts` | 86.5 | 7 | 6 | 0% | 0.19 | 4.0 |
 | `src/component/index.ts` | 92.9 | 14 | 2 | 0% | 0.09 | 4.0 |
 | `src/component/module/connector/storeValues.ts` | 92.6 | 1 | 2 | 0% | 0.28 | 3.0 |
-| `src/component/dataView/index.ts` | 95.3 | 10 | 2 | 0% | 0.01 | 3.0 |
+| `src/component/dataView/index.ts` | 94.2 | 10 | 3 | 0% | 0.01 | 3.0 |
 | `src/encoding/index.ts` | 95.4 | 5 | 1 | 0% | 0.06 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 11 | 0 | 0% | 0.12 | 3.0 |
 | `src/component/module/engine/index.ts` | 91.3 | 2 | 6 | 0% | 0.03 | 2.0 |
@@ -71,25 +71,25 @@
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.5/100
+**Average maintainability index:** 92.4/100
 
 ### Hotspots (15 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 34.6 | 23 | 892 | 0.23 | 1 | stable |
-| `src/component/module/tool/index.ts` | 15.2 | 16 | 120 | 0.19 | 6 | stable |
+| `src/component/module/connector/objectParsing.ts` | 36.1 | 23 | 892 | 0.24 | 1 | stable |
+| `src/component/module/tool/index.ts` | 16.5 | 17 | 125 | 0.19 | 7 | stable |
 | `src/component/module/connector/index.ts` | 13.9 | 53 | 821 | 0.05 | 5 | accelerating |
-| `src/utilities/index.ts` | 11.4 | 11 | 474 | 0.25 | 1 | stable |
 | `src/component/module/tool/delimitedText.ts` | 11.2 | 5 | 133 | 0.35 | 1 | stable |
 | `src/locale/index.ts` | 11.2 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/errors/index.ts` | 11.1 | 9 | 230 | 0.30 | 4 | stable |
+| `src/errors/index.ts` | 11.1 | 9 | 230 | 0.30 | 5 | stable |
+| `src/utilities/index.ts` | 10.9 | 10 | 464 | 0.25 | 1 | stable |
 | `scripts/documentEncodings.ts` | 5.7 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 5.1 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 3.7 | 10 | 119 | 0.09 | 14 | stable |
+| `scripts/checkBrowserDecoding.ts` | 5.0 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 3.8 | 10 | 119 | 0.09 | 14 | stable |
 | `src/encoding/index.ts` | 2.8 | 9 | 778 | 0.06 | 5 | accelerating |
 | `src/component/dataView/index.ts` | 2.6 | 44 | 1524 | 0.01 | 10 | accelerating |
-| `vite.config.ts` | 1.6 | 21 | 139 | 0.02 | 0 | accelerating |
+| `vite.config.ts` | 1.6 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.4 | 11 | 107 | 0.03 | 2 | stable |
 | `src/component/module/presenter/index.ts` | 1.2 | 10 | 98 | 0.03 | 1 | cooling |
 
@@ -106,9 +106,9 @@
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 38% | 6 | 24 | 8 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 38% | 5 | 8 | 18 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 37% | 5 | 8 | 19 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
-| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 32% | 5 | 13 | 18 |  |
+| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 31% | 5 | 13 | 19 |  |
 
 *Files that change together in the commit history with no import between them.*
 

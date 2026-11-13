@@ -2,9 +2,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
-import type { ParsedRecordsChunk } from '@/component/module/connector';
-import { auditObjectContentWithParser, buildPreviewObjectResult, retrieveRecordsWithParser } from '@/component/module/connector';
-import type { FilePreviewResult, ParseStreamSummary, ToolConfig } from '@/component/module/tool';
+import type { AuditObjectContentOptions, ParsedRecordsChunk } from '@/component/module/connector';
+import { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from '@/component/module/connector';
+import type { FilePreviewResult, ParseStreamSummary, StructureIndex, ToolConfig } from '@/component/module/tool';
+import { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from '@/component/module/connector';
 import type { ParsedRecord, ReadingChoiceConfig } from '@/component/dataView';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -42,6 +43,14 @@ const ADALTAS = buildToolConfig('dpuse-tool-adaltas-csv-parser', ['dtv']);
 const RUST = buildToolConfig('dpuse-tool-rust-csv-core-parser', ['dtv']);
 const JSON_TOOL = buildToolConfig('dpuse-tool-json-parser', ['json']);
 const TOOL_CONFIGS = [RUST, ADALTAS, JSON_TOOL];
+
+// A JSON tool that maps structure, as its config's action names say.
+const STRUCTURED_JSON_TOOL: ToolConfig = {
+    ...buildToolConfig('dpuse-tool-streamparser-json-parser', ['json']),
+    actionNames: ['buildStructureIndex', 'listStructureEntries', 'parseStream', 'parseText']
+};
+const STRUCTURED_TOOL_CONFIGS = [RUST, STRUCTURED_JSON_TOOL];
+const LOCATOR = { endOffset: 20, startOffset: 4, state: undefined };
 
 const RECORDS = [[{ value: 'a', valueWasQuoted: false }]] as ParsedRecord[];
 
@@ -97,9 +106,31 @@ async function* buildParsing(summary: ParseStreamSummary, chunks: ParsedRecordsC
 const INFERENCE_SUMMARY = { columnConfigs: [{ id: 'a' }], hasHeaders: true };
 const inferDataTypes = vi.fn(() => INFERENCE_SUMMARY);
 
-function buildPreviewInput(filePreview: FilePreviewResult, choices: Partial<ReadingChoiceConfig> = {}): Parameters<typeof buildPreviewObjectResult>[0] {
+function buildPreviewInput(filePreview: FilePreviewResult, choices: Partial<ReadingChoiceConfig> = {}, toolConfigs = TOOL_CONFIGS): Parameters<typeof buildPreviewObjectResult>[0] {
     const readingChoiceConfig = { dataFormatId: undefined, encodingId: undefined, hasHeaders: undefined, parserId: undefined, valueDelimiterId: undefined, ...choices };
-    return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, readingChoiceConfig, startedAt: performance.now(), toolConfigs: TOOL_CONFIGS };
+    return { asAt: 1000, filePreview, inferDataTypes: inferDataTypes as never, readingChoiceConfig, startedAt: performance.now(), toolConfigs };
+}
+
+function buildStructureIndex(overrides: Partial<StructureIndex> = {}): StructureIndex {
+    const node = { checkpoints: [], childCount: 2, isComplete: true, isTableCandidate: true, keys: ['a'], kindId: 'list' as const, locator: LOCATOR, path: ['rows'] };
+    return { byteCount: 10, isComplete: true, issues: [], nodes: [node], suggestedStructurePath: ['rows'], tableCandidateCount: 1, ...overrides };
+}
+
+function buildStructuredAuditOptions(overrides: Partial<AuditObjectContentOptions> = {}): AuditObjectContentOptions {
+    return {
+        byteLimit: 100,
+        chunkSize: undefined,
+        dataFormatId: 'json',
+        encodingId: 'utf-8',
+        hasHeaders: true,
+        parserId: undefined,
+        path: '/a.json',
+        stopSignal: new AbortController().signal,
+        structurePath: ['rows'],
+        supportsTransferableStreams: false,
+        valueDelimiterId: undefined,
+        ...overrides
+    };
 }
 
 describe('objectParsing', () => {
@@ -351,7 +382,12 @@ describe('objectParsing', () => {
             ];
             tools.byName['rust-csv-core-parser'] = { parseStream: vi.fn(() => buildParsing(SUMMARY, chunks, onStop)) };
 
-            const retrieval = retrieveRecordsWithParser({ options: RETRIEVE_OPTIONS as never, signal: new AbortController().signal, stream: new ReadableStream(), toolConfigs: TOOL_CONFIGS });
+            const retrieval = retrieveRecordsWithParser({
+                options: RETRIEVE_OPTIONS as never,
+                signal: new AbortController().signal,
+                stream: new ReadableStream(),
+                toolConfigs: TOOL_CONFIGS
+            });
             for await (const chunk of retrieval) {
                 expect(chunk.records).toBe(RECORDS);
                 break; // Stops after the first chunk, as a store does when its write fails.
@@ -657,6 +693,174 @@ describe('objectParsing', () => {
             });
 
             expect(constructColumnAuditor).toHaveBeenCalledWith(true, declaredColumnConfigs);
+        });
+    });
+
+    describe('nested formats', () => {
+        const HEADER_RECORDS = [[{ value: 'a', valueWasQuoted: true }], [{ value: '1', valueWasQuoted: false }]] as ParsedRecord[];
+
+        it("maps the preview's bytes, reads the suggested part as the table, and takes the parser's header", async () => {
+            const index = buildStructureIndex();
+            const buildStructureIndexMock = vi.fn().mockResolvedValue(index);
+            const parseText = vi.fn().mockResolvedValue({ hasHeaders: true, issues: [], parsedRecords: HEADER_RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+            tools.byName['streamparser-json-parser'] = { buildStructureIndex: buildStructureIndexMock, parseText };
+            const bytes = new TextEncoder().encode('{"rows":[{"a":1}]}');
+
+            const result = await buildPreviewObjectResult(
+                buildPreviewInput(buildFilePreview({ bytes, dataFormatId: 'json', isComplete: false, text: '{"rows":[{"a":1}]}' }), {}, STRUCTURED_TOOL_CONFIGS)
+            );
+
+            const [stream, options] = buildStructureIndexMock.mock.calls[0] as [ReadableStream<Uint8Array>, Record<string, unknown>];
+            expect(new Uint8Array(await new Response(stream).arrayBuffer())).toEqual(bytes);
+            expect(options).toMatchObject({ dataFormatId: 'json', encodingId: 'utf-8', isComplete: false });
+            expect(parseText).toHaveBeenCalledWith('{"rows":[{"a":1}]}', expect.objectContaining({ structurePath: ['rows'] }));
+            expect(inferDataTypes).toHaveBeenCalledWith(HEADER_RECORDS, true, undefined);
+            expect(result.structureIndex).toBe(index);
+            expect(result.readingConfig).toMatchObject({ structurePath: ['rows'], valueDelimiterId: undefined });
+            expect(result.sampleConfig).toMatchObject({ parsedRecords: HEADER_RECORDS, structurePath: ['rows'] });
+        });
+
+        it('reads no records when the parser suggests no part, so the user chooses one', async () => {
+            const parseText = vi.fn();
+            const index = buildStructureIndex({ suggestedStructurePath: undefined, tableCandidateCount: 2 });
+            tools.byName['streamparser-json-parser'] = { buildStructureIndex: vi.fn().mockResolvedValue(index), parseText };
+
+            const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '{}' }), {}, STRUCTURED_TOOL_CONFIGS));
+
+            expect(parseText).not.toHaveBeenCalled();
+            expect(result.readingConfig.structurePath).toBeUndefined();
+            expect(result.sampleConfig).toMatchObject({ issues: [], parsedRecords: [], structurePath: undefined });
+        });
+
+        it('reads the part the user chose, but reports the suggested part in the reading', async () => {
+            const parseText = vi.fn().mockResolvedValue({ hasHeaders: true, issues: [], parsedRecords: HEADER_RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+            tools.byName['streamparser-json-parser'] = { buildStructureIndex: vi.fn().mockResolvedValue(buildStructureIndex()), parseText };
+
+            const result = await buildPreviewObjectResult(
+                buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '{}' }), { structurePath: ['other'] }, STRUCTURED_TOOL_CONFIGS)
+            );
+
+            expect(parseText).toHaveBeenLastCalledWith('{}', expect.objectContaining({ structurePath: ['other'] }));
+            expect(result.readingConfig.structurePath).toEqual(['rows']);
+            expect(result.sampleConfig.structurePath).toEqual(['other']);
+        });
+
+        it('reports why the structure could not be read at all, without reading records', async () => {
+            const issue = {
+                endLineNumber: undefined,
+                fieldNumber: undefined,
+                id: 'JSON_ENCODING',
+                lineNumber: undefined,
+                message: 'JSON must be encoded as UTF-8.',
+                recordNumber: undefined,
+                severityId: 'error' as const,
+                value: undefined
+            };
+            const parseText = vi.fn();
+            const index = buildStructureIndex({ issues: [issue], nodes: [], suggestedStructurePath: undefined, tableCandidateCount: 0 });
+            tools.byName['streamparser-json-parser'] = { buildStructureIndex: vi.fn().mockResolvedValue(index), parseText };
+
+            const result = await buildPreviewObjectResult(
+                buildPreviewInput(buildFilePreview({ dataFormatId: 'json', decodedEncodingId: 'utf-16le', text: '{}' }), {}, STRUCTURED_TOOL_CONFIGS)
+            );
+
+            expect(parseText).not.toHaveBeenCalled();
+            expect(result.sampleConfig).toMatchObject({ issues: [issue], parsedRecords: [] });
+        });
+
+        it('hands the parser the limit, the stop signal and the part, rather than cutting the stream itself', async () => {
+            const parseStream = vi.fn(() =>
+                buildParsing({ byteCount: 7, commentLineCount: 0, emptyLineCount: 0, isComplete: false, lineCount: 1, nonUniformRecordCount: 0, recordCount: 3 })
+            );
+            tools.byName['streamparser-json-parser'] = { parseStream };
+            const options = buildStructuredAuditOptions();
+            const { stream } = buildStream('{"rows":[', '{"a":1}]}');
+
+            const { contentAuditConfig } = await auditObjectContentWithParser({
+                constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords: vi.fn(), completeAudit: () => ({ columnConfigs: [], hasHeaders: true }) }),
+                onProgress: vi.fn(),
+                options,
+                signal: new AbortController().signal,
+                stream,
+                toolConfigs: STRUCTURED_TOOL_CONFIGS
+            });
+
+            expect(parseStream).toHaveBeenCalledWith(
+                expect.any(ReadableStream),
+                expect.objectContaining({ byteLimit: 100, stopSignal: options.stopSignal, structurePath: ['rows'], valueDelimiterId: '' })
+            );
+            expect(contentAuditConfig).toMatchObject({ isComplete: false, recordCount: 2 });
+        });
+
+        it('retrieves the records of the part read as the table', async () => {
+            const parseStream = vi.fn(() => buildParsing({ byteCount: 0, commentLineCount: 0, emptyLineCount: 0, lineCount: 0, nonUniformRecordCount: 0, recordCount: 1 }));
+            tools.byName['streamparser-json-parser'] = { parseStream };
+            const { stream } = buildStream('[]');
+            const options = {
+                chunkSize: undefined,
+                dataFormatId: 'json' as const,
+                encodingId: 'utf-8',
+                parserId: undefined,
+                path: '/a.json',
+                structurePath: ['rows'],
+                valueDelimiterId: undefined
+            };
+
+            const retrieval = retrieveRecordsWithParser({ options, signal: new AbortController().signal, stream, toolConfigs: STRUCTURED_TOOL_CONFIGS });
+            await retrieval.next();
+
+            expect(parseStream).toHaveBeenCalledWith(stream, expect.objectContaining({ structurePath: ['rows'], valueDelimiterId: '' }));
+        });
+
+        it('maps the whole item, reporting progress', async () => {
+            const index = buildStructureIndex();
+            const buildStructureIndexMock = vi.fn().mockResolvedValue(index);
+            tools.byName['streamparser-json-parser'] = { buildStructureIndex: buildStructureIndexMock };
+            const { stream } = buildStream('[]');
+            const onProgress = vi.fn();
+
+            const result = await indexObjectStructureWithParser({
+                onProgress,
+                options: { dataFormatId: 'json', encodingId: undefined, parserId: undefined, path: '/a.json' },
+                signal: new AbortController().signal,
+                stream,
+                toolConfigs: STRUCTURED_TOOL_CONFIGS
+            });
+
+            expect(result).toBe(index);
+            expect(buildStructureIndexMock).toHaveBeenCalledWith(stream, expect.objectContaining({ encodingId: 'utf-8', isComplete: true, onProgress }));
+        });
+
+        it('lists a page of a part at the locator given', async () => {
+            const page = { entries: [], issues: [], nextLocator: undefined };
+            const listStructureEntries = vi.fn().mockResolvedValue(page);
+            tools.byName['streamparser-json-parser'] = { buildStructureIndex: vi.fn(), listStructureEntries };
+            const { stream } = buildStream('[]');
+
+            const result = await listObjectStructureEntriesWithParser({
+                options: { dataFormatId: 'json', entryCount: 50, locator: LOCATOR, maxValueLength: undefined, parserId: undefined, path: '/a.json', structurePath: ['rows'] },
+                signal: new AbortController().signal,
+                stream,
+                toolConfigs: STRUCTURED_TOOL_CONFIGS
+            });
+
+            expect(result).toBe(page);
+            expect(listStructureEntries).toHaveBeenCalledWith(stream, expect.objectContaining({ entryCount: 50, locator: LOCATOR, path: ['rows'] }));
+        });
+
+        it('fails clearly when the tool for the format does not map structure', async () => {
+            tools.byName['json-parser'] = { parseText: vi.fn() };
+            const { stream } = buildStream('[]');
+
+            await expect(
+                indexObjectStructureWithParser({
+                    onProgress: vi.fn(),
+                    options: { dataFormatId: 'json', encodingId: 'utf-8', parserId: undefined, path: '/a.json' },
+                    signal: new AbortController().signal,
+                    stream,
+                    toolConfigs: TOOL_CONFIGS
+                })
+            ).rejects.toThrow("Tool 'dpuse-tool-json-parser' does not map the structure of 'json' items.");
         });
     });
 });
