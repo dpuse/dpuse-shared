@@ -16,11 +16,10 @@ describe('acquireWebLock', () => {
 
         expect(release).toBeTypeOf('function');
         await expect(acquireWebLock('dpuse-test-lock')).resolves.toBeUndefined();
-        release?.();
-        await new Promise((resolve) => setTimeout(resolve, 0)); // The lock is let go once its release has settled.
-        const nextRelease = await acquireWebLock('dpuse-test-lock');
+        await release?.();
+        const nextRelease = await acquireWebLock('dpuse-test-lock'); // Free as soon as the release resolves, with no wait.
         expect(nextRelease).toBeTypeOf('function');
-        nextRelease?.();
+        await nextRelease?.();
     });
 
     it('rejects when the lock cannot be requested', async () => {
