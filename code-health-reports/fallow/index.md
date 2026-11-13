@@ -77,19 +77,19 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 36.1 | 23 | 892 | 0.24 | 1 | stable |
-| `src/component/module/tool/index.ts` | 16.5 | 17 | 125 | 0.19 | 7 | stable |
-| `src/component/module/connector/index.ts` | 13.9 | 53 | 821 | 0.05 | 5 | accelerating |
-| `src/component/module/tool/delimitedText.ts` | 11.2 | 5 | 133 | 0.35 | 1 | stable |
-| `src/locale/index.ts` | 11.2 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/errors/index.ts` | 11.1 | 9 | 230 | 0.30 | 5 | stable |
-| `src/utilities/index.ts` | 10.9 | 10 | 464 | 0.25 | 1 | stable |
-| `scripts/documentEncodings.ts` | 5.7 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 5.0 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 3.8 | 10 | 119 | 0.09 | 14 | stable |
-| `src/encoding/index.ts` | 2.8 | 9 | 778 | 0.06 | 5 | accelerating |
-| `src/component/dataView/index.ts` | 2.6 | 44 | 1524 | 0.01 | 10 | accelerating |
-| `vite.config.ts` | 1.6 | 20 | 137 | 0.02 | 0 | stable |
+| `src/component/module/connector/objectParsing.ts` | 36.8 | 24 | 1091 | 0.24 | 1 | stable |
+| `src/component/module/tool/index.ts` | 17.4 | 18 | 127 | 0.19 | 7 | accelerating |
+| `src/component/module/connector/index.ts` | 13.9 | 54 | 861 | 0.05 | 5 | accelerating |
+| `src/component/module/tool/delimitedText.ts` | 10.9 | 5 | 133 | 0.35 | 1 | stable |
+| `src/locale/index.ts` | 10.9 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/errors/index.ts` | 10.8 | 9 | 230 | 0.30 | 5 | stable |
+| `src/utilities/index.ts` | 10.7 | 10 | 464 | 0.25 | 1 | stable |
+| `scripts/documentEncodings.ts` | 5.5 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 4.9 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 3.7 | 10 | 119 | 0.09 | 14 | stable |
+| `src/encoding/index.ts` | 2.7 | 9 | 778 | 0.06 | 5 | accelerating |
+| `src/component/dataView/index.ts` | 2.6 | 45 | 1560 | 0.01 | 10 | accelerating |
+| `vite.config.ts` | 1.5 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.4 | 11 | 107 | 0.03 | 2 | stable |
 | `src/component/module/presenter/index.ts` | 1.2 | 10 | 98 | 0.03 | 1 | cooling |
 
@@ -102,13 +102,13 @@
 | `src/component/module/cookbook/index.ts` | `src/component/module/index.ts` | 71% | 5 | 6 | 8 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 60% | 6 | 8 | 12 | **strong** |
 | `src/component/module/cookbook/cookbookConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 6 | 12 | **strong** |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 50% | 9 | 24 | 12 | **strong** |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 49% | 9 | 25 | 12 |  |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
-| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 38% | 6 | 24 | 8 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 37% | 5 | 8 | 19 |  |
+| `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 36% | 6 | 25 | 8 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 36% | 5 | 8 | 20 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
-| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 31% | 5 | 13 | 19 |  |
+| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 30% | 5 | 13 | 20 |  |
 
 *Files that change together in the commit history with no import between them.*
 
@@ -116,7 +116,7 @@
 
 | Efficiency | Category | Effort / Confidence | File | Recommendation |
 |:-----------|:---------|:--------------------|:-----|:---------------|
-| 10.9 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 5 dependents amplify every change |
+| 10.8 | high impact | medium / medium | `src/locale/index.ts` | Split high-impact file (56 LOC), 5 dependents amplify every change |
 
 ---
 
