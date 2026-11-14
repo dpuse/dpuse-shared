@@ -170,16 +170,24 @@ describe('formatNumberAsStorageSize', () => {
     });
 
     it('switches to storage units at binary thresholds', () => {
-        expect(formatNumberAsStorageSize(1024)).toBe('1 kB');
-        expect(formatNumberAsStorageSize(1536)).toBe('1.5 kB');
-        expect(formatNumberAsStorageSize(1_048_576)).toBe('1 MB');
-        expect(formatNumberAsStorageSize(1_073_741_824)).toBe('1 GB');
-        expect(formatNumberAsStorageSize(1_099_511_627_776)).toBe('1 TB');
+        expect(formatNumberAsStorageSize(1024)).toBe('1 KiB');
+        expect(formatNumberAsStorageSize(1536)).toBe('1.5 KiB');
+        expect(formatNumberAsStorageSize(1_048_576)).toBe('1 MiB');
+        expect(formatNumberAsStorageSize(1_073_741_824)).toBe('1 GiB');
+        expect(formatNumberAsStorageSize(1_099_511_627_776)).toBe('1 TiB');
+    });
+
+    it('localises the number but keeps the IEC symbol, which is the same in every language', () => {
+        expect(formatNumberAsStorageSize(1536, 1, 'es')).toBe('1,5 KiB');
+    });
+
+    it('stays in the largest unit beyond it', () => {
+        expect(formatNumberAsStorageSize(2048 * 1_099_511_627_776)).toBe('2,048 TiB');
     });
 
     it('rounds before choosing the unit', () => {
-        expect(formatNumberAsStorageSize(1023.9)).toBe('1 kB');
-        expect(formatNumberAsStorageSize(1_048_575)).toBe('1 MB');
+        expect(formatNumberAsStorageSize(1023.9)).toBe('1 KiB');
+        expect(formatNumberAsStorageSize(1_048_575)).toBe('1 MiB');
     });
 
     it('returns an empty string for nullish and non-finite values', () => {

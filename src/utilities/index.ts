@@ -2,7 +2,7 @@
 
 export type DurationUnit = 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 export type UsageTypeId = 'boolean' | 'decimalNumber' | 'moment' | 'momentTime' | 'string' | 'unknown' | 'wholeNumber';
-type StorageUnit = 'byte' | 'kilobyte' | 'megabyte' | 'gigabyte' | 'terabyte';
+type StorageUnit = 'byte' | 'KiB' | 'MiB' | 'GiB' | 'TiB';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -35,8 +35,9 @@ const MIME_TYPES_BY_EXTENSION = new Map([
 // ── Locale
 const NUMBER_FORMATTER_DEFAULT_LOCALE = 'en';
 
-// ── Units ─ Each unit with its size. The names are 'Intl' unit identifiers, so 'Intl.NumberFormat' supplies the label
-// in the requested locale. Durations run largest first and storage smallest first, the order each formatter searches.
+// ── Units ─ Each unit with its size. Durations run largest first and storage smallest first, the order each formatter
+// searches. The duration names are 'Intl' unit identifiers, so 'Intl.NumberFormat' supplies the label in the requested
+// locale. Storage sizes are binary, so above bytes they take the IEC symbols, which are the same in every language.
 const DURATION_UNITS: [DurationUnit, number][] = [
     ['day', 86_400_000],
     ['hour', 3_600_000],
@@ -46,10 +47,10 @@ const DURATION_UNITS: [DurationUnit, number][] = [
 ];
 const STORAGE_UNITS: [StorageUnit, number][] = [
     ['byte', 1],
-    ['kilobyte', 1024],
-    ['megabyte', 1_048_576],
-    ['gigabyte', 1_073_741_824],
-    ['terabyte', 1_099_511_627_776]
+    ['KiB', 1024],
+    ['MiB', 1_048_576],
+    ['GiB', 1_073_741_824],
+    ['TiB', 1_099_511_627_776]
 ];
 
 // ── State ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -81,19 +82,14 @@ export function formatNumberAsSize(number?: number, decimalPlaces = 1, locale = 
     return number == null || !Number.isFinite(number) ? '' : getNumberFormatter(locale, { maximumFractionDigits: decimalPlaces, notation: 'compact' }).format(number);
 }
 
-// The unit is chosen after rounding, so 1,048,575 bytes shows as '1 MB' rather than '1,024 KB'.
+// The unit is chosen after rounding, so 1,048,575 bytes shows as '1 MiB' rather than '1,024 KiB'. 'Intl.NumberFormat'
+// has no IEC units, so it formats only the number above bytes, and the symbol follows it.
 export function formatNumberAsStorageSize(number?: number, decimalPlaces = 1, locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
     if (number == null || !Number.isFinite(number)) return '';
-    const [unit, size] = STORAGE_UNITS.find(([, unitSize]) => roundNumber(Math.abs(number) / unitSize, unitSize === 1 ? 0 : decimalPlaces) < 1024) ?? [
-        'terabyte',
-        1_099_511_627_776
-    ];
-    return getNumberFormatter(locale, {
-        maximumFractionDigits: size === 1 ? 0 : decimalPlaces,
-        style: 'unit',
-        unit,
-        unitDisplay: size === 1 ? 'long' : 'short' // The short English label for bytes, 'byte', has no plural.
-    }).format(number / size);
+    const [unit, size] = STORAGE_UNITS.find(([, unitSize]) => roundNumber(Math.abs(number) / unitSize, unitSize === 1 ? 0 : decimalPlaces) < 1024) ?? ['TiB', 1_099_511_627_776];
+    return size === 1
+        ? getNumberFormatter(locale, { maximumFractionDigits: 0, style: 'unit', unit: 'byte', unitDisplay: 'long' }).format(number) // Long, because the short English label, 'byte', has no plural.
+        : `${getNumberFormatter(locale, { maximumFractionDigits: decimalPlaces }).format(number / size)} ${unit}`;
 }
 
 export function formatNumberAsDuration(number?: number, stopAt: DurationUnit = 'millisecond', locale = NUMBER_FORMATTER_DEFAULT_LOCALE): string {
