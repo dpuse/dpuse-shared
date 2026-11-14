@@ -11,6 +11,7 @@ export interface SerialisedError {
 
 // ── Constants  ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
+const DPUSE_ERROR_NAMES = new Set(['APIError', 'AppError', 'ConnectorError', 'DPUseError', 'EngineError', 'FetchError']);
 const RESPONSE_ERROR_BODY_LIMIT = 2048;
 
 // Redaction — serialised errors are shown in the browser and stored in Axiom, so secrets and email addresses are masked
@@ -242,9 +243,15 @@ function sanitizeResponseErrorBody(body?: string): string | undefined {
     return body.length > RESPONSE_ERROR_BODY_LIMIT ? `${body.slice(0, RESPONSE_ERROR_BODY_LIMIT)}... [truncated]` : body;
 }
 
+// Each connector is built with its own copy of these classes, so an error it raises is not an instance of this copy's.
+// It is known by its name and its locator instead, so its data, such as a store error's id, is kept where it belongs.
+function isDPUseError(error: Error): error is DPUseError {
+    return error instanceof DPUseError || (DPUSE_ERROR_NAMES.has(error.name) && typeof (error as { locator?: unknown }).locator === 'string');
+}
+
 function serialiseSingleError(cause: Error): [SerialisedError, Error | null] {
     const nextCause = cause.cause == null ? null : normalizeToError(cause.cause);
-    if (cause instanceof DPUseError) {
+    if (isDPUseError(cause)) {
         return [{ data: cause.data, locator: cause.locator, message: cause.message, name: cause.name, stack: cause.stack }, nextCause];
     }
     const customProperties = Object.fromEntries(Object.entries(cause).filter(([k]) => k !== 'cause'));

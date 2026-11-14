@@ -21,10 +21,10 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3957 |
+| Total LOC | 3964 |
 | Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 155, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 156, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.0% |
 | Dead Exports | 0.3% |
@@ -43,7 +43,7 @@
 
 **!** marks the dimension that breached.
 
-**50** files, **155** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**50** files, **156** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (22 files)
 
@@ -78,24 +78,24 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 35.9 | 24 | 1091 | 0.24 | 1 | stable |
-| `src/component/module/tool/index.ts` | 17.0 | 18 | 127 | 0.19 | 7 | accelerating |
-| `src/component/module/connector/index.ts` | 13.9 | 55 | 870 | 0.05 | 5 | accelerating |
-| `src/utilities/index.ts` | 12.1 | 11 | 496 | 0.25 | 1 | accelerating |
-| `src/locale/index.ts` | 10.7 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/component/module/tool/delimitedText.ts` | 10.6 | 5 | 133 | 0.35 | 1 | stable |
-| `src/errors/index.ts` | 10.6 | 9 | 230 | 0.30 | 6 | stable |
-| `src/component/module/connector/webLock.ts` | 6.2 | 3 | 70 | 0.31 | 1 | accelerating |
-| `scripts/documentEncodings.ts` | 5.4 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 4.8 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 3.6 | 10 | 119 | 0.09 | 14 | stable |
+| `src/component/module/connector/objectParsing.ts` | 35.1 | 24 | 1091 | 0.24 | 1 | stable |
+| `src/component/module/tool/index.ts` | 16.6 | 18 | 127 | 0.19 | 7 | accelerating |
+| `src/component/module/connector/index.ts` | 13.9 | 56 | 873 | 0.05 | 5 | accelerating |
+| `src/utilities/index.ts` | 11.8 | 11 | 496 | 0.25 | 1 | accelerating |
+| `src/component/module/tool/delimitedText.ts` | 10.4 | 5 | 133 | 0.35 | 1 | stable |
+| `src/locale/index.ts` | 10.4 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/errors/index.ts` | 10.3 | 9 | 230 | 0.30 | 6 | stable |
+| `src/component/module/connector/webLock.ts` | 6.0 | 3 | 70 | 0.31 | 1 | accelerating |
+| `scripts/documentEncodings.ts` | 5.3 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 4.7 | 4 | 171 | 0.23 | 0 | cooling |
+| `src/component/index.ts` | 3.5 | 10 | 119 | 0.09 | 14 | stable |
 | `src/encoding/index.ts` | 2.6 | 9 | 778 | 0.06 | 5 | accelerating |
 | `src/component/dataView/index.ts` | 2.5 | 45 | 1560 | 0.01 | 10 | accelerating |
 | `vite.config.ts` | 1.5 | 20 | 137 | 0.02 | 0 | stable |
-| `src/component/module/engine/index.ts` | 1.4 | 11 | 107 | 0.03 | 2 | stable |
-| `src/component/module/presenter/index.ts` | 1.2 | 10 | 98 | 0.03 | 1 | cooling |
+| `src/component/module/engine/index.ts` | 1.3 | 11 | 107 | 0.03 | 2 | stable |
+| `src/component/module/presenter/index.ts` | 1.1 | 10 | 98 | 0.03 | 1 | cooling |
 
-*5 files excluded (< 3 commits)*
+*6 files excluded (< 3 commits)*
 
 ### Hidden Change Coupling (10 pairs, since 12 months)
 
