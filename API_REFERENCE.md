@@ -160,7 +160,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
-- **`acquireWebLock`**`(name: string)`
+- **`acquireWebLock`**`(name: string, options?: AcquireWebLockOptions)`
 - **`auditObjectContentWithParser`**`(input: { constructColumnAuditor: ConnectorUtilities['constructColumnAuditor']; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; onProgress: (recordCount: number, byteCount: number) => void; options: AuditObjectContentOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 - **`buildPreviewObjectResult`**`(input: { asAt: number; declaredColumnConfigs?: DeclaredColumnConfig[] | undefined; declaredReadingConfig?: DeclaredReadingConfig | undefined; filePreview: FilePreviewResult; inferDataTypes: ConnectorUtilities['inferDataTypes']; readingChoiceConfig: ReadingChoiceConfig | undefined; // The previewer has already decoded the text with the chosen encoding. startedAt: number; // From 'performance.now()', before the item was fetched. toolConfigs: ToolConfig[]; })`
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
@@ -181,6 +181,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`AcquireWebLockOptions`**
 - **`AuditObjectContentOptions`** (extends `EngineConnectorActionOptions`)
 - **`AuditObjectContentResult`**
 - **`ClassifyPreviewValuesOptions`** (extends `EngineConnectorActionOptions`)
@@ -212,7 +213,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ListObjectStructureEntriesOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsResult`**
-- **`OpenStoreOptions`**
+- **`OpenStoreOptions`** (extends `EngineConnectorActionOptions`)
 - **`OpenStoreResult`**
 - **`ParsedRecordsChunk`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)

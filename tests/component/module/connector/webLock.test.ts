@@ -22,6 +22,30 @@ describe('acquireWebLock', () => {
         await nextRelease?.();
     });
 
+    it('takes a held lock over and tells the holder, which can still release without waiting', async () => {
+        const onLost = vi.fn();
+        const release = await acquireWebLock('dpuse-test-lock', { onLost });
+
+        const takenRelease = await acquireWebLock('dpuse-test-lock', { takeOver: true });
+
+        expect(takenRelease).toBeTypeOf('function');
+        await vi.waitFor(() => {
+            expect(onLost).toHaveBeenCalledOnce();
+        });
+        await release?.(); // Resolves at once, because the lock is no longer this holder's to free.
+        await expect(acquireWebLock('dpuse-test-lock')).resolves.toBeUndefined(); // Still held by the tab that took it over.
+        await takenRelease?.();
+    });
+
+    it('does not report a lost lock when the holder releases it itself', async () => {
+        const onLost = vi.fn();
+        const release = await acquireWebLock('dpuse-test-lock', { onLost });
+
+        await release?.();
+
+        expect(onLost).not.toHaveBeenCalled();
+    });
+
     it('rejects when the lock cannot be requested', async () => {
         vi.spyOn(navigator.locks, 'request').mockRejectedValue(new Error('Web Locks are blocked.'));
 

@@ -234,12 +234,15 @@ export type StoreRecord = StoreValue[];
 export type StoreValue = bigint | boolean | Date | number | string | null;
 
 // ── Open Store
-export type OpenStoreOptions = EngineConnectorActionOptions;
+export interface OpenStoreOptions extends EngineConnectorActionOptions {
+    takeOver?: boolean; // Opens the store even when another tab holds it. That tab closes its store when it hears.
+}
 export interface OpenStoreResult {
     storeStateId: StoreStateId;
 }
 
-// 'heldElsewhere' means another tab has the store open, as only one tab can open a database saved in the browser.
+// 'heldElsewhere' means another tab has the store open, as only one tab can open a database saved in the browser. Opening
+// with 'takeOver' takes it from that tab.
 // 'unavailable' means the browser gives no storage to keep it in, e.g. in some private windows.
 export type StoreStateId = 'heldElsewhere' | 'ready' | 'unavailable';
 
@@ -425,7 +428,7 @@ export { resolveStorePath } from './storePath';
 export { convertStoreRecordToParsedRecord, convertStoreValueToText } from './storeValues';
 
 // ── Web Locks
-export { acquireWebLock } from './webLock';
+export { type AcquireWebLockOptions, acquireWebLock } from './webLock';
 
 // ── Table Schema
 export { readTableSchema } from './tableSchema';

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-11-14T12:50:39.712Z",
+    "generatedAt": "2026-11-14T14:10:57.169Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -21,7 +21,7 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 8638,
+      "uncompressed": 8648,
       "gzip": 1061,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
@@ -30,8 +30,8 @@
       "kind": "asset",
       "name": "dist/dpuse-shared.es.js",
       "type": "script",
-      "uncompressed": 68432,
-      "gzip": 16318,
+      "uncompressed": 68668,
+      "gzip": 16425,
       "brotli": 0
     },
     {
@@ -303,15 +303,15 @@
       "name": "src/component/module/connector/webLock.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 580
+      "uncompressed": 885
     },
     {
       "kind": "chunk",
       "name": "src/component/module/connector/webLock.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 330,
-      "gzip": 190,
+      "uncompressed": 556,
+      "gzip": 296,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },

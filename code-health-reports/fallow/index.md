@@ -21,14 +21,14 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3907 |
-| Avg Cyclomatic | 3.0 |
+| Total LOC | 3926 |
+| Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 153, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.0% |
 | Dead Exports | 0.3% |
-| Maintainability (avg) | 92.3 |
+| Maintainability (avg) | 92.1 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 2 |
@@ -56,6 +56,7 @@
 | `src/errors/index.ts` | 91.0 | 5 | 0 | 0% | 0.30 | 13.8 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
 | `src/component/module/connector/index.ts` | 87.9 | 5 | 13 | 0% | 0.05 | 8.0 |
+| `src/component/module/connector/webLock.ts` | 91.6 | 1 | 0 | 0% | 0.31 | 7.0 |
 | `src/component/module/connector/storePath.ts` | 95.8 | 1 | 0 | 0% | 0.39 | 7.0 |
 | `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/connector/tableSchema.ts` | 90.2 | 1 | 2 | 0% | 0.18 | 6.0 |
@@ -67,11 +68,10 @@
 | `src/locale/label.ts` | 97.6 | 11 | 0 | 0% | 0.12 | 3.0 |
 | `src/component/module/engine/index.ts` | 91.3 | 2 | 6 | 0% | 0.03 | 2.0 |
 | `src/component/module/presenter/index.ts` | 91.9 | 1 | 5 | 0% | 0.03 | 2.0 |
-| `src/component/module/connector/webLock.ts` | 95.8 | 1 | 0 | 0% | 0.24 | 2.0 |
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.3/100
+**Average maintainability index:** 92.1/100
 
 ### Hotspots (15 files, since 6 months)
 
@@ -80,10 +80,10 @@
 | `src/component/module/connector/objectParsing.ts` | 36.8 | 24 | 1091 | 0.24 | 1 | stable |
 | `src/component/module/tool/index.ts` | 17.4 | 18 | 127 | 0.19 | 7 | accelerating |
 | `src/component/module/connector/index.ts` | 13.9 | 54 | 861 | 0.05 | 5 | accelerating |
+| `src/utilities/index.ts` | 12.4 | 11 | 496 | 0.25 | 1 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 10.9 | 5 | 133 | 0.35 | 1 | stable |
 | `src/locale/index.ts` | 10.9 | 11 | 153 | 0.36 | 5 | cooling |
 | `src/errors/index.ts` | 10.8 | 9 | 230 | 0.30 | 5 | stable |
-| `src/utilities/index.ts` | 10.7 | 10 | 464 | 0.25 | 1 | stable |
 | `scripts/documentEncodings.ts` | 5.5 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 4.9 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 3.7 | 10 | 119 | 0.09 | 14 | stable |
