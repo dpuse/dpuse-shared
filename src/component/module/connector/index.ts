@@ -421,6 +421,9 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 export { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from './objectParsing';
 export { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from './objectParsing';
 
+// ── Store Errors
+export { constructStoreError, findStoreErrorId, type StoreErrorId } from './storeErrors';
+
 // ── Store Paths
 export { resolveStorePath } from './storePath';
 

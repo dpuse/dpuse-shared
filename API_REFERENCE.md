@@ -166,9 +166,11 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`constructConnectorCategoryConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorItemTypeConfig`**`(id: string, localeId?: LocaleId)`
 - **`constructConnectorUsageConfig`**`(id: string, localeId?: LocaleId)`
+- **`constructStoreError`**`(storeErrorId: StoreErrorId, message: string, locator: string, options?: ErrorOptions)`
 - **`convertStoreRecordToParsedRecord`**`(storeRecord: StoreRecord)`
 - **`convertStoreValueToText`**`(storeValue: StoreValue)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
+- **`findStoreErrorId`**`(error: unknown)`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
 - **`indexObjectStructureWithParser`**`(input: { onProgress: (byteCount: number) => void; options: IndexObjectStructureOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 - **`listObjectStructureEntriesWithParser`**`(input: { options: ListObjectStructureEntriesOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
@@ -233,6 +235,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`RetrieveRecordsChunk`**
 - **`RetrieveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsSummary`**
+- **`StoreErrorId`**
 - **`StoreRecord`**
 - **`StoreStateId`**
 - **`StoreValue`**

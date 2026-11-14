@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-11-14T14:10:57.169Z",
+    "generatedAt": "2026-11-14T15:58:57.896Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -21,8 +21,8 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 8648,
-      "gzip": 1061,
+      "uncompressed": 8757,
+      "gzip": 1078,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -30,8 +30,8 @@
       "kind": "asset",
       "name": "dist/dpuse-shared.es.js",
       "type": "script",
-      "uncompressed": 68668,
-      "gzip": 16425,
+      "uncompressed": 69068,
+      "gzip": 16553,
       "brotli": 0
     },
     {
@@ -47,7 +47,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 9209,
-      "gzip": 1856,
+      "gzip": 1847,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -81,7 +81,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 942,
-      "gzip": 335,
+      "gzip": 334,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -168,7 +168,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 2132,
-      "gzip": 471,
+      "gzip": 468,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -192,7 +192,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 537,
-      "gzip": 228,
+      "gzip": 227,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -209,7 +209,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 1348,
-      "gzip": 444,
+      "gzip": 442,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -218,7 +218,7 @@
       "name": "src/component/module/connector/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 5005
+      "uncompressed": 5076
     },
     {
       "kind": "chunk",
@@ -226,7 +226,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 2662,
-      "gzip": 801,
+      "gzip": 797,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -243,7 +243,24 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 10056,
-      "gzip": 2622,
+      "gzip": 2609,
+      "brotli": 0,
+      "parent": "dist/dpuse-shared.es.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "src/component/module/connector/storeErrors.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 559
+    },
+    {
+      "kind": "chunk",
+      "name": "src/component/module/connector/storeErrors.ts",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 290,
+      "gzip": 186,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -260,7 +277,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 315,
-      "gzip": 198,
+      "gzip": 199,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -277,7 +294,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 174,
-      "gzip": 127,
+      "gzip": 126,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -294,7 +311,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 2050,
-      "gzip": 636,
+      "gzip": 633,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -311,7 +328,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 556,
-      "gzip": 296,
+      "gzip": 295,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -376,7 +393,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 307,
-      "gzip": 151,
+      "gzip": 150,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -393,7 +410,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 435,
-      "gzip": 252,
+      "gzip": 251,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -410,7 +427,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 198,
-      "gzip": 131,
+      "gzip": 130,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -426,8 +443,8 @@
       "name": "src/component/module/tool/delimitedText.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1640,
-      "gzip": 607,
+      "uncompressed": 1643,
+      "gzip": 604,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -444,7 +461,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 1129,
-      "gzip": 476,
+      "gzip": 473,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -461,7 +478,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 398,
-      "gzip": 193,
+      "gzip": 192,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -485,7 +502,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 16353,
-      "gzip": 2199,
+      "gzip": 2188,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -501,8 +518,8 @@
       "name": "src/errors/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 4301,
-      "gzip": 1379,
+      "uncompressed": 4299,
+      "gzip": 1373,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -543,7 +560,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 266,
-      "gzip": 168,
+      "gzip": 167,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -577,7 +594,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 66,
-      "gzip": 56,
+      "gzip": 55,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -594,7 +611,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 3713,
-      "gzip": 1218,
+      "gzip": 1209,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     }
