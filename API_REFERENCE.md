@@ -170,6 +170,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`convertStoreRecordToParsedRecord`**`(storeRecord: StoreRecord)`
 - **`convertStoreValueToText`**`(storeValue: StoreValue)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
+- **`fetchObjectContentStream`**`(url: string, options: FetchObjectContentStreamOptions)`
 - **`findStoreErrorId`**`(error: unknown)`
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
 - **`indexObjectStructureWithParser`**`(input: { onProgress: (byteCount: number) => void; options: IndexObjectStructureOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
@@ -201,6 +202,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`DropObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`EngineLoadObjectRecordsOptions`** (extends `LoadObjectRecordsOptions`)
 - **`EngineLoadObjectRecordsResult`** (extends `LoadObjectRecordsResult`)
+- **`FetchObjectContentStreamOptions`**
 - **`FindObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`FindObjectResult`**
 - **`GetInfoOptions`** (extends `EngineConnectorActionOptions`)

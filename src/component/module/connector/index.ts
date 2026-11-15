@@ -43,7 +43,7 @@ export interface ConnectorInterface {
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
     dropObject?(options: DropObjectOptions): Promise<void>; // Drop (delete) an object for a specified connection.
-    findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Checks that an object exists, given its path as its id.
+    findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Checks that an object exists, given its path as its id, and throws when it does not.
     getInfo?(options: GetInfoOptions): Promise<GetInfoResult>; // Get metadata/info for a node (at any hierarchy level) for a specified connection.
     getObject?(options: GetObjectOptions): Promise<GetObjectResult>; // Looks an object up by its id, wherever it is in the connection, and gives its path.
     getReadableStream?(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>; // Get a reader that can retrieve all records from an object for a specified connection.
@@ -143,7 +143,7 @@ export interface FindObjectOptions extends EngineConnectorActionOptions {
     id: string; // The object's path, which is its id in a store.
 }
 export interface FindObjectResult {
-    path: string | undefined; // Undefined when the object does not exist.
+    path: string; // The object's path, the same as its id.
 }
 
 // ── Get Info
@@ -427,6 +427,9 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 ]);
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// ── Object Fetching
+export { type FetchObjectContentStreamOptions, fetchObjectContentStream } from './objectFetching';
 
 // ── Object Parsing
 export { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from './objectParsing';

@@ -21,14 +21,14 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 3976 |
+| Total LOC | 4066 |
 | Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 156, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 162, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.0% |
 | Dead Exports | 0.3% |
-| Maintainability (avg) | 92.2 |
+| Maintainability (avg) | 92.1 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
 | Unused Deps | 2 |
@@ -43,9 +43,9 @@
 
 **!** marks the dimension that breached.
 
-**50** files, **156** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**51** files, **162** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
-### File Health Scores (22 files)
+### File Health Scores (23 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
@@ -53,13 +53,14 @@
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
-| `src/errors/index.ts` | 91.0 | 6 | 0 | 0% | 0.30 | 13.8 |
+| `src/errors/index.ts` | 91.0 | 7 | 0 | 0% | 0.30 | 13.8 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
-| `src/component/module/connector/index.ts` | 87.7 | 5 | 14 | 0% | 0.05 | 8.0 |
+| `src/component/module/connector/index.ts` | 87.4 | 5 | 15 | 0% | 0.05 | 8.0 |
 | `src/component/module/connector/webLock.ts` | 91.6 | 1 | 0 | 0% | 0.31 | 7.0 |
 | `src/component/module/connector/storePath.ts` | 95.8 | 1 | 0 | 0% | 0.39 | 7.0 |
 | `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/connector/tableSchema.ts` | 90.2 | 1 | 2 | 0% | 0.18 | 6.0 |
+| `src/component/module/connector/objectFetching.ts` | 90.6 | 1 | 1 | 0% | 0.22 | 6.0 |
 | `src/component/module/connector/storeErrors.ts` | 93.0 | 1 | 1 | 0% | 0.25 | 6.0 |
 | `src/component/module/tool/index.ts` | 86.5 | 7 | 6 | 0% | 0.19 | 4.0 |
 | `src/component/index.ts` | 92.9 | 14 | 2 | 0% | 0.09 | 4.0 |
@@ -72,7 +73,7 @@
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 92.2/100
+**Average maintainability index:** 92.1/100
 
 ### Hotspots (16 files, since 6 months)
 
@@ -81,7 +82,7 @@
 | `src/component/module/connector/objectParsing.ts` | 34.3 | 24 | 1091 | 0.24 | 1 | stable |
 | `src/component/module/tool/index.ts` | 16.2 | 18 | 127 | 0.19 | 7 | accelerating |
 | `src/component/module/connector/index.ts` | 13.9 | 57 | 890 | 0.05 | 5 | accelerating |
-| `src/errors/index.ts` | 12.0 | 10 | 239 | 0.30 | 6 | stable |
+| `src/errors/index.ts` | 12.0 | 10 | 239 | 0.30 | 7 | stable |
 | `src/utilities/index.ts` | 11.5 | 11 | 496 | 0.25 | 1 | accelerating |
 | `src/locale/index.ts` | 10.2 | 11 | 153 | 0.36 | 5 | cooling |
 | `src/component/module/tool/delimitedText.ts` | 10.1 | 5 | 133 | 0.35 | 1 | stable |
