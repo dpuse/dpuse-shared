@@ -1,5 +1,5 @@
 {
-  "version": "1.0.221",
+  "version": "1.0.222",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -3242,13 +3242,13 @@
       }
     },
     "fallow": {
-      "version": "3.43.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.43.0.tgz",
+      "version": "3.43.1",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.43.1.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.43.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.43.0.tgz",
+          "version": "3.43.1",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.43.1.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
