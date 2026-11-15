@@ -271,16 +271,16 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | Chunk/Module/File                                                           | Composition                                                                                    |
 | :-------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
 | **dist/dpuse-shared.es.js**                                                 | 67.7&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;16.2&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 17 more                            | `███████████████░░░░░`&nbsp;74.1%&nbsp;·&nbsp;50.1&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒░░░░░░░░░░░`&nbsp;46.3%&nbsp;·&nbsp;31.3&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 17 more                            | `███████████████░░░░░`&nbsp;74.1%&nbsp;·&nbsp;50.2&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒░░░░░░░░░░░`&nbsp;46.3%&nbsp;·&nbsp;31.4&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒▒░░░░░░░░░░░░░░░░░`&nbsp;14.5%&nbsp;·&nbsp;9.8&nbsp;kB                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ tableSchema.ts            | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;3.0%&nbsp;·&nbsp;2.0&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ delimitedText.ts          | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.4%&nbsp;·&nbsp;1.6&nbsp;kB                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;1.9%&nbsp;·&nbsp;1.3&nbsp;kB                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.0%&nbsp;·&nbsp;1.3&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ componentConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;1.4%&nbsp;·&nbsp;942&nbsp;B                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ 12 smaller files          | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;4.6%&nbsp;·&nbsp;3.1&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                            | `███░░░░░░░░░░░░░░░░░`&nbsp;13.3%&nbsp;·&nbsp;9.0&nbsp;kB                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░`&nbsp;12.7%&nbsp;·&nbsp;8.6&nbsp;kB                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                 | `███░░░░░░░░░░░░░░░░░`&nbsp;12.6%&nbsp;·&nbsp;8.6&nbsp;kB                                      |
 
 Bars show each row's share of its output file. ↳ rows are part of the row above.
 
