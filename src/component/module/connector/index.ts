@@ -43,8 +43,9 @@ export interface ConnectorInterface {
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
     dropObject?(options: DropObjectOptions): Promise<void>; // Drop (delete) an object for a specified connection.
-    findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Finds an object by its id, wherever it is in the connection.
+    findObject?(options: FindObjectOptions): Promise<FindObjectResult>; // Checks that an object exists, given its path as its id.
     getInfo?(options: GetInfoOptions): Promise<GetInfoResult>; // Get metadata/info for a node (at any hierarchy level) for a specified connection.
+    getObject?(options: GetObjectOptions): Promise<GetObjectResult>; // Looks an object up by its id, wherever it is in the connection, and gives its path.
     getReadableStream?(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>; // Get a reader that can retrieve all records from an object for a specified connection.
     getRecord?(options: GetRecordOptions): Promise<GetRecordResult>; // Get a record for an object for a specified connection.
     indexObjectStructure?(options: IndexObjectStructureOptions, chunk: (byteCount: number) => void): Promise<StructureIndex>; // Map the structure of a whole nested item, such as JSON, reporting the bytes read as it goes.
@@ -139,10 +140,10 @@ export interface DropObjectOptions extends EngineConnectorActionOptions {
 
 // ── Find Object
 export interface FindObjectOptions extends EngineConnectorActionOptions {
-    id: string; // The object's id, as 'listNodes' gives it.
+    id: string; // The object's path, which is its id in a store.
 }
 export interface FindObjectResult {
-    path: string | undefined; // The object's path, as the other actions take it.
+    path: string | undefined; // Undefined when the object does not exist.
 }
 
 // ── Get Info
@@ -151,6 +152,14 @@ export interface GetInfoOptions extends EngineConnectorActionOptions {
 }
 export interface GetInfoResult {
     info: Record<string, unknown>; // Raw, connector-specific metadata — not yet normalized to a common shape.
+}
+
+// ── Get Object
+export interface GetObjectOptions extends EngineConnectorActionOptions {
+    id: string; // The object's id, as 'listNodes' gives it.
+}
+export interface GetObjectResult {
+    path: string; // The object's path, as the other actions take it.
 }
 
 // ── Get Readable Stream
@@ -379,6 +388,7 @@ const CONNECTOR_ACTION_NAME_MAP: Record<ConnectorActionName, string> = {
     dropObject: 'Drop Object',
     findObject: 'Find Object',
     getInfo: 'Get Info',
+    getObject: 'Get Object',
     getReadableStream: 'Get Readable Stream',
     getRecord: 'Get Record',
     indexObjectStructure: 'Index Object Structure',
@@ -405,6 +415,7 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
     'auditObjectContent',
     'findObject',
     'getInfo',
+    'getObject',
     'getReadableStream',
     'getRecord',
     'indexObjectStructure',
