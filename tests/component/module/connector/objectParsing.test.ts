@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
-import type { AuditObjectContentOptions, ParsedRecordsChunk } from '@/component/module/connector';
+import type { AuditObjectContentOptions, ParsedRecordsChunk, RetrieveRecordsSummary } from '@/component/module/connector';
 import { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from '@/component/module/connector';
 import type { FilePreviewResult, ParseStreamSummary, StructureIndex, ToolConfig } from '@/component/module/tool';
 import { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from '@/component/module/connector';
@@ -334,6 +334,26 @@ describe('objectParsing', () => {
             expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, undefined, undefined);
             expect(result.readingConfig.isDeclared).toBe(false);
         });
+
+        it('times the parser and the column audit apart in the first audit', async () => {
+            vi.useFakeTimers();
+            tools.byName['rust-csv-core-parser'] = {
+                parseText: vi.fn(() => {
+                    vi.advanceTimersByTime(30); // The parser reads for 30 ms.
+                    return Promise.resolve({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
+                })
+            };
+            inferDataTypes.mockImplementationOnce(() => {
+                vi.advanceTimersByTime(50); // The auditor takes 50 ms.
+                return INFERENCE_SUMMARY;
+            });
+
+            const { contentAuditConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview()));
+            vi.useRealTimers();
+
+            expect(contentAuditConfig.parseDuration).toBeCloseTo(30, 0);
+            expect(contentAuditConfig.columnAuditDuration).toBeCloseTo(50, 0);
+        });
     });
 
     describe('retrieveRecordsWithParser', () => {
@@ -359,8 +379,41 @@ describe('objectParsing', () => {
             }
 
             expect(receivedChunks).toEqual(chunks);
-            expect(result.value).toEqual({ recordCount: 1 }); // The parser's other counts are for an audit.
-            expect(parseStream).toHaveBeenCalledWith(stream, { abortSignal: signal, chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', valueDelimiterId: ';' });
+            expect(result.value).toEqual({ parseDuration: expect.any(Number) as number, recordCount: 1, sourceWaitDuration: expect.any(Number) as number }); // The parser's other counts are for an audit.
+            expect(parseStream).toHaveBeenCalledWith(expect.any(ReadableStream), { abortSignal: signal, chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', valueDelimiterId: ';' });
+        });
+
+        it("times the parser apart from the wait for the item and the receiver's time", async () => {
+            vi.useFakeTimers();
+            const stream = new ReadableStream<Uint8Array>({
+                async pull(controller): Promise<void> {
+                    await new Promise((resolve) => setTimeout(resolve, 100)); // The item takes 100 ms to arrive.
+                    controller.enqueue(new Uint8Array([1]));
+                    controller.close();
+                }
+            });
+            tools.byName['rust-csv-core-parser'] = {
+                parseStream: vi.fn(async function* (sourceStream: ReadableStream<Uint8Array>): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
+                    const reader = sourceStream.getReader();
+                    let result = await reader.read();
+                    while (!result.done) result = await reader.read();
+                    vi.advanceTimersByTime(30); // The parser reads for 30 ms.
+                    yield { records: RECORDS, typeId: 'parsingRecordArray' };
+                    return SUMMARY;
+                })
+            };
+
+            const retrieval = retrieveRecordsWithParser({ options: RETRIEVE_OPTIONS as never, signal: new AbortController().signal, stream, toolConfigs: TOOL_CONFIGS });
+            const firstChunk = retrieval.next();
+            await vi.advanceTimersByTimeAsync(100);
+            await firstChunk;
+            vi.advanceTimersByTime(50); // The receiver holds the chunk for 50 ms, such as a store writing it.
+            const result = await retrieval.next();
+            vi.useRealTimers();
+
+            expect(result.value).toMatchObject({ recordCount: 1 });
+            expect((result.value as RetrieveRecordsSummary).parseDuration).toBeCloseTo(30, 0);
+            expect((result.value as RetrieveRecordsSummary).sourceWaitDuration).toBeGreaterThanOrEqual(100);
         });
 
         it('fails for an item with no encoding or value delimiter, because only a file has them', async () => {
@@ -846,7 +899,7 @@ describe('objectParsing', () => {
             const retrieval = retrieveRecordsWithParser({ options, signal: new AbortController().signal, stream, toolConfigs: STRUCTURED_TOOL_CONFIGS });
             await retrieval.next();
 
-            expect(parseStream).toHaveBeenCalledWith(stream, expect.objectContaining({ structurePath: ['rows'], valueDelimiterId: '' }));
+            expect(parseStream).toHaveBeenCalledWith(expect.any(ReadableStream), expect.objectContaining({ structurePath: ['rows'], valueDelimiterId: '' }));
         });
 
         it('maps the whole item, reporting progress', async () => {

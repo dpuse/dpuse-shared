@@ -219,6 +219,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`ListObjectStructureEntriesOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`LoadObjectRecordsResult`**
+- **`LoadTiming`**
 - **`OpenStoreOptions`** (extends `EngineConnectorActionOptions`)
 - **`OpenStoreResult`**
 - **`ParsedRecordsChunk`**

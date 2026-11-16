@@ -5,7 +5,7 @@ import type { RetrieveRecordsSummary } from '@/component/module/connector';
 import type { AuditObjectContentOptions, AuditObjectContentResult, ConnectorUtilities, IndexObjectStructureOptions } from '@/component/module/connector';
 import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig } from '@/component/dataView';
 import { DATA_FORMAT_CONFIGS, VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
-import type { FilePreviewResult, ListStructureEntriesResult, ParserInterface, ParseTextResult, StructuredParserInterface } from '@/component/module/tool';
+import type { FilePreviewResult, ListStructureEntriesResult, ParserInterface, ParseStreamSummary, ParseTextResult, StructuredParserInterface } from '@/component/module/tool';
 import type { ListObjectStructureEntriesOptions, ParsedRecordsChunk, PreviewObjectResult, RetrieveRecordsOptions } from '@/component/module/connector';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
@@ -109,11 +109,14 @@ export async function buildPreviewObjectResult(input: {
     // A nested format is mapped from the preview's bytes first, and its parser suggests the part to read as the table.
     const detectedDataFormatId = declaredReadingConfig?.dataFormatId ?? filePreview.dataFormatId;
     const declaredValueDelimiterId = declaredReadingConfig?.valueDelimiterId;
-    const detectedStructureIndex = await previewStructure({ dataFormatId: detectedDataFormatId, filePreview, parserId: undefined, toolConfigs });
+    // The parser's time is added up apart from the value audit's, so the cost of each can be measured.
+    const parseTiming = { duration: 0 };
+    const detectedStructureIndex = await previewStructure({ dataFormatId: detectedDataFormatId, filePreview, parserId: undefined, parseTiming, toolConfigs });
     const detectedParse = await parsePreviewText({
         dataFormatId: detectedDataFormatId,
         isComplete,
         parserId: undefined,
+        parseTiming,
         structureIndex: detectedStructureIndex,
         structurePath: detectedStructureIndex?.suggestedStructurePath,
         text,
@@ -124,13 +127,14 @@ export async function buildPreviewObjectResult(input: {
     const isFormatChosen = readingChoiceConfig?.dataFormatId != null || readingChoiceConfig?.parserId != null;
     const isParseChosen = isFormatChosen || readingChoiceConfig?.valueDelimiterId != null || readingChoiceConfig?.structurePath != null;
     const sampleStructureIndex = isFormatChosen
-        ? await previewStructure({ dataFormatId: sampleDataFormatId, filePreview, parserId: readingChoiceConfig.parserId, toolConfigs })
+        ? await previewStructure({ dataFormatId: sampleDataFormatId, filePreview, parserId: readingChoiceConfig.parserId, parseTiming, toolConfigs })
         : detectedStructureIndex;
     const sampleParse = isParseChosen
         ? await parsePreviewText({
               dataFormatId: sampleDataFormatId,
               isComplete,
               parserId: readingChoiceConfig.parserId,
+              parseTiming,
               structureIndex: sampleStructureIndex,
               structurePath: readingChoiceConfig.structurePath ?? sampleStructureIndex?.suggestedStructurePath,
               text,
@@ -144,17 +148,21 @@ export async function buildPreviewObjectResult(input: {
     // A parser whose first record is always a header, such as JSON keys, says so, and is not second-guessed.
     const sampleRecords = sampleParse?.parseTextResult.parsedRecords ?? [];
     const sampleHasHeaders = sampleParse?.parseTextResult.hasHeaders ?? declaredReadingConfig?.hasHeaders;
+    const columnAuditStartedAt = performance.now();
     const sampleInference = sampleParse == null ? undefined : inferDataTypes(sampleRecords, sampleHasHeaders, declaredColumnConfigs);
     const detectedInference =
         isParseChosen && detectedParse != null
             ? inferDataTypes(detectedParse.parseTextResult.parsedRecords, detectedParse.parseTextResult.hasHeaders ?? declaredReadingConfig?.hasHeaders, declaredColumnConfigs)
             : sampleInference;
+    const columnAuditDuration = performance.now() - columnAuditStartedAt;
 
     return {
         contentAuditConfig: constructFirstAuditConfig({
             asAt,
+            columnAuditDuration,
             columns: sampleInference?.columnConfigs ?? [],
             isComplete,
+            parseDuration: parseTiming.duration,
             recordCount: Math.max(0, sampleRecords.length - (sampleInference?.hasHeaders === true ? 1 : 0)), // A header record names the columns and is not data.
             size,
             startedAt
@@ -200,7 +208,8 @@ export async function* retrieveRecordsWithParser(input: {
     const { options, signal, stream, toolConfigs } = input;
     const { encodingId, valueDelimiterId } = establishFileReading(options);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
-    const { recordCount } = yield* parser.parseStream(stream, {
+    const timedSource = timeSourceWaits(stream);
+    const parsing: AsyncIterator<ParsedRecordsChunk, ParseStreamSummary> = parser.parseStream(timedSource.stream, {
         abortSignal: signal,
         chunkSize: options.chunkSize,
         dataFormatId: options.dataFormatId,
@@ -208,7 +217,22 @@ export async function* retrieveRecordsWithParser(input: {
         structurePath: options.structurePath,
         valueDelimiterId
     });
-    return { recordCount }; // The parser's counts of lines and bytes are for an audit, so they are not passed on.
+    // The time the receiver holds each chunk, such as a store writing it, is not the parser's, so it is not counted.
+    const parserReads = timeParserReads(parsing);
+    let isParsingDone = false;
+    try {
+        let parsed = await parserReads.readNext();
+        while (parsed.done !== true) {
+            yield parsed.value;
+            parsed = await parserReads.readNext();
+        }
+        isParsingDone = true;
+        const sourceWaitDuration = timedSource.waitDuration();
+        // The parser's counts of lines and bytes are for an audit, so they are not passed on.
+        return { recordCount: parsed.value.recordCount, sourceWaitDuration, parseDuration: Math.max(0, parserReads.duration() - sourceWaitDuration) };
+    } finally {
+        if (!isParsingDone) await parsing.return?.(); // A receiver that stops early, or a failure, also stops the parser's read.
+    }
 }
 
 // Reads an item's records from its start, to count them and describe their columns, up to 'options.byteLimit' or until
@@ -245,17 +269,11 @@ export async function auditObjectContentWithParser(input: {
         structurePath: options.structurePath,
         valueDelimiterId
     });
-    // The parser and the column auditor are timed apart, so the cost of each can be measured. The parser's time
-    // includes the wait for bytes, which is taken off at the end.
-    let parsingDuration = 0;
+    // The parser and the column auditor are timed apart, so the cost of each can be measured. Read with 'next' rather
+    // than 'for await', which drops the summary the parser returns at the end.
+    const parserReads = timeParserReads(parsing);
     let columnAuditDuration = 0;
-    const readNextChunk = async (): Promise<Awaited<ReturnType<typeof parsing.next>>> => {
-        const readStartedAt = performance.now();
-        const result = await parsing.next(); // Read with 'next' rather than 'for await', which drops the summary the parser returns at the end.
-        parsingDuration += performance.now() - readStartedAt;
-        return result;
-    };
-    let parsed = await readNextChunk();
+    let parsed = await parserReads.readNext();
     while (parsed.done !== true) {
         try {
             const auditStartedAt = performance.now();
@@ -266,7 +284,7 @@ export async function auditObjectContentWithParser(input: {
             await parsing.throw(error); // Lets the parser stop its read, then rethrows the error.
             throw error;
         }
-        parsed = await readNextChunk();
+        parsed = await parserReads.readNext();
     }
     const summary = parsed.value;
     const sourceWaitDuration = timedSource.waitDuration();
@@ -283,7 +301,7 @@ export async function auditObjectContentWithParser(input: {
         lineCount: summary.lineCount,
         recordCount: Math.max(0, summary.recordCount - (hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
         sourceWaitDuration,
-        parseDuration: Math.max(0, parsingDuration - sourceWaitDuration),
+        parseDuration: Math.max(0, parserReads.duration() - sourceWaitDuration),
         columnAuditDuration
     };
     return { contentAuditConfig, hasHeaders };
@@ -341,13 +359,15 @@ function establishFileReading(options: { dataFormatId: DataFormatId; encodingId:
 // wait to report, and the parser's text mode does not count lines.
 function constructFirstAuditConfig(input: {
     asAt: number;
+    columnAuditDuration?: number | undefined;
     columns: ContentAuditConfig['columns'];
     isComplete: boolean;
+    parseDuration?: number | undefined;
     recordCount: number;
     size: number;
     startedAt: number;
 }): ContentAuditConfig {
-    const { asAt, columns, isComplete, recordCount, size, startedAt } = input;
+    const { asAt, columnAuditDuration, columns, isComplete, parseDuration, recordCount, size, startedAt } = input;
     return {
         asAt,
         byteCount: size,
@@ -359,7 +379,9 @@ function constructFirstAuditConfig(input: {
         isComplete,
         lineCount: undefined,
         recordCount,
-        sourceWaitDuration: undefined
+        sourceWaitDuration: undefined,
+        parseDuration,
+        columnAuditDuration
     };
 }
 
@@ -499,13 +521,14 @@ async function parsePreviewText(input: {
     dataFormatId: DataFormatId | undefined;
     isComplete: boolean;
     parserId: string | undefined;
+    parseTiming: { duration: number };
     structureIndex: StructureIndex | undefined;
     structurePath: StructurePath | undefined;
     text: string | undefined;
     toolConfigs: ToolConfig[];
     valueDelimiterId: ValueDelimiterId | undefined;
 }): Promise<{ parserId: string; parseTextResult: ParseTextResult; structurePath: StructurePath | undefined; valueDelimiterId: ValueDelimiterId | undefined } | undefined> {
-    const { dataFormatId, isComplete, parserId, structureIndex, structurePath, text, toolConfigs, valueDelimiterId } = input;
+    const { dataFormatId, isComplete, parserId, parseTiming, structureIndex, structurePath, text, toolConfigs, valueDelimiterId } = input;
     if (dataFormatId == null || text == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) return undefined;
 
     const { parser, parserId: usedParserId } = await loadParser(toolConfigs, dataFormatId, parserId);
@@ -515,15 +538,15 @@ async function parsePreviewText(input: {
             const issues = isUnreadable ? structureIndex.issues : [];
             return { parserId: usedParserId, parseTextResult: { issues, parsedRecords: [], recordDelimiterId: '\n', valueDelimiterId: undefined }, structurePath: undefined, valueDelimiterId: undefined };
         }
-        const parseTextResult = await parser.parseText(text, { dataFormatId, isComplete, structurePath, valueDelimiterIds: [] });
+        const parseTextResult = await timeParse(parseTiming, () => parser.parseText(text, { dataFormatId, isComplete, structurePath, valueDelimiterIds: [] }));
         return { parserId: usedParserId, parseTextResult, structurePath, valueDelimiterId: undefined };
     }
     const valueDelimiterIds = valueDelimiterId == null ? VALUE_DELIMITER_CONFIGS.map(({ id }) => id) : [valueDelimiterId];
-    const firstParseTextResult = await parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds });
+    const firstParseTextResult = await timeParse(parseTiming, () => parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds }));
     const isDelimitedText = dataFormatId === 'dtv';
     const parseTextResult =
         isDelimitedText && valueDelimiterId == null && firstParseTextResult.valueDelimiterId == null
-            ? await parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds: [DEFAULT_VALUE_DELIMITER_ID] })
+            ? await timeParse(parseTiming, () => parser.parseText(text, { dataFormatId, isComplete, valueDelimiterIds: [DEFAULT_VALUE_DELIMITER_ID] }))
             : firstParseTextResult;
     const reportedValueDelimiterId = isDelimitedText ? (valueDelimiterId ?? parseTextResult.valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID) : parseTextResult.valueDelimiterId;
     return { parserId: usedParserId, parseTextResult, structurePath: undefined, valueDelimiterId: reportedValueDelimiterId };
@@ -535,9 +558,10 @@ async function previewStructure(input: {
     dataFormatId: DataFormatId | undefined;
     filePreview: FilePreviewResult;
     parserId: string | undefined;
+    parseTiming: { duration: number };
     toolConfigs: ToolConfig[];
 }): Promise<StructureIndex | undefined> {
-    const { dataFormatId, filePreview, parserId, toolConfigs } = input;
+    const { dataFormatId, filePreview, parserId, parseTiming, toolConfigs } = input;
     const isMapped =
         dataFormatId != null &&
         STRUCTURED_DATA_FORMAT_IDS.has(dataFormatId) &&
@@ -547,14 +571,41 @@ async function previewStructure(input: {
     const parser = await loadStructuredParser(toolConfigs, dataFormatId, parserId);
     const stream = new Blob([filePreview.bytes as Uint8Array<ArrayBuffer>]).stream();
     const encodingId = filePreview.decodedEncodingId ?? 'utf-8';
-    return await parser.buildStructureIndex(stream, {
-        abortSignal: new AbortController().signal, // The bytes are already in memory, so there is nothing to cancel.
-        dataFormatId,
-        encodingId,
-        isComplete: filePreview.isComplete,
-        maxDepth: undefined,
-        onProgress: undefined
-    });
+    return await timeParse(parseTiming, () =>
+        parser.buildStructureIndex(stream, {
+            abortSignal: new AbortController().signal, // The bytes are already in memory, so there is nothing to cancel.
+            dataFormatId,
+            encodingId,
+            isComplete: filePreview.isComplete,
+            maxDepth: undefined,
+            onProgress: undefined
+        })
+    );
+}
+
+// Reads a parser's chunks one at a time and adds up how long each read takes, so the parser's time is kept apart from
+// what is done with each chunk once it is read. The total includes any wait for the item's bytes.
+function timeParserReads<T, TReturn>(parsing: AsyncIterator<T, TReturn>): { duration: () => number; readNext: () => Promise<IteratorResult<T, TReturn>> } {
+    let duration = 0;
+    return {
+        duration: () => duration,
+        async readNext(): Promise<IteratorResult<T, TReturn>> {
+            const startedAt = performance.now();
+            const result = await parsing.next();
+            duration += performance.now() - startedAt;
+            return result;
+        }
+    };
+}
+
+// Adds the time a parser call takes to 'parseTiming', so the parser's time is kept apart from loading its tool.
+async function timeParse<T>(parseTiming: { duration: number }, parse: () => Promise<T>): Promise<T> {
+    const startedAt = performance.now();
+    try {
+        return await parse();
+    } finally {
+        parseTiming.duration += performance.now() - startedAt;
+    }
 }
 
 async function loadParser(toolConfigs: ToolConfig[], dataFormatId: DataFormatId, parserId: string | undefined): Promise<{ parser: ParserInterface; parserId: string }> {

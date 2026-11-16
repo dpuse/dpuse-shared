@@ -235,6 +235,17 @@ export interface EngineLoadObjectRecordsOptions extends LoadObjectRecordsOptions
 export interface EngineLoadObjectRecordsResult extends LoadObjectRecordsResult {
     columnsHaveChanged: boolean; // The item's header record no longer matches 'headerValues'. Nothing was loaded, and any earlier load is kept.
     invalidValueCounts: number[]; // Per column, in the order of 'columnConfigs', the values that did not fit its type and so loaded as null.
+    timing?: LoadTiming | undefined; // Undefined when nothing was loaded.
+}
+
+// ── Load Timing ─ In milliseconds, so the cost of each part of a load can be measured. The parts add up to 'duration'.
+export interface LoadTiming {
+    duration: number; // From the first record asked for to the last one stored.
+    retrieveDuration: number; // The source connector's time to hand over the records, including the wait for bytes and the parser's time.
+    sourceWaitDuration: number | undefined; // The part of 'retrieveDuration' spent waiting for the item's bytes. Undefined when the source connector does not time it.
+    parseDuration: number | undefined; // The part of 'retrieveDuration' the parser took. Undefined when the source does not parse, such as a database, or does not time it.
+    conversionDuration: number; // Reading each value as its column's type.
+    storeDuration: number; // The store connector's time to write the records.
 }
 
 // A record's values in the order of the data view's columns. A value that is void, or does not fit its column's type, is
@@ -343,6 +354,8 @@ export interface RetrieveRecordsOptions extends EngineConnectorActionOptions {
 // What every connector can say about a retrieval. A parser's counts of lines and bytes are in 'ParseStreamSummary'.
 export interface RetrieveRecordsSummary {
     recordCount: number; // Records retrieved.
+    sourceWaitDuration?: number | undefined; // In milliseconds, the time spent waiting for the item's bytes, such as while it downloads. Undefined when the connector does not time it.
+    parseDuration?: number | undefined; // In milliseconds, the parser's time, without the wait for bytes. Undefined when the connector does not parse, or does not time it.
 }
 
 export type RecordRetrievalTypeId = 'parsingRecordArray' | 'storeRecordArray';
