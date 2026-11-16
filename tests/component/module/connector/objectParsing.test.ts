@@ -743,9 +743,13 @@ describe('objectParsing', () => {
                     return SUMMARY;
                 })
             };
-            const auditRecords = vi.fn(() => vi.advanceTimersByTime(50)); // The auditor takes 50 ms.
+            const auditRecords = vi.fn(() => vi.advanceTimersByTime(50)); // The auditor takes 50 ms over the records.
+            const completeAudit = vi.fn(() => {
+                vi.advanceTimersByTime(20); // Then 20 ms settling each column's type.
+                return { columnConfigs: [], hasHeaders: false };
+            });
             const audit = auditObjectContentWithParser({
-                constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords, completeAudit: () => ({ columnConfigs: [], hasHeaders: false }) }),
+                constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords, completeAudit }),
                 onProgress: vi.fn(),
                 options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: false, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
                 signal: new AbortController().signal,
@@ -758,7 +762,7 @@ describe('objectParsing', () => {
             vi.useRealTimers();
 
             expect(auditConfig.parseDuration).toBeCloseTo(30, 0);
-            expect(auditConfig.columnAuditDuration).toBeCloseTo(50, 0);
+            expect(auditConfig.columnAuditDuration).toBeCloseTo(70, 0);
         });
 
         it('hands the auditor the columns the source states', async () => {

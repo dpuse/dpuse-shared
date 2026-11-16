@@ -288,7 +288,9 @@ export async function auditObjectContentWithParser(input: {
     }
     const summary = parsed.value;
     const sourceWaitDuration = timedSource.waitDuration();
+    const completeStartedAt = performance.now();
     const { columnConfigs, hasHeaders } = columnAuditor.completeAudit();
+    columnAuditDuration += performance.now() - completeStartedAt; // Settling each column's type is part of auditing its values.
     const contentAuditConfig: ContentAuditConfig = {
         asAt,
         byteCount: auditSource.byteCount(),
