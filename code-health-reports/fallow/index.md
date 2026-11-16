@@ -79,13 +79,13 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 35.6 | 27 | 1230 | 0.23 | 1 | stable |
-| `src/component/module/tool/index.ts` | 15.5 | 18 | 127 | 0.19 | 7 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 37.1 | 28 | 1280 | 0.23 | 1 | stable |
+| `src/component/module/tool/index.ts` | 16.6 | 19 | 131 | 0.19 | 7 | accelerating |
 | `src/errors/index.ts` | 11.5 | 10 | 239 | 0.30 | 7 | stable |
 | `src/component/module/connector/index.ts` | 11.1 | 59 | 910 | 0.04 | 5 | accelerating |
 | `src/utilities/index.ts` | 11.0 | 11 | 496 | 0.25 | 1 | accelerating |
-| `src/locale/index.ts` | 9.8 | 11 | 153 | 0.36 | 5 | cooling |
-| `src/component/module/tool/delimitedText.ts` | 8.6 | 5 | 133 | 0.31 | 1 | stable |
+| `src/component/module/tool/delimitedText.ts` | 10.5 | 6 | 165 | 0.31 | 1 | cooling |
+| `src/locale/index.ts` | 9.7 | 11 | 153 | 0.36 | 5 | cooling |
 | `src/component/module/connector/webLock.ts` | 5.6 | 3 | 70 | 0.31 | 1 | accelerating |
 | `scripts/documentEncodings.ts` | 4.9 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 4.4 | 4 | 171 | 0.23 | 0 | cooling |
@@ -108,10 +108,10 @@
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 47% | 9 | 26 | 12 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 36% | 5 | 8 | 20 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 35% | 6 | 26 | 8 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 34% | 5 | 8 | 21 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
-| `src/component/module/moduleConfig.schema.ts` | `src/component/module/tool/index.ts` | 30% | 5 | 13 | 20 |  |
+| `src/index.ts` | `vite.config.ts` | 30% | 17 | 61 | 52 |  |
 
 *Files that change together in the commit history with no import between them.*
 
