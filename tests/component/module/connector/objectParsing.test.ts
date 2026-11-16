@@ -381,9 +381,39 @@ describe('objectParsing', () => {
                 result = await retrieval.next();
             }
 
-            expect(receivedChunks).toEqual(chunks);
+            expect(receivedChunks).toEqual(chunks.map((chunk) => ({ ...chunk, byteCount: 0 }))); // This parser reads none of the stream.
             expect(result.value).toEqual({ parseDuration: expect.any(Number) as number, recordCount: 1, sourceWaitDuration: expect.any(Number) as number }); // The parser's other counts are for an audit.
             expect(parseStream).toHaveBeenCalledWith(expect.any(ReadableStream), { abortSignal: signal, chunkSize: 500, dataFormatId: 'dtv', encodingId: 'utf-8', valueDelimiterId: ';' });
+        });
+
+        it('gives each chunk the bytes the parser has read so far', async () => {
+            const stream = new ReadableStream<Uint8Array>({
+                start(controller): void {
+                    controller.enqueue(new Uint8Array(3));
+                    controller.enqueue(new Uint8Array(5));
+                    controller.close();
+                }
+            });
+            // Reads one piece of the stream before handing over each chunk.
+            async function* parseStream(parsedStream: ReadableStream<Uint8Array>): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
+                const reader = parsedStream.getReader();
+                await reader.read();
+                yield { records: RECORDS, typeId: 'parsingRecordArray' };
+                await reader.read();
+                yield { records: RECORDS, typeId: 'parsingRecordArray' };
+                return SUMMARY;
+            }
+            tools.byName['rust-csv-core-parser'] = { parseStream };
+
+            const retrieval = retrieveRecordsWithParser({ options: RETRIEVE_OPTIONS as never, signal: new AbortController().signal, stream, toolConfigs: TOOL_CONFIGS });
+            const byteCounts: (number | undefined)[] = [];
+            let result = await retrieval.next();
+            while (result.done !== true) {
+                byteCounts.push(result.value.byteCount);
+                result = await retrieval.next();
+            }
+
+            expect(byteCounts).toEqual([3, 8]);
         });
 
         it("times the parser apart from the wait for the item and the receiver's time", async () => {

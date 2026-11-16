@@ -214,7 +214,8 @@ export async function* retrieveRecordsWithParser(input: {
     const { encodingId, valueDelimiterId } = establishFileReading(options);
     const { parser } = await loadParser(toolConfigs, options.dataFormatId, options.parserId);
     const timedSource = timeSourceWaits(stream);
-    const parsing: AsyncIterator<ParsedRecordsChunk, ParseStreamSummary> = parser.parseStream(timedSource.stream, {
+    const countedSource = countBytes(timedSource.stream);
+    const parsing: AsyncIterator<ParsedRecordsChunk, ParseStreamSummary> = parser.parseStream(countedSource.stream, {
         abortSignal: signal,
         chunkSize: options.chunkSize,
         dataFormatId: options.dataFormatId,
@@ -228,7 +229,7 @@ export async function* retrieveRecordsWithParser(input: {
     try {
         let parsed = await parserReads.readNext();
         while (parsed.done !== true) {
-            yield parsed.value;
+            yield { ...parsed.value, byteCount: countedSource.byteCount() }; // The parser may have read a little past these records, so the count runs slightly ahead.
             parsed = await parserReads.readNext();
         }
         isParsingDone = true;

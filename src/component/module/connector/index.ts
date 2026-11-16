@@ -365,6 +365,7 @@ export type RecordRetrievalTypeId = 'parsingRecordArray' | 'storeRecordArray';
 // typed by the columns the user chooses. A connector that holds typed values hands them over typed.
 export type RetrieveRecordsChunk = ParsedRecordsChunk | { records: StoreRecord[]; typeId: 'storeRecordArray' };
 export interface ParsedRecordsChunk {
+    byteCount?: number; // The bytes of the item read so far, so a load can show how far it has got. Undefined from a parser, which only counts its records.
     records: ParsedRecord[];
     typeId: 'parsingRecordArray';
 }

@@ -273,7 +273,7 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 | **dist/dpuse-shared.es.js**                                                 | 70.6&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.1&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
 | &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more                            | `███████████████░░░░░`&nbsp;74.8%&nbsp;·&nbsp;52.8&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒░░░░░░░░░░░`&nbsp;44.4%&nbsp;·&nbsp;31.4&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒▒░░░░░░░░░░░░░░░░░`&nbsp;15.8%&nbsp;·&nbsp;11.1&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒▒░░░░░░░░░░░░░░░░░`&nbsp;15.8%&nbsp;·&nbsp;11.2&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ tableSchema.ts            | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;2.8%&nbsp;·&nbsp;2.0&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ delimitedText.ts          | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.4%&nbsp;·&nbsp;1.7&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;1.9%&nbsp;·&nbsp;1.3&nbsp;kB                                       |
