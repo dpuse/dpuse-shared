@@ -21,10 +21,10 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 4066 |
+| Total LOC | 4082 |
 | Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 162, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 163, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.0% |
 | Dead Exports | 0.3% |
@@ -43,13 +43,13 @@
 
 **!** marks the dimension that breached.
 
-**51** files, **162** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**51** files, **163** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (23 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
-| `src/component/module/connector/objectParsing.ts` | 85.6 | 1 | 5 | 0% | 0.24 | 48.0 |
+| `src/component/module/connector/objectParsing.ts` | 85.9 | 1 | 5 | 0% | 0.23 | 48.0 |
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.1 | 1 | 2 | 0% | 0.35 | 15.0 |
@@ -79,7 +79,7 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 33.5 | 24 | 1091 | 0.24 | 1 | stable |
+| `src/component/module/connector/objectParsing.ts` | 32.1 | 24 | 1091 | 0.23 | 1 | stable |
 | `src/component/module/tool/index.ts` | 15.8 | 18 | 127 | 0.19 | 7 | accelerating |
 | `src/component/module/connector/index.ts` | 13.9 | 58 | 897 | 0.05 | 5 | accelerating |
 | `src/errors/index.ts` | 11.7 | 10 | 239 | 0.30 | 7 | stable |

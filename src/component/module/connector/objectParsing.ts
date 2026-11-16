@@ -245,19 +245,31 @@ export async function auditObjectContentWithParser(input: {
         structurePath: options.structurePath,
         valueDelimiterId
     });
-    // Read with 'next' rather than 'for await', which drops the summary the parser returns at the end.
-    let parsed = await parsing.next();
+    // The parser and the column auditor are timed apart, so the cost of each can be measured. The parser's time
+    // includes the wait for bytes, which is taken off at the end.
+    let parsingDuration = 0;
+    let columnAuditDuration = 0;
+    const readNextChunk = async (): Promise<Awaited<ReturnType<typeof parsing.next>>> => {
+        const readStartedAt = performance.now();
+        const result = await parsing.next(); // Read with 'next' rather than 'for await', which drops the summary the parser returns at the end.
+        parsingDuration += performance.now() - readStartedAt;
+        return result;
+    };
+    let parsed = await readNextChunk();
     while (parsed.done !== true) {
         try {
+            const auditStartedAt = performance.now();
             columnAuditor.auditRecords(parsed.value.records);
+            columnAuditDuration += performance.now() - auditStartedAt;
             onProgress(parsed.value.records.length, auditSource.byteCount());
         } catch (error) {
             await parsing.throw(error); // Lets the parser stop its read, then rethrows the error.
             throw error;
         }
-        parsed = await parsing.next();
+        parsed = await readNextChunk();
     }
     const summary = parsed.value;
+    const sourceWaitDuration = timedSource.waitDuration();
     const { columnConfigs, hasHeaders } = columnAuditor.completeAudit();
     const contentAuditConfig: ContentAuditConfig = {
         asAt,
@@ -270,7 +282,9 @@ export async function auditObjectContentWithParser(input: {
         isComplete: summary.isComplete ?? auditSource.isComplete(),
         lineCount: summary.lineCount,
         recordCount: Math.max(0, summary.recordCount - (hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
-        sourceWaitDuration: timedSource.waitDuration()
+        sourceWaitDuration,
+        parseDuration: Math.max(0, parsingDuration - sourceWaitDuration),
+        columnAuditDuration
     };
     return { contentAuditConfig, hasHeaders };
 }

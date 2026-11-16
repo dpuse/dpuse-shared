@@ -270,10 +270,10 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 | Chunk/Module/File                                                           | Composition                                                                                    |
 | :-------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| **dist/dpuse-shared.es.js**                                                 | 69.1&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;16.7&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more                            | `███████████████░░░░░`&nbsp;74.4%&nbsp;·&nbsp;51.4&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒░░░░░░░░░░░`&nbsp;45.4%&nbsp;·&nbsp;31.4&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒▒░░░░░░░░░░░░░░░░░`&nbsp;14.2%&nbsp;·&nbsp;9.8&nbsp;kB                                      |
+| **dist/dpuse-shared.es.js**                                                 | 69.4&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;16.8&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more                            | `███████████████░░░░░`&nbsp;74.5%&nbsp;·&nbsp;51.6&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ index.ts                  | `▒▒▒▒▒▒▒▒▒░░░░░░░░░░░`&nbsp;45.2%&nbsp;·&nbsp;31.4&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ objectParsing.ts          | `▒▒▒░░░░░░░░░░░░░░░░░`&nbsp;14.5%&nbsp;·&nbsp;10.1&nbsp;kB                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ tableSchema.ts            | `▒░░░░░░░░░░░░░░░░░░░`&nbsp;2.9%&nbsp;·&nbsp;2.0&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ delimitedText.ts          | `░░░░░░░░░░░░░░░░░░░░`&nbsp;2.3%&nbsp;·&nbsp;1.6&nbsp;kB                                       |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ connectorConfig.schema.ts | `░░░░░░░░░░░░░░░░░░░░`&nbsp;1.9%&nbsp;·&nbsp;1.3&nbsp;kB                                       |

@@ -671,6 +671,43 @@ describe('objectParsing', () => {
             expect(auditConfig.sourceWaitDuration).toBeGreaterThanOrEqual(100);
         });
 
+        it('times the parser and the column audit apart, without the wait for the item', async () => {
+            vi.useFakeTimers();
+            const stream = new ReadableStream<Uint8Array>({
+                async pull(controller): Promise<void> {
+                    await new Promise((resolve) => setTimeout(resolve, 100)); // The item takes 100 ms to arrive.
+                    controller.enqueue(new Uint8Array([1]));
+                    controller.close();
+                }
+            });
+            tools.byName['rust-csv-core-parser'] = {
+                parseStream: vi.fn(async function* (sourceStream: ReadableStream<Uint8Array>): AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary> {
+                    const reader = sourceStream.getReader();
+                    let result = await reader.read();
+                    while (!result.done) result = await reader.read();
+                    vi.advanceTimersByTime(30); // The parser reads for 30 ms.
+                    yield { records: RECORDS, typeId: 'parsingRecordArray' };
+                    return SUMMARY;
+                })
+            };
+            const auditRecords = vi.fn(() => vi.advanceTimersByTime(50)); // The auditor takes 50 ms.
+            const audit = auditObjectContentWithParser({
+                constructColumnAuditor: vi.fn().mockReturnValue({ auditRecords, completeAudit: () => ({ columnConfigs: [], hasHeaders: false }) }),
+                onProgress: vi.fn(),
+                options: { chunkSize: undefined, dataFormatId: 'dtv', encodingId: 'utf-8', hasHeaders: false, parserId: undefined, path: '/a.csv', valueDelimiterId: ',' } as never,
+                signal: new AbortController().signal,
+                stream,
+                toolConfigs: TOOL_CONFIGS
+            });
+
+            await vi.advanceTimersByTimeAsync(100);
+            const { contentAuditConfig: auditConfig } = await audit;
+            vi.useRealTimers();
+
+            expect(auditConfig.parseDuration).toBeCloseTo(30, 0);
+            expect(auditConfig.columnAuditDuration).toBeCloseTo(50, 0);
+        });
+
         it('hands the auditor the columns the source states', async () => {
             tools.byName['rust-csv-core-parser'] = {
                 parseStream: vi.fn(() => buildParsing({ byteCount: 0, commentLineCount: 0, emptyLineCount: 0, lineCount: 0, nonUniformRecordCount: 0, recordCount: 0 }))

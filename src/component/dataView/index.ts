@@ -136,6 +136,8 @@ export interface ContentAuditConfig {
     lineCount: number | undefined;
     recordCount: number; // Data records only, without the header record.
     sourceWaitDuration: number | undefined; // The part of 'duration' spent waiting for the item's bytes, such as while it downloads. Undefined when the bytes were fetched before the audit started.
+    parseDuration?: number | undefined; // The part of 'duration' the parser spent reading records, without the wait for bytes. Undefined when the audit did not time it.
+    columnAuditDuration?: number | undefined; // The part of 'duration' spent auditing the parsed records' values. Undefined when the audit did not time it.
 }
 
 // ── Column Reading ─ How a column's values are read from an item's text, which a load needs as well as the column
