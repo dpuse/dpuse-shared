@@ -12,7 +12,7 @@ export type StoreErrorId = 'heldElsewhere' | 'notLoaded';
 // The id travels in the error's data, which survives the trip from a connector through the engine to the app, so the
 // app can show the right state rather than a failure.
 export function constructStoreError(storeErrorId: StoreErrorId, message: string, locator: string, options?: ErrorOptions): ConnectorError {
-    return new ConnectorError(message, locator, { storeErrorId }, options);
+    return new ConnectorError(message, locator, { data: { storeErrorId }, ...options });
 }
 
 // Looks through the error and its causes, because the engine and the app each wrap a connector's error in their own.

@@ -94,8 +94,8 @@ describe('buildFetchError', () => {
 
 describe('serialiseError and unserialiseError', () => {
     it('serializes and rebuilds typed error chains', () => {
-        const rootCause = new ConnectorError('Connector failed', 'tests.connector', { connectorId: 'demo' });
-        const error = new AppError('App failed', 'tests.app', { appId: 'demo' }, { cause: rootCause });
+        const rootCause = new ConnectorError('Connector failed', 'tests.connector', { data: { connectorId: 'demo' } });
+        const error = new AppError('App failed', 'tests.app', { data: { appId: 'demo' }, cause: rootCause });
 
         const serialised = serialiseError(error);
 
@@ -135,7 +135,7 @@ describe('serialiseError and unserialiseError', () => {
     });
 
     it('rebuilds every DPUse error class, including EngineError', () => {
-        const rebuilt = unserialiseError(serialiseError(new EngineError('Engine failed', 'tests.engine', { engineId: 'demo' })));
+        const rebuilt = unserialiseError(serialiseError(new EngineError('Engine failed', 'tests.engine', { data: { engineId: 'demo' } })));
 
         expect(rebuilt).toBeInstanceOf(EngineError);
         expect((rebuilt as EngineError).locator).toBe('tests.engine');
@@ -193,14 +193,14 @@ describe('serialiseError and unserialiseError', () => {
 
 describe('serialiseError redaction', () => {
     it('masks the whole value of a data field whose name looks secret', () => {
-        const [serialised] = serialiseError(new AppError('Failed.', 'test', { accessToken: 'abc', nested: { clientSecret: 'def' }, status: 401 }));
+        const [serialised] = serialiseError(new AppError('Failed.', 'test', { data: { accessToken: 'abc', nested: { clientSecret: 'def' }, status: 401 } }));
 
         expect(serialised?.data).toEqual({ accessToken: '[REDACTED]', nested: { clientSecret: '[REDACTED]' }, status: 401 });
     });
 
     it('masks secrets and email addresses in messages, stacks and text data', () => {
         const body = '{"access_token":"sl.abcdefghijklmnopqrstu","token_type":"bearer","uid":"42"}';
-        const error = new FetchError('Call for jo@example.com failed with Authorization: Bearer abc.def.', 'test', { body });
+        const error = new FetchError('Call for jo@example.com failed with Authorization: Bearer abc.def.', 'test', { data: { body } });
         error.stack = 'Error: at https://api.example.com/token?client_secret=xyz&code=1';
         const [serialised] = serialiseError(error);
 
@@ -231,7 +231,7 @@ describe('serialiseError redaction', () => {
     it('stops at circular data rather than looping', () => {
         const data: Record<string, unknown> = { name: 'loop' };
         data['self'] = data;
-        const [serialised] = serialiseError(new AppError('Failed.', 'test', data));
+        const [serialised] = serialiseError(new AppError('Failed.', 'test', { data }));
 
         expect(serialised?.data).toEqual({ name: 'loop', self: '[Circular]' });
     });

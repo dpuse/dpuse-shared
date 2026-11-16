@@ -54,6 +54,6 @@ export async function loadPresenter(
     } catch (error) {
         // A bare import rejection names neither the presenter nor the version, so they are attached here.
         const data = { presenterName, url, version: presenterConfig.version };
-        throw new AppError(`Failed to load presenter '${presenterName}' v${presenterConfig.version}.`, 'dpuse-shared.component.module.presenter.loadPresenter', data, { cause: error });
+        throw new AppError(`Failed to load presenter '${presenterName}' v${presenterConfig.version}.`, 'dpuse-shared.component.module.presenter.loadPresenter', { data, cause: error });
     }
 }

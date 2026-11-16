@@ -27,18 +27,14 @@ describe('store errors', () => {
     });
 
     it('finds the id through the errors the engine and the app wrap it in, after the trip from the worker', () => {
-        const engineError = new EngineError('Engine failed to complete query records request.', 'test.engine', undefined, {
-            cause: constructStoreError('notLoaded', "'sales' has not been loaded.", 'test.connector')
-        });
-        const appError = new AppError("Failed to read the data view's records.", 'test.app', undefined, { cause: unserialiseError(serialiseError(engineError)) });
+        const engineError = new EngineError('Engine failed to complete query records request.', 'test.engine', { cause: constructStoreError('notLoaded', "'sales' has not been loaded.", 'test.connector') });
+        const appError = new AppError("Failed to read the data view's records.", 'test.app', { cause: unserialiseError(serialiseError(engineError)) });
 
         expect(findStoreErrorId(appError)).toBe('notLoaded');
     });
 
     it("finds the id on an error from a connector's own copy of the shared code, after the trip through the engine", () => {
-        const engineError = new EngineError('Engine failed to complete list nodes request.', 'test.engine', undefined, {
-            cause: new ConnectorCopyError('The store is open in another tab or window.', 'test.connector', { storeErrorId: 'heldElsewhere' })
-        });
+        const engineError = new EngineError('Engine failed to complete list nodes request.', 'test.engine', { cause: new ConnectorCopyError('The store is open in another tab or window.', 'test.connector', { storeErrorId: 'heldElsewhere' }) });
 
         const errorInApp = unserialiseError(serialiseError(engineError));
 
@@ -46,7 +42,7 @@ describe('store errors', () => {
     });
 
     it('finds no id on any other error, or on a value that is not an error', () => {
-        expect(findStoreErrorId(new AppError('Failed.', 'test', { storeErrorId: 'other' }))).toBeUndefined();
+        expect(findStoreErrorId(new AppError('Failed.', 'test', { data: { storeErrorId: 'other' } }))).toBeUndefined();
         expect(findStoreErrorId(new Error('Failed.'))).toBeUndefined();
         expect(findStoreErrorId('Failed.')).toBeUndefined();
     });

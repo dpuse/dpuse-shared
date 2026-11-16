@@ -1,5 +1,10 @@
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+// The native 'Error' options, plus the details that travel with a DPUse error.
+export interface DPUseErrorOptions extends ErrorOptions {
+    data?: Record<string, unknown> | undefined;
+}
+
 // Serializable representation of an error; used for transporting errors across api and worker boundaries
 export interface SerialisedError {
     data: Record<string, unknown> | undefined;
@@ -39,50 +44,50 @@ const SECRET_TEXT_PATTERNS: [RegExp, (match: string, ...groups: string[]) => str
 class DPUseError extends Error {
     readonly data: Record<string, unknown> | undefined;
     readonly locator: string; // Where the error is raised, e.g. 'dpuse-engine.engine.loadConnector'. See the DPUse 'CLAUDE.md'.
-    constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
+    constructor(message: string, locator: string, options?: DPUseErrorOptions) {
         super(message, options);
         this.name = 'DPUseError';
-        this.data = data;
+        this.data = options?.data;
         this.locator = locator;
     }
 }
 
 // Thrown when an app (studio/assistant) error occurs
 export class AppError extends DPUseError {
-    constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
-        super(message, locator, data, options);
+    constructor(message: string, locator: string, options?: DPUseErrorOptions) {
+        super(message, locator, options);
         this.name = 'AppError';
     }
 }
 
 // Thrown when an API request fails
 export class APIError extends DPUseError {
-    constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
-        super(message, locator, data, options);
+    constructor(message: string, locator: string, options?: DPUseErrorOptions) {
+        super(message, locator, options);
         this.name = 'APIError';
     }
 }
 
 // Thrown when an engine request fails
 export class EngineError extends DPUseError {
-    constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
-        super(message, locator, data, options);
+    constructor(message: string, locator: string, options?: DPUseErrorOptions) {
+        super(message, locator, options);
         this.name = 'EngineError';
     }
 }
 
 // Thrown when an connector operation fails; will always be wrapped in an engine error
 export class ConnectorError extends DPUseError {
-    constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
-        super(message, locator, data, options);
+    constructor(message: string, locator: string, options?: DPUseErrorOptions) {
+        super(message, locator, options);
         this.name = 'ConnectorError';
     }
 }
 
 // Thrown when an HTTP request fails; may include a sanitized portion of the response body for diagnostic purposes
 export class FetchError extends DPUseError {
-    constructor(message: string, locator: string, data?: Record<string, unknown>, options?: ErrorOptions) {
-        super(message, locator, data, options);
+    constructor(message: string, locator: string, options?: DPUseErrorOptions) {
+        super(message, locator, options);
         this.name = 'FetchError';
     }
 }
@@ -100,7 +105,7 @@ export async function buildFetchError(response: { status: number; statusText: st
         const normalised = normalizeToError(error);
         bodyText = `<body unavailable: ${normalised.message}>`;
     }
-    return new FetchError(fetchMessage, locator, { body: sanitizeResponseErrorBody(bodyText) });
+    return new FetchError(fetchMessage, locator, { data: { body: sanitizeResponseErrorBody(bodyText) } });
 }
 
 // Concatenates serialized error messages into a single string
@@ -188,15 +193,15 @@ function buildFallbackMessage(cause: unknown): string {
 function reconstructError(serialised: SerialisedError, cause: Error | undefined): Error {
     switch (serialised.name) {
         case 'APIError':
-            return new APIError(serialised.message, serialised.locator, serialised.data, { cause });
+            return new APIError(serialised.message, serialised.locator, { data: serialised.data, cause });
         case 'AppError':
-            return new AppError(serialised.message, serialised.locator, serialised.data, { cause });
+            return new AppError(serialised.message, serialised.locator, { data: serialised.data, cause });
         case 'ConnectorError':
-            return new ConnectorError(serialised.message, serialised.locator, serialised.data, { cause });
+            return new ConnectorError(serialised.message, serialised.locator, { data: serialised.data, cause });
         case 'EngineError':
-            return new EngineError(serialised.message, serialised.locator, serialised.data, { cause });
+            return new EngineError(serialised.message, serialised.locator, { data: serialised.data, cause });
         case 'FetchError':
-            return new FetchError(serialised.message, serialised.locator, serialised.data, { cause });
+            return new FetchError(serialised.message, serialised.locator, { data: serialised.data, cause });
         default: {
             const name = serialised.name;
             return new (class extends Error {

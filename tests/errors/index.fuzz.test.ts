@@ -36,7 +36,7 @@ describe('serialiseError (property-based)', () => {
             fc.property(fc.array(ERROR_PARTS_ARBITRARY, { minLength: 1, maxLength: 4 }), (errorParts) => {
                 // Build the cause chain from the root cause outwards.
                 let error: Error | undefined;
-                for (const { message, locator, data } of errorParts.toReversed()) error = new AppError(message, locator, data, { cause: error });
+                for (const { message, locator, data } of errorParts.toReversed()) error = new AppError(message, locator, { data, cause: error });
                 const serialisedErrors: SerialisedError[] = serialiseError(error);
 
                 expect(serialiseError(unserialiseError(serialisedErrors))).toEqual(serialisedErrors);

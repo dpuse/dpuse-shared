@@ -1,5 +1,5 @@
 {
-  "version": "1.0.231",
+  "version": "1.0.232",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -1195,8 +1195,8 @@
       }
     },
     "@dpuse/eslint-config-dpuse": {
-      "version": "1.0.151",
-      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.0.151.tgz",
+      "version": "1.0.152",
+      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.0.152.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": {

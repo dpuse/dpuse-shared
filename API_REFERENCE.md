@@ -391,6 +391,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`DPUseErrorOptions`** (extends `ErrorOptions`)
 - **`SerialisedError`**
 
 ### Locale

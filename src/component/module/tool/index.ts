@@ -52,7 +52,7 @@ export function resolveParserToolConfig(toolConfigs: ToolConfig[], dataFormatId:
     const [firstParserToolConfig] = parserToolConfigs;
     if (firstParserToolConfig === undefined) {
         const data = { availableToolIds: toolConfigs.map((config) => config.id), dataFormatId };
-        throw new AppError(`No tool reads the '${dataFormatId}' data format.`, 'dpuse-shared.component.module.tool.resolveParserToolConfig', data);
+        throw new AppError(`No tool reads the '${dataFormatId}' data format.`, 'dpuse-shared.component.module.tool.resolveParserToolConfig', { data });
     }
     const defaultParserId = DEFAULT_PARSER_TOOL_IDS[dataFormatId];
     return parserToolConfigs.find((config) => config.id === parserId) ?? parserToolConfigs.find((config) => config.id === defaultParserId) ?? firstParserToolConfig;
@@ -66,7 +66,7 @@ export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Pr
     // thrown out of a shared module into a caller that can only report what the error itself says.
     if (!toolModuleConfig) {
         const data = { availableToolIds: toolConfigs.map((config) => config.id), toolName };
-        throw new AppError(`Tool '${toolId}' not found.`, 'dpuse-shared.component.module.tool.loadTool', data);
+        throw new AppError(`Tool '${toolId}' not found.`, 'dpuse-shared.component.module.tool.loadTool', { data });
     }
 
     const url = `${LOAD_URL_PREFIX}/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
@@ -78,6 +78,6 @@ export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Pr
         // tool nor the version. The caller reports and displays this error but has no other way to identify the
         // module that went missing, so the identifying detail has to be attached here.
         const data = { toolName, url, version: toolModuleConfig.version };
-        throw new AppError(`Failed to load tool '${toolName}' v${toolModuleConfig.version}.`, 'dpuse-shared.component.module.tool.loadTool', data, { cause: error });
+        throw new AppError(`Failed to load tool '${toolName}' v${toolModuleConfig.version}.`, 'dpuse-shared.component.module.tool.loadTool', { data, cause: error });
     }
 }
