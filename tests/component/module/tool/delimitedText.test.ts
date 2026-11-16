@@ -19,16 +19,12 @@ const splitParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
     const records: ParsedRecord[] = text
         .split('\n')
         .filter((line) => line !== '')
-        .map((line) => line.split(delimiter).map((value) => ({ value, valueWasQuoted: false })));
+        .map((line) => line.split(delimiter));
     return Promise.resolve({ issues, records });
 };
 
 function parse(text: string, valueDelimiterIds = CANDIDATES, parseTextWithDelimiter = splitParser): ReturnType<typeof parseDelimitedText> {
     return parseDelimitedText(text, { dataFormatId: 'dtv', isComplete: true, valueDelimiterIds }, parseTextWithDelimiter);
-}
-
-function readValues(records: ParsedRecord[]): (string | null)[][] {
-    return records.map((record) => record.map((field) => field.value));
 }
 
 const QUOTE_ISSUE: SampleIssue = {
@@ -51,7 +47,7 @@ const commaIssueParser: ParseTextWithDelimiter = async (text, delimiter, isCompl
 // Meets two quote issues with the comma, and one with any other delimiter.
 const alwaysIssueParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
     const issues = delimiter === ',' ? [QUOTE_ISSUE, QUOTE_ISSUE] : [QUOTE_ISSUE];
-    return Promise.resolve({ issues, records: text.split('\n').map((line) => line.split(delimiter).map((value) => ({ value, valueWasQuoted: false }))) });
+    return Promise.resolve({ issues, records: text.split('\n').map((line) => line.split(delimiter)) });
 };
 
 describe('parseDelimitedText', () => {
@@ -59,7 +55,7 @@ describe('parseDelimitedText', () => {
         const result = await parse('name;age\nAda;36\nGrace;85\n');
 
         expect(result.valueDelimiterId).toBe(';');
-        expect(readValues(result.parsedRecords)).toEqual([
+        expect(result.parsedRecords).toEqual([
             ['name', 'age'],
             ['Ada', '36'],
             ['Grace', '85']
@@ -73,7 +69,7 @@ describe('parseDelimitedText', () => {
 
         expect(evenResult.valueDelimiterId).toBe(',');
         expect(unevenResult.valueDelimiterId).toBe(',');
-        expect(readValues(unevenResult.parsedRecords)[1]).toEqual(['1', 'a b c d e f']);
+        expect(unevenResult.parsedRecords[1]).toEqual(['1', 'a b c d e f']);
     });
 
     it('prefers a delimiter that splits unevenly to one that splits nothing', async () => {
@@ -101,7 +97,7 @@ describe('parseDelimitedText', () => {
         const result = await parse('Ada\nGrace\n');
 
         expect(result.valueDelimiterId).toBeUndefined();
-        expect(readValues(result.parsedRecords)).toEqual([['Ada'], ['Grace']]);
+        expect(result.parsedRecords).toEqual([['Ada'], ['Grace']]);
     });
 
     it('only uses a delimiter whose parse has issues when every delimiter has, taking the one with the fewest', async () => {

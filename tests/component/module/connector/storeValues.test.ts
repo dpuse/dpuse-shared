@@ -23,11 +23,7 @@ describe('convertStoreValueToText', () => {
 });
 
 describe('convertStoreRecordToParsedRecord', () => {
-    it('writes each value of a record as text, none of them quoted', () => {
-        expect(convertStoreRecordToParsedRecord([1, null, 'a'])).toEqual([
-            { value: '1', valueWasQuoted: false },
-            { value: null, valueWasQuoted: false },
-            { value: 'a', valueWasQuoted: false }
-        ]);
+    it('writes each value of a record as text, keeping a null as null and an empty string as empty', () => {
+        expect(convertStoreRecordToParsedRecord([1, null, 'a', ''])).toEqual(['1', null, 'a', '']);
     });
 });

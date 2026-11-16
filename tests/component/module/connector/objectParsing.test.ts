@@ -52,7 +52,7 @@ const STRUCTURED_JSON_TOOL: ToolConfig = {
 const STRUCTURED_TOOL_CONFIGS = [RUST, STRUCTURED_JSON_TOOL];
 const LOCATOR = { endOffset: 20, startOffset: 4, state: undefined };
 
-const RECORDS = [[{ value: 'a', valueWasQuoted: false }]] as ParsedRecord[];
+const RECORDS: ParsedRecord[] = [['a']];
 
 function buildFilePreview(overrides: Partial<FilePreviewResult> = {}): FilePreviewResult {
     return {
@@ -187,7 +187,7 @@ describe('objectParsing', () => {
         );
 
         it('parses the sample with the tool the user chose, but reports the default tool in the reading', async () => {
-            const chosenRecords = [[{ value: 'chosen', valueWasQuoted: false }]] as ParsedRecord[];
+            const chosenRecords: ParsedRecord[] = [['chosen']];
             const adaltasParseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: chosenRecords, recordDelimiterId: '\n', valueDelimiterId: ',' });
             const rustParseText = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' });
             tools.byName['adaltas-csv-parser'] = { parseText: adaltasParseText };
@@ -791,7 +791,7 @@ describe('objectParsing', () => {
     });
 
     describe('nested formats', () => {
-        const HEADER_RECORDS = [[{ value: 'a', valueWasQuoted: true }], [{ value: '1', valueWasQuoted: false }]] as ParsedRecord[];
+        const HEADER_RECORDS: ParsedRecord[] = [['a'], ['1']];
 
         it("maps the preview's bytes, reads the suggested part as the table, and takes the parser's header", async () => {
             const index = buildStructureIndex();

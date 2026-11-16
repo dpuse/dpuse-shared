@@ -119,7 +119,9 @@ export interface SampleIssue {
 
 export type SampleIssueSeverityId = 'error' | 'info' | 'warning'; // Only an error stops the item being read as data.
 
-export type ParsedRecord = { value: string | null; valueWasQuoted: boolean }[];
+// A record's values as written, spaces kept. A value with nothing written, such as ',,', is null, and an empty quoted
+// value, '""', is an empty string. Quotes are not kept otherwise, because nothing else depends on them.
+export type ParsedRecord = (string | null)[];
 
 // ── Content Audit ─ What an audit found in an item. The first audit covers only the preview read when the item is
 // opened, and later audits read further from its start. A count is undefined when the audit did not take it, as in the
