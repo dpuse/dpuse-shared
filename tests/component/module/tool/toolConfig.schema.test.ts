@@ -28,7 +28,7 @@ describe('toolConfigSchema', () => {
     });
 
     it('accepts a parser that reads several data formats, and the actions the build recorded', () => {
-        const config = { ...TOOL_CONFIG, actionNames: ['parseStream', 'parseText'], parser: { dataFormatIds: ['json', 'jsonl'] } };
+        const config = { ...TOOL_CONFIG, actionNames: ['parsePreview', 'parseStream'], parser: { dataFormatIds: ['json', 'jsonl'] } };
         expect(safeParse(toolConfigSchema, config).success).toBe(true);
     });
 

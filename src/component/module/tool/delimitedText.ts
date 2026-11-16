@@ -1,12 +1,24 @@
 // ── DPUse Framework
+import { resolveDecoderId } from '@/encoding';
 import type { ParsedRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
-import type { ParseTextOptions, ParseTextResult } from '@/component/module/tool';
+import type { ParsePreviewOptions, ParsePreviewResult } from '@/component/module/tool';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// What a parser tool supplies: the text read with one delimiter. A record it cannot read is left out and becomes an
+// A preview as its bytes, and as the text decoded from them, so a parser reads whichever its own 'parseStream' reads.
+export interface DelimitedPreview {
+    bytes: Uint8Array;
+    encodingId: string;
+    text: string;
+}
+
+// What a parser tool supplies: the preview read with one delimiter. A record it cannot read is left out and becomes an
 // issue, so every parser reports the same way and the choice of delimiter below is the same whichever parser reads.
-export type ParseTextWithDelimiter = (text: string, delimiter: ValueDelimiterId, isComplete: boolean) => Promise<{ issues: SampleIssue[]; records: ParsedRecord[] }>;
+export type ParsePreviewWithDelimiter = (
+    preview: DelimitedPreview,
+    delimiter: ValueDelimiterId,
+    isComplete: boolean
+) => Promise<{ issues: SampleIssue[]; records: ParsedRecord[] }>;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -17,10 +29,14 @@ export type ParseTextWithDelimiter = (text: string, delimiter: ValueDelimiterId,
  * still returned, so the text can be shown as a table if the user chooses. A delimiter whose parse has issues is only
  * used when every delimiter's does, because a wrong delimiter can itself cause a quote error. Then the one with the
  * fewest issues is used, the first on a tie, and its issues are returned, so the user learns why the text cannot be read.
+ * The bytes are decoded once, with the decoder 'parseStream' uses, both to find the record delimiter and for a parser
+ * that reads text.
  */
-export async function parseDelimitedText(text: string, options: ParseTextOptions, parseTextWithDelimiter: ParseTextWithDelimiter): Promise<ParseTextResult> {
+export async function parseDelimitedPreview(bytes: Uint8Array, options: ParsePreviewOptions, parseWithDelimiter: ParsePreviewWithDelimiter): Promise<ParsePreviewResult> {
+    const text = new TextDecoder(resolveDecoderId(options.encodingId)).decode(bytes);
+    const preview: DelimitedPreview = { bytes, encodingId: options.encodingId, text };
     const recordDelimiterId = determineRecordDelimiter(text);
-    const { issues, parsedRecords, valueDelimiterId } = await determineValueDelimiter(text, options.valueDelimiterIds, options.isComplete, parseTextWithDelimiter);
+    const { issues, parsedRecords, valueDelimiterId } = await determineValueDelimiter(preview, options.valueDelimiterIds, options.isComplete, parseWithDelimiter);
     return { issues, parsedRecords, recordDelimiterId, valueDelimiterId };
 }
 
@@ -36,10 +52,10 @@ function determineRecordDelimiter(text: string): RecordDelimiterId {
 }
 
 async function determineValueDelimiter(
-    text: string,
+    preview: DelimitedPreview,
     delimiters: ValueDelimiterId[],
     isComplete: boolean,
-    parseTextWithDelimiter: ParseTextWithDelimiter
+    parseWithDelimiter: ParsePreviewWithDelimiter
 ): Promise<{ issues: SampleIssue[]; parsedRecords: ParsedRecord[]; valueDelimiterId: ValueDelimiterId | undefined }> {
     let valueDelimiterId: ValueDelimiterId | undefined;
     let priorAverageCount: number | undefined;
@@ -55,7 +71,7 @@ async function determineValueDelimiter(
        less common? */
 
     for (const delimiter of delimiters) {
-        const { issues, records } = await parseTextWithDelimiter(text, delimiter, isComplete);
+        const { issues, records } = await parseWithDelimiter(preview, delimiter, isComplete);
         if (issues.length > 0) {
             fewestIssuesParse = chooseFewerIssues(fewestIssuesParse, { delimiter, issues, records });
             continue;

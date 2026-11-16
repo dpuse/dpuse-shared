@@ -22,10 +22,10 @@ export type { FilePreviewerInterface, FilePreviewResult } from './filePreviewer'
 
 // ── Parser
 export type { BuildStructureIndexOptions, ListStructureEntriesOptions, ListStructureEntriesResult, ParserInterface } from './parser';
-export type { ParseStreamOptions, ParseStreamSummary, ParseTextOptions, ParseTextResult, StructureCheckpoint } from './parser';
+export type { ParsePreviewOptions, ParsePreviewResult, ParseStreamOptions, ParseStreamSummary, StructureCheckpoint } from './parser';
 export type { StructureContainerKindId, StructureEntry, StructureIndex, StructureKindId, StructureNode } from './parser';
 export type { StructuredParserInterface, StructureLocator, StructurePath } from './parser';
-export { parseDelimitedText, type ParseTextWithDelimiter } from './delimitedText';
+export { type DelimitedPreview, parseDelimitedPreview, type ParsePreviewWithDelimiter } from './delimitedText';
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 

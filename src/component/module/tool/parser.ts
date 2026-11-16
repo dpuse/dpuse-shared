@@ -12,7 +12,9 @@ export interface ParserInterface {
     // asked for, so a slow receiver, such as a store being written to, holds the read back rather than letting records
     // pile up in memory.
     parseStream: (stream: ReadableStream<Uint8Array>, options: ParseStreamOptions) => AsyncGenerator<ParsedRecordsChunk, ParseStreamSummary, undefined>;
-    parseText: (text: string, options: ParseTextOptions) => Promise<ParseTextResult>;
+    // Reads the bytes of a preview, decoded as 'parseStream' decodes them, so a preview reads an item the same way as an
+    // audit and a load.
+    parsePreview: (bytes: Uint8Array, options: ParsePreviewOptions) => Promise<ParsePreviewResult>;
 }
 
 // A parser for a nested format, such as JSON, XML or a workbook, also maps the item's structure. The user browses the map
@@ -23,20 +25,21 @@ export interface StructuredParserInterface extends ParserInterface {
     listStructureEntries: (stream: ReadableStream<Uint8Array>, options: ListStructureEntriesOptions) => Promise<ListStructureEntriesResult>;
 }
 
-// ── Parse Text ─ Reads the text of a preview.
-export interface ParseTextOptions {
+// ── Parse Preview ─ Reads the bytes of a preview.
+export interface ParsePreviewOptions {
     dataFormatId: DataFormatId;
-    isComplete: boolean; // Whether the text is the whole item. A quote left open at the end of cut-off text is a value the preview stopped in, not an error.
+    encodingId: string; // The encoding the preview's text was decoded with.
+    isComplete: boolean; // Whether the preview is the whole item. A quote left open at the end of a preview cut short is a value the preview stopped in, not an error.
     structurePath?: StructurePath | undefined; // The part to read as the table, in a nested format. The top of the item when undefined. Other formats ignore it.
     valueDelimiterIds: ValueDelimiterId[]; // Candidates for delimited text, tried in order. Other formats ignore them.
 }
 
-export interface ParseTextResult {
+export interface ParsePreviewResult {
     hasHeaders?: boolean | undefined; // Set by a parser whose first record is always a header, such as column names taken from JSON keys. Undefined when the records must be inspected to tell.
-    issues: SampleIssue[]; // Every record the parser could not read, in the order found. Empty when the text parsed cleanly.
+    issues: SampleIssue[]; // Every record the parser could not read, in the order found. Empty when the preview parsed cleanly.
     parsedRecords: ParsedRecord[];
     recordDelimiterId: RecordDelimiterId;
-    valueDelimiterId: ValueDelimiterId | undefined; // Undefined when the text is not delimited.
+    valueDelimiterId: ValueDelimiterId | undefined; // Undefined when the preview is not delimited text.
 }
 
 // ── Parse Stream ─ Reads a whole item, for retrieving records and for an audit.

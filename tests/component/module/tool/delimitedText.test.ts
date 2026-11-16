@@ -2,8 +2,8 @@
 import { describe, expect, it } from 'vitest';
 
 // ── DPUse Framework
-import { parseDelimitedText } from '@/component/module/tool';
-import type { ParseTextWithDelimiter } from '@/component/module/tool';
+import { parseDelimitedPreview } from '@/component/module/tool';
+import type { ParsePreviewWithDelimiter } from '@/component/module/tool';
 import type { ParsedRecord, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 
 // ── Tests ────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -12,7 +12,7 @@ const CANDIDATES: ValueDelimiterId[] = [',', ';', '\t'];
 
 // A parser that splits on the delimiter it is given and reports a quote issue for any text with a quote in it. The real
 // parsers do much more; this is only enough to choose between delimiters.
-const splitParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
+const splitParser: ParsePreviewWithDelimiter = ({ text }, delimiter, _isComplete) => {
     const issues: SampleIssue[] = text.includes('"')
         ? [{ endLineNumber: undefined, fieldNumber: undefined, id: 'QUOTE', lineNumber: 1, message: 'Quote.', recordNumber: undefined, severityId: 'error', value: undefined }]
         : [];
@@ -23,8 +23,8 @@ const splitParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
     return Promise.resolve({ issues, records });
 };
 
-function parse(text: string, valueDelimiterIds = CANDIDATES, parseTextWithDelimiter = splitParser): ReturnType<typeof parseDelimitedText> {
-    return parseDelimitedText(text, { dataFormatId: 'dtv', isComplete: true, valueDelimiterIds }, parseTextWithDelimiter);
+function parse(text: string, valueDelimiterIds = CANDIDATES, parseWithDelimiter = splitParser): ReturnType<typeof parseDelimitedPreview> {
+    return parseDelimitedPreview(new TextEncoder().encode(text), { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: true, valueDelimiterIds }, parseWithDelimiter);
 }
 
 const QUOTE_ISSUE: SampleIssue = {
@@ -39,18 +39,32 @@ const QUOTE_ISSUE: SampleIssue = {
 };
 
 // Meets a quote issue with the comma only.
-const commaIssueParser: ParseTextWithDelimiter = async (text, delimiter, isComplete) => {
-    const parsed = await splitParser(text, delimiter, isComplete);
+const commaIssueParser: ParsePreviewWithDelimiter = async (preview, delimiter, isComplete) => {
+    const parsed = await splitParser(preview, delimiter, isComplete);
     return delimiter === ',' ? { ...parsed, issues: [QUOTE_ISSUE] } : parsed;
 };
 
 // Meets two quote issues with the comma, and one with any other delimiter.
-const alwaysIssueParser: ParseTextWithDelimiter = (text, delimiter, _isComplete) => {
+const alwaysIssueParser: ParsePreviewWithDelimiter = ({ text }, delimiter, _isComplete) => {
     const issues = delimiter === ',' ? [QUOTE_ISSUE, QUOTE_ISSUE] : [QUOTE_ISSUE];
     return Promise.resolve({ issues, records: text.split('\n').map((line) => line.split(delimiter)) });
 };
 
-describe('parseDelimitedText', () => {
+describe('parseDelimitedPreview', () => {
+    it('decodes the bytes once in their encoding, and gives each parse both the bytes and the text', async () => {
+        const bytes = new Uint8Array([0x63, 0x61, 0x66, 0xe9, 0x3b, 0x31, 0x0a]); // 'café;1' in windows-1252.
+        const previews: unknown[] = [];
+        const recordingParser: ParsePreviewWithDelimiter = (preview, delimiter, isComplete) => {
+            previews.push(preview);
+            return splitParser(preview, delimiter, isComplete);
+        };
+
+        const result = await parseDelimitedPreview(bytes, { dataFormatId: 'dtv', encodingId: 'windows-1252', isComplete: true, valueDelimiterIds: [';'] }, recordingParser);
+
+        expect(previews).toEqual([{ bytes, encodingId: 'windows-1252', text: 'café;1\n' }]);
+        expect(result.parsedRecords).toEqual([['café', '1']]);
+    });
+
     it('detects the value delimiter that splits every record evenly', async () => {
         const result = await parse('name;age\nAda;36\nGrace;85\n');
 
@@ -113,11 +127,12 @@ describe('parseDelimitedText', () => {
         expect(result.valueDelimiterId).toBe(';');
     });
 
-    it('passes on whether the text is the whole item', async () => {
+    it('passes on whether the preview is the whole item', async () => {
         const seen: boolean[] = [];
-        await parseDelimitedText('a,b\n', { dataFormatId: 'dtv', isComplete: false, valueDelimiterIds: [','] }, (text, delimiter, isComplete) => {
+        const bytes = new TextEncoder().encode('a,b\n');
+        await parseDelimitedPreview(bytes, { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: false, valueDelimiterIds: [','] }, (preview, delimiter, isComplete) => {
             seen.push(isComplete);
-            return splitParser(text, delimiter, isComplete);
+            return splitParser(preview, delimiter, isComplete);
         });
 
         expect(seen).toEqual([false]);
