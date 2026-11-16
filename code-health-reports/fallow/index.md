@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 4150 |
+| Total LOC | 4152 |
 | Avg Cyclomatic | 3.0 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 170, module scopes: 2, templates: 0 |
@@ -79,13 +79,13 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 35.6 | 27 | 1230 | 0.23 | 1 | stable |
+| `src/component/module/connector/objectParsing.ts` | 35.7 | 27 | 1230 | 0.23 | 1 | stable |
 | `src/component/module/tool/index.ts` | 15.5 | 18 | 127 | 0.19 | 7 | accelerating |
 | `src/errors/index.ts` | 11.5 | 10 | 239 | 0.30 | 7 | stable |
 | `src/component/module/connector/index.ts` | 11.1 | 59 | 910 | 0.04 | 5 | accelerating |
 | `src/utilities/index.ts` | 11.0 | 11 | 496 | 0.25 | 1 | accelerating |
+| `src/locale/index.ts` | 9.8 | 11 | 153 | 0.36 | 5 | cooling |
 | `src/component/module/tool/delimitedText.ts` | 9.7 | 5 | 133 | 0.35 | 1 | stable |
-| `src/locale/index.ts` | 9.7 | 11 | 153 | 0.36 | 5 | cooling |
 | `src/component/module/connector/webLock.ts` | 5.6 | 3 | 70 | 0.31 | 1 | accelerating |
 | `scripts/documentEncodings.ts` | 4.9 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 4.4 | 4 | 171 | 0.23 | 0 | cooling |

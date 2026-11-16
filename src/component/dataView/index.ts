@@ -149,6 +149,7 @@ export interface ColumnReadingConfig extends ObjectColumnConfig {
     decimalSeparatorId: DecimalSeparatorId | undefined; // How a number such as 1,234 is read in this column. Undefined when it holds no separator.
     dateOrderId: DateOrderId | undefined; // How a date such as 03/04/2024 is read in this column. Undefined when no date in it could be read either way.
     nullWordsAreEmpty?: boolean | undefined; // For a text column: whether null words such as 'NA' or 'NULL' load as no value. They are text unless the user chooses otherwise, because 'NA' can be data.
+    blankValuesAreEmpty?: boolean | undefined; // For a text column: whether blank values, such as '""' or only spaces, load as no value. They load as written unless the user chooses otherwise, as databases keep them.
 }
 
 export type DateOrderId = 'dayFirst' | 'monthFirst';
@@ -292,6 +293,7 @@ export interface ColumnChoiceConfig {
     decimalSeparatorId: DecimalSeparatorId | undefined; // For a number column whose values fit either separator, such as 1,234.
     isIgnored: boolean | undefined; // Whether the column is left out when the data view loads.
     nullWordsAreEmpty: boolean | undefined; // For a text column: whether words such as 'NA' mean no value.
+    blankValuesAreEmpty?: boolean | undefined; // For a text column: whether blank values, such as '""' or only spaces, mean no value.
 }
 
 // ── Data Types
