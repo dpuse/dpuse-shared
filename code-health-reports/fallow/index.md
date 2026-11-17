@@ -80,8 +80,8 @@
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
 | `src/component/module/connector/objectParsing.ts` | 37.7 | 29 | 1285 | 0.23 | 1 | stable |
-| `src/component/module/tool/index.ts` | 16.3 | 19 | 131 | 0.19 | 7 | accelerating |
-| `src/errors/index.ts` | 11.2 | 10 | 239 | 0.30 | 7 | stable |
+| `src/component/module/tool/index.ts` | 17.4 | 20 | 137 | 0.19 | 7 | accelerating |
+| `src/errors/index.ts` | 13.0 | 11 | 280 | 0.30 | 7 | accelerating |
 | `src/component/module/connector/index.ts` | 11.1 | 60 | 911 | 0.04 | 5 | accelerating |
 | `src/utilities/index.ts` | 10.8 | 11 | 496 | 0.25 | 1 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 10.3 | 6 | 165 | 0.31 | 1 | cooling |
@@ -94,7 +94,7 @@
 | `src/encoding/index.ts` | 2.3 | 9 | 778 | 0.06 | 6 | accelerating |
 | `vite.config.ts` | 1.3 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.2 | 11 | 107 | 0.03 | 2 | stable |
-| `src/component/module/presenter/index.ts` | 1.0 | 10 | 98 | 0.03 | 1 | cooling |
+| `src/component/module/presenter/index.ts` | 1.2 | 11 | 100 | 0.03 | 1 | stable |
 
 *7 files excluded (< 3 commits)*
 
@@ -105,12 +105,12 @@
 | `src/component/module/cookbook/index.ts` | `src/component/module/index.ts` | 71% | 5 | 6 | 8 | **strong** |
 | `src/component/module/index.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 60% | 6 | 8 | 12 | **strong** |
 | `src/component/module/cookbook/cookbookConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 6 | 12 | **strong** |
-| `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 48% | 6 | 8 | 17 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 47% | 9 | 26 | 12 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 40% | 5 | 8 | 17 |  |
+| `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 46% | 6 | 8 | 18 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 38% | 5 | 8 | 18 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 35% | 6 | 26 | 8 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 34% | 5 | 8 | 21 |  |
-| `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 33% | 5 | 13 | 17 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 33% | 5 | 8 | 22 |  |
+| `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 32% | 5 | 13 | 18 |  |
 | `src/index.ts` | `vite.config.ts` | 30% | 17 | 61 | 52 |  |
 
 *Files that change together in the commit history with no import between them.*
