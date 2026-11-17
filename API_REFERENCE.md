@@ -242,8 +242,10 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`RetrieveRecordsSummary`**
 - **`StoreChunk`**
 - **`StoreChunkLayoutId`**
+- **`StoreColumn`**
 - **`StoreColumnChunk`**
 - **`StoreErrorId`**
+- **`StorePackedNumberColumn`**
 - **`StoreRecord`**
 - **`StoreStateId`**
 - **`StoreValue`**
