@@ -91,7 +91,7 @@
 | `scripts/checkBrowserDecoding.ts` | 4.1 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 3.0 | 10 | 119 | 0.09 | 14 | stable |
 | `src/component/dataView/index.ts` | 2.5 | 51 | 1584 | 0.01 | 10 | accelerating |
-| `src/encoding/index.ts` | 2.3 | 9 | 778 | 0.06 | 6 | accelerating |
+| `src/encoding/index.ts` | 2.2 | 9 | 778 | 0.06 | 6 | accelerating |
 | `vite.config.ts` | 1.3 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.2 | 11 | 107 | 0.03 | 2 | stable |
 | `src/component/module/presenter/index.ts` | 1.2 | 11 | 100 | 0.03 | 1 | stable |
