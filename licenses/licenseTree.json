@@ -1,15 +1,15 @@
 {
-  "version": "1.0.236",
+  "version": "1.0.237",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.155",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.155.tgz",
+      "version": "1.0.156",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.156.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "1.0.223",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.223.tgz",
+          "version": "1.0.236",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.236.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -1433,8 +1433,8 @@
           }
         },
         "eslint-plugin-jsdoc": {
-          "version": "65.4.9",
-          "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-65.4.9.tgz",
+          "version": "65.4.10",
+          "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-65.4.10.tgz",
           "overridden": false,
           "dependencies": {
             "@es-joy/escodegen": {
@@ -3117,8 +3117,8 @@
           "dependencies": {
             "@microsoft/api-extractor": {},
             "@rollup/pluginutils": {
-              "version": "5.4.0",
-              "resolved": "https://registry.npmjs.org/@rollup/pluginutils/-/pluginutils-5.4.0.tgz",
+              "version": "5.5.1",
+              "resolved": "https://registry.npmjs.org/@rollup/pluginutils/-/pluginutils-5.5.1.tgz",
               "overridden": false,
               "dependencies": {
                 "@types/estree": {
