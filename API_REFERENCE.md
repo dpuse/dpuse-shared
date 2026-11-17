@@ -106,7 +106,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`DATA_FORMAT_CONFIGS`**`: readonly [{ readonly id: "arrow"; readonly isStructured: false; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, { readonly id: "avro"; readonly isStructured: false; readonly isTable: false; readonly isText: false; readonly supportId: "planned"; }, ... 10 more ..., { ...; }]`
 - **`DATA_TYPE_CONFIGS`**`: readonly [{ readonly id: "string"; readonly defaultSubtypeId: "plain"; readonly isChoosable: true; readonly subtypeIds: readonly ["plain", "email", "url", "uuid", "ulid", "ipv4", "ipv6", "ipRange", "macAddress", ... 7 more ..., "languageCode"]; }, { ...; }, { ...; }, { ...; }, { ...; }]`
 - **`DECIMAL_SEPARATOR_IDS`**`: readonly [",", "."]`
-- **`VALUE_DELIMITER_CONFIGS`**`: readonly [{ readonly id: ","; readonly character: ","; }, { readonly id: ";"; readonly character: ";"; }, { readonly id: "\t"; readonly character: "\t"; }, { readonly id: "|"; readonly character: "|"; }, ... 5 more ..., { ...; }]`
+- **`VALUE_DELIMITER_CONFIGS`**`: readonly [{ readonly id: ","; readonly character: ","; }, { readonly id: ";"; readonly character: ";"; }, { readonly id: "\t"; readonly character: "\t"; }, { readonly id: "|"; readonly character: "|"; }, ... 4 more ..., { ...; }]`
 
 #### Types
 

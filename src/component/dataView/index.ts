@@ -330,8 +330,9 @@ export const DATA_FORMAT_CONFIGS = [
     { id: 'unknown', isStructured: false, isTable: false, isText: false, supportId: 'unsupported' }
 ] as const satisfies readonly { id: string; isStructured: boolean; isTable: boolean; isText: boolean; supportId: 'planned' | 'supported' | 'unsupported' }[];
 
-// ── Value Delimiters ─ In the order detection tries them, most common first. The unit and record separators are
-// invisible, so their ids name them and 'character' holds the character itself.
+// ── Value Delimiters ─ In the order detection tries them, most common first. The unit separator is invisible, so its
+// id names it and 'character' holds the character itself. The record separator is not one of them: it ends a record,
+// so it belongs with the record delimiters.
 export const VALUE_DELIMITER_CONFIGS = [
     { id: ',', character: ',' },
     { id: ';', character: ';' },
@@ -341,8 +342,7 @@ export const VALUE_DELIMITER_CONFIGS = [
     { id: ':', character: ':' },
     { id: '_', character: '_' },
     { id: '!', character: '!' },
-    { id: '0x1F', character: '\u{1F}' },
-    { id: '0x1E', character: '\u{1E}' }
+    { id: '0x1F', character: '\u{1F}' }
 ] as const satisfies readonly { character: string; id: string }[];
 
 // ── Data Types ─ In the order the type list shows them. A type stored without a subtype is read as its

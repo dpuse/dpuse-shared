@@ -6,7 +6,6 @@ describe('getValueDelimiterCharacter', () => {
     it.each([
         [',', ','],
         ['\t', '\t'],
-        ['0x1E', '\u{1E}'],
         ['0x1F', '\u{1F}']
     ] as const)("gives '%s' the character it splits values with", (valueDelimiterId, character) => {
         expect(getValueDelimiterCharacter(valueDelimiterId)).toBe(character);
