@@ -168,6 +168,7 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     dateReadings?: Partial<Record<DateOrderId, DateReadingConfig>> | undefined; // A column's figures for each date order, for a column whose dates could be read either way.
     formatIssueIds: FormatIssueId[] | undefined; // Why the column's format is unclear. Empty when a number, date or yes/no column is clear. Undefined when the format was not checked.
     nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
+    unitId?: string | undefined; // For a column of numbers: the one unit its values are written with, a currency as written, such as 'USD' or '€', or '%'. A value written without it is taken to have it. Undefined when no value has a unit, or when the values have more than one, which a unit column then holds for each.
     isCoded?: boolean | undefined; // The column holds codes, not free text or measurements: few distinct values for its many records, or values all written to one shape, such as 'AB-1234'.
 
     // ── Counts

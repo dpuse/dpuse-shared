@@ -568,16 +568,18 @@ describe('objectParsing', () => {
             expect(hasHeaders).toBe(true);
             expect(auditConfig.recordCount).toBe(3);
             expect(columnAuditor.completeAudit).toHaveBeenCalledOnce();
+            expect(columnAuditor.completeAudit).toHaveBeenCalledWith(true); // The whole item was audited.
         });
 
         it('ends at the first record to finish past the byte limit, and stops reading the item', async () => {
             const { cancel, stream } = buildStream('a,b\n1,2\n', '3,4\n5,6\n');
-            const { audit, parsedText } = runAudit(true, stream, { byteLimit: 5 });
+            const { audit, columnAuditor, parsedText } = runAudit(true, stream, { byteLimit: 5 });
 
             const { contentAuditConfig: auditConfig } = await audit;
 
             expect(parsedText()).toBe('a,b\n1,2\n');
             expect(auditConfig).toMatchObject({ byteCount: 8, isComplete: false });
+            expect(columnAuditor.completeAudit).toHaveBeenCalledWith(false); // So the auditor does not take what it did not see as not there.
             expect(cancel).toHaveBeenCalledOnce();
         });
 

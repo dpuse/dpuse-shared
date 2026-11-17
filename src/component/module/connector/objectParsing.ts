@@ -295,7 +295,8 @@ export async function auditObjectContentWithParser(input: {
     const summary = parsed.value;
     const sourceWaitDuration = timedSource.waitDuration();
     const completeStartedAt = performance.now();
-    const { columnConfigs, hasHeaders } = columnAuditor.completeAudit();
+    const isComplete = summary.isComplete ?? auditSource.isComplete();
+    const { columnConfigs, hasHeaders } = columnAuditor.completeAudit(isComplete);
     columnAuditDuration += performance.now() - completeStartedAt; // Settling each column's type is part of auditing its values.
     const contentAuditConfig: ContentAuditConfig = {
         asAt,
@@ -305,7 +306,7 @@ export async function auditObjectContentWithParser(input: {
         duration: performance.now() - startedAt,
         emptyLineCount: summary.emptyLineCount,
         invalidFieldLengthCount: summary.nonUniformRecordCount,
-        isComplete: summary.isComplete ?? auditSource.isComplete(),
+        isComplete,
         lineCount: summary.lineCount,
         recordCount: Math.max(0, summary.recordCount - (hasHeaders ? 1 : 0)), // A header record names the columns and is not data.
         sourceWaitDuration,

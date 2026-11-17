@@ -73,9 +73,11 @@ export interface ConnectorUtilities {
 }
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
+// 'isComplete' says every record of the object was audited, so what no value showed, such as a unit, is known not to
+// be there. Without it the audit is taken to be of part of the object.
 export interface ColumnAuditor {
     auditRecords: (parsedRecords: ParsedRecord[]) => void;
-    completeAudit: () => InferenceSummary;
+    completeAudit: (isComplete?: boolean) => InferenceSummary;
 }
 
 // The columns detected from a set of records, from a sample held in memory or from an audit.
