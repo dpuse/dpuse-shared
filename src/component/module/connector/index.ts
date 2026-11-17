@@ -260,10 +260,21 @@ export type StoreValue = bigint | boolean | Date | number | string | null;
 // column, each as long as the chunk has records. A store that keeps its data by column, such as DuckDB, asks for
 // columns, which spares it turning records into them.
 export type StoreChunk = StoreColumnChunk | StoreRecord[];
-export type StoreChunkLayoutId = 'columns' | 'records';
+export type StoreChunkLayoutId = 'columns' | 'packedColumns' | 'records';
 export interface StoreColumnChunk {
-    columns: StoreValue[][]; // In the order of the data view's columns.
+    columns: StoreColumn[]; // In the order of the data view's columns.
     recordCount: number;
+}
+
+// A column of a chunk: its values as a list, or, for a store that asks for packed columns, a column of decimal numbers
+// as one block of 64-bit numbers. A store that reads such blocks, as DuckDB does through Arrow, takes the block as it
+// is, with no value to copy.
+export type StoreColumn = StorePackedNumberColumn | StoreValue[];
+export interface StorePackedNumberColumn {
+    nullCount: number;
+    typeId: 'packedNumbers';
+    validity: Uint8Array; // A bit for each value, lowest bit first, set when the value is present, as Arrow keeps them.
+    values: Float64Array; // A value that is not present is 0.
 }
 
 // ── Open Store
