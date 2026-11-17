@@ -51,7 +51,8 @@ export interface ConnectorInterface {
     indexObjectStructure?(options: IndexObjectStructureOptions, chunk: (byteCount: number) => void): Promise<StructureIndex>; // Map the structure of a whole nested item, such as JSON, reporting the bytes read as it goes.
     listNodes?(options: ListNodesOptions): Promise<ListNodesResult>; // List nodes in a folder for a specified connection.
     listObjectStructureEntries?(options: ListObjectStructureEntriesOptions): Promise<ListStructureEntriesResult>; // List one page of a part of a nested item, such as JSON.
-    loadObjectRecords?(options: LoadObjectRecordsOptions, chunks: AsyncIterable<StoreRecord[]>): Promise<LoadObjectRecordsResult>; // Replace an object in a store connector with the records given.
+    loadObjectRecords?(options: LoadObjectRecordsOptions, chunks: AsyncIterable<StoreChunk>): Promise<LoadObjectRecordsResult>; // Replace an object in a store connector with the records given.
+    readonly storeChunkLayoutId?: StoreChunkLayoutId; // The layout a store connector takes a load's chunks in. Records, unless it asks for columns.
     openStore?(options: OpenStoreOptions): Promise<OpenStoreResult>; // Open a store connector's database, unless another tab holds it.
     previewObject?(options: PreviewObjectOptions): Promise<PreviewObjectResult>; // Preview an object for a specified connection.
     queryRecords?(options: QueryRecordsOptions): Promise<QueryRecordsResult>; // Query one page of an object in a store connector.
@@ -254,6 +255,16 @@ export interface LoadTiming {
 // null.
 export type StoreRecord = StoreValue[];
 export type StoreValue = bigint | boolean | Date | number | string | null;
+
+// A chunk of a load as a store connector takes it: its records one by one, or the same values as one list for each
+// column, each as long as the chunk has records. A store that keeps its data by column, such as DuckDB, asks for
+// columns, which spares it turning records into them.
+export type StoreChunk = StoreColumnChunk | StoreRecord[];
+export type StoreChunkLayoutId = 'columns' | 'records';
+export interface StoreColumnChunk {
+    columns: StoreValue[][]; // In the order of the data view's columns.
+    recordCount: number;
+}
 
 // ── Open Store
 export interface OpenStoreOptions extends EngineConnectorActionOptions {
