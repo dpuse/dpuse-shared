@@ -168,6 +168,7 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     dateReadings?: Partial<Record<DateOrderId, DateReadingConfig>> | undefined; // A column's figures for each date order, for a column whose dates could be read either way.
     formatIssueIds: FormatIssueId[] | undefined; // Why the column's format is unclear. Empty when a number, date or yes/no column is clear. Undefined when the format was not checked.
     nullWordValueCount?: number | undefined; // For a text column: how many of its values are null words, counted as values.
+    isCoded?: boolean | undefined; // The column holds codes, not free text or measurements: few distinct values for its many records, or values all written to one shape, such as 'AB-1234'.
 
     // ── Counts
     validValueCount: number | undefined;
@@ -188,13 +189,14 @@ export interface ColumnAuditConfig extends ColumnReadingConfig {
     validMaxDecimals: number | undefined;
 
     // ── Distinct Values
-    validDistinctValueCount: number | undefined; // Distinct values that fit the column's type. Undefined when there are too many to count, because counting them all would hold the whole column in memory.
+    validCountsAreEstimated?: boolean | undefined; // The distinct count and the frequent values' counts are estimates, because the column holds more distinct values than are counted exactly. The counts of the lowest and highest values are still exact.
+    validDistinctValueCount: number | undefined; // Distinct values that fit the column's type. An estimate when 'validCountsAreEstimated' is set, because counting them all would hold the whole column in memory. Undefined when it cannot be told.
     validSingleValueCount?: number | undefined; // Distinct values that fit the column's type and are seen only once. Undefined when there are too many values to count.
     invalidDistinctValueCount?: number | undefined; // Distinct values that do not fit the column's type. Undefined when there are too many values to count.
     validIsUnique: boolean | undefined; // Undefined when there are too many values to tell.
 
     // ── Frequent Values
-    validFrequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. A number or date is counted by its value, however it is written. Empty when there are too many to count.
+    validFrequentValues: Record<string, number> | undefined; // The most frequent values that fit the column's type, with how often each is seen. A number or date is counted by its value, however it is written. Estimates when 'validCountsAreEstimated' is set. Empty when none stands out.
     validLeastFrequentValues?: Record<string, number> | undefined; // The least frequent values that fit the column's type and are not already in 'validFrequentValues', with how often each is seen. Empty when there are too many to count.
     invalidFrequentValues?: Record<string, number> | undefined; // The most frequent values that do not fit the column's type, with how often each is seen. Empty when there are too many to count.
     invalidValues: Record<string, string>; // A sample of the values that do not fit, each with the type it was read as.
@@ -236,6 +238,7 @@ export type DateReadingConfig = Pick<ColumnAuditConfig, 'validFormats'> & ValueD
 // differently with each decimal separator or date order, such as '1,5' as 1.5 or 15, so each reading has its own.
 export type ValueDistributionConfig = Pick<
     ColumnAuditConfig,
+    | 'validCountsAreEstimated'
     | 'validDistinctValueCount'
     | 'validFrequentValues'
     | 'validHighestValues'
