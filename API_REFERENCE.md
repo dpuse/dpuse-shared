@@ -240,6 +240,9 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`RetrieveRecordsChunk`**
 - **`RetrieveRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`RetrieveRecordsSummary`**
+- **`StoreChunk`**
+- **`StoreChunkLayoutId`**
+- **`StoreColumnChunk`**
 - **`StoreErrorId`**
 - **`StoreRecord`**
 - **`StoreStateId`**
