@@ -71,6 +71,7 @@ export interface ConnectorUtilities {
     constructColumnAuditor: (hasHeaders: boolean | undefined, declaredColumnConfigs?: DeclaredColumnConfig[]) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
     inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean, declaredColumnConfigs?: DeclaredColumnConfig[]) => InferenceSummary;
+    isLogged: boolean; // Informational console messages. A connector is prebuilt, so it cannot tell a dev app from a prod one.
 }
 
 // Audits a whole object's columns one chunk of records at a time, so the object never has to be held in memory.
