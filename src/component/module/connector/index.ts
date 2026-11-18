@@ -38,7 +38,9 @@ export { connectorConfigSchema } from './connectorConfig.schema';
 
 // ── Interface
 export interface ConnectorInterface {
-    auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number) => void): Promise<AuditObjectContentResult>;
+    // 'chunk' is called with the records and bytes just audited. A store connector also gives the object's total record
+    // count, counted as the audit starts, so progress can be shown for an object that has no bytes to measure it by.
+    auditObjectContent?(options: AuditObjectContentOptions, chunk: (recordCount: number, byteCount: number, totalRecordCount?: number) => void): Promise<AuditObjectContentResult>;
     closeStore?(options: CloseStoreOptions): Promise<void>; // Close a store connector's database and release its hold on it, so another tab can open it.
     createObject?(options: CreateObjectOptions): Promise<void>; // Create an object for a specified connection.
     describeConnection?(options: DescribeConnectionOptions): Promise<DescribeConnectionResult>; // Describe a specified connection.
