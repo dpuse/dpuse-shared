@@ -389,8 +389,10 @@ export type RecordRetrievalTypeId = 'parsingRecordArray' | 'storeRecordArray';
 
 // One chunk of retrieved records. Nothing more is read until the next chunk is asked for, so a slow receiver, such as a
 // store being written to, holds the read back. A connector that reads text hands over its records still as text, to be
-// typed by the columns the user chooses. A connector that holds typed values hands them over typed.
-export type RetrieveRecordsChunk = ParsedRecordsChunk | { records: StoreRecord[]; typeId: 'storeRecordArray' };
+// typed by the columns the user chooses. A connector that holds typed values hands them over typed. A store also gives
+// the object's total record count, counted as the retrieve starts, so a load can show how far it has got through an
+// object that has no bytes to measure it by.
+export type RetrieveRecordsChunk = ParsedRecordsChunk | { records: StoreRecord[]; totalRecordCount?: number; typeId: 'storeRecordArray' };
 export interface ParsedRecordsChunk {
     byteCount?: number; // The bytes of the item read so far, so a load can show how far it has got. Undefined from a parser, which only counts its records.
     records: ParsedRecord[];
