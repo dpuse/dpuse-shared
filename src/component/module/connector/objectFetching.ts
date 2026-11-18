@@ -10,6 +10,9 @@ export interface FetchObjectContentStreamOptions {
     signal: AbortSignal;
 }
 
+// A range fetched for the reader: its bytes, none when it starts past the object's end, or why it could not be fetched.
+type HeldRange = { bytes: Uint8Array | undefined } | { error: unknown };
+
 // The part of the User-Agent Client Hints API that names the browser's engine. Only Chromium has it.
 interface UserAgentData {
     brands: { brand: string }[];
@@ -17,7 +20,9 @@ interface UserAgentData {
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const RANGE_BYTE_COUNT = 33_554_432; // An object is fetched 32 MiB at a time where the browser would otherwise hold all of it.
+// An object is fetched 16 MiB at a time where the browser would otherwise hold all of it. One range is fetched ahead of
+// the reader, so at most two ranges, 32 MiB, are held.
+const RANGE_BYTE_COUNT = 16_777_216;
 const RANGE_NOT_SATISFIABLE_STATUS = 416;
 
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -25,38 +30,44 @@ const RANGE_NOT_SATISFIABLE_STATUS = 416;
 // Fetches an object's content as a stream that holds no more of it in memory than the reader is about to use. Chromium
 // pauses a download while the page is not reading it, so there the object is fetched in one request. Firefox and WebKit,
 // which every browser on iOS uses, download a response as fast as the network allows and hold the unread bytes in
-// memory, about 1.5 times the size of a 200 MB file in Safari. Elsewhere, then, the object is fetched a range at a time,
-// and the next range only when the reader asks for more. The object ends at the first range that comes back short, or
-// that starts past the end, so a server that does not let the page read 'Content-Range' still works. A server that
-// ignores ranges sends the whole object in one response, which is read as it is. Aborting the signal stops the fetch and
-// the reading of the stream it returns.
+// memory, about 1.5 times the size of a 200 MB file in Safari. Elsewhere, then, the object is fetched a range at a time.
+// Each range the reader takes starts the fetch of the one after it, so that range downloads while the reader works. A
+// range fetched only when asked for left the reader waiting for the whole download: 4.5 seconds of a 13 second audit of
+// a 190 MB file on an iPhone. The object ends at the first range that comes back short, or that starts past the end, so
+// a server that does not let the page read 'Content-Range' still works. A server that ignores ranges sends the whole
+// object in one response, which is read as it is. Aborting the signal stops the fetch and the reading of the stream it
+// returns, and cancelling the stream stops the range being fetched ahead.
 export async function fetchObjectContentStream(url: string, options: FetchObjectContentStreamOptions): Promise<ReadableStream<Uint8Array>> {
     if (doesFetchPauseUnreadDownloads()) {
         const response = await fetch(url, { headers: options.headers ?? {}, signal: options.signal });
         if (!response.ok) throw await buildFetchError(response, `Failed to fetch '${options.path}' file.`, options.locator);
         return establishResponseBody(response, options);
     }
-    const firstResponse = await fetchObjectRange(url, 0, options);
+    const readAhead = new AbortController();
+    const rangeOptions = { ...options, signal: AbortSignal.any([options.signal, readAhead.signal]) };
+    const firstResponse = await fetchObjectRange(url, 0, rangeOptions);
     if (firstResponse.status !== 206 && firstResponse.status !== RANGE_NOT_SATISFIABLE_STATUS) return establishResponseBody(firstResponse, options);
-    let nextResponse: Response | undefined = firstResponse;
     let nextOffset = 0;
+    let pendingRange = holdObjectRange(Promise.resolve(firstResponse), options);
     return new ReadableStream<Uint8Array>(
         {
             pull: async (controller): Promise<void> => {
-                const response = nextResponse ?? (await fetchObjectRange(url, nextOffset, options));
-                nextResponse = undefined;
-                if (response.status === RANGE_NOT_SATISFIABLE_STATUS) {
+                const heldRange = await pendingRange;
+                if ('error' in heldRange) throw heldRange.error;
+                const { bytes } = heldRange;
+                if (bytes != null && bytes.length > 0) controller.enqueue(bytes);
+                if (bytes == null || bytes.length < RANGE_BYTE_COUNT) {
                     controller.close();
                     return;
                 }
-                if (response.status !== 206) throw new ConnectorError(`Failed to fetch part of '${options.path}' file.`, `${options.locator}.range`);
-                const bytes = new Uint8Array(await response.arrayBuffer());
                 nextOffset += bytes.length;
-                if (bytes.length > 0) controller.enqueue(bytes);
-                if (bytes.length < RANGE_BYTE_COUNT) controller.close();
+                pendingRange = holdObjectRange(fetchObjectRange(url, nextOffset, rangeOptions), options);
+            },
+            cancel: (): void => {
+                readAhead.abort();
             }
         },
-        { highWaterMark: 0 } // Fetches nothing until the reader asks.
+        { highWaterMark: 0 } // Takes a range only when the reader asks, so no more than one is fetched ahead.
     );
 }
 
@@ -73,6 +84,20 @@ function doesFetchPauseUnreadDownloads(): boolean {
 function establishResponseBody(response: Response, options: FetchObjectContentStreamOptions): ReadableStream<Uint8Array> {
     if (response.body == null) throw new ConnectorError('Readable streams are not supported in this runtime.', `${options.locator}.unsupported`);
     return response.body;
+}
+
+// A range's bytes once they have all arrived, or none for a range that starts past the end. A failure is held, not
+// thrown, because a range fetched ahead fails before anything is waiting for it. It is raised when the reader asks for
+// the range.
+async function holdObjectRange(pendingResponse: Promise<Response>, options: FetchObjectContentStreamOptions): Promise<HeldRange> {
+    try {
+        const response = await pendingResponse;
+        if (response.status === RANGE_NOT_SATISFIABLE_STATUS) return { bytes: undefined };
+        if (response.status !== 206) throw new ConnectorError(`Failed to fetch part of '${options.path}' file.`, `${options.locator}.range`);
+        return { bytes: new Uint8Array(await response.arrayBuffer()) };
+    } catch (error) {
+        return { error };
+    }
 }
 
 // A range that starts past the end comes back as 'Range Not Satisfiable', which ends the object rather than failing. The

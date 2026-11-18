@@ -9,7 +9,7 @@ import { fetchObjectContentStream } from '@/component/module/connector';
 const LOCATOR = 'dpuse-test.fetchObjectStream';
 const OBJECT_PATH = '/World Bank Data/WDICSV.csv';
 const OBJECT_URL = 'https://example.com/WDICSV.csv';
-const RANGE_BYTE_COUNT = 33_554_432; // The most of an object fetched at a time where the browser does not pause a download.
+const RANGE_BYTE_COUNT = 16_777_216; // The most of an object fetched at a time where the browser does not pause a download.
 
 // ── Tests ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -28,26 +28,66 @@ describe('fetchObjectContentStream', () => {
         expect(fetchMock).toHaveBeenCalledExactlyOnceWith(OBJECT_URL, { headers: { Authorization: 'Bearer token' }, signal: expect.any(AbortSignal) as AbortSignal });
     });
 
-    it('fetches a range at a time elsewhere, each only when the reader asks for more', async () => {
-        const fetchMock = stubRangeFetch(RANGE_BYTE_COUNT + 3);
+    it('fetches a range at a time elsewhere, and the next one as the reader takes each', async () => {
+        const fetchMock = stubRangeFetch(RANGE_BYTE_COUNT * 2 + 3);
         const stream = await fetchObjectContentStream(OBJECT_URL, buildOptions({ headers: { Authorization: 'Bearer token' } }));
         const reader = stream.getReader();
 
         expect(fetchMock).toHaveBeenCalledOnce();
         expect(fetchMock).toHaveBeenLastCalledWith(OBJECT_URL, {
             cache: 'no-store',
-            headers: { Authorization: 'Bearer token', Range: 'bytes=0-33554431' },
+            headers: { Authorization: 'Bearer token', Range: 'bytes=0-16777215' },
             signal: expect.any(AbortSignal) as AbortSignal
         });
         const firstRead = await reader.read();
         expect(firstRead.value?.length).toBe(RANGE_BYTE_COUNT);
-        expect(fetchMock).toHaveBeenCalledOnce();
+        expect(fetchMock).toHaveBeenCalledTimes(2); // The second range is fetched while the reader works on the first.
+        expect(fetchMock).toHaveBeenLastCalledWith(OBJECT_URL, expect.objectContaining({ headers: { Authorization: 'Bearer token', Range: 'bytes=16777216-33554431' } }));
         const secondRead = await reader.read();
-        expect(secondRead.value?.length).toBe(3);
-        expect(fetchMock).toHaveBeenLastCalledWith(OBJECT_URL, expect.objectContaining({ headers: { Authorization: 'Bearer token', Range: 'bytes=33554432-67108863' } }));
+        expect(secondRead.value?.length).toBe(RANGE_BYTE_COUNT);
+        expect(fetchMock).toHaveBeenLastCalledWith(OBJECT_URL, expect.objectContaining({ headers: { Authorization: 'Bearer token', Range: 'bytes=33554432-50331647' } }));
+        const thirdRead = await reader.read();
+        expect(thirdRead.value?.length).toBe(3);
         const lastRead = await reader.read();
         expect(lastRead.done).toBe(true);
+        expect(fetchMock).toHaveBeenCalledTimes(3);
+    });
+
+    it('fetches no more than one range ahead of the reader', async () => {
+        const fetchMock = stubRangeFetch(RANGE_BYTE_COUNT * 4);
+        const stream = await fetchObjectContentStream(OBJECT_URL, buildOptions());
+        const reader = stream.getReader();
+
+        await reader.read();
+        await new Promise((resolve) => {
+            setTimeout(resolve, 0); // Time for a further range to be fetched, were one going to be.
+        });
+
         expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('stops the range being fetched ahead when the stream is cancelled', async () => {
+        const fetchMock = stubRangeFetch(RANGE_BYTE_COUNT * 4);
+        const stream = await fetchObjectContentStream(OBJECT_URL, buildOptions());
+        const reader = stream.getReader();
+
+        await reader.read();
+        const aheadSignal = (fetchMock.mock.lastCall?.[1] as RequestInit).signal;
+        expect(aheadSignal?.aborted).toBe(false);
+        await reader.cancel();
+
+        expect(aheadSignal?.aborted).toBe(true);
+    });
+
+    it('raises a failure in a range fetched ahead only when the reader asks for that range', async () => {
+        const firstResponse = new Response(new Uint8Array(RANGE_BYTE_COUNT), { status: 206 });
+        vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce(firstResponse).mockRejectedValueOnce(new Error('The connection was lost.')));
+        const stream = await fetchObjectContentStream(OBJECT_URL, buildOptions());
+        const reader = stream.getReader();
+
+        const firstRead = await reader.read();
+        expect(firstRead.value?.length).toBe(RANGE_BYTE_COUNT);
+        await expect(reader.read()).rejects.toThrow('The connection was lost.');
     });
 
     it('ends an object that fills its last range exactly when the next range starts past the end', async () => {

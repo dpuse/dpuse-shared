@@ -1,5 +1,5 @@
 {
-  "version": "1.0.240",
+  "version": "1.0.241",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -1433,8 +1433,8 @@
           }
         },
         "eslint-plugin-jsdoc": {
-          "version": "65.4.10",
-          "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-65.4.10.tgz",
+          "version": "65.4.12",
+          "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-65.4.12.tgz",
           "overridden": false,
           "dependencies": {
             "@es-joy/escodegen": {
@@ -2254,8 +2254,8 @@
       "overridden": false
     },
     "@vitest/coverage-v8": {
-      "version": "5.1.0",
-      "resolved": "https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-5.1.0.tgz",
+      "version": "5.1.1",
+      "resolved": "https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-5.1.1.tgz",
       "overridden": false,
       "dependencies": {
         "@bcoe/v8-coverage": {
@@ -2371,7 +2371,7 @@
           "overridden": false
         },
         "vitest": {
-          "version": "5.1.0"
+          "version": "5.1.1"
         }
       }
     },
@@ -3441,8 +3441,8 @@
       }
     },
     "vitest": {
-      "version": "5.1.0",
-      "resolved": "https://registry.npmjs.org/vitest/-/vitest-5.1.0.tgz",
+      "version": "5.1.1",
+      "resolved": "https://registry.npmjs.org/vitest/-/vitest-5.1.1.tgz",
       "overridden": false,
       "dependencies": {
         "@edge-runtime/vm": {},
@@ -3472,19 +3472,19 @@
         "@vitest/browser-webdriverio": {},
         "@vitest/coverage-istanbul": {},
         "@vitest/coverage-v8": {
-          "version": "5.1.0"
+          "version": "5.1.1"
         },
         "@vitest/mocker": {
-          "version": "5.1.0",
-          "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-5.1.0.tgz",
+          "version": "5.1.1",
+          "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-5.1.1.tgz",
           "overridden": false,
           "dependencies": {
             "@jridgewell/trace-mapping": {
               "version": "0.3.31"
             },
             "@vitest/spy": {
-              "version": "5.1.0",
-              "resolved": "https://registry.npmjs.org/@vitest/spy/-/spy-5.1.0.tgz",
+              "version": "5.1.1",
+              "resolved": "https://registry.npmjs.org/@vitest/spy/-/spy-5.1.1.tgz",
               "overridden": false
             },
             "estree-walker": {
