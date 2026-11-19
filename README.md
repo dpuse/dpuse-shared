@@ -8,6 +8,8 @@
 
 Common constants, types and utilities used across DPUse projects.
 
+**Release candidate.** See [Release Status](#release-status).
+
 [Report a Vulnerability](https://github.com/dpuse/dpuse-shared/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-shared/issues)
 
 ## About DPUse
@@ -40,6 +42,8 @@ This [package](https://www.npmjs.com/package/@dpuse/dpuse-shared) is available o
 npm install @dpuse/dpuse-shared
 ```
 
+_Requires [Node.js](https://nodejs.org/) 24 or later, [npm](https://www.npmjs.com/) 12 or later._
+
 To work on the source instead, clone this repository.
 
 ```bash
@@ -48,9 +52,17 @@ cd dpuse-shared
 npm install
 ```
 
-_Requires [Node.js](https://nodejs.org/) 24 or later, [npm](https://www.npmjs.com/) 12 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
+_Working on the source also requires [TypeScript](https://www.typescriptlang.org/) 6.0.3 or a later 6.0 release. Later versions, including TypeScript 7, are not supported yet._
 
 This repository is managed using the common set of actions provided by [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development). See the `scripts` block in [package.json](https://github.com/dpuse/dpuse-shared/blob/main/package.json) for details.
+
+### Release Status
+
+DPUse is a new product, and this package is a release candidate: complete and in use across DPUse, but not yet at its first stable release.
+
+Each release increases the last number of the version, for example from 1.0.164 to 1.0.165. Until the first stable release, any release may include changes that need updates in the projects that use it, so depend on an exact version to avoid unexpected changes. Once stable, versions will follow [Semantic Versioning](https://semver.org): breaking changes in the first number, new features in the second and fixes in the last.
+
+Every release is listed on the [Releases](https://github.com/dpuse/dpuse-shared/releases) page.
 
 <!-- USAGE_END -->
 
@@ -303,7 +315,7 @@ This section is updated each time `npm run document` is run. Settings come from 
 | :------------ | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Code health   | ✅ On  | [![Fallow code health](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdpuse%2Fdpuse-shared%2Fmain%2Fcode-health-reports%2Ffallow%2Fbadge.json)](./code-health-reports/fallow/index.md) [Fallow](https://github.com/fallow-rs/fallow) finds unused code, duplication, complexity and dependency problems. |
 | Code analysis | ✅ On  | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-shared&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-shared) [SonarCloud](https://sonarcloud.io) checks every push for bugs, code smells and vulnerabilities.                                                |
-| Linting       | ✅ On  | [ESLint](https://eslint.org) checks the code for errors and style problems. Part of the [CI workflow](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml) on every push and pull request to `main`.                                                                                                                         |
+| Linting       | ✅ On  | [ESLint](https://eslint.org) checks the code for errors and style problems, and the [TypeScript](https://www.typescriptlang.org/) compiler type-checks the whole project. Part of the [CI workflow](https://github.com/dpuse/dpuse-shared/actions/workflows/ci.yml) on every push and pull request to `main`.                           |
 
 ### Security Analysis
 

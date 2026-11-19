@@ -1,5 +1,3 @@
-/* eslint-disable security/detect-non-literal-fs-filename -- Tests only read files inside their own fixtures folder. */
-
 import { detect } from 'jschardet';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -127,5 +125,3 @@ function readBytes(url: URL): Uint8Array {
 function readJSON(url: URL): unknown {
     return JSON.parse(readFileSync(url, 'utf-8'));
 }
-
-/* eslint-enable security/detect-non-literal-fs-filename -- Ends the fixtures-only file reads. */
