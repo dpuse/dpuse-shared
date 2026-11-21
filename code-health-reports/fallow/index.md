@@ -85,12 +85,12 @@
 | `src/component/module/connector/index.ts` | 11.1 | 66 | 954 | 0.04 | 5 | accelerating |
 | `src/utilities/index.ts` | 9.5 | 11 | 496 | 0.25 | 1 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 9.1 | 6 | 165 | 0.31 | 1 | cooling |
-| `src/locale/index.ts` | 8.4 | 11 | 153 | 0.36 | 5 | cooling |
+| `src/locale/index.ts` | 7.0 | 8 | 118 | 0.36 | 5 | cooling |
 | `src/component/module/connector/webLock.ts` | 4.9 | 3 | 70 | 0.31 | 1 | accelerating |
 | `scripts/documentEncodings.ts` | 4.3 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 3.8 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 2.8 | 10 | 119 | 0.09 | 14 | stable |
-| `src/component/dataView/index.ts` | 2.3 | 51 | 1584 | 0.01 | 10 | accelerating |
+| `src/component/dataView/index.ts` | 2.3 | 50 | 1581 | 0.01 | 10 | accelerating |
 | `src/encoding/index.ts` | 2.1 | 9 | 778 | 0.06 | 6 | accelerating |
 | `vite.config.ts` | 1.2 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.1 | 11 | 107 | 0.03 | 2 | stable |
@@ -110,7 +110,7 @@
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 38% | 5 | 8 | 18 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 35% | 6 | 26 | 8 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 33% | 5 | 8 | 22 |  |
-| `src/index.ts` | `vite.config.ts` | 32% | 17 | 55 | 52 |  |
+| `src/index.ts` | `vite.config.ts` | 32% | 17 | 54 | 52 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 32% | 5 | 13 | 18 |  |
 
 *Files that change together in the commit history with no import between them.*

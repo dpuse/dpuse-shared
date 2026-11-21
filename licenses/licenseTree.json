@@ -1,10 +1,10 @@
 {
-  "version": "1.0.246",
+  "version": "1.0.247",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.0.169",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.0.169.tgz",
+      "version": "1.1.101",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.1.101.tgz",
       "overridden": false,
       "dependencies": {
         "@cyclonedx/cyclonedx-npm": {
@@ -125,8 +125,8 @@
           }
         },
         "@dpuse/dpuse-shared": {
-          "version": "1.0.245",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.245.tgz",
+          "version": "1.0.247",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.247.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
@@ -204,8 +204,8 @@
       }
     },
     "@dpuse/eslint-config-dpuse": {
-      "version": "1.1.105",
-      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.1.105.tgz",
+      "version": "1.1.107",
+      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.1.107.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": {
@@ -1678,13 +1678,13 @@
       }
     },
     "fallow": {
-      "version": "3.44.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.44.0.tgz",
+      "version": "3.45.0",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.45.0.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.44.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.44.0.tgz",
+          "version": "3.45.0",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.45.0.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
