@@ -87,7 +87,7 @@
 | `src/component/module/tool/delimitedText.ts` | 9.1 | 6 | 165 | 0.31 | 1 | cooling |
 | `src/locale/index.ts` | 7.0 | 8 | 118 | 0.36 | 5 | cooling |
 | `src/component/module/connector/webLock.ts` | 4.9 | 3 | 70 | 0.31 | 1 | accelerating |
-| `scripts/documentEncodings.ts` | 4.3 | 5 | 83 | 0.21 | 0 | cooling |
+| `scripts/documentEncodings.ts` | 4.2 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 3.8 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 2.8 | 10 | 119 | 0.09 | 14 | stable |
 | `src/component/dataView/index.ts` | 2.3 | 50 | 1581 | 0.01 | 10 | accelerating |
