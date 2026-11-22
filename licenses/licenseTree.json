@@ -1,10 +1,10 @@
 {
-  "version": "1.0.248",
+  "version": "1.0.249",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.1.102",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.1.102.tgz",
+      "version": "1.1.103",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.1.103.tgz",
       "overridden": false,
       "dependencies": {
         "@cyclonedx/cyclonedx-npm": {
@@ -125,8 +125,8 @@
           }
         },
         "@dpuse/dpuse-shared": {
-          "version": "1.0.247",
-          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.247.tgz",
+          "version": "1.0.249",
+          "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-1.0.249.tgz",
           "overridden": false,
           "dependencies": {
             "file-type": {
