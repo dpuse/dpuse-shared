@@ -148,6 +148,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Types
 
+- **`ContextEventReference`**
 - **`EventQueryConfig`** (extends `ComponentInstanceConfig`)
 
 ### Component › Module
