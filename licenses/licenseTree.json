@@ -1,10 +1,10 @@
 {
-  "version": "1.0.247",
+  "version": "1.0.248",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
-      "version": "1.1.101",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.1.101.tgz",
+      "version": "1.1.102",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-development/-/dpuse-development-1.1.102.tgz",
       "overridden": false,
       "dependencies": {
         "@cyclonedx/cyclonedx-npm": {
@@ -204,8 +204,8 @@
       }
     },
     "@dpuse/eslint-config-dpuse": {
-      "version": "1.1.107",
-      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.1.107.tgz",
+      "version": "1.1.108",
+      "resolved": "https://registry.npmjs.org/@dpuse/eslint-config-dpuse/-/eslint-config-dpuse-1.1.108.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-plugin-eslint-comments": {
@@ -1678,13 +1678,13 @@
       }
     },
     "fallow": {
-      "version": "3.45.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.45.0.tgz",
+      "version": "3.46.0",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.46.0.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.45.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.45.0.tgz",
+          "version": "3.46.0",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.46.0.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},
@@ -1702,8 +1702,8 @@
       }
     },
     "fast-check": {
-      "version": "4.10.3",
-      "resolved": "https://registry.npmjs.org/fast-check/-/fast-check-4.10.3.tgz",
+      "version": "4.11.0",
+      "resolved": "https://registry.npmjs.org/fast-check/-/fast-check-4.11.0.tgz",
       "overridden": false,
       "dependencies": {
         "pure-rand": {

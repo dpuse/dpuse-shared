@@ -109,8 +109,8 @@
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 46% | 6 | 8 | 18 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 38% | 5 | 8 | 18 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 35% | 6 | 26 | 8 |  |
+| `src/index.ts` | `vite.config.ts` | 33% | 17 | 52 | 52 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 33% | 5 | 8 | 22 |  |
-| `src/index.ts` | `vite.config.ts` | 32% | 17 | 54 | 52 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 32% | 5 | 13 | 18 |  |
 
 *Files that change together in the commit history with no import between them.*

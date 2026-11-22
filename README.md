@@ -344,7 +344,7 @@ This section is updated each time `npm run document` is run. Settings come from 
 This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
 
 > [!NOTE]
-> The Scorecard score is below the maximum for two reasons. The OpenSSF Best Practices badge above is not complete yet, and some checks need a second reviewer or a pull-request workflow, which a solo-maintained project cannot provide.
+> The Scorecard score is below the maximum for two reasons. The OpenSSF Best Practices badge above is not complete yet, and some checks need a second reviewer, which a solo-maintained project cannot provide, or a pull-request workflow, which this project does not use.
 
 ### Reporting Vulnerabilities
 
