@@ -21,10 +21,10 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 4268 |
-| Avg Cyclomatic | 3.0 |
+| Total LOC | 4300 |
+| Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 172, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 174, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
 | Dead Files | 2.0% |
 | Dead Exports | 0.3% |
@@ -37,19 +37,19 @@
 
 | File | Function | Severity | Cyclomatic | Cognitive | CRAP | Lines |
 |:-----|:---------|:---------|:-----------|:----------|:-----|:------|
-| `src/component/module/connector/objectParsing.ts:42` | `buildPreviewObjectResult` | high | 49 **!** | 24 **!** | 49.0 **!** | 169 |
+| `src/component/module/connector/objectParsing.ts:49` | `buildPreviewObjectResult` | critical | 52 **!** | 26 **!** | 52.0 **!** | 171 |
 | `src/component/module/tool/delimitedText.ts:54` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
 | `scripts/documentEncodings.ts:17` | `rows` | moderate | 6 | 5 | 42.0 **!** | 2 |
 
 **!** marks the dimension that breached.
 
-**51** files, **172** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**51** files, **174** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (23 files)
 
 | File | Maintainability | Fan-in | Fan-out | Dead Code | Density | Risk |
 |:-----|:---------------|:-------|:--------|:----------|:--------|:-----|
-| `src/component/module/connector/objectParsing.ts` | 85.9 | 1 | 5 | 0% | 0.23 | 49.0 |
+| `src/component/module/connector/objectParsing.ts` | 85.6 | 1 | 5 | 0% | 0.24 | 52.0 |
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
 | `src/component/module/tool/delimitedText.ts` | 85.2 | 1 | 3 | 0% | 0.31 | 15.0 |
@@ -79,22 +79,22 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 34.5 | 30 | 1290 | 0.23 | 1 | stable |
-| `src/component/module/tool/index.ts` | 15.4 | 20 | 137 | 0.19 | 7 | accelerating |
-| `src/errors/index.ts` | 11.5 | 11 | 280 | 0.30 | 7 | accelerating |
-| `src/component/module/connector/index.ts` | 11.1 | 66 | 954 | 0.04 | 5 | accelerating |
-| `src/utilities/index.ts` | 9.5 | 11 | 496 | 0.25 | 1 | accelerating |
-| `src/component/module/tool/delimitedText.ts` | 9.1 | 6 | 165 | 0.31 | 1 | cooling |
-| `src/locale/index.ts` | 7.0 | 8 | 118 | 0.36 | 5 | cooling |
+| `src/component/module/connector/objectParsing.ts` | 36.6 | 31 | 1301 | 0.24 | 1 | cooling |
+| `src/component/module/tool/index.ts` | 15.1 | 20 | 137 | 0.19 | 7 | accelerating |
+| `src/errors/index.ts` | 11.3 | 11 | 280 | 0.30 | 7 | accelerating |
+| `src/component/module/connector/index.ts` | 11.1 | 67 | 960 | 0.04 | 5 | accelerating |
+| `src/utilities/index.ts` | 9.3 | 11 | 496 | 0.25 | 1 | accelerating |
+| `src/component/module/tool/delimitedText.ts` | 8.9 | 6 | 165 | 0.31 | 1 | cooling |
+| `src/locale/index.ts` | 6.8 | 8 | 118 | 0.36 | 5 | cooling |
 | `src/component/module/connector/webLock.ts` | 4.8 | 3 | 70 | 0.31 | 1 | accelerating |
 | `scripts/documentEncodings.ts` | 4.2 | 5 | 83 | 0.21 | 0 | cooling |
-| `scripts/checkBrowserDecoding.ts` | 3.8 | 4 | 171 | 0.23 | 0 | cooling |
+| `scripts/checkBrowserDecoding.ts` | 3.7 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 2.8 | 10 | 119 | 0.09 | 14 | stable |
 | `src/component/dataView/index.ts` | 2.3 | 50 | 1581 | 0.01 | 10 | accelerating |
-| `src/encoding/index.ts` | 2.1 | 9 | 778 | 0.06 | 6 | accelerating |
+| `src/encoding/index.ts` | 2.0 | 9 | 778 | 0.06 | 6 | accelerating |
 | `vite.config.ts` | 1.2 | 20 | 137 | 0.02 | 0 | stable |
-| `src/component/module/engine/index.ts` | 1.1 | 11 | 107 | 0.03 | 2 | stable |
 | `src/component/module/presenter/index.ts` | 1.1 | 11 | 100 | 0.03 | 1 | stable |
+| `src/component/module/engine/index.ts` | 1.0 | 11 | 107 | 0.03 | 2 | stable |
 
 *7 files excluded (< 3 commits)*
 
@@ -108,8 +108,8 @@
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 47% | 9 | 26 | 12 |  |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 46% | 6 | 8 | 18 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 37% | 5 | 9 | 18 |  |
+| `src/index.ts` | `vite.config.ts` | 35% | 17 | 46 | 52 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 35% | 6 | 26 | 8 |  |
-| `src/index.ts` | `vite.config.ts` | 33% | 17 | 52 | 52 |  |
 | `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 32% | 5 | 9 | 22 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 32% | 5 | 13 | 18 |  |
 

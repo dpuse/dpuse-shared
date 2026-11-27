@@ -1,5 +1,5 @@
 {
-  "version": "1.0.252",
+  "version": "1.0.253",
   "name": "@dpuse/dpuse-shared",
   "dependencies": {
     "@dpuse/dpuse-development": {
@@ -217,7 +217,7 @@
               "version": "4.0.0"
             },
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "ignore": {
               "version": "7.0.9",
@@ -232,7 +232,7 @@
           "overridden": false,
           "dependencies": {
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             }
           }
         },
@@ -242,7 +242,7 @@
           "overridden": false,
           "dependencies": {
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             }
           }
         },
@@ -275,7 +275,7 @@
             },
             "eslint-plugin-import": {},
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "get-tsconfig": {
               "version": "4.14.0",
@@ -385,7 +385,7 @@
                   "version": "8.73.0"
                 },
                 "eslint": {
-                  "version": "10.15.0"
+                  "version": "10.16.0"
                 },
                 "typescript": {
                   "version": "6.0.3"
@@ -415,7 +415,7 @@
             },
             "eslint-import-resolver-node": {},
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "is-glob": {
               "version": "4.0.3"
@@ -478,7 +478,7 @@
                   "overridden": false,
                   "dependencies": {
                     "eslint": {
-                      "version": "10.15.0"
+                      "version": "10.16.0"
                     },
                     "semver": {
                       "version": "7.8.6"
@@ -486,12 +486,12 @@
                   }
                 },
                 "eslint": {
-                  "version": "10.15.0"
+                  "version": "10.16.0"
                 }
               }
             },
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "get-tsconfig": {
               "version": "4.14.0"
@@ -547,7 +547,7 @@
               "version": "1.4.9"
             },
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "jsdoc-type-pratt-parser": {
               "version": "9.5.0",
@@ -699,7 +699,7 @@
               "overridden": false
             },
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "find-up-simple": {
               "version": "1.0.1",
@@ -792,7 +792,7 @@
           }
         },
         "eslint": {
-          "version": "10.15.0"
+          "version": "10.16.0"
         },
         "globals": {
           "version": "17.14.0",
@@ -836,7 +836,7 @@
                       "version": "4.4.3"
                     },
                     "eslint": {
-                      "version": "10.15.0"
+                      "version": "10.16.0"
                     },
                     "ts-api-utils": {
                       "version": "2.5.0"
@@ -863,7 +863,7 @@
                   }
                 },
                 "eslint": {
-                  "version": "10.15.0"
+                  "version": "10.16.0"
                 },
                 "ignore": {
                   "version": "7.0.9"
@@ -907,7 +907,7 @@
                   "version": "4.4.3"
                 },
                 "eslint": {
-                  "version": "10.15.0"
+                  "version": "10.16.0"
                 },
                 "typescript": {
                   "version": "6.0.3"
@@ -979,7 +979,7 @@
               "version": "8.73.0"
             },
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             },
             "typescript": {
               "version": "6.0.3"
@@ -1128,8 +1128,8 @@
       }
     },
     "eslint": {
-      "version": "10.15.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-10.15.0.tgz",
+      "version": "10.16.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-10.16.0.tgz",
       "overridden": false,
       "dependencies": {
         "@eslint-community/eslint-utils": {
@@ -1143,7 +1143,7 @@
               "overridden": false
             },
             "eslint": {
-              "version": "10.15.0"
+              "version": "10.16.0"
             }
           }
         },
@@ -1153,8 +1153,8 @@
           "overridden": false
         },
         "@eslint/config-array": {
-          "version": "0.23.6",
-          "resolved": "https://registry.npmjs.org/@eslint/config-array/-/config-array-0.23.6.tgz",
+          "version": "0.23.7",
+          "resolved": "https://registry.npmjs.org/@eslint/config-array/-/config-array-0.23.7.tgz",
           "overridden": false,
           "dependencies": {
             "@eslint/object-schema": {
@@ -1678,13 +1678,13 @@
       }
     },
     "fallow": {
-      "version": "3.49.0",
-      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.49.0.tgz",
+      "version": "3.50.0",
+      "resolved": "https://registry.npmjs.org/fallow/-/fallow-3.50.0.tgz",
       "overridden": false,
       "dependencies": {
         "@fallow-cli/darwin-arm64": {
-          "version": "3.49.0",
-          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.49.0.tgz",
+          "version": "3.50.0",
+          "resolved": "https://registry.npmjs.org/@fallow-cli/darwin-arm64/-/darwin-arm64-3.50.0.tgz",
           "overridden": false
         },
         "@fallow-cli/darwin-x64": {},

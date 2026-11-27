@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
 import type { AuditObjectContentOptions, ParsedRecordsChunk, RetrieveRecordsSummary } from '@/component/module/connector';
-import { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from '@/component/module/connector';
+import { auditObjectContentWithParser, buildPreviewObjectResult, countPreviewLines, indexObjectStructureWithParser } from '@/component/module/connector';
 import type { FilePreviewResult, ParseStreamSummary, StructureIndex, ToolConfig } from '@/component/module/tool';
 import { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from '@/component/module/connector';
 import type { ParsedRecord, ReadingChoiceConfig } from '@/component/dataView';
@@ -133,6 +133,28 @@ function buildStructuredAuditOptions(overrides: Partial<AuditObjectContentOption
     };
 }
 
+describe('countPreviewLines', () => {
+    it('counts the last line and the empty line after a final line break, as the parsers do', () => {
+        expect(countPreviewLines('a,b\n1,2\n', [], true)).toMatchObject({ emptyLineCount: 1, lineCount: 3 });
+        expect(countPreviewLines('a,b\n1,2', [], true)).toMatchObject({ emptyLineCount: 0, lineCount: 2 });
+        expect(countPreviewLines('', [], true)).toMatchObject({ emptyLineCount: 0, lineCount: 0 });
+    });
+
+    it('counts a carriage return and line feed together as one break, and a break inside quotes as a line', () => {
+        expect(countPreviewLines('a\r\nb\r\n', [], true).lineCount).toBe(3);
+        expect(countPreviewLines('"a\nb",c\n', [], true).lineCount).toBe(3);
+    });
+
+    it('adds no line or empty line for a break at the end of a preview cut short', () => {
+        expect(countPreviewLines('a,b\n1,2\n', [], false)).toMatchObject({ emptyLineCount: 0, lineCount: 2 });
+        expect(countPreviewLines('a,b\n1,', [], false)).toMatchObject({ emptyLineCount: 0, lineCount: 2 });
+    });
+
+    it('counts the records whose number of values differs from the first record’s, and no comments', () => {
+        expect(countPreviewLines('', [['a', 'b'], ['1'], ['1', '2'], ['1', '2', '3']], true)).toMatchObject({ commentLineCount: 0, invalidFieldLengthCount: 2 });
+    });
+});
+
 describe('objectParsing', () => {
     afterEach(() => {
         tools.byName = {};
@@ -257,10 +279,20 @@ describe('objectParsing', () => {
             const parsePreview = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
             tools.byName['json-parser'] = { parsePreview };
 
-            const { readingConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '[1]' })));
+            const { contentAuditConfig, readingConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ dataFormatId: 'json', text: '[1]' })));
 
             expect(parsePreview).toHaveBeenCalledOnce();
             expect(readingConfig).toMatchObject({ dataFormatId: 'json', parserId: 'dpuse-tool-json-parser', valueDelimiterId: undefined });
+            expect(contentAuditConfig.lineCount).toBeUndefined(); // Only delimited text is counted in lines.
+        });
+
+        it('counts the lines, the empty line and the uneven records of delimited text, as a streamed audit does', async () => {
+            const parsedRecords = [['a', 'b'], ['1', '2'], ['3']];
+            tools.byName['rust-csv-core-parser'] = { parsePreview: vi.fn().mockResolvedValue({ issues: [], parsedRecords, recordDelimiterId: '\n', valueDelimiterId: ',' }) };
+
+            const { contentAuditConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ text: 'a,b\n1,2\n3\n' })));
+
+            expect(contentAuditConfig).toMatchObject({ commentLineCount: 0, emptyLineCount: 1, invalidFieldLengthCount: 1, lineCount: 4 });
         });
 
         it('passes on whether the preview holds the whole item', async () => {

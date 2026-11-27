@@ -477,7 +477,8 @@ const CONNECTOR_SOURCE_OPERATIONS = new Set<ConnectorActionName>([
 export { type FetchObjectContentStreamOptions, fetchObjectContentStream } from './objectFetching';
 
 // ── Object Parsing
-export { auditObjectContentWithParser, buildPreviewObjectResult, indexObjectStructureWithParser } from './objectParsing';
+export { auditObjectContentWithParser, buildPreviewObjectResult, countPreviewLines, indexObjectStructureWithParser } from './objectParsing';
+export type { PreviewLineCounts } from './objectParsing';
 export { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from './objectParsing';
 
 // ── Store Errors

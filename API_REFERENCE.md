@@ -170,6 +170,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`constructStoreError`**`(storeErrorId: StoreErrorId, message: string, locator: string, options?: ErrorOptions)`
 - **`convertStoreRecordToParsedRecord`**`(storeRecord: StoreRecord)`
 - **`convertStoreValueToText`**`(storeValue: StoreValue)`
+- **`countPreviewLines`**`(text: string, parsedRecords: ParsedRecord[], isComplete: boolean)`
 - **`determineConnectorUsageId`**`(actionNames: ConnectorActionName[])`
 - **`fetchObjectContentStream`**`(url: string, options: FetchObjectContentStreamOptions)`
 - **`findStoreErrorId`**`(error: unknown)`
@@ -224,6 +225,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`OpenStoreOptions`** (extends `EngineConnectorActionOptions`)
 - **`OpenStoreResult`**
 - **`ParsedRecordsChunk`**
+- **`PreviewLineCounts`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`PreviewObjectResult`**
 - **`PreviewValueStateId`**

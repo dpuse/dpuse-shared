@@ -3,13 +3,18 @@ import { AppError } from '@/errors';
 import { resolveDecoderId } from '@/encoding';
 import type { RetrieveRecordsSummary } from '@/component/module/connector';
 import type { AuditObjectContentOptions, AuditObjectContentResult, ConnectorUtilities, IndexObjectStructureOptions } from '@/component/module/connector';
-import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig } from '@/component/dataView';
+import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig, ParsedRecord } from '@/component/dataView';
 import { DATA_FORMAT_CONFIGS, VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
 import type { FilePreviewResult, ListStructureEntriesResult, ParsePreviewResult, ParserInterface, ParseStreamSummary, StructuredParserInterface } from '@/component/module/tool';
 import type { ListObjectStructureEntriesOptions, ParsedRecordsChunk, PreviewObjectResult, RetrieveRecordsOptions } from '@/component/module/connector';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
 import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 import type { StructureIndex, StructurePath, ToolConfig } from '@/component/module/tool';
+
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// The counts of lines and uneven records that an audit reports.
+export type PreviewLineCounts = Required<Pick<ContentAuditConfig, 'commentLineCount' | 'emptyLineCount' | 'invalidFieldLengthCount' | 'lineCount'>>;
 
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -20,6 +25,8 @@ const DEFAULT_VALUE_DELIMITER_ID: ValueDelimiterId = ',';
 
 // Formats that nest, so the user chooses the part read as the table, and that have no value delimiter.
 const STRUCTURED_DATA_FORMAT_IDS = new Set<DataFormatId>(DATA_FORMAT_CONFIGS.filter(({ isStructured }) => isStructured).map(({ id }) => id));
+
+const LINE_BREAK_PATTERN = /\r\n|\r|\n/gu; // A carriage return and line feed together are one break.
 
 const CARRIAGE_RETURN_BYTE = 0x0d;
 const LINE_FEED_BYTE = 0x0a;
@@ -174,6 +181,8 @@ export async function buildPreviewObjectResult(input: {
             columnAuditDuration,
             columns: sampleInference?.columnConfigs ?? [],
             isComplete,
+            // Only delimited text is counted in lines. A nested format's parser counts none.
+            lineCounts: sampleParse != null && sampleDataFormatId === 'dtv' && text != null ? countPreviewLines(text, sampleRecords, isComplete) : undefined,
             parseDuration: parseTiming.duration,
             recordCount: Math.max(0, sampleRecords.length - (sampleInference?.hasHeaders === true ? 1 : 0)), // A header record names the columns and is not data.
             size,
@@ -211,6 +220,26 @@ export async function buildPreviewObjectResult(input: {
 
 // Reads every record of an item, with the tool that read its preview. The caller supplies the stream and owns the abort
 // signal, because only the connector knows how to reach its items.
+// What a preview's text and records show of the counts a streamed audit takes from its parser, so the first audit
+// reports them too. Counted as the delimited-text parsers count them, so a preview that holds the whole item gives the
+// numbers a streamed audit of it would. Every line break ends a line, one inside quotes included, and the text after the
+// last break is a line too, even when empty. Only that last empty line counts as empty, because a blank line anywhere
+// else is read as a record. Comments are not read, so there are none. Records are uneven when their number of values
+// differs from the first record's. A preview cut short stops part way through the item, so a break at its very end is
+// not the item's last and adds neither a line nor an empty line.
+export function countPreviewLines(text: string, parsedRecords: ParsedRecord[], isComplete: boolean): PreviewLineCounts {
+    const lineBreakCount = text.match(LINE_BREAK_PATTERN)?.length ?? 0;
+    const hasFinalLineBreak = text.endsWith('\n') || text.endsWith('\r');
+    const hasLastLine = text !== '' && (isComplete || !hasFinalLineBreak);
+    const firstRecordLength = parsedRecords.at(0)?.length;
+    return {
+        commentLineCount: 0,
+        emptyLineCount: isComplete && hasFinalLineBreak ? 1 : 0,
+        invalidFieldLengthCount: parsedRecords.filter((parsedRecord) => parsedRecord.length !== firstRecordLength).length,
+        lineCount: lineBreakCount + (hasLastLine ? 1 : 0)
+    };
+}
+
 export async function* retrieveRecordsWithParser(input: {
     options: RetrieveRecordsOptions;
     signal: AbortSignal;
@@ -372,28 +401,30 @@ function establishFileReading(options: { dataFormatId: DataFormatId; encodingId:
 }
 
 // The first audit of an item, from the records its preview parsed. The bytes were fetched before it started, so it has no
-// wait to report, and the parser's text mode does not count lines.
+// wait to report. The parser's text mode does not count lines, so the caller counts them from the preview's text where
+// the format has lines, and they are unknown where it has none.
 function constructFirstAuditConfig(input: {
     asAt: number;
     columnAuditDuration?: number | undefined;
     columns: ContentAuditConfig['columns'];
     isComplete: boolean;
+    lineCounts?: PreviewLineCounts | undefined;
     parseDuration?: number | undefined;
     recordCount: number;
     size: number;
     startedAt: number;
 }): ContentAuditConfig {
-    const { asAt, columnAuditDuration, columns, isComplete, parseDuration, recordCount, size, startedAt } = input;
+    const { asAt, columnAuditDuration, columns, isComplete, lineCounts, parseDuration, recordCount, size, startedAt } = input;
     return {
         asAt,
         byteCount: size,
         columns,
-        commentLineCount: undefined,
+        commentLineCount: lineCounts?.commentLineCount,
         duration: performance.now() - startedAt,
-        emptyLineCount: undefined,
-        invalidFieldLengthCount: undefined,
+        emptyLineCount: lineCounts?.emptyLineCount,
+        invalidFieldLengthCount: lineCounts?.invalidFieldLengthCount,
         isComplete,
-        lineCount: undefined,
+        lineCount: lineCounts?.lineCount,
         recordCount,
         sourceWaitDuration: undefined,
         parseDuration,
