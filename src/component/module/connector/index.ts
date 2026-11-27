@@ -68,11 +68,12 @@ export type ConnectorActionName = InferOutput<typeof connectorActionNameSchema>;
 export type ConnectorConstructor = new (connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) => ConnectorInterface;
 
 // 'declaredColumnConfigs' are the columns the item's source states, matched to the item's columns by position. Each
-// declared type is taken in place of the one the values suggest.
+// declared type is taken in place of the one the values suggest. 'isComplete' says the records are every record of the
+// item, as for 'ColumnAuditor'. Without it they are taken to be the first part of the item.
 export interface ConnectorUtilities {
     constructColumnAuditor: (hasHeaders: boolean | undefined, declaredColumnConfigs?: DeclaredColumnConfig[]) => ColumnAuditor;
     hasReadableStreamTransferSupport(): boolean;
-    inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean, declaredColumnConfigs?: DeclaredColumnConfig[]) => InferenceSummary;
+    inferDataTypes: (parsedRecords: ParsedRecord[], hasHeaders?: boolean, declaredColumnConfigs?: DeclaredColumnConfig[], isComplete?: boolean) => InferenceSummary;
     isLogged: boolean; // Informational console messages. A connector is prebuilt, so it cannot tell a dev app from a prod one.
 }
 
@@ -351,6 +352,7 @@ export interface QueryRecordsResult {
 // Counts a preview's columns again when the user says whether its first record is a header, so the item is not read again.
 export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptions {
     hasHeaders: boolean;
+    isComplete?: boolean; // Whether the records are every record of the item. Taken to be its first part when left out.
     parsedRecords: ParsedRecord[];
 }
 

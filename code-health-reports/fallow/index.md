@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 4259 |
+| Total LOC | 4268 |
 | Avg Cyclomatic | 3.0 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 172, module scopes: 2, templates: 0 |
@@ -37,7 +37,7 @@
 
 | File | Function | Severity | Cyclomatic | Cognitive | CRAP | Lines |
 |:-----|:---------|:---------|:-----------|:----------|:-----|:------|
-| `src/component/module/connector/objectParsing.ts:42` | `buildPreviewObjectResult` | high | 49 **!** | 24 **!** | 49.0 **!** | 162 |
+| `src/component/module/connector/objectParsing.ts:42` | `buildPreviewObjectResult` | high | 49 **!** | 24 **!** | 49.0 **!** | 169 |
 | `src/component/module/tool/delimitedText.ts:54` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
 | `scripts/documentEncodings.ts:17` | `rows` | moderate | 6 | 5 | 42.0 **!** | 2 |
 
@@ -86,7 +86,7 @@
 | `src/utilities/index.ts` | 9.5 | 11 | 496 | 0.25 | 1 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 9.1 | 6 | 165 | 0.31 | 1 | cooling |
 | `src/locale/index.ts` | 7.0 | 8 | 118 | 0.36 | 5 | cooling |
-| `src/component/module/connector/webLock.ts` | 4.9 | 3 | 70 | 0.31 | 1 | accelerating |
+| `src/component/module/connector/webLock.ts` | 4.8 | 3 | 70 | 0.31 | 1 | accelerating |
 | `scripts/documentEncodings.ts` | 4.2 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 3.8 | 4 | 171 | 0.23 | 0 | cooling |
 | `src/component/index.ts` | 2.8 | 10 | 119 | 0.09 | 14 | stable |
@@ -107,10 +107,10 @@
 | `src/component/module/cookbook/cookbookConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 56% | 5 | 6 | 12 | **strong** |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/presenter/presenterConfig.schema.ts` | 47% | 9 | 26 | 12 |  |
 | `src/component/module/index.ts` | `src/component/module/presenter/index.ts` | 46% | 6 | 8 | 18 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 38% | 5 | 8 | 18 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/presenter/index.ts` | 37% | 5 | 9 | 18 |  |
 | `src/component/module/connector/connectorConfig.schema.ts` | `src/component/module/index.ts` | 35% | 6 | 26 | 8 |  |
 | `src/index.ts` | `vite.config.ts` | 33% | 17 | 52 | 52 |  |
-| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 33% | 5 | 8 | 22 |  |
+| `src/component/eventQuery/index.ts` | `src/component/module/tool/index.ts` | 32% | 5 | 9 | 22 |  |
 | `src/component/module/moduleConfig.schema.ts` | `src/component/module/presenter/index.ts` | 32% | 5 | 13 | 18 |  |
 
 *Files that change together in the commit history with no import between them.*

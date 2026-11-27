@@ -356,7 +356,7 @@ Please do not open public GitHub issues for security vulnerabilities. Use [GitHu
 
 ## Contributing
 
-This repository is maintained solely by its owner and does not, at present, accept external contributions. Its source is published openly under the MIT License — every DPUse project is fully open source except DPUse Engine and DPUse API, which remain closed and proprietary.
+This repository is maintained solely by its owner and does not, at present, accept external contributions.
 
 For security vulnerabilities, see [Reporting Vulnerabilities](#reporting-vulnerabilities). For bugs, inconsistencies, or other feedback, [open a GitHub issue](https://github.com/dpuse/dpuse-shared/issues) — feedback is read, but responses and fixes are at the maintainer's discretion.
 

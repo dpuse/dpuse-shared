@@ -151,13 +151,20 @@ export async function buildPreviewObjectResult(input: {
     // Infer and cast values for each parsed record. Detection is inferred separately only when the sample was parsed
     // with choices, because the header record can differ.
     // A parser whose first record is always a header, such as JSON keys, says so, and is not second-guessed.
+    // A preview that holds the whole item is counted as a complete audit, so what no value showed, such as a unit, is
+    // known not to be there.
     const sampleRecords = sampleParse?.parsePreviewResult.parsedRecords ?? [];
     const sampleHasHeaders = sampleParse?.parsePreviewResult.hasHeaders ?? declaredReadingConfig?.hasHeaders;
     const columnAuditStartedAt = performance.now();
-    const sampleInference = sampleParse == null ? undefined : inferDataTypes(sampleRecords, sampleHasHeaders, declaredColumnConfigs);
+    const sampleInference = sampleParse == null ? undefined : inferDataTypes(sampleRecords, sampleHasHeaders, declaredColumnConfigs, isComplete);
     const detectedInference =
         isParseChosen && detectedParse != null
-            ? inferDataTypes(detectedParse.parsePreviewResult.parsedRecords, detectedParse.parsePreviewResult.hasHeaders ?? declaredReadingConfig?.hasHeaders, declaredColumnConfigs)
+            ? inferDataTypes(
+                  detectedParse.parsePreviewResult.parsedRecords,
+                  detectedParse.parsePreviewResult.hasHeaders ?? declaredReadingConfig?.hasHeaders,
+                  declaredColumnConfigs,
+                  isComplete
+              )
             : sampleInference;
     const columnAuditDuration = performance.now() - columnAuditStartedAt;
 

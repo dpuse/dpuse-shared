@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-11-22T11:51:21.410Z",
+    "generatedAt": "2026-11-27T13:31:58.505Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -30,8 +30,8 @@
       "kind": "asset",
       "name": "dist/dpuse-shared.es.js",
       "type": "script",
-      "uncompressed": 72767,
-      "gzip": 17663,
+      "uncompressed": 72770,
+      "gzip": 17658,
       "brotli": 0
     },
     {
@@ -243,7 +243,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 1621,
-      "gzip": 675,
+      "gzip": 676,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -252,15 +252,15 @@
       "name": "src/component/module/connector/objectParsing.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 19571
+      "uncompressed": 19595
     },
     {
       "kind": "chunk",
       "name": "src/component/module/connector/objectParsing.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 11450,
-      "gzip": 2903,
+      "uncompressed": 11453,
+      "gzip": 2905,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -628,7 +628,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 3713,
-      "gzip": 1216,
+      "gzip": 1208,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     }

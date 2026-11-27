@@ -270,6 +270,7 @@ describe('objectParsing', () => {
             const { contentAuditConfig } = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview({ isComplete: false })));
 
             expect(parsePreview).toHaveBeenCalledWith(expect.any(Uint8Array), expect.objectContaining({ isComplete: false }));
+            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, undefined, undefined, false);
             expect(contentAuditConfig.isComplete).toBe(false);
         });
 
@@ -308,7 +309,7 @@ describe('objectParsing', () => {
 
             const result = await buildPreviewObjectResult({ ...buildPreviewInput(filePreview, { valueDelimiterId: ',' }), declaredColumnConfigs, declaredReadingConfig });
 
-            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, true, declaredColumnConfigs);
+            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, true, declaredColumnConfigs, true);
             expect(parsePreview).toHaveBeenCalledWith(expect.any(Uint8Array), expect.objectContaining({ valueDelimiterIds: [';'] })); // The source's delimiter, not the one given.
             expect(result.readingConfig).toMatchObject({
                 dataFormatSourceId: undefined,
@@ -334,7 +335,7 @@ describe('objectParsing', () => {
 
             const result = await buildPreviewObjectResult(buildPreviewInput(buildFilePreview()));
 
-            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, undefined, undefined);
+            expect(inferDataTypes).toHaveBeenCalledWith(RECORDS, undefined, undefined, true);
             expect(result.readingConfig.isDeclared).toBe(false);
         });
 
@@ -843,7 +844,7 @@ describe('objectParsing', () => {
             expect(new Uint8Array(await new Response(stream).arrayBuffer())).toEqual(bytes);
             expect(options).toMatchObject({ dataFormatId: 'json', encodingId: 'utf-8', isComplete: false });
             expect(parsePreview).toHaveBeenCalledWith(bytes, expect.objectContaining({ structurePath: ['rows'] }));
-            expect(inferDataTypes).toHaveBeenCalledWith(HEADER_RECORDS, true, undefined);
+            expect(inferDataTypes).toHaveBeenCalledWith(HEADER_RECORDS, true, undefined, false);
             expect(result.structureIndex).toBe(index);
             expect(result.readingConfig).toMatchObject({ structurePath: ['rows'], valueDelimiterId: undefined });
             expect(result.sampleConfig).toMatchObject({ parsedRecords: HEADER_RECORDS, structurePath: ['rows'] });
