@@ -1,4 +1,5 @@
 import { detect } from 'jschardet';
+import iconv from 'iconv-lite';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
@@ -68,7 +69,7 @@ describe('encoding samples', () => {
 });
 
 describe('chardet samples', () => {
-    // A unit-test file has no source text, so decoding as its own encoding stands in for it where browsers can.
+    // A unit-test file has no source text, so decoding as its own encoding stands in for it where it can be decoded.
     describeSampleSet(
         CHARDET_SAMPLES,
         (file) => readBytes(new URL(file, CHARDET_URL)),
@@ -83,10 +84,13 @@ function compareText(left: string, right: string): number {
     return left.localeCompare(right);
 }
 
-// The text of an encoding browsers can decode. Undefined for one they cannot, or a missing name.
+// The text as the app decodes it: with the browser's 'TextDecoder' where it reads the encoding, otherwise with iconv-lite.
+// Undefined for an encoding neither reads, or a missing name.
 function decodeAs(encodingId: string | null, bytes: Uint8Array): string | undefined {
-    const isDecodable = encodingId != null && isEncodingTypeId(encodingId) && ENCODING_TYPE_CONFIG_MAP[encodingId].textDecoderId != null;
-    return isDecodable ? new TextDecoder(resolveDecoderId(encodingId)).decode(bytes) : undefined;
+    if (encodingId == null || !isEncodingTypeId(encodingId)) return undefined;
+    const { iconvLiteDecoderId, textDecoderId } = ENCODING_TYPE_CONFIG_MAP[encodingId];
+    if (textDecoderId != null) return new TextDecoder(resolveDecoderId(encodingId)).decode(bytes);
+    return iconvLiteDecoderId == null ? undefined : iconv.decode(bytes, iconvLiteDecoderId);
 }
 
 function describeSampleSet<T extends Sample>(samples: T[], readSample: (file: string) => Uint8Array, readOriginalText: (sample: T) => string | undefined): void {
@@ -101,7 +105,7 @@ function describeSampleSet<T extends Sample>(samples: T[], readSample: (file: st
         expect(detect(readSample(file)).encoding?.toLowerCase() ?? null).toBe(encodingId);
     });
 
-    // Only checkable where browsers can decode the encoding and the original text is known.
+    // Only checkable where the encoding can be decoded and the original text is known.
     const decodableSamples = samples.filter((sample) => readOriginalText(sample) !== undefined && decodeAs(sample.encodingId, readSample(sample.file)) !== undefined);
     const expectDecodesToOriginal = (sample: T): void => {
         expect(decodeAs(sample.encodingId, readSample(sample.file))).toBe(readOriginalText(sample));
@@ -109,7 +113,7 @@ function describeSampleSet<T extends Sample>(samples: T[], readSample: (file: st
     it.each(decodableSamples.filter(({ file }) => !NODE_DECODING_GAPS.has(file)))('decodes $file back to its original text', expectDecodesToOriginal);
     it.fails.each(decodableSamples.filter(({ file }) => NODE_DECODING_GAPS.has(file)))('decodes $file back to its original text (known gap in Node)', expectDecodesToOriginal);
 
-    // Only checkable where browsers can decode the detected encoding and the original text is known.
+    // Only checkable where the detected encoding can be decoded and the original text is known.
     const misnamedSamples = samples.filter(
         (sample) => sample.detectedId !== sample.encodingId && readOriginalText(sample) !== undefined && decodeAs(sample.detectedId, readSample(sample.file)) !== undefined
     );

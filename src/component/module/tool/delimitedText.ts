@@ -1,5 +1,5 @@
 // ── DPUse Framework
-import { resolveDecoderId } from '@/encoding';
+import { constructTextDecoder } from '@/encoding';
 import type { ParsedRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
 import type { ParsePreviewOptions, ParsePreviewResult } from '@/component/module/tool';
 
@@ -33,7 +33,8 @@ export type ParsePreviewWithDelimiter = (
  * that reads text.
  */
 export async function parseDelimitedPreview(bytes: Uint8Array, options: ParsePreviewOptions, parseWithDelimiter: ParsePreviewWithDelimiter): Promise<ParsePreviewResult> {
-    const text = new TextDecoder(resolveDecoderId(options.encodingId)).decode(bytes);
+    const decoder = await constructTextDecoder(options.encodingId);
+    const text = decoder.decode(bytes);
     const preview: DelimitedPreview = { bytes, encodingId: options.encodingId, text };
     const recordDelimiterId = determineRecordDelimiter(text);
     const { issues, parsedRecords, valueDelimiterId } = await determineValueDelimiter(preview, options.valueDelimiterIds, options.isComplete, parseWithDelimiter);

@@ -1,7 +1,19 @@
+// ── External Dependencies & Registrations
+import type * as IconvLite from 'iconv-lite';
+
 // ── DPUse Framework
+import { AppError } from '@/errors';
 import { DEFAULT_LOCALE_ID, type LocaleId, type LocaleLabel } from '@/locale/label';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// The part of the browser's 'TextDecoder' that callers use. An iconv-lite decoder is wrapped to match it, so a caller
+// decodes the same way whichever library reads the encoding.
+export interface TextDecoderLike {
+    readonly encoding: string;
+    // eslint-disable-next-line unicorn/prefer-options-parameter -- The browser's 'TextDecoder.decode' takes these, and is returned as one.
+    decode(input?: Uint8Array, options?: { stream?: boolean }): string;
+}
 
 type EncodingGroupId = keyof typeof ENCODING_GROUP_CONFIG_DATA;
 type EncodingTypeId = keyof typeof ENCODING_TYPE_CONFIG_DATA;
@@ -18,7 +30,7 @@ interface EncodingTypeConfig {
     groupId: EncodingGroupId | null; // Null for an encoding that belongs to no group, i.e. 'ascii'.
     isDetectable: boolean; // Whether jschardet's 'detect' can report it.
     textDecoderId: string | null; // The name the browser's 'TextDecoder' takes, from jschardet's own map where it detects it. Null when it cannot decode it.
-    iconvLiteDecoderId: string | null; // The name iconv-lite takes. Null when it cannot decode it. Nothing decodes with iconv-lite yet.
+    iconvLiteDecoderId: string | null; // The name iconv-lite takes. Null when it cannot decode it. Only used when 'textDecoderId' is null.
 }
 export interface EncodingTypeConfigLocalised {
     id: EncodingTypeId;
@@ -181,6 +193,12 @@ const ENCODING_TYPE_CONFIG_DATA = {
 export const ENCODING_GROUP_CONFIG_MAP = ENCODING_GROUP_CONFIG_DATA as Record<EncodingGroupId, EncodingGroupConfig>;
 export const ENCODING_TYPE_CONFIG_MAP = ENCODING_TYPE_CONFIG_DATA as Record<EncodingTypeId, EncodingTypeConfig>;
 
+// ── State ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+const state: { iconvLitePromise: Promise<typeof IconvLite> | undefined } = {
+    iconvLitePromise: undefined
+};
+
 // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Narrows a name from outside the app, such as one reported by encoding detection and lower-cased, to a known encoding
@@ -195,15 +213,54 @@ export function resolveDecoderId(encodingId: string): string {
     return isEncodingTypeId(encodingId) ? (ENCODING_TYPE_CONFIG_MAP[encodingId].textDecoderId ?? encodingId) : encodingId;
 }
 
+// A decoder for an encoding id: the browser's 'TextDecoder' where it reads the encoding, otherwise iconv-lite. iconv-lite
+// is about 120 KB gzipped, so it loads only when a file needs it. An id the table does not know goes to 'TextDecoder',
+// which throws a 'RangeError' if it cannot read it either.
+export async function constructTextDecoder(encodingId: string): Promise<TextDecoderLike> {
+    const encodingTypeConfig = isEncodingTypeId(encodingId) ? ENCODING_TYPE_CONFIG_MAP[encodingId] : undefined;
+    if (encodingTypeConfig?.textDecoderId != null || encodingTypeConfig?.iconvLiteDecoderId == null) return new TextDecoder(resolveDecoderId(encodingId));
+    const iconvLite = await loadIconvLite();
+    return wrapIconvLiteDecoder(iconvLite, encodingTypeConfig.iconvLiteDecoderId);
+}
+
 export function getEncodingTypeConfigs(localeId: LocaleId = DEFAULT_LOCALE_ID): EncodingTypeConfigLocalised[] {
     const encodingTypeConfigs: EncodingTypeConfigLocalised[] = Array.from(Object.values(ENCODING_TYPE_CONFIG_MAP), ({ groupId, iconvLiteDecoderId, id, isDetectable, textDecoderId }) => {
         const groupLabel = groupId == null ? '' : resolveGroupLabel(groupId, localeId);
-        return { id, groupLabel, label: groupLabel ? `${groupLabel} (${id})` : id, isDetectable, isDecodable: textDecoderId != null, textDecoderId, iconvLiteDecoderId };
+        return { id, groupLabel, label: groupLabel ? `${groupLabel} (${id})` : id, isDetectable, isDecodable: textDecoderId != null || iconvLiteDecoderId != null, textDecoderId, iconvLiteDecoderId };
     });
     return encodingTypeConfigs.toSorted((left, right) => left.groupLabel.localeCompare(right.groupLabel, localeId) || left.id.localeCompare(right.id, localeId, { numeric: true })); // Ids, not labels, so 'utf-16' sorts before 'utf-16-le'.
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+// Callers that arrive together share one load. A failed load is forgotten, so the next call tries again.
+async function loadIconvLite(): Promise<typeof IconvLite> {
+    state.iconvLitePromise ??= (async (): Promise<typeof IconvLite> => {
+        try {
+            return await import('iconv-lite');
+        } catch (error) {
+            state.iconvLitePromise = undefined;
+            throw new AppError('Failed to load iconv-lite.', 'dpuse-shared.encoding.loadIconvLite', { cause: error });
+        }
+    })();
+    return state.iconvLitePromise;
+}
+
+// A decode that is not streamed ends the text, so the next one starts afresh, as with 'TextDecoder'. iconv-lite's 'end'
+// cannot be undone, so a new decoder takes over.
+function wrapIconvLiteDecoder(iconvLite: typeof IconvLite, iconvLiteDecoderId: string): TextDecoderLike {
+    let decoder = iconvLite.getDecoder(iconvLiteDecoderId);
+    return {
+        encoding: iconvLiteDecoderId,
+        decode(input, options): string {
+            const text = input == null ? '' : decoder.write(input);
+            if (options?.stream === true) return text;
+            const endText = decoder.end() ?? '';
+            decoder = iconvLite.getDecoder(iconvLiteDecoderId);
+            return text + endText;
+        }
+    };
+}
 
 function resolveGroupLabel(groupId: EncodingGroupId, localeId: LocaleId): string {
     const labels = ENCODING_GROUP_CONFIG_MAP[groupId].label;

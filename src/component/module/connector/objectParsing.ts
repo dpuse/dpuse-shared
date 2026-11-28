@@ -505,24 +505,33 @@ function endAtRecordBoundary(
 
 // Finds where the first record to end at or after 'searchFrom' ends in a piece of the item, remembering across pieces
 // whether a quote is open. Doubled quotes inside a value close and reopen it, which leaves the answer right. UTF-8 never
-// uses these byte values inside a longer character. UTF-16 can, so it is read as two-byte units.
+// uses these byte values inside a longer character. UTF-16 and UTF-32 can, so they are read as two- and four-byte units,
+// in which every other byte of these characters is zero.
 function constructRecordEndFinder(encodingId: string): (bytes: Uint8Array, position: number, searchFrom: number) => number | undefined {
     const decoderId = resolveDecoderId(encodingId);
-    const isUtf16 = decoderId.startsWith('utf-16');
-    const unitByteCount = isUtf16 ? 2 : 1;
-    const lowByteOffset = decoderId === 'utf-16be' ? 1 : 0;
+    const unitByteCount = determineCodeUnitByteCount(decoderId);
+    const lowByteOffset = decoderId === 'utf-16be' || decoderId === 'utf-32-be' ? unitByteCount - 1 : 0;
+    const isOtherUnitByteZero = (bytes: Uint8Array, unitStart: number): boolean => {
+        for (let offset = 0; offset < unitByteCount; offset++) if (offset !== lowByteOffset && bytes[unitStart + offset] !== 0) return false;
+        return true;
+    };
     let quoteIsOpen = false;
 
     return (bytes, position, searchFrom): number | undefined => {
         for (let index = 0; index < bytes.length; index++) {
             const byte = bytes[index];
             if (byte !== QUOTE_BYTE && byte !== LINE_FEED_BYTE && byte !== CARRIAGE_RETURN_BYTE) continue;
-            if (isUtf16 && ((position + index) % 2 !== lowByteOffset || bytes[index + 1 - 2 * lowByteOffset] !== 0)) continue;
+            if (unitByteCount > 1 && ((position + index) % unitByteCount !== lowByteOffset || !isOtherUnitByteZero(bytes, index - lowByteOffset))) continue;
             if (byte === QUOTE_BYTE) quoteIsOpen = !quoteIsOpen;
             else if (!quoteIsOpen && index >= searchFrom && (byte === LINE_FEED_BYTE || bytes[index + unitByteCount] !== LINE_FEED_BYTE))
                 return index + unitByteCount - lowByteOffset;
         }
     };
+}
+
+function determineCodeUnitByteCount(decoderId: string): number {
+    if (decoderId.startsWith('utf-32')) return 4;
+    return decoderId.startsWith('utf-16') ? 2 : 1;
 }
 
 // Passes the stream through, counting the bytes the parser has taken, for an audit's progress.

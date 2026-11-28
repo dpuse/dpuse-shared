@@ -2,9 +2,9 @@ import { createRequire } from 'node:module';
 import iconv from 'iconv-lite';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import { ENCODING_GROUP_CONFIG_MAP, ENCODING_TYPE_CONFIG_MAP, getEncodingTypeConfigs, isEncodingTypeId, resolveDecoderId } from '@/encoding';
+import { constructTextDecoder, ENCODING_GROUP_CONFIG_MAP, ENCODING_TYPE_CONFIG_MAP, getEncodingTypeConfigs, isEncodingTypeId, resolveDecoderId } from '@/encoding';
 
 describe('ENCODING_GROUP_CONFIG_MAP', () => {
     it('keys every group by its own id', () => {
@@ -57,6 +57,63 @@ describe('resolveDecoderId', () => {
     });
 });
 
+describe('constructTextDecoder', () => {
+    it("decodes with the browser's TextDecoder where it can read the encoding", async () => {
+        const decoder = await constructTextDecoder('macroman');
+
+        expect(decoder).toBeInstanceOf(TextDecoder);
+        expect(decoder.decode(new Uint8Array([0x8a]))).toBe('ä');
+    });
+
+    it('decodes with iconv-lite where the browser cannot read the encoding', async () => {
+        const decoder = await constructTextDecoder('cp850');
+
+        expect(decoder).not.toBeInstanceOf(TextDecoder);
+        expect(decoder.encoding).toBe('cp850');
+        expect(decoder.decode(new Uint8Array([0x48, 0x84, 0x94, 0x81, 0xe1]))).toBe('Häöüß');
+    });
+
+    it('holds back a character cut in two while streaming, and ends it when the text ends', async () => {
+        const decoder = await constructTextDecoder('utf-32-le');
+
+        expect(decoder.decode(new Uint8Array([0x41, 0, 0]), { stream: true })).toBe('');
+        expect(decoder.decode(new Uint8Array([0, 0x42, 0]), { stream: true })).toBe('A');
+        expect(decoder.decode()).toBe('\u{FFFD}');
+    });
+
+    it('starts afresh after a decode that is not streamed', async () => {
+        const decoder = await constructTextDecoder('utf-32-le');
+
+        expect(decoder.decode(new Uint8Array([0x41, 0, 0]))).toBe('\u{FFFD}');
+        expect(decoder.decode(new Uint8Array([0x42, 0, 0, 0]))).toBe('B');
+    });
+
+    it('puts a replacement character in place of bytes the encoding cannot read', async () => {
+        const decoder = await constructTextDecoder('cp936');
+
+        expect(decoder.decode(new Uint8Array([0x81]))).toBe('\u{FFFD}');
+    });
+
+    it('tries to load iconv-lite again after a load fails', async () => {
+        vi.resetModules();
+        vi.doMock('iconv-lite', () => {
+            throw new Error('Network error.');
+        });
+        const encoding = await import('@/encoding');
+
+        await expect(encoding.constructTextDecoder('cp850')).rejects.toThrow('Failed to load iconv-lite.');
+        vi.doUnmock('iconv-lite');
+        const decoder = await encoding.constructTextDecoder('cp850');
+
+        expect(decoder.decode(new Uint8Array([0x84]))).toBe('ä');
+    });
+
+    it("hands an encoding neither can read, or a name the table does not know, to TextDecoder, which rejects it", async () => {
+        await expect(constructTextDecoder('cp273')).rejects.toThrow(RangeError);
+        await expect(constructTextDecoder('not-an-encoding')).rejects.toThrow(RangeError);
+    });
+});
+
 describe('isEncodingTypeId', () => {
     it('accepts a known encoding id', () => {
         expect(isEncodingTypeId('windows-1252')).toBe(true);
@@ -88,8 +145,8 @@ describe('getEncodingTypeConfigs', () => {
         }
     });
 
-    it('marks an encoding decodable exactly when it has a browser name', () => {
-        for (const { isDecodable, textDecoderId } of getEncodingTypeConfigs()) expect(isDecodable).toBe(textDecoderId != null);
+    it('marks an encoding decodable exactly when it has a browser name or an iconv-lite name', () => {
+        for (const { iconvLiteDecoderId, isDecodable, textDecoderId } of getEncodingTypeConfigs()) expect(isDecodable).toBe(textDecoderId != null || iconvLiteDecoderId != null);
     });
 
     it('translates the group but never the encoding id', () => {

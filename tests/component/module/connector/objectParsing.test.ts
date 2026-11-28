@@ -699,6 +699,24 @@ describe('objectParsing', () => {
             expect(auditConfig.byteCount).toBe(6);
         });
 
+        // A 'ਊ' character holds two line feed bytes, which end nothing.
+        it.each([
+            { bytes: [0x61, 0, 0, 0, 0x0a, 0x0a, 0, 0, 0x0a, 0, 0, 0, 0x62, 0, 0, 0, 0x0a, 0, 0, 0], encodingId: 'utf-32-le' },
+            { bytes: [0, 0, 0, 0x61, 0, 0, 0x0a, 0x0a, 0, 0, 0, 0x0a, 0, 0, 0, 0x62, 0, 0, 0, 0x0a], encodingId: 'utf-32-be' }
+        ])('finds the end of a record in $encodingId', async ({ bytes, encodingId }) => {
+            const stream = new ReadableStream<Uint8Array>({
+                start: (controller) => {
+                    controller.enqueue(new Uint8Array(bytes));
+                    controller.close();
+                }
+            });
+            const { audit } = runAudit(true, stream, { byteLimit: 1, encodingId });
+
+            const { contentAuditConfig: auditConfig } = await audit;
+
+            expect(auditConfig.byteCount).toBe(12);
+        });
+
         it('reaches the end of the item when the limit is past it', async () => {
             const { stream } = buildStream('a,b\n1,2');
             const { audit } = runAudit(true, stream, { byteLimit: 100 });

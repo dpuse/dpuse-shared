@@ -367,6 +367,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 #### Functions
 
+- **`constructTextDecoder`**`(encodingId: string)`
 - **`getEncodingTypeConfigs`**`(localeId?: LocaleId)`
 - **`isEncodingTypeId`**`(value: string)`
 - **`resolveDecoderId`**`(encodingId: string)`
@@ -380,6 +381,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 
 - **`EncodingDetectionConfig`**
 - **`EncodingTypeConfigLocalised`**
+- **`TextDecoderLike`**
 
 ### Errors
 

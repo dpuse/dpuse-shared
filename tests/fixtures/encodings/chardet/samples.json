@@ -220,7 +220,7 @@
         "encodingId": "utf-16-be",
         "language": null,
         "document": null,
-        "detectedId": "utf-16",
+        "detectedId": "utf-16-le",
         "isSameText": false
     },
     {
@@ -1500,7 +1500,7 @@
         "encodingId": "utf-16-be",
         "language": "en",
         "document": null,
-        "detectedId": "utf-16",
+        "detectedId": "utf-16-le",
         "isSameText": false
     },
     {

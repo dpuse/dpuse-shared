@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-11-28T11:34:05.781Z",
+    "generatedAt": "2026-11-28T16:21:04.329Z",
     "integration": "vite",
     "sources": false,
     "gzip": true,
@@ -21,18 +21,563 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 9183,
-      "gzip": 1121,
+      "uncompressed": 9254,
+      "gzip": 1128,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
+    },
+    {
+      "kind": "chunk",
+      "name": "[unassigned]",
+      "type": "other",
+      "format": "other",
+      "uncompressed": 9032,
+      "gzip": 871,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-shared.es.js",
       "type": "script",
-      "uncompressed": 73943,
-      "gzip": 17995,
+      "uncompressed": 74929,
+      "gzip": 18331,
       "brotli": 0
+    },
+    {
+      "kind": "asset",
+      "name": "dist/index-web-KjRajNqN.js",
+      "type": "script",
+      "uncompressed": 313623,
+      "gzip": 116048,
+      "brotli": 0
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/backends/web.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 4898
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/backends/web.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2963,
+      "gzip": 1211,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/dbcs-codec.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 29617
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/dbcs-codec.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 12873,
+      "gzip": 4025,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/dbcs-data.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 3551
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/dbcs-data.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2308,
+      "gzip": 826,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/index.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 779
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/index.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 130,
+      "gzip": 129,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/internal.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 8664
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/internal.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 4185,
+      "gzip": 1342,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/iso2022jp.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 12189
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/iso2022jp.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 5687,
+      "gzip": 2005,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/sbcs-codec.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 6589
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/sbcs-codec.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 3108,
+      "gzip": 1177,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/sbcs-data-generated.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 33380
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/sbcs-data-generated.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 29795,
+      "gzip": 7777,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/sbcs-data.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 4770
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/sbcs-data.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 4089,
+      "gzip": 1698,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/big5-added.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 18895
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/big5-added.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 17908,
+      "gzip": 12856,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/cp936.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 40710
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/cp936.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 40678,
+      "gzip": 16268,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/cp949.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 34462
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/cp949.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 34431,
+      "gzip": 13070,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/cp950.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 45472
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/cp950.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 45441,
+      "gzip": 15053,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/eucjp.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 40556
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/eucjp.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 40525,
+      "gzip": 14462,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/gb18030-ranges.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2706
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/gb18030-ranges.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2674,
+      "gzip": 1092,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/gbk-added.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 1868
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/gbk-added.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 1481,
+      "gzip": 751,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/shiftjis.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 29094
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/tables/shiftjis.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 29063,
+      "gzip": 10722,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/utf16.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 4600
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/utf16.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2661,
+      "gzip": 881,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/utf32.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 10172
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/utf32.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 5256,
+      "gzip": 1899,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/utf7.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 13639
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/utf7.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 6620,
+      "gzip": 2437,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/vlq-runs.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 1349
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/vlq-runs.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 633,
+      "gzip": 437,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/whatwg-aliases.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 998
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/whatwg-aliases.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 834,
+      "gzip": 283,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/encodings/windows-codepages.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 662
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/encodings/windows-codepages.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 456,
+      "gzip": 180,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/bom-handling.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 1528
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/bom-handling.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 826,
+      "gzip": 377,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/decoding.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 639
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/decoding.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 335,
+      "gzip": 235,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/encoding-handler.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 5400
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/encoding-handler.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2727,
+      "gzip": 1133,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/encoding-registry.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 4091
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/encoding-registry.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 2204,
+      "gzip": 849,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/iconv.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 6954
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/iconv.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 3476,
+      "gzip": 1262,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/index-web.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 306
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/index-web.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 229,
+      "gzip": 163,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/utils.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 778
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/utils.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 442,
+      "gzip": 273,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/iconv-lite/dist/lib/web-streams.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 1031
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/iconv-lite/dist/lib/web-streams.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 553,
+      "gzip": 303,
+      "brotli": 0,
+      "parent": "dist/index-web-KjRajNqN.js"
     },
     {
       "kind": "filesystem",
@@ -47,7 +592,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 9210,
-      "gzip": 1854,
+      "gzip": 1855,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -226,7 +771,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 2700,
-      "gzip": 807,
+      "gzip": 804,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -243,7 +788,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 1619,
-      "gzip": 677,
+      "gzip": 678,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -252,15 +797,15 @@
       "name": "src/component/module/connector/objectParsing.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 21449
+      "uncompressed": 21851
     },
     {
       "kind": "chunk",
       "name": "src/component/module/connector/objectParsing.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 12538,
-      "gzip": 3179,
+      "uncompressed": 12724,
+      "gzip": 3244,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -277,7 +822,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 303,
-      "gzip": 194,
+      "gzip": 195,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -328,7 +873,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 2050,
-      "gzip": 636,
+      "gzip": 637,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -453,15 +998,15 @@
       "name": "src/component/module/tool/delimitedText.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 4352
+      "uncompressed": 4375
     },
     {
       "kind": "chunk",
       "name": "src/component/module/tool/delimitedText.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1744,
-      "gzip": 650,
+      "uncompressed": 1736,
+      "gzip": 646,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -477,8 +1022,8 @@
       "name": "src/component/module/tool/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1156,
-      "gzip": 482,
+      "uncompressed": 1158,
+      "gzip": 481,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -495,7 +1040,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 399,
-      "gzip": 194,
+      "gzip": 191,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -511,15 +1056,15 @@
       "name": "src/encoding/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 18991
+      "uncompressed": 20308
     },
     {
       "kind": "chunk",
       "name": "src/encoding/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 16352,
-      "gzip": 2198,
+      "uncompressed": 17087,
+      "gzip": 2462,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -536,7 +1081,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 4513,
-      "gzip": 1435,
+      "gzip": 1436,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -560,7 +1105,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 549,
-      "gzip": 185,
+      "gzip": 186,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -577,7 +1122,7 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 266,
-      "gzip": 167,
+      "gzip": 168,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     },
@@ -628,20 +1173,38 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 3713,
-      "gzip": 1214,
+      "gzip": 1216,
       "brotli": 0,
       "parent": "dist/dpuse-shared.es.js"
     }
   ],
   "connections": [
     {
+      "kind": "dynamic-import",
+      "source": "src/encoding/index.ts",
+      "target": "node_modules/iconv-lite/dist/lib/index-web.js",
+      "original": null
+    },
+    {
       "kind": "entrypoint",
       "source": "dist/dpuse-shared.es.js",
       "target": "src/index.ts",
       "original": null
+    },
+    {
+      "kind": "entrypoint",
+      "source": "dist/index-web-KjRajNqN.js",
+      "target": "node_modules/iconv-lite/dist/lib/index-web.js",
+      "original": null
     }
   ],
   "dependencies": [
+    {
+      "name": "iconv-lite",
+      "paths": [
+        "node_modules/iconv-lite"
+      ]
+    },
     {
       "name": "valibot",
       "paths": [
