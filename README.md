@@ -100,7 +100,7 @@ Character encoding types with detection and decodability flags, a catalogue of e
 The table below lists every encoding [jschardet](https://github.com/aadsm/jschardet) can identify from a file's contents, under the name it reports, plus those that the browser or [iconv-lite](https://github.com/pillarjs/iconv-lite) can decode but jschardet never reports. A test checks the table against jschardet's own list of encodings, so it fails if a jschardet upgrade adds, drops, renames or remaps one.
 
 - **Detectable** — jschardet can report it. One that is not can only be chosen by hand. `gbk` is also read by `gb18030`.
-- **Decodable** — the browser's built-in `TextDecoder` or iconv-lite can decode it. iconv-lite is used only for an encoding the browser cannot decode, and loads only when a file needs it. Neither decodes the rest: `HZ-GB-2312` and `ISO-2022-KR` are blocked by the WHATWG Encoding Standard for security reasons, and the mainframe code pages, two ISO-2022-JP variants, Johab and cp1006 are in neither library. A file in one can still be named, even though it cannot be read.
+- **Decodable** — the browser's built-in `TextDecoder` or iconv-lite can decode it. iconv-lite is used only for an encoding the browser cannot decode. It is not part of this library: it is the `dpuse-tool-iconv-lite-decoder` tool, which `constructTextDecoder` loads only when a file needs it. Neither decodes the rest: `HZ-GB-2312` and `ISO-2022-KR` are blocked by the WHATWG Encoding Standard for security reasons, and the mainframe code pages, two ISO-2022-JP variants, Johab and cp1006 are in neither library. A file in one can still be named, even though it cannot be read.
 - **TextDecoder** — the name browsers decode it with, taken from jschardet's own map. Browsers treat some names as aliases, so for example `ascii` and `ISO-8859-1` are decoded as `windows-1252`. The practical effects: bytes 0x80–0x9F decode as Windows-1252 characters (such as `€` and curly quotes) rather than control codes, and `ascii` never rejects bytes above 0x7F.
 - **iconv-lite** — the name iconv-lite decodes it with, used only where there is no TextDecoder name: most DOS and Mac code pages, UTF-7, UTF-32, and `UTF-16`, whose byte-order mark decides which way round it is read, so it has no single browser name. A test checks that iconv-lite accepts every name, and the sample tests check that it decodes each sample back to its original text.
 
@@ -262,16 +262,14 @@ The October 2026 comparison of chardet and jschardet also used [chardet/test-dat
 
 License data is updated each time `npm run document` is run, using [CycloneDX](https://github.com/CycloneDX/cyclonedx-node-npm). The following table lists every package whose code, styles or assets are included in this project's build, as recorded by the build itself. Modules loaded at run time are not included; each documents its own. These dependencies have been checked and confirmed to use MIT, all of which allow commercial use. All are used as published. Where the build has to adjust a dependency so it can be bundled, the adjustment only affects how its files are located and loaded, never what the code does. Developers cloning this repository should independently verify development dependencies.
 
-| Dependency                                           |   Version    | License(s) | Document                                                          |
-| :--------------------------------------------------- | :----------: | :--------- | :---------------------------------------------------------------- |
-| [iconv-lite](https://github.com/pillarjs/iconv-lite) | 1.0.0-beta.1 | MIT        | [LICENSE](licenses/downloads/iconv-lite@1.0.0-beta.1-LICENSE.txt) |
-| [valibot](https://github.com/open-circle/valibot)    |    1.5.0     | MIT        | [LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt)           |
+| Dependency                                        | Version | License(s) | Document                                                |
+| :------------------------------------------------ | :-----: | :--------- | :------------------------------------------------------ |
+| [valibot](https://github.com/open-circle/valibot) |  1.5.0  | MIT        | [LICENSE](licenses/downloads/valibot@1.5.0-LICENSE.txt) |
 
 ### Dependency Tree
 
 The dependency tree below shows how each package in the table above is reached — direct and transitive — along with its installed version, release date, and update status. A package that does not ship itself, such as one whose parts are bundled separately, is left out and what ships beneath it is shown in its place. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
-- **[iconv-lite](https://github.com/pillarjs/iconv-lite)** 1.0.0-beta.1 — this month: 2026-11-08
 - **[valibot](https://github.com/open-circle/valibot)** 1.5.0 — 2 mths ago: 2026-09-09
 
 <!-- DEPENDENCY_LICENSES_END -->
@@ -284,16 +282,12 @@ This report is updated with each release, from the bundle the release builds, us
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                                             | Composition                                                                                     |
-| :---------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
-| **All 2 files**                                                               | 379.4&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;131.2&nbsp;kB                                               |
-| **dist/index-web-KjRajNqN.js**                                                | 306.3&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;113.3&nbsp;kB&nbsp;·&nbsp;80.7%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;iconv-lite → dist/encodings/tables/cp950.js + 30 more | `███████████████████░`&nbsp;97.1%&nbsp;·&nbsp;297.5&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                   | `█░░░░░░░░░░░░░░░░░░░`&nbsp;2.9%&nbsp;·&nbsp;8.8&nbsp;kB                                        |
-| **dist/dpuse-shared.es.js**                                                   | 73.2&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.9&nbsp;kB&nbsp;·&nbsp;19.3%&nbsp;of&nbsp;the&nbsp;build   |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more                              | `███████████████░░░░░`&nbsp;75.4%&nbsp;·&nbsp;55.1&nbsp;kB                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs                              | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.3%&nbsp;·&nbsp;9.0&nbsp;kB                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)                   | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.4%&nbsp;·&nbsp;9.0&nbsp;kB                                       |
+| Chunk/Module/File                                           | Composition                                                                                    |
+| :---------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| **dist/dpuse-shared.es.js**                                 | 72.6&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.7&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more            | `███████████████░░░░░`&nbsp;75.2%&nbsp;·&nbsp;54.6&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs            | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.4%&nbsp;·&nbsp;9.0&nbsp;kB                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.4%&nbsp;·&nbsp;9.0&nbsp;kB                                      |
 
 Bars show each row's share of its output file.
 

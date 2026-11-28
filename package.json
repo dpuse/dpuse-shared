@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-shared",
-    "version": "1.0.258",
+    "version": "1.0.259",
     "private": false,
     "description": "Common constants, types and utilities used across DPUse projects.",
     "license": "MIT",
@@ -62,7 +62,6 @@
     },
     "dependencies": {
         "file-type": "^22.3.0",
-        "iconv-lite": "1.0.0-beta.1",
         "valibot": "^1.5.0"
     },
     "devDependencies": {
@@ -74,6 +73,7 @@
         "eslint": "^10.16.0",
         "fallow": "^3.50.0",
         "fast-check": "^4.11.0",
+        "iconv-lite": "1.0.0-beta.1",
         "jschardet": "^4.1.0",
         "prettier": "^3.10.1",
         "sonda": "^0.14.0",

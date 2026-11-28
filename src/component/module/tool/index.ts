@@ -4,6 +4,8 @@ import type { InferOutput } from 'valibot';
 // ── DPUse Framework
 import { AppError } from '@/errors';
 import type { DataFormatId } from '@/component/dataView';
+import type { DecoderInterface, TextDecoderLike } from './decoder';
+import { ENCODING_TYPE_CONFIG_MAP, isEncodingTypeId, resolveDecoderId } from '@/encoding';
 import type { parserConfigSchema, toolConfigSchema } from './toolConfig.schema';
 
 // ── Schemas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -16,6 +18,9 @@ export { toolConfigSchema } from './toolConfig.schema';
 export type ToolConfig = InferOutput<typeof toolConfigSchema>;
 
 export type ParserConfig = InferOutput<typeof parserConfigSchema>;
+
+// ── Decoder
+export type { DecoderInterface, TextDecoderLike } from './decoder';
 
 // ── File Previewer
 export type { FilePreviewerInterface, FilePreviewResult } from './filePreviewer';
@@ -30,6 +35,8 @@ export { type DelimitedPreview, parseDelimitedPreview, type ParsePreviewWithDeli
 // ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const LOAD_URL_PREFIX = 'https://engine-eu.dpuse.app/tools';
+
+const DECODER_TOOL_ID = 'iconv-lite-decoder';
 
 const DEFAULT_PARSER_TOOL_IDS: Partial<Record<DataFormatId, string>> = { dtv: 'dpuse-tool-rust-csv-core-parser' }; // The tool used for a format with several, when the user has not chosen one.
 
@@ -58,7 +65,19 @@ export function resolveParserToolConfig(toolConfigs: ToolConfig[], dataFormatId:
     return parserToolConfigs.find((config) => config.id === parserId) ?? parserToolConfigs.find((config) => config.id === defaultParserId) ?? firstParserToolConfig;
 }
 
-// Dynamically load tool.
+// A decoder for an encoding id: the browser's 'TextDecoder' where it reads the encoding, otherwise one from the decoder
+// tool, which is loaded only then. The tool is its own module, not part of this library, because every tool and
+// connector carries its own copy of this library, and the browser loads one module URL once however many of them ask
+// for it. An id the table does not know goes to 'TextDecoder', which throws a 'RangeError' if it cannot read it either.
+export async function constructTextDecoder(encodingId: string, toolConfigs: ToolConfig[]): Promise<TextDecoderLike> {
+    const encodingTypeConfig = isEncodingTypeId(encodingId) ? ENCODING_TYPE_CONFIG_MAP[encodingId] : undefined;
+    if (encodingTypeConfig?.textDecoderId != null || encodingTypeConfig?.iconvLiteDecoderId == null) return new TextDecoder(resolveDecoderId(encodingId));
+    const decoderTool = await loadTool<DecoderInterface>(toolConfigs, DECODER_TOOL_ID);
+    return decoderTool.constructDecoder(encodingId);
+}
+
+// Loads a tool's module and constructs the tool with the tool configs, as the engine constructs a connector, so a tool
+// can load another tool.
 export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Promise<T> {
     const toolName = `${TOOL_NAME_PREFIX}${toolId}`;
     const toolModuleConfig = toolConfigs.find((config) => config.id === toolName);
@@ -71,8 +90,8 @@ export async function loadTool<T>(toolConfigs: ToolConfig[], toolId: string): Pr
 
     const url = `${LOAD_URL_PREFIX}/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
     try {
-        const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
-        return new toolModule.Tool();
+        const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new (toolConfigs: ToolConfig[]) => T };
+        return new toolModule.Tool(toolConfigs);
     } catch (error) {
         // A bare import rejection says only 'Failed to fetch dynamically imported module', which names neither the
         // tool nor the version. The caller reports and displays this error but has no other way to identify the

@@ -1,7 +1,6 @@
 // ── DPUse Framework
-import { constructTextDecoder } from '@/encoding';
 import type { ParsedRecord, RecordDelimiterId, SampleIssue, ValueDelimiterId } from '@/component/dataView';
-import type { ParsePreviewOptions, ParsePreviewResult } from '@/component/module/tool';
+import type { ParsePreviewOptions, ParsePreviewResult, TextDecoderLike } from '@/component/module/tool';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -29,11 +28,15 @@ export type ParsePreviewWithDelimiter = (
  * still returned, so the text can be shown as a table if the user chooses. A delimiter whose parse has issues is only
  * used when every delimiter's does, because a wrong delimiter can itself cause a quote error. Then the one with the
  * fewest issues is used, the first on a tie, and its issues are returned, so the user learns why the text cannot be read.
- * The bytes are decoded once, with the decoder 'parseStream' uses, both to find the record delimiter and for a parser
- * that reads text.
+ * The bytes are decoded once, with a decoder the parser builds as its 'parseStream' does, both to find the record
+ * delimiter and for a parser that reads text.
  */
-export async function parseDelimitedPreview(bytes: Uint8Array, options: ParsePreviewOptions, parseWithDelimiter: ParsePreviewWithDelimiter): Promise<ParsePreviewResult> {
-    const decoder = await constructTextDecoder(options.encodingId);
+export async function parseDelimitedPreview(
+    bytes: Uint8Array,
+    options: ParsePreviewOptions,
+    decoder: TextDecoderLike,
+    parseWithDelimiter: ParsePreviewWithDelimiter
+): Promise<ParsePreviewResult> {
     const text = decoder.decode(bytes);
     const preview: DelimitedPreview = { bytes, encodingId: options.encodingId, text };
     const recordDelimiterId = determineRecordDelimiter(text);

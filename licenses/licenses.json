@@ -1,11 +1,4 @@
 {
-    "iconv-lite@1.0.0-beta.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/pillarjs/iconv-lite",
-        "publisher": "Alexander Shtuchkin",
-        "path": "node_modules/iconv-lite",
-        "licenseFile": "downloads/iconv-lite@1.0.0-beta.1-LICENSE.txt"
-    },
     "valibot@1.5.0": {
         "licenses": "MIT",
         "repository": "https://github.com/open-circle/valibot",

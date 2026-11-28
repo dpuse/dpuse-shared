@@ -1,4 +1,4 @@
-## Fallow: 3 issues found
+## Fallow: 4 issues found
 
 ### Unused files (1)
 
@@ -9,8 +9,9 @@
 - `src/component/module/tool/toolConfig.schema.ts`
   - :16 `parserDataFormatIdSchema`
 
-### Unused devDependencies (1)
+### Unused devDependencies (2)
 
+- `iconv-lite`
 - `jschardet`
 
 
@@ -20,29 +21,29 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 4400 |
-| Avg Cyclomatic | 3.1 |
+| Total LOC | 4381 |
+| Avg Cyclomatic | 3.2 |
 | P90 Cyclomatic | 6 |
-| Cyclomatic units | Functions: 182, module scopes: 2, templates: 0 |
+| Cyclomatic units | Functions: 178, module scopes: 2, templates: 0 |
 | Module-scope max cyclomatic (aggregate only) | 8 |
-| Dead Files | 2.0% |
+| Dead Files | 1.9% |
 | Dead Exports | 0.3% |
-| Maintainability (avg) | 91.9 |
+| Maintainability (avg) | 92.0 |
 | Hotspots (since 6 months) | 0 |
 | Circular Deps | 0 |
-| Unused Deps | 1 |
+| Unused Deps | 2 |
 
 ## Fallow: 3 high complexity functions
 
 | File | Function | Severity | Cyclomatic | Cognitive | CRAP | Lines |
 |:-----|:---------|:---------|:-----------|:----------|:-----|:------|
 | `src/component/module/connector/objectParsing.ts:50` | `buildPreviewObjectResult` | critical | 52 **!** | 26 **!** | 52.0 **!** | 169 |
-| `src/component/module/tool/delimitedText.ts:55` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
+| `src/component/module/tool/delimitedText.ts:58` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
 | `scripts/documentEncodings.ts:17` | `rows` | moderate | 6 | 5 | 42.0 **!** | 2 |
 
 **!** marks the dimension that breached.
 
-**51** files, **182** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
+**52** files, **178** functions analyzed (thresholds: cyclomatic > 20, cognitive > 15, CRAP >= 30.0)
 
 ### File Health Scores (23 files)
 
@@ -51,19 +52,19 @@
 | `src/component/module/connector/objectParsing.ts` | 85.0 | 1 | 5 | 0% | 0.26 | 52.0 |
 | `scripts/documentEncodings.ts` | 94.7 | 0 | 0 | 0% | 0.21 | 42.0 |
 | `src/utilities/index.ts` | 92.5 | 1 | 0 | 0% | 0.25 | 17.0 |
-| `src/component/module/tool/delimitedText.ts` | 85.5 | 1 | 3 | 0% | 0.30 | 15.0 |
-| `src/errors/index.ts` | 91.0 | 8 | 0 | 0% | 0.30 | 13.8 |
+| `src/component/module/tool/delimitedText.ts` | 86.6 | 1 | 2 | 0% | 0.30 | 15.0 |
+| `src/errors/index.ts` | 91.0 | 7 | 0 | 0% | 0.30 | 13.8 |
 | `scripts/checkBrowserDecoding.ts` | 93.1 | 0 | 0 | 0% | 0.23 | 12.0 |
 | `src/component/module/connector/index.ts` | 87.7 | 5 | 15 | 0% | 0.04 | 8.0 |
 | `src/component/module/connector/webLock.ts` | 91.6 | 1 | 0 | 0% | 0.31 | 7.0 |
 | `src/component/module/connector/storePath.ts` | 95.8 | 1 | 0 | 0% | 0.39 | 7.0 |
+| `src/component/module/tool/index.ts` | 84.9 | 7 | 8 | 0% | 0.21 | 6.0 |
 | `src/locale/index.ts` | 86.4 | 5 | 1 | 0% | 0.36 | 6.0 |
 | `src/component/module/connector/tableSchema.ts` | 90.2 | 1 | 2 | 0% | 0.18 | 6.0 |
 | `src/component/module/connector/objectFetching.ts` | 90.9 | 1 | 1 | 0% | 0.21 | 6.0 |
-| `src/encoding/index.ts` | 92.3 | 7 | 2 | 0% | 0.11 | 6.0 |
 | `src/component/module/connector/storeErrors.ts` | 93.0 | 1 | 1 | 0% | 0.25 | 6.0 |
-| `src/component/module/tool/index.ts` | 86.5 | 7 | 6 | 0% | 0.19 | 4.0 |
 | `src/component/index.ts` | 92.9 | 14 | 2 | 0% | 0.09 | 4.0 |
+| `src/encoding/index.ts` | 95.1 | 7 | 1 | 0% | 0.07 | 4.0 |
 | `src/component/module/connector/storeValues.ts` | 92.6 | 1 | 2 | 0% | 0.28 | 3.0 |
 | `src/component/dataView/index.ts` | 93.3 | 10 | 4 | 0% | 0.01 | 3.0 |
 | `src/locale/label.ts` | 97.6 | 11 | 0 | 0% | 0.12 | 3.0 |
@@ -72,24 +73,24 @@
 | `vite.config.ts` | 99.5 | 0 | 0 | 0% | 0.02 | 2.0 |
 | `src/schema.ts` | 98.8 | 6 | 0 | 0% | 0.18 | 1.0 |
 
-**Average maintainability index:** 91.9/100
+**Average maintainability index:** 92.0/100
 
 ### Hotspots (16 files, since 6 months)
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 41.6 | 34 | 1382 | 0.26 | 1 | cooling |
-| `src/component/module/tool/index.ts` | 14.2 | 20 | 137 | 0.19 | 7 | accelerating |
+| `src/component/module/connector/objectParsing.ts` | 43.0 | 35 | 1401 | 0.26 | 1 | cooling |
+| `src/component/module/tool/index.ts` | 15.7 | 20 | 137 | 0.21 | 7 | accelerating |
 | `src/component/module/connector/index.ts` | 11.1 | 70 | 977 | 0.04 | 5 | accelerating |
-| `src/errors/index.ts` | 10.6 | 11 | 280 | 0.30 | 8 | accelerating |
+| `src/errors/index.ts` | 10.6 | 11 | 280 | 0.30 | 7 | accelerating |
+| `src/component/module/tool/delimitedText.ts` | 9.7 | 7 | 170 | 0.30 | 1 | cooling |
 | `src/utilities/index.ts` | 8.8 | 11 | 496 | 0.25 | 1 | accelerating |
-| `src/component/module/tool/delimitedText.ts` | 8.1 | 6 | 165 | 0.30 | 1 | cooling |
 | `src/locale/index.ts` | 6.4 | 8 | 118 | 0.36 | 5 | cooling |
+| `scripts/documentEncodings.ts` | 5.1 | 6 | 89 | 0.21 | 0 | cooling |
 | `src/component/module/connector/webLock.ts` | 4.5 | 3 | 70 | 0.31 | 1 | accelerating |
-| `scripts/documentEncodings.ts` | 3.9 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 3.5 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/encoding/index.ts` | 3.5 | 9 | 778 | 0.11 | 7 | accelerating |
 | `src/component/index.ts` | 2.6 | 10 | 119 | 0.09 | 14 | stable |
+| `src/encoding/index.ts` | 2.6 | 10 | 839 | 0.07 | 7 | accelerating |
 | `src/component/dataView/index.ts` | 2.2 | 52 | 1590 | 0.01 | 10 | accelerating |
 | `vite.config.ts` | 1.1 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.0 | 11 | 107 | 0.03 | 2 | stable |

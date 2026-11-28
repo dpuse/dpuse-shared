@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { AppError } from '@/errors';
-import { listParserToolConfigs, loadTool, resolveParserToolConfig } from '@/component/module/tool';
-import type { ParserConfig, ToolConfig } from '@/component/module/tool';
+import { constructTextDecoder, listParserToolConfigs, loadTool, resolveParserToolConfig } from '@/component/module/tool';
+import type { ParserConfig, TextDecoderLike, ToolConfig } from '@/component/module/tool';
 
 // Only 'id', 'version' and 'parser' are read; the rest satisfies the shared module config shape.
 function buildToolConfig(id: string, version: string, dataFormatIds?: ParserConfig['dataFormatIds']): ToolConfig {
@@ -25,7 +25,59 @@ function buildToolConfig(id: string, version: string, dataFormatIds?: ParserConf
     };
 }
 
+// Stands in for the decoder tool's module at the URL 'loadTool' imports it from. Its decoder only names the encoding it
+// was asked for, which is all these tests need.
+const decoderToolModule = vi.hoisted(() => {
+    const constructedWith: unknown[] = [];
+    const url = 'https://engine-eu.dpuse.app/tools/iconv-lite-decoder_v1.2.3/dpuse-tool-iconv-lite-decoder.es.js';
+    class Tool {
+        constructor(toolConfigs: unknown) {
+            constructedWith.push(toolConfigs);
+        }
+
+        constructDecoder(encodingId: string): TextDecoderLike {
+            return { decode: () => `decoded as ${encodingId}`, encoding: encodingId };
+        }
+    }
+    return { constructedWith, Tool, url };
+});
+vi.mock(decoderToolModule.url, () => ({ Tool: decoderToolModule.Tool }));
+
+describe('constructTextDecoder', () => {
+    const toolConfigs = [buildToolConfig('dpuse-tool-iconv-lite-decoder', '1.2.3')];
+
+    it("gives the browser's TextDecoder for an encoding it can read, without loading the decoder tool", async () => {
+        const decoder = await constructTextDecoder('macroman', []);
+
+        expect(decoder).toBeInstanceOf(TextDecoder);
+        expect(decoder.decode(new Uint8Array([0x8a]))).toBe('ä');
+    });
+
+    it('gives a decoder from the decoder tool for an encoding the browser cannot read', async () => {
+        const decoder = await constructTextDecoder('cp850', toolConfigs);
+
+        expect(decoder.decode(new Uint8Array([0x84]))).toBe('decoded as cp850');
+    });
+
+    it('says the decoder tool was not found when it is not configured', async () => {
+        await expect(constructTextDecoder('cp850', [])).rejects.toMatchObject({ message: "Tool 'iconv-lite-decoder' not found." });
+    });
+
+    it('hands an encoding neither can read, or a name the table does not know, to TextDecoder, which rejects it', async () => {
+        await expect(constructTextDecoder('cp273', toolConfigs)).rejects.toThrow(RangeError);
+        await expect(constructTextDecoder('not-an-encoding', toolConfigs)).rejects.toThrow(RangeError);
+    });
+});
+
 describe('loadTool', () => {
+    it('constructs the tool with the tool configs, so it can load another tool', async () => {
+        const toolConfigs = [buildToolConfig('dpuse-tool-iconv-lite-decoder', '1.2.3')];
+
+        await loadTool(toolConfigs, 'iconv-lite-decoder');
+
+        expect(decoderToolModule.constructedWith.at(-1)).toBe(toolConfigs);
+    });
+
     it('reports the tool ids that were available when the tool is not configured', async () => {
         const toolConfigs = [buildToolConfig('dpuse-tool-d3-visualiser', '1.0.0')];
 

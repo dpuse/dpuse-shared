@@ -24,7 +24,7 @@ const splitParser: ParsePreviewWithDelimiter = ({ text }, delimiter, _isComplete
 };
 
 function parse(text: string, valueDelimiterIds = CANDIDATES, parseWithDelimiter = splitParser): ReturnType<typeof parseDelimitedPreview> {
-    return parseDelimitedPreview(new TextEncoder().encode(text), { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: true, valueDelimiterIds }, parseWithDelimiter);
+    return parseDelimitedPreview(new TextEncoder().encode(text), { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: true, valueDelimiterIds }, new TextDecoder(), parseWithDelimiter);
 }
 
 const QUOTE_ISSUE: SampleIssue = {
@@ -59,7 +59,7 @@ describe('parseDelimitedPreview', () => {
             return splitParser(preview, delimiter, isComplete);
         };
 
-        const result = await parseDelimitedPreview(bytes, { dataFormatId: 'dtv', encodingId: 'windows-1252', isComplete: true, valueDelimiterIds: [';'] }, recordingParser);
+        const result = await parseDelimitedPreview(bytes, { dataFormatId: 'dtv', encodingId: 'windows-1252', isComplete: true, valueDelimiterIds: [';'] }, new TextDecoder('windows-1252'), recordingParser);
 
         expect(previews).toEqual([{ bytes, encodingId: 'windows-1252', text: 'café;1\n' }]);
         expect(result.parsedRecords).toEqual([['café', '1']]);
@@ -130,7 +130,7 @@ describe('parseDelimitedPreview', () => {
     it('passes on whether the preview is the whole item', async () => {
         const seen: boolean[] = [];
         const bytes = new TextEncoder().encode('a,b\n');
-        await parseDelimitedPreview(bytes, { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: false, valueDelimiterIds: [','] }, (preview, delimiter, isComplete) => {
+        await parseDelimitedPreview(bytes, { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: false, valueDelimiterIds: [','] }, new TextDecoder(), (preview, delimiter, isComplete) => {
             seen.push(isComplete);
             return splitParser(preview, delimiter, isComplete);
         });
