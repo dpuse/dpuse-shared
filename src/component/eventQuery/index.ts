@@ -6,7 +6,7 @@ import type { ComponentInstanceConfig } from '@/component';
 // ── Configuration
 export interface EventQueryConfig extends ComponentInstanceConfig {
     typeId: 'eventQuery';
-    contextEventReference?: ContextEventReference | undefined; // The context event the query is for. Undefined on an event query saved before events could be chosen.
+    contextEventReference: ContextEventReference; // The context event the query is for.
 }
 
 // ── Context Event Reference ─ Where an event sits in the context: an area holds models, a model holds entities and an

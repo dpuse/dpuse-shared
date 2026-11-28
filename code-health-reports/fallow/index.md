@@ -21,7 +21,7 @@
 
 | Metric | Value |
 |:-------|------:|
-| Total LOC | 4337 |
+| Total LOC | 4333 |
 | Avg Cyclomatic | 3.1 |
 | P90 Cyclomatic | 6 |
 | Cyclomatic units | Functions: 175, module scopes: 2, templates: 0 |
@@ -37,7 +37,7 @@
 
 | File | Function | Severity | Cyclomatic | Cognitive | CRAP | Lines |
 |:-----|:---------|:---------|:-----------|:----------|:-----|:------|
-| `src/component/module/connector/objectParsing.ts:50` | `buildPreviewObjectResult` | critical | 52 **!** | 26 **!** | 52.0 **!** | 172 |
+| `src/component/module/connector/objectParsing.ts:50` | `buildPreviewObjectResult` | critical | 52 **!** | 26 **!** | 52.0 **!** | 169 |
 | `src/component/module/tool/delimitedText.ts:54` | `determineValueDelimiter` | moderate | 15 | 17 **!** | - | 44 |
 | `scripts/documentEncodings.ts:17` | `rows` | moderate | 6 | 5 | 42.0 **!** | 2 |
 
@@ -83,7 +83,7 @@
 | `src/component/module/tool/index.ts` | 14.5 | 20 | 137 | 0.19 | 7 | accelerating |
 | `src/component/module/connector/index.ts` | 11.1 | 69 | 976 | 0.04 | 5 | accelerating |
 | `src/errors/index.ts` | 10.8 | 11 | 280 | 0.30 | 7 | accelerating |
-| `src/utilities/index.ts` | 9.0 | 11 | 496 | 0.25 | 1 | accelerating |
+| `src/utilities/index.ts` | 8.9 | 11 | 496 | 0.25 | 1 | accelerating |
 | `src/component/module/tool/delimitedText.ts` | 8.5 | 6 | 165 | 0.31 | 1 | cooling |
 | `src/locale/index.ts` | 6.6 | 8 | 118 | 0.36 | 5 | cooling |
 | `src/component/module/connector/webLock.ts` | 4.6 | 3 | 70 | 0.31 | 1 | accelerating |

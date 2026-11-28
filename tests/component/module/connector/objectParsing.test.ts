@@ -246,7 +246,6 @@ describe('objectParsing', () => {
 
                 expect(result.readingConfig).toMatchObject({ dataFormatSourceId: 'jsonSyntax', encodingSourceId: 'detection' });
                 expect(result.sampleConfig).toMatchObject({ decodedEncodingId: 'utf-8', replacementCharacterCount: 3 });
-                expect(result.encodingCandidates).toEqual(encodingCandidates);
                 expect(result.readingConfig.encodingCandidates).toEqual(encodingCandidates); // Saved with the data view, so it can still say what else the text could have been.
             }
         );

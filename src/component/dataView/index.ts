@@ -26,7 +26,7 @@ export interface DataViewConfig extends ComponentInstanceConfig {
 export interface ReadingConfig {
     dataFormatId: DataFormatId;
     dataFormatSourceId?: DataFormatSourceId | undefined; // Undefined when the item has no format, such as an empty file or a PDF.
-    encodingCandidates?: EncodingDetectionConfig[] | undefined; // Every encoding detected, best first, each with how sure detection was. Empty when the text is all ASCII. Undefined when no text was decoded, or for a reading saved before they were kept.
+    encodingCandidates?: EncodingDetectionConfig[] | undefined; // Every encoding detected, best first, each with how sure detection was. Empty when the text is all ASCII. Undefined when no text was decoded.
     encodingConfidenceLevel: number | undefined; // From 0 to 1. Undefined when the encoding was assumed, not detected.
     encodingId: string | undefined;
     encodingSourceId?: EncodingSourceId | undefined; // Undefined when no text was decoded, such as from an empty or binary file.

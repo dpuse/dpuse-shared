@@ -284,9 +284,9 @@ _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not gen
 
 | Chunk/Module/File                                           | Composition                                                                                    |
 | :---------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| **dist/dpuse-shared.es.js**                                 | 72.3&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.6&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more            | `███████████████░░░░░`&nbsp;75.1%&nbsp;·&nbsp;54.3&nbsp;kB                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs            | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.4%&nbsp;·&nbsp;9.0&nbsp;kB                                      |
+| **dist/dpuse-shared.es.js**                                 | 72.2&nbsp;kB&nbsp;·&nbsp;gzip&nbsp;17.6&nbsp;kB&nbsp;·&nbsp;100.0%&nbsp;of&nbsp;the&nbsp;build |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts + 18 more            | `███████████████░░░░░`&nbsp;75.1%&nbsp;·&nbsp;54.2&nbsp;kB                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;valibot → dist/index.mjs            | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.5%&nbsp;·&nbsp;9.0&nbsp;kB                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON) | `██░░░░░░░░░░░░░░░░░░`&nbsp;12.4%&nbsp;·&nbsp;9.0&nbsp;kB                                      |
 
 Bars show each row's share of its output file.

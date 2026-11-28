@@ -311,7 +311,6 @@ export interface PreviewObjectResult {
     contentAuditConfig: ContentAuditConfig;
     sampleConfig: PreviewSampleConfig;
     readingConfig: ReadingConfig;
-    encodingCandidates?: EncodingDetectionConfig[] | undefined; // For choosing another encoding. Also in 'readingConfig', which is saved with the data view. Kept here for apps that read it from the result.
     structureIndex?: StructureIndex | undefined; // The structure of a nested item, as far as the preview read, for choosing the part read as the table. Not saved with the data view.
 }
 

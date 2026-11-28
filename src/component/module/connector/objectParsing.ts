@@ -62,9 +62,8 @@ export async function buildPreviewObjectResult(input: {
     const isDeclared = declaredReadingConfig != null;
     const size = filePreview.bytes.length;
     const sampleDecoding = { decodedEncodingId: filePreview.decodedEncodingId, replacementCharacterCount: filePreview.replacementCharacterCount };
-    const encodingCandidates = filePreview.encodingCandidates;
     const detectedEncoding = {
-        encodingCandidates, // Kept with the reading, so a saved data view still says what else the text could have been.
+        encodingCandidates: filePreview.encodingCandidates, // Kept with the reading, so a saved data view still says what else the text could have been.
         encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
         encodingId: declaredReadingConfig?.encodingId ?? filePreview.encodingId,
         encodingSourceId: declaredReadingConfig?.encodingId == null ? filePreview.encodingSourceId : undefined // A declared encoding was not detected.
@@ -108,8 +107,7 @@ export async function buildPreviewObjectResult(input: {
                 parserId: undefined,
                 recordDelimiterId: DEFAULT_RECORD_DELIMITER_ID,
                 valueDelimiterId: DEFAULT_VALUE_DELIMITER_ID
-            },
-            encodingCandidates
+            }
         };
     }
 
@@ -215,7 +213,6 @@ export async function buildPreviewObjectResult(input: {
             structurePath: detectedStructureIndex?.suggestedStructurePath,
             valueDelimiterId: detectedParse?.valueDelimiterId
         },
-        encodingCandidates,
         structureIndex: sampleStructureIndex
     };
 }
