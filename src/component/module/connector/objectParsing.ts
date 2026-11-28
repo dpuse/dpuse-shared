@@ -6,8 +6,9 @@ import type { AuditObjectContentOptions, AuditObjectContentResult, ConnectorUtil
 import type { ContentAuditConfig, DataFormatId, DeclaredColumnConfig, DeclaredReadingConfig, ParsedRecord } from '@/component/dataView';
 import { DATA_FORMAT_CONFIGS, VALUE_DELIMITER_CONFIGS } from '@/component/dataView';
 import type { FilePreviewResult, ListStructureEntriesResult, ParsePreviewResult, ParserInterface, ParseStreamSummary, StructuredParserInterface } from '@/component/module/tool';
-import type { ListObjectStructureEntriesOptions, ParsedRecordsChunk, PreviewObjectResult, RetrieveRecordsOptions } from '@/component/module/connector';
+import type { ListObjectStructureEntriesOptions, ParsedRecordsChunk, ParseSampleRecordsOptions } from '@/component/module/connector';
 import { listParserToolConfigs, loadTool, resolveParserToolConfig, TOOL_NAME_PREFIX } from '@/component/module/tool';
+import type { PreviewObjectResult, RetrieveRecordsOptions } from '@/component/module/connector';
 import type { ReadingChoiceConfig, RecordDelimiterId, ValueDelimiterId } from '@/component/dataView';
 import type { StructureIndex, StructurePath, ToolConfig } from '@/component/module/tool';
 
@@ -63,6 +64,7 @@ export async function buildPreviewObjectResult(input: {
     const sampleDecoding = { decodedEncodingId: filePreview.decodedEncodingId, replacementCharacterCount: filePreview.replacementCharacterCount };
     const encodingCandidates = filePreview.encodingCandidates;
     const detectedEncoding = {
+        encodingCandidates, // Kept with the reading, so a saved data view still says what else the text could have been.
         encodingConfidenceLevel: filePreview.encodingConfidenceLevel,
         encodingId: declaredReadingConfig?.encodingId ?? filePreview.encodingId,
         encodingSourceId: declaredReadingConfig?.encodingId == null ? filePreview.encodingSourceId : undefined // A declared encoding was not detected.
@@ -218,8 +220,6 @@ export async function buildPreviewObjectResult(input: {
     };
 }
 
-// Reads every record of an item, with the tool that read its preview. The caller supplies the stream and owns the abort
-// signal, because only the connector knows how to reach its items.
 // What a preview's text and records show of the counts a streamed audit takes from its parser, so the first audit
 // reports them too. Counted as the delimited-text parsers count them, so a preview that holds the whole item gives the
 // numbers a streamed audit of it would. Every line break ends a line, one inside quotes included, and the text after the
@@ -240,6 +240,29 @@ export function countPreviewLines(text: string, parsedRecords: ParsedRecord[], i
     };
 }
 
+// Parses a saved sample's records again from its text, with the tool, format, part and delimiter the sample was read
+// with, so a data view does not have to save them. The text is the sample already decoded, so it is read as UTF-8
+// whatever the item's own encoding. A sample that has its records, such as a table's, which has no text to parse, gives
+// those. One no tool read, or a nested one with no part chosen, has none.
+export async function parseSampleRecords(input: { isComplete: boolean; sampleConfig: ParseSampleRecordsOptions['sampleConfig']; toolConfigs: ToolConfig[] }): Promise<ParsedRecord[]> {
+    const { isComplete, sampleConfig, toolConfigs } = input;
+    const { dataFormatId, parsedRecords, parserId, structurePath, text, valueDelimiterId } = sampleConfig;
+    if (parsedRecords != null) return parsedRecords;
+    if (text == null || dataFormatId == null || parserId == null || listParserToolConfigs(toolConfigs, dataFormatId).length === 0) return [];
+
+    const isStructured = STRUCTURED_DATA_FORMAT_IDS.has(dataFormatId);
+    if (isStructured && structurePath == null) return [];
+    const { parser } = await loadParser(toolConfigs, dataFormatId, parserId);
+    const bytes = new TextEncoder().encode(text);
+    const options = isStructured
+        ? { dataFormatId, encodingId: 'utf-8', isComplete, structurePath, valueDelimiterIds: [] }
+        : { dataFormatId, encodingId: 'utf-8', isComplete, valueDelimiterIds: [valueDelimiterId ?? DEFAULT_VALUE_DELIMITER_ID] };
+    const parsePreviewResult = await parser.parsePreview(bytes, options);
+    return parsePreviewResult.parsedRecords;
+}
+
+// Reads every record of an item, with the tool that read its preview. The caller supplies the stream and owns the abort
+// signal, because only the connector knows how to reach its items.
 export async function* retrieveRecordsWithParser(input: {
     options: RetrieveRecordsOptions;
     signal: AbortSignal;

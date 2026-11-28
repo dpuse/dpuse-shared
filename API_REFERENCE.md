@@ -130,6 +130,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`NumericReadingConfig`**
 - **`NumericSubtypeId`**
 - **`ParsedRecord`**
+- **`PreviewSampleConfig`**
 - **`ReadingChoiceConfig`**
 - **`ReadingConfig`**
 - **`RecordDelimiterId`**
@@ -177,6 +178,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`getConnectorActionsTable`**`(supported: ConnectorActionName[])`
 - **`indexObjectStructureWithParser`**`(input: { onProgress: (byteCount: number) => void; options: IndexObjectStructureOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 - **`listObjectStructureEntriesWithParser`**`(input: { options: ListObjectStructureEntriesOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
+- **`parseSampleRecords`**`(input: { isComplete: boolean; sampleConfig: ParseSampleRecordsOptions['sampleConfig']; toolConfigs: ToolConfig[] })`
 - **`resolveStorePath`**`(path: string)`
 - **`retrieveRecordsWithParser`**`(input: { options: RetrieveRecordsOptions; signal: AbortSignal; stream: ReadableStream<Uint8Array>; toolConfigs: ToolConfig[]; })`
 
@@ -225,6 +227,7 @@ Every export, grouped by import path. This file is updated each time `npm run do
 - **`OpenStoreOptions`** (extends `EngineConnectorActionOptions`)
 - **`OpenStoreResult`**
 - **`ParsedRecordsChunk`**
+- **`ParseSampleRecordsOptions`** (extends `EngineConnectorActionOptions`)
 - **`PreviewLineCounts`**
 - **`PreviewObjectOptions`** (extends `EngineConnectorActionOptions`)
 - **`PreviewObjectResult`**

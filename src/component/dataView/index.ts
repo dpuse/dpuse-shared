@@ -3,6 +3,7 @@ import type { FileTypeResult } from 'file-type';
 
 // ── DPUse Framework
 import type { ComponentInstanceConfig } from '@/component';
+import type { EncodingDetectionConfig } from '@/encoding';
 import type { StructurePath } from '@/component/module/tool';
 import type { ConnectionNodeConfig, ObjectColumnConfig } from '@/component/connection';
 
@@ -25,6 +26,7 @@ export interface DataViewConfig extends ComponentInstanceConfig {
 export interface ReadingConfig {
     dataFormatId: DataFormatId;
     dataFormatSourceId?: DataFormatSourceId | undefined; // Undefined when the item has no format, such as an empty file or a PDF.
+    encodingCandidates?: EncodingDetectionConfig[] | undefined; // Every encoding detected, best first, each with how sure detection was. Empty when the text is all ASCII. Undefined when no text was decoded, or for a reading saved before they were kept.
     encodingConfidenceLevel: number | undefined; // From 0 to 1. Undefined when the encoding was assumed, not detected.
     encodingId: string | undefined;
     encodingSourceId?: EncodingSourceId | undefined; // Undefined when no text was decoded, such as from an empty or binary file.
@@ -93,7 +95,7 @@ export interface SampleConfig {
     decodedEncodingId?: string | undefined; // The encoding the text was decoded with: the chosen one, or the detected one when nothing was chosen. UTF-8 when that encoding cannot be decoded.
     hasHeaders?: boolean | undefined; // Whether the sample's first record is a header record.
     issues: SampleIssue[]; // Problems found while sampling, such as an empty file or parse errors.
-    parsedRecords: ParsedRecord[];
+    parsedRecords?: ParsedRecord[] | undefined; // Saved only for an item with no text to parse them from again, such as a table. For any other item they are parsed from 'text' when needed, so the sample is not stored twice.
     parserId?: string | undefined; // The config id of the parser tool that read the sample. Undefined when no tool read it.
     recordDelimiterId?: RecordDelimiterId | undefined;
     replacementCharacterCount?: number | undefined; // How many '\uFFFD' characters decoding put in place of bytes the decoded encoding cannot read. Undefined when no text was decoded.
@@ -102,6 +104,9 @@ export interface SampleConfig {
     text: string | undefined;
     valueDelimiterId?: ValueDelimiterId | undefined;
 }
+
+// A sample as a preview returns it, which always has its records.
+export type PreviewSampleConfig = SampleConfig & { parsedRecords: ParsedRecord[] };
 
 // A problem found while sampling an item. The sample still holds whatever was read, so the item can be shown and read
 // again with other settings.

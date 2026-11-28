@@ -2,6 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // ── DPUse Framework
+import { parseSampleRecords } from '@/component/module/connector';
 import type { AuditObjectContentOptions, ParsedRecordsChunk, RetrieveRecordsSummary } from '@/component/module/connector';
 import { auditObjectContentWithParser, buildPreviewObjectResult, countPreviewLines, indexObjectStructureWithParser } from '@/component/module/connector';
 import type { FilePreviewResult, ParseStreamSummary, StructureIndex, ToolConfig } from '@/component/module/tool';
@@ -155,6 +156,47 @@ describe('countPreviewLines', () => {
     });
 });
 
+describe('parseSampleRecords', () => {
+    afterEach(() => {
+        tools.byName = {};
+    });
+
+    it('parses delimited text again as UTF-8, with the tool and delimiter the sample was read with', async () => {
+        const parsePreview = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: '|' });
+        tools.byName['adaltas-csv-parser'] = { parsePreview };
+        const sampleConfig = { dataFormatId: 'dtv' as const, parserId: 'dpuse-tool-adaltas-csv-parser', text: 'a|b\n', valueDelimiterId: '|' as const };
+
+        const parsedRecords = await parseSampleRecords({ isComplete: true, sampleConfig, toolConfigs: TOOL_CONFIGS });
+
+        expect(parsedRecords).toBe(RECORDS);
+        expect(parsePreview).toHaveBeenCalledWith(new TextEncoder().encode('a|b\n'), { dataFormatId: 'dtv', encodingId: 'utf-8', isComplete: true, valueDelimiterIds: ['|'] });
+    });
+
+    it('parses a nested item again from the part the sample was read from, and has no records when no part was chosen', async () => {
+        const parsePreview = vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: undefined });
+        tools.byName['json-parser'] = { parsePreview };
+        const sampleConfig = { dataFormatId: 'json' as const, parserId: 'dpuse-tool-json-parser', structurePath: ['rows'], text: '{"rows":[1]}' };
+
+        expect(await parseSampleRecords({ isComplete: false, sampleConfig, toolConfigs: TOOL_CONFIGS })).toBe(RECORDS);
+        expect(parsePreview).toHaveBeenCalledWith(expect.any(Uint8Array), { dataFormatId: 'json', encodingId: 'utf-8', isComplete: false, structurePath: ['rows'], valueDelimiterIds: [] });
+        expect(await parseSampleRecords({ isComplete: false, sampleConfig: { ...sampleConfig, structurePath: undefined }, toolConfigs: TOOL_CONFIGS })).toEqual([]);
+    });
+
+    it('gives the records a sample already has, such as a table’s, which has no text to parse', async () => {
+        const sampleConfig = { dataFormatId: undefined, parsedRecords: RECORDS, parserId: undefined, text: undefined };
+
+        expect(await parseSampleRecords({ isComplete: true, sampleConfig, toolConfigs: TOOL_CONFIGS })).toBe(RECORDS);
+    });
+
+    it('has no records for a sample no tool read', async () => {
+        const unread = { dataFormatId: 'dtv' as const, parserId: undefined, text: 'a\n' };
+        const unknownFormat = { dataFormatId: 'unknown' as const, parserId: 'dpuse-tool-json-parser', text: 'a' };
+
+        expect(await parseSampleRecords({ isComplete: true, sampleConfig: unread, toolConfigs: TOOL_CONFIGS })).toEqual([]);
+        expect(await parseSampleRecords({ isComplete: true, sampleConfig: unknownFormat, toolConfigs: TOOL_CONFIGS })).toEqual([]);
+    });
+});
+
 describe('objectParsing', () => {
     afterEach(() => {
         tools.byName = {};
@@ -182,7 +224,7 @@ describe('objectParsing', () => {
             ['a parsed item', 'dtv', 'a,b\n1,2\n'],
             ['an item no tool reads yet', 'xml', '<a/>']
         ] as const)(
-            'keeps in the reading of %s how its format and encoding were found, in the sample how its text was decoded, and the candidates beside them',
+            'keeps in the reading of %s how its format and encoding were found with every encoding detected, and in the sample how its text was decoded',
             async (_description, dataFormatId, text) => {
                 tools.byName['rust-csv-core-parser'] = {
                     parsePreview: vi.fn().mockResolvedValue({ issues: [], parsedRecords: RECORDS, recordDelimiterId: '\n', valueDelimiterId: ',' })
@@ -205,7 +247,7 @@ describe('objectParsing', () => {
                 expect(result.readingConfig).toMatchObject({ dataFormatSourceId: 'jsonSyntax', encodingSourceId: 'detection' });
                 expect(result.sampleConfig).toMatchObject({ decodedEncodingId: 'utf-8', replacementCharacterCount: 3 });
                 expect(result.encodingCandidates).toEqual(encodingCandidates);
-                expect(result.readingConfig).not.toHaveProperty('encodingCandidates');
+                expect(result.readingConfig.encodingCandidates).toEqual(encodingCandidates); // Saved with the data view, so it can still say what else the text could have been.
             }
         );
 

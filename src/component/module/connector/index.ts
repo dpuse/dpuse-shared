@@ -13,6 +13,7 @@ import type {
     DataFormatId,
     DeclaredColumnConfig,
     ParsedRecord,
+    PreviewSampleConfig,
     ReadingConfig,
     SampleConfig,
     ValueDelimiterId
@@ -308,9 +309,9 @@ export interface PreviewObjectOptions extends EngineConnectorActionOptions {
 }
 export interface PreviewObjectResult {
     contentAuditConfig: ContentAuditConfig;
-    sampleConfig: SampleConfig;
+    sampleConfig: PreviewSampleConfig;
     readingConfig: ReadingConfig;
-    encodingCandidates?: EncodingDetectionConfig[] | undefined; // For choosing another encoding. Not part of the reading, so not saved with the data view.
+    encodingCandidates?: EncodingDetectionConfig[] | undefined; // For choosing another encoding. Also in 'readingConfig', which is saved with the data view. Kept here for apps that read it from the result.
     structureIndex?: StructureIndex | undefined; // The structure of a nested item, as far as the preview read, for choosing the part read as the table. Not saved with the data view.
 }
 
@@ -354,6 +355,13 @@ export interface RecountPreviewColumnsOptions extends EngineConnectorActionOptio
     hasHeaders: boolean;
     isComplete?: boolean; // Whether the records are every record of the item. Taken to be its first part when left out.
     parsedRecords: ParsedRecord[];
+}
+
+// ── Parse Sample Records
+// Parses a saved sample's records again from its text, so a data view does not have to save them.
+export interface ParseSampleRecordsOptions extends EngineConnectorActionOptions {
+    isComplete: boolean; // Whether the sample holds the whole item, so a quote left open at its end is an error and not a value cut off.
+    sampleConfig: Pick<SampleConfig, 'dataFormatId' | 'parsedRecords' | 'parserId' | 'structurePath' | 'text' | 'valueDelimiterId'>;
 }
 
 // Says what each value of the records shown is, so the table can mark the ones that do not fit their column.
@@ -478,6 +486,7 @@ export { type FetchObjectContentStreamOptions, fetchObjectContentStream } from '
 
 // ── Object Parsing
 export { auditObjectContentWithParser, buildPreviewObjectResult, countPreviewLines, indexObjectStructureWithParser } from './objectParsing';
+export { parseSampleRecords } from './objectParsing';
 export type { PreviewLineCounts } from './objectParsing';
 export { listObjectStructureEntriesWithParser, retrieveRecordsWithParser } from './objectParsing';
 
