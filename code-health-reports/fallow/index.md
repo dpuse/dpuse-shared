@@ -79,18 +79,18 @@
 
 | File | Score | Commits | Churn | Density | Fan-in | Trend |
 |:-----|:------|:--------|:------|:--------|:-------|:------|
-| `src/component/module/connector/objectParsing.ts` | 38.8 | 32 | 1346 | 0.25 | 1 | cooling |
-| `src/component/module/tool/index.ts` | 14.8 | 20 | 137 | 0.19 | 7 | accelerating |
-| `src/errors/index.ts` | 11.1 | 11 | 280 | 0.30 | 7 | accelerating |
-| `src/component/module/connector/index.ts` | 11.1 | 68 | 963 | 0.04 | 5 | accelerating |
-| `src/utilities/index.ts` | 9.1 | 11 | 496 | 0.25 | 1 | accelerating |
-| `src/component/module/tool/delimitedText.ts` | 8.7 | 6 | 165 | 0.31 | 1 | cooling |
-| `src/locale/index.ts` | 6.7 | 8 | 118 | 0.36 | 5 | cooling |
-| `src/component/module/connector/webLock.ts` | 4.7 | 3 | 70 | 0.31 | 1 | accelerating |
-| `scripts/documentEncodings.ts` | 4.1 | 5 | 83 | 0.21 | 0 | cooling |
+| `src/component/module/connector/objectParsing.ts` | 39.4 | 33 | 1375 | 0.25 | 1 | cooling |
+| `src/component/module/tool/index.ts` | 14.5 | 20 | 137 | 0.19 | 7 | accelerating |
+| `src/component/module/connector/index.ts` | 11.1 | 69 | 976 | 0.04 | 5 | accelerating |
+| `src/errors/index.ts` | 10.8 | 11 | 280 | 0.30 | 7 | accelerating |
+| `src/utilities/index.ts` | 9.0 | 11 | 496 | 0.25 | 1 | accelerating |
+| `src/component/module/tool/delimitedText.ts` | 8.5 | 6 | 165 | 0.31 | 1 | cooling |
+| `src/locale/index.ts` | 6.6 | 8 | 118 | 0.36 | 5 | cooling |
+| `src/component/module/connector/webLock.ts` | 4.6 | 3 | 70 | 0.31 | 1 | accelerating |
+| `scripts/documentEncodings.ts` | 4.0 | 5 | 83 | 0.21 | 0 | cooling |
 | `scripts/checkBrowserDecoding.ts` | 3.6 | 4 | 171 | 0.23 | 0 | cooling |
-| `src/component/index.ts` | 2.7 | 10 | 119 | 0.09 | 14 | stable |
-| `src/component/dataView/index.ts` | 2.2 | 50 | 1581 | 0.01 | 10 | accelerating |
+| `src/component/index.ts` | 2.6 | 10 | 119 | 0.09 | 14 | stable |
+| `src/component/dataView/index.ts` | 2.2 | 51 | 1588 | 0.01 | 10 | accelerating |
 | `src/encoding/index.ts` | 2.0 | 9 | 778 | 0.06 | 7 | accelerating |
 | `vite.config.ts` | 1.1 | 20 | 137 | 0.02 | 0 | stable |
 | `src/component/module/engine/index.ts` | 1.0 | 11 | 107 | 0.03 | 2 | stable |
